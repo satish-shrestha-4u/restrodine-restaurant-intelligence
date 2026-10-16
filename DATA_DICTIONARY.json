@@ -1,0 +1,165 @@
+{
+  "customers": {
+    "rows": 5000,
+    "columns": [
+      "customer_id",
+      "customer_name",
+      "age",
+      "gender",
+      "city",
+      "registration_date",
+      "customer_type",
+      "first_order_date"
+    ]
+  },
+  "products": {
+    "rows": 30,
+    "columns": [
+      "product_id",
+      "category",
+      "product_name",
+      "selling_price",
+      "product_cost",
+      "active"
+    ]
+  },
+  "employees": {
+    "rows": 30,
+    "columns": [
+      "employee_id",
+      "employee_name",
+      "role",
+      "employment_type",
+      "hourly_cost",
+      "employment_start",
+      "employment_end",
+      "employment_status"
+    ]
+  },
+  "employee_availability": {
+    "rows": 210,
+    "columns": [
+      "employee_id",
+      "day_of_week_num",
+      "day_of_week",
+      "availability_status",
+      "max_hours"
+    ]
+  },
+  "shifts": {
+    "rows": 5994,
+    "columns": [
+      "shift_id",
+      "employee_id",
+      "shift_date",
+      "start_time",
+      "end_time",
+      "hours_worked",
+      "labour_cost"
+    ]
+  },
+  "orders": {
+    "rows": 28892,
+    "columns": [
+      "order_id",
+      "customer_id",
+      "order_datetime",
+      "order_type",
+      "meal_period",
+      "order_total"
+    ]
+  },
+  "order_items": {
+    "rows": 66258,
+    "columns": [
+      "order_item_id",
+      "order_id",
+      "product_id",
+      "quantity",
+      "unit_price",
+      "discount",
+      "line_total"
+    ]
+  },
+  "payments": {
+    "rows": 28892,
+    "columns": [
+      "payment_id",
+      "order_id",
+      "payment_method",
+      "amount"
+    ]
+  },
+  "promotions": {
+    "rows": 4,
+    "columns": [
+      "promotion_id",
+      "promotion_name",
+      "start_date",
+      "end_date",
+      "discount_percentage",
+      "product_category"
+    ]
+  },
+  "calendar": {
+    "rows": 365,
+    "columns": [
+      "date",
+      "day_of_week",
+      "day_of_week_num",
+      "month",
+      "month_name",
+      "quarter",
+      "week_of_year",
+      "is_weekend",
+      "restaurant_peak_day",
+      "restaurant_day_type",
+      "holiday_name",
+      "is_holiday"
+    ]
+  },
+  "weather": {
+    "rows": 365,
+    "columns": [
+      "date",
+      "temperature_c",
+      "precipitation_mm",
+      "is_rainy",
+      "weather_condition"
+    ]
+  },
+  "reviews": {
+    "rows": 3200,
+    "columns": [
+      "review_id",
+      "customer_id",
+      "review_date",
+      "rating",
+      "review_text"
+    ]
+  },
+  "daily_revenue": {
+    "rows": 365,
+    "columns": [
+      "date",
+      "revenue",
+      "orders",
+      "average_order_value",
+      "day_of_week",
+      "day_of_week_num",
+      "month",
+      "month_name",
+      "quarter",
+      "week_of_year",
+      "is_weekend",
+      "restaurant_peak_day",
+      "restaurant_day_type",
+      "holiday_name",
+      "is_holiday",
+      "temperature_c",
+      "precipitation_mm",
+      "is_rainy",
+      "weather_condition"
+    ]
+  }
+}

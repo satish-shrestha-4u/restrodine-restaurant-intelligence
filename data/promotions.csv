@@ -1,0 +1,5 @@
+promotion_id,promotion_name,start_date,end_date,discount_percentage,product_category
+PR001,Winter Warm-Up,2025-01-06,2025-01-31,10,Pizza
+PR002,Spring Pasta Week,2025-03-10,2025-03-23,15,Pasta
+PR003,Summer Drinks,2025-06-01,2025-08-31,10,Drink
+PR004,Autumn Family Dinner,2025-10-01,2025-10-31,12,Main Course

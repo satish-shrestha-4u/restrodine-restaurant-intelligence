@@ -1,0 +1,31 @@
+employee_id,employee_name,role,employment_type,hourly_cost,employment_start,employment_end,employment_status
+E001,Anna Müller,Restaurant Manager,Full-time,25.0,2024-10-02,,Active
+E002,David Weber,Assistant Manager,Full-time,21.0,2024-12-23,,Active
+E003,Maria Wagner,Chef,Full-time,22.0,2024-05-17,,Active
+E004,Lukas Schulz,Chef,Part-time,20.0,2024-10-19,,Active
+E005,Sophie Richter,Kitchen Assistant,Part-time,14.5,2024-12-03,,Active
+E006,Daniel Neumann,Kitchen Assistant,Minijob,13.9,2025-06-16,,Active
+E007,Emma Braun,Waiter,Full-time,17.0,2023-06-03,,Active
+E008,Thomas Schneider,Waiter,Part-time,15.5,2023-11-01,,Active
+E009,Laura Klein,Waiter,Minijob,13.9,2023-06-20,,Active
+E010,Michael Becker,Bartender,Full-time,18.0,2024-11-07,,Active
+E011,Julia Koch,Bartender,Part-time,16.0,2024-08-09,,Active
+E012,Jonas Krause,Dishwasher,Part-time,14.5,2024-10-21,,Active
+E013,Clara Schwarz,Restaurant Manager,Full-time,25.0,2023-03-01,,Active
+E014,Felix Krüger,Assistant Manager,Full-time,21.0,2024-05-06,,Active
+E015,Nina Rossi,Chef,Full-time,22.0,2024-05-25,,Active
+E016,Paul Fischer,Chef,Part-time,20.0,2024-02-02,,Active
+E017,Sara Hoffmann,Kitchen Assistant,Part-time,14.5,2024-01-09,,Active
+E018,Max Bauer,Kitchen Assistant,Minijob,13.9,2025-01-14,,Active
+E019,Elena Wolf,Waiter,Full-time,17.0,2024-12-03,2025-08-31,Inactive
+E020,Leon Zimmermann,Waiter,Part-time,15.5,2023-12-20,,Active
+E021,Hannah Müller,Waiter,Minijob,13.9,2024-01-02,,Active
+E022,Marco Weber,Bartender,Full-time,18.0,2023-07-05,,Active
+E023,Lisa Wagner,Bartender,Part-time,16.0,2025-05-09,,Active
+E024,Jan Schulz,Dishwasher,Part-time,14.5,2024-03-26,,Active
+E025,Mia Richter,Restaurant Manager,Full-time,25.0,2024-01-20,,Active
+E026,Noah Neumann,Assistant Manager,Full-time,21.0,2023-06-01,,Active
+E027,Sofia Braun,Chef,Full-time,22.0,2025-06-07,2025-08-31,Inactive
+E028,Ben Schneider,Chef,Part-time,20.0,2024-11-10,,Active
+E029,Amelie Klein,Kitchen Assistant,Part-time,14.5,2024-06-25,,Active
+E030,Tim Becker,Kitchen Assistant,Minijob,13.9,2023-09-07,,Active
