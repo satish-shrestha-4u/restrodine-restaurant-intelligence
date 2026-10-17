@@ -1,31 +1,31 @@
 employee_id,employee_name,role,employment_type,hourly_cost,employment_start,employment_end,employment_status
-E001,Anna Müller,Restaurant Manager,Full-time,25.0,2024-10-02,,Active
-E002,David Weber,Assistant Manager,Full-time,21.0,2024-12-23,,Active
-E003,Maria Wagner,Chef,Full-time,22.0,2024-05-17,,Active
-E004,Lukas Schulz,Chef,Part-time,20.0,2024-10-19,,Active
-E005,Sophie Richter,Kitchen Assistant,Part-time,14.5,2024-12-03,,Active
-E006,Daniel Neumann,Kitchen Assistant,Minijob,13.9,2025-06-16,,Active
-E007,Emma Braun,Waiter,Full-time,17.0,2023-06-03,,Active
-E008,Thomas Schneider,Waiter,Part-time,15.5,2023-11-01,,Active
-E009,Laura Klein,Waiter,Minijob,13.9,2023-06-20,,Active
-E010,Michael Becker,Bartender,Full-time,18.0,2024-11-07,,Active
-E011,Julia Koch,Bartender,Part-time,16.0,2024-08-09,,Active
-E012,Jonas Krause,Dishwasher,Part-time,14.5,2024-10-21,,Active
-E013,Clara Schwarz,Restaurant Manager,Full-time,25.0,2023-03-01,,Active
-E014,Felix Krüger,Assistant Manager,Full-time,21.0,2024-05-06,,Active
-E015,Nina Rossi,Chef,Full-time,22.0,2024-05-25,,Active
-E016,Paul Fischer,Chef,Part-time,20.0,2024-02-02,,Active
-E017,Sara Hoffmann,Kitchen Assistant,Part-time,14.5,2024-01-09,,Active
-E018,Max Bauer,Kitchen Assistant,Minijob,13.9,2025-01-14,,Active
-E019,Elena Wolf,Waiter,Full-time,17.0,2024-12-03,2025-08-31,Inactive
-E020,Leon Zimmermann,Waiter,Part-time,15.5,2023-12-20,,Active
-E021,Hannah Müller,Waiter,Minijob,13.9,2024-01-02,,Active
-E022,Marco Weber,Bartender,Full-time,18.0,2023-07-05,,Active
-E023,Lisa Wagner,Bartender,Part-time,16.0,2025-05-09,,Active
-E024,Jan Schulz,Dishwasher,Part-time,14.5,2024-03-26,,Active
-E025,Mia Richter,Restaurant Manager,Full-time,25.0,2024-01-20,,Active
-E026,Noah Neumann,Assistant Manager,Full-time,21.0,2023-06-01,,Active
-E027,Sofia Braun,Chef,Full-time,22.0,2025-06-07,2025-08-31,Inactive
-E028,Ben Schneider,Chef,Part-time,20.0,2024-11-10,,Active
-E029,Amelie Klein,Kitchen Assistant,Part-time,14.5,2024-06-25,,Active
-E030,Tim Becker,Kitchen Assistant,Minijob,13.9,2023-09-07,,Active
+E001,Clara Krause,Restaurant Manager,Full-time,25.0,2020-02-18,,Active
+E002,Piotr Lange,Restaurant Manager,Full-time,24.5,2021-07-31,,Active
+E003,Carla Schmitt,Assistant Manager,Full-time,21.0,2023-06-25,,Active
+E004,Giulia Kowalski,Assistant Manager,Full-time,19.5,2020-11-16,,Active
+E005,Katarina Fischer,Chef,Full-time,20.5,2021-12-09,,Active
+E006,Anna Wagner,Chef,Full-time,20.5,2023-11-02,,Active
+E007,Felix Nowak,Chef,Full-time,20.5,2021-12-24,,Active
+E008,Max Yilmaz,Chef,Part-time,19.5,2020-07-26,2025-04-30,Left
+E009,David Kowalski,Chef,Part-time,21.0,2025-05-15,,Active
+E010,Yusuf Jung,Kitchen Assistant,Part-time,15.0,2019-01-17,,Active
+E011,Leon Meyer,Kitchen Assistant,Part-time,15.5,2022-09-27,,Active
+E012,Lena Becker,Kitchen Assistant,Part-time,14.0,2024-10-01,,Active
+E013,Lena Müller,Kitchen Assistant,Minijob,13.5,2022-01-29,,Active
+E014,Carla Meyer,Kitchen Assistant,Minijob,14.5,2022-10-01,2025-02-28,Left
+E015,Carla Weber,Waiter,Full-time,15.5,2018-10-24,,Active
+E016,Laura Jung,Waiter,Full-time,15.0,2021-04-14,,Active
+E017,Tom Richter,Waiter,Full-time,15.5,2023-11-15,,Active
+E018,Leon Koch,Waiter,Part-time,14.5,2020-11-10,,Active
+E019,Laura Meyer,Waiter,Part-time,15.0,2023-07-17,,Active
+E020,Lena Zimmermann,Waiter,Part-time,14.5,2022-11-16,2024-09-30,Left
+E021,Piotr Huber,Waiter,Part-time,14.5,2025-01-15,,Active
+E022,Yusuf Wagner,Waiter,Minijob,14.0,2021-09-10,,Active
+E023,Omar Fischer,Waiter,Minijob,14.0,2019-04-09,,Active
+E024,Emma Yilmaz,Waiter,Minijob,13.5,2024-05-01,,Active
+E025,Lisa Werner,Bartender,Full-time,16.5,2019-05-07,,Active
+E026,Ayşe Meier,Bartender,Part-time,16.5,2022-09-17,,Active
+E027,Felix Klein,Bartender,Part-time,16.0,2024-02-01,,Active
+E028,Nina Schmidt,Dishwasher,Part-time,14.0,2020-11-18,,Active
+E029,Felix Schulz,Dishwasher,Part-time,14.0,2022-06-29,,Active
+E030,Jonas Meier,Dishwasher,Minijob,13.5,2022-12-07,2024-06-30,Left

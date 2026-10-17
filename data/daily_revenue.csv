@@ -1,366 +1,732 @@
-date,revenue,orders,average_order_value,day_of_week,day_of_week_num,month,month_name,quarter,week_of_year,is_weekend,restaurant_peak_day,restaurant_day_type,holiday_name,is_holiday,temperature_c,precipitation_mm,is_rainy,weather_condition
-2025-01-01,2115.35,76,27.83,Wednesday,2,1,January,1,,False,False,Standard,New Year's Day,True,-1.2,6.7,1,Rain
-2025-01-02,1903.68,73,26.08,Thursday,3,1,January,1,,False,False,Growing,,False,1.7,0.0,0,Cold
-2025-01-03,2797.44,105,26.64,Friday,4,1,January,1,,False,True,Peak,,False,0.2,0.0,0,Cold
-2025-01-04,2674.51,101,26.48,Saturday,5,1,January,1,,True,True,Very Peak,,False,-3.0,11.5,1,Heavy Rain
-2025-01-05,1728.66,65,26.59,Sunday,6,1,January,1,,True,False,Moderate,,False,2.3,0.0,0,Normal
-2025-01-06,1548.1,62,24.97,Monday,0,1,January,1,,False,False,Low,,False,4.1,1.1,1,Rain
-2025-01-07,1950.39,68,28.68,Tuesday,1,1,January,1,,False,False,Standard,,False,1.7,0.0,0,Cold
-2025-01-08,1722.68,71,24.26,Wednesday,2,1,January,1,,False,False,Standard,,False,5.3,2.2,1,Rain
-2025-01-09,2249.21,88,25.56,Thursday,3,1,January,1,,False,False,Growing,,False,5.0,0.0,0,Normal
-2025-01-10,2114.47,81,26.1,Friday,4,1,January,1,,False,True,Peak,,False,-3.0,0.8,1,Rain
-2025-01-11,2689.74,110,24.45,Saturday,5,1,January,1,,True,True,Very Peak,,False,-0.3,0.0,0,Cold
-2025-01-12,2169.89,82,26.46,Sunday,6,1,January,1,,True,False,Moderate,,False,3.2,0.0,0,Normal
-2025-01-13,1410.46,53,26.61,Monday,0,1,January,1,,False,False,Low,,False,-3.0,5.1,1,Rain
-2025-01-14,1572.28,61,25.78,Tuesday,1,1,January,1,,False,False,Standard,,False,4.8,6.3,1,Rain
-2025-01-15,1288.6,62,20.78,Wednesday,2,1,January,1,,False,False,Standard,,False,4.9,0.0,0,Normal
-2025-01-16,1927.3,71,27.15,Thursday,3,1,January,1,,False,False,Growing,,False,-1.2,0.8,1,Rain
-2025-01-17,2200.65,83,26.51,Friday,4,1,January,1,,False,True,Peak,,False,0.7,2.4,1,Rain
-2025-01-18,3007.4,124,24.25,Saturday,5,1,January,1,,True,True,Very Peak,,False,1.1,0.0,0,Cold
-2025-01-19,2239.45,80,27.99,Sunday,6,1,January,1,,True,False,Moderate,,False,7.0,0.0,0,Normal
-2025-01-20,1344.89,48,28.02,Monday,0,1,January,1,,False,False,Low,,False,3.7,0.0,0,Normal
-2025-01-21,1750.7,68,25.75,Tuesday,1,1,January,1,,False,False,Standard,,False,9.3,0.0,0,Normal
-2025-01-22,1775.6,70,25.37,Wednesday,2,1,January,1,,False,False,Standard,,False,6.1,8.9,1,Rain
-2025-01-23,2247.76,78,28.82,Thursday,3,1,January,1,,False,False,Growing,,False,7.0,0.0,0,Normal
-2025-01-24,2115.97,79,26.78,Friday,4,1,January,1,,False,True,Peak,,False,1.5,3.0,1,Rain
-2025-01-25,3357.08,121,27.74,Saturday,5,1,January,1,,True,True,Very Peak,,False,7.2,9.8,1,Rain
-2025-01-26,1923.55,81,23.75,Sunday,6,1,January,1,,True,False,Moderate,,False,6.4,0.0,0,Normal
-2025-01-27,1840.23,69,26.67,Monday,0,1,January,1,,False,False,Low,,False,-1.7,6.4,1,Rain
-2025-01-28,1634.31,61,26.79,Tuesday,1,1,January,1,,False,False,Standard,,False,8.7,5.6,1,Rain
-2025-01-29,1818.45,66,27.55,Wednesday,2,1,January,1,,False,False,Standard,,False,1.7,0.0,0,Cold
-2025-01-30,2117.61,85,24.91,Thursday,3,1,January,1,,False,False,Growing,,False,1.2,0.0,0,Cold
-2025-01-31,2383.29,97,24.57,Friday,4,1,January,1,,False,True,Peak,,False,1.4,3.3,1,Rain
-2025-02-01,3105.53,120,25.88,Saturday,5,2,February,1,,True,True,Very Peak,,False,6.1,0.0,0,Normal
-2025-02-02,1895.08,69,27.46,Sunday,6,2,February,1,,True,False,Moderate,,False,1.1,0.0,0,Cold
-2025-02-03,1500.58,53,28.31,Monday,0,2,February,1,,False,False,Low,,False,-1.0,0.0,0,Cold
-2025-02-04,1380.45,48,28.76,Tuesday,1,2,February,1,,False,False,Standard,,False,1.2,6.1,1,Rain
-2025-02-05,1930.08,76,25.4,Wednesday,2,2,February,1,,False,False,Standard,,False,5.6,0.0,0,Normal
-2025-02-06,2366.4,91,26.0,Thursday,3,2,February,1,,False,False,Growing,,False,7.0,0.0,0,Normal
-2025-02-07,2693.5,106,25.41,Friday,4,2,February,1,,False,True,Peak,,False,2.1,2.3,1,Rain
-2025-02-08,3090.45,112,27.59,Saturday,5,2,February,1,,True,True,Very Peak,,False,3.2,5.4,1,Rain
-2025-02-09,1822.48,70,26.04,Sunday,6,2,February,1,,True,False,Moderate,,False,4.9,0.0,0,Normal
-2025-02-10,1561.95,59,26.47,Monday,0,2,February,1,,False,False,Low,,False,6.5,1.6,1,Rain
-2025-02-11,1410.41,58,24.32,Tuesday,1,2,February,1,,False,False,Standard,,False,10.4,0.0,0,Normal
-2025-02-12,1709.32,67,25.51,Wednesday,2,2,February,1,,False,False,Standard,,False,1.4,1.1,1,Rain
-2025-02-13,1984.7,77,25.78,Thursday,3,2,February,1,,False,False,Growing,,False,14.3,1.2,1,Rain
-2025-02-14,2446.82,101,24.23,Friday,4,2,February,1,,False,True,Peak,,False,6.0,0.0,0,Normal
-2025-02-15,3084.98,122,25.29,Saturday,5,2,February,1,,True,True,Very Peak,,False,9.0,0.0,0,Normal
-2025-02-16,1974.83,71,27.81,Sunday,6,2,February,1,,True,False,Moderate,,False,8.9,0.0,0,Normal
-2025-02-17,1266.25,52,24.35,Monday,0,2,February,1,,False,False,Low,,False,6.9,0.0,0,Normal
-2025-02-18,2005.85,68,29.5,Tuesday,1,2,February,1,,False,False,Standard,,False,8.7,2.7,1,Rain
-2025-02-19,1852.77,69,26.85,Wednesday,2,2,February,1,,False,False,Standard,,False,6.9,1.1,1,Rain
-2025-02-20,2145.05,80,26.81,Thursday,3,2,February,1,,False,False,Growing,,False,5.3,2.2,1,Rain
-2025-02-21,2386.08,89,26.81,Friday,4,2,February,1,,False,True,Peak,,False,3.7,0.0,0,Normal
-2025-02-22,3221.08,122,26.4,Saturday,5,2,February,1,,True,True,Very Peak,,False,6.2,0.0,0,Normal
-2025-02-23,2103.73,79,26.63,Sunday,6,2,February,1,,True,False,Moderate,,False,5.9,0.0,0,Normal
-2025-02-24,1585.95,61,26.0,Monday,0,2,February,1,,False,False,Low,,False,9.5,0.0,0,Normal
-2025-02-25,1529.55,57,26.83,Tuesday,1,2,February,1,,False,False,Standard,,False,10.9,0.0,0,Normal
-2025-02-26,1761.3,58,30.37,Wednesday,2,2,February,1,,False,False,Standard,,False,3.7,0.0,0,Normal
-2025-02-27,1842.04,71,25.94,Thursday,3,2,February,1,,False,False,Growing,,False,2.1,0.6,1,Rain
-2025-02-28,2567.1,102,25.17,Friday,4,2,February,1,,False,True,Peak,,False,4.3,0.0,0,Normal
-2025-03-01,2847.3,113,25.2,Saturday,5,3,March,1,,True,True,Very Peak,,False,9.5,4.0,1,Rain
-2025-03-02,2072.12,87,23.82,Sunday,6,3,March,1,,True,False,Moderate,,False,6.4,0.0,0,Normal
-2025-03-03,1234.9,47,26.27,Monday,0,3,March,1,,False,False,Low,,False,6.9,4.7,1,Rain
-2025-03-04,1808.5,69,26.21,Tuesday,1,3,March,1,,False,False,Standard,,False,7.0,0.0,0,Normal
-2025-03-05,1603.35,62,25.86,Wednesday,2,3,March,1,,False,False,Standard,,False,5.2,0.0,0,Normal
-2025-03-06,2530.2,91,27.8,Thursday,3,3,March,1,,False,False,Growing,,False,7.8,5.3,1,Rain
-2025-03-07,2455.41,92,26.69,Friday,4,3,March,1,,False,True,Peak,,False,10.1,0.0,0,Normal
-2025-03-08,2885.45,112,25.76,Saturday,5,3,March,1,,True,True,Very Peak,,False,5.9,0.9,1,Rain
-2025-03-09,2290.5,76,30.14,Sunday,6,3,March,1,,True,False,Moderate,,False,7.8,0.0,0,Normal
-2025-03-10,1436.15,62,23.16,Monday,0,3,March,1,,False,False,Low,,False,9.6,3.8,1,Rain
-2025-03-11,1267.67,55,23.05,Tuesday,1,3,March,1,,False,False,Standard,,False,12.1,7.7,1,Rain
-2025-03-12,2036.99,84,24.25,Wednesday,2,3,March,1,,False,False,Standard,,False,7.1,0.0,0,Normal
-2025-03-13,2229.25,89,25.05,Thursday,3,3,March,1,,False,False,Growing,,False,14.3,0.0,0,Normal
-2025-03-14,2370.36,89,26.63,Friday,4,3,March,1,,False,True,Peak,,False,8.4,0.0,0,Normal
-2025-03-15,2977.77,119,25.02,Saturday,5,3,March,1,,True,True,Very Peak,,False,5.3,0.0,0,Normal
-2025-03-16,2282.27,87,26.23,Sunday,6,3,March,1,,True,False,Moderate,,False,11.7,0.0,0,Normal
-2025-03-17,1635.47,63,25.96,Monday,0,3,March,1,,False,False,Low,,False,9.5,0.0,0,Normal
-2025-03-18,1536.29,65,23.64,Tuesday,1,3,March,1,,False,False,Standard,,False,11.6,0.0,0,Normal
-2025-03-19,1780.14,70,25.43,Wednesday,2,3,March,1,,False,False,Standard,,False,-1.3,0.0,0,Cold
-2025-03-20,2086.32,85,24.54,Thursday,3,3,March,1,,False,False,Growing,,False,10.7,10.3,1,Heavy Rain
-2025-03-21,2520.06,95,26.53,Friday,4,3,March,1,,False,True,Peak,,False,10.0,0.0,0,Normal
-2025-03-22,3567.13,138,25.85,Saturday,5,3,March,1,,True,True,Very Peak,,False,18.0,0.0,0,Normal
-2025-03-23,1998.17,78,25.62,Sunday,6,3,March,1,,True,False,Moderate,,False,5.1,2.9,1,Rain
-2025-03-24,1688.35,60,28.14,Monday,0,3,March,1,,False,False,Low,,False,14.0,0.0,0,Normal
-2025-03-25,1500.4,66,22.73,Tuesday,1,3,March,1,,False,False,Standard,,False,7.9,0.0,0,Normal
-2025-03-26,1751.7,64,27.37,Wednesday,2,3,March,1,,False,False,Standard,,False,14.0,0.0,0,Normal
-2025-03-27,2464.8,93,26.5,Thursday,3,3,March,1,,False,False,Growing,,False,10.5,0.0,0,Normal
-2025-03-28,2566.19,98,26.19,Friday,4,3,March,1,,False,True,Peak,,False,15.6,13.6,1,Heavy Rain
-2025-03-29,3356.59,130,25.82,Saturday,5,3,March,1,,True,True,Very Peak,,False,11.2,0.0,0,Normal
-2025-03-30,2437.8,84,29.02,Sunday,6,3,March,1,,True,False,Moderate,,False,13.4,0.0,0,Normal
-2025-03-31,1720.2,62,27.75,Monday,0,3,March,1,,False,False,Low,,False,8.8,0.0,0,Normal
-2025-04-01,1934.9,73,26.51,Tuesday,1,4,April,2,,False,False,Standard,,False,10.1,0.0,0,Normal
-2025-04-02,1757.8,70,25.11,Wednesday,2,4,April,2,,False,False,Standard,,False,9.6,0.0,0,Normal
-2025-04-03,2202.98,86,25.62,Thursday,3,4,April,2,,False,False,Growing,,False,15.5,0.0,0,Normal
-2025-04-04,2850.1,108,26.39,Friday,4,4,April,2,,False,True,Peak,,False,15.6,0.0,0,Normal
-2025-04-05,3273.14,126,25.98,Saturday,5,4,April,2,,True,True,Very Peak,,False,14.3,0.0,0,Normal
-2025-04-06,1797.96,72,24.97,Sunday,6,4,April,2,,True,False,Moderate,,False,12.3,0.0,0,Normal
-2025-04-07,1819.07,62,29.34,Monday,0,4,April,2,,False,False,Low,,False,9.1,0.0,0,Normal
-2025-04-08,1597.27,56,28.52,Tuesday,1,4,April,2,,False,False,Standard,,False,9.3,0.6,1,Rain
-2025-04-09,2322.45,87,26.69,Wednesday,2,4,April,2,,False,False,Standard,,False,14.8,0.0,0,Normal
-2025-04-10,1916.55,75,25.55,Thursday,3,4,April,2,,False,False,Growing,,False,16.6,0.0,0,Normal
-2025-04-11,2788.28,102,27.34,Friday,4,4,April,2,,False,True,Peak,,False,13.1,0.7,1,Rain
-2025-04-12,3096.92,118,26.25,Saturday,5,4,April,2,,True,True,Very Peak,,False,16.6,3.9,1,Rain
-2025-04-13,2077.81,78,26.64,Sunday,6,4,April,2,,True,False,Moderate,,False,12.0,4.9,1,Rain
-2025-04-14,1209.46,52,23.26,Monday,0,4,April,2,,False,False,Low,,False,13.5,0.0,0,Normal
-2025-04-15,1712.5,66,25.95,Tuesday,1,4,April,2,,False,False,Standard,,False,14.2,0.9,1,Rain
-2025-04-16,1374.01,56,24.54,Wednesday,2,4,April,2,,False,False,Standard,,False,14.5,0.0,0,Normal
-2025-04-17,1892.78,69,27.43,Thursday,3,4,April,2,,False,False,Growing,,False,14.0,3.0,1,Rain
-2025-04-18,3237.03,130,24.9,Friday,4,4,April,2,,False,True,Peak,Good Friday,True,10.2,10.7,1,Heavy Rain
-2025-04-19,3107.97,122,25.48,Saturday,5,4,April,2,,True,True,Very Peak,,False,10.9,0.0,0,Normal
-2025-04-20,1822.88,75,24.31,Sunday,6,4,April,2,,True,False,Moderate,,False,13.0,0.0,0,Normal
-2025-04-21,1802.85,66,27.32,Monday,0,4,April,2,,False,False,Low,Easter Monday,True,14.6,0.0,0,Normal
-2025-04-22,1865.91,77,24.23,Tuesday,1,4,April,2,,False,False,Standard,,False,12.7,2.8,1,Rain
-2025-04-23,1943.72,78,24.92,Wednesday,2,4,April,2,,False,False,Standard,,False,21.0,0.0,0,Normal
-2025-04-24,1967.92,80,24.6,Thursday,3,4,April,2,,False,False,Growing,,False,14.4,0.0,0,Normal
-2025-04-25,2928.85,112,26.15,Friday,4,4,April,2,,False,True,Peak,,False,22.5,4.9,1,Rain
-2025-04-26,3741.67,145,25.8,Saturday,5,4,April,2,,True,True,Very Peak,,False,18.7,0.0,0,Normal
-2025-04-27,1983.78,73,27.18,Sunday,6,4,April,2,,True,False,Moderate,,False,21.7,0.0,0,Normal
-2025-04-28,1601.55,53,30.22,Monday,0,4,April,2,,False,False,Low,,False,13.7,8.9,1,Rain
-2025-04-29,2048.62,74,27.68,Tuesday,1,4,April,2,,False,False,Standard,,False,15.3,0.0,0,Normal
-2025-04-30,1737.97,65,26.74,Wednesday,2,4,April,2,,False,False,Standard,,False,17.7,0.0,0,Normal
-2025-05-01,2503.33,96,26.08,Thursday,3,5,May,2,,False,False,Growing,Labour Day,True,10.2,2.2,1,Rain
-2025-05-02,2749.07,111,24.77,Friday,4,5,May,2,,False,True,Peak,,False,16.0,0.0,0,Normal
-2025-05-03,3169.87,121,26.2,Saturday,5,5,May,2,,True,True,Very Peak,,False,17.5,11.9,1,Heavy Rain
-2025-05-04,2324.63,89,26.12,Sunday,6,5,May,2,,True,False,Moderate,,False,8.6,0.0,0,Normal
-2025-05-05,1566.07,62,25.26,Monday,0,5,May,2,,False,False,Low,,False,17.9,7.8,1,Rain
-2025-05-06,2030.75,72,28.2,Tuesday,1,5,May,2,,False,False,Standard,,False,21.2,0.0,0,Normal
-2025-05-07,2038.42,79,25.8,Wednesday,2,5,May,2,,False,False,Standard,,False,22.2,0.0,0,Normal
-2025-05-08,2375.15,92,25.82,Thursday,3,5,May,2,,False,False,Growing,,False,14.9,1.3,1,Rain
-2025-05-09,2700.43,94,28.73,Friday,4,5,May,2,,False,True,Peak,,False,13.9,4.5,1,Rain
-2025-05-10,3795.47,143,26.54,Saturday,5,5,May,2,,True,True,Very Peak,,False,14.0,0.0,0,Normal
-2025-05-11,2285.43,85,26.89,Sunday,6,5,May,2,,True,False,Moderate,,False,19.5,0.0,0,Normal
-2025-05-12,1985.75,73,27.2,Monday,0,5,May,2,,False,False,Low,,False,18.3,2.2,1,Rain
-2025-05-13,1462.25,56,26.11,Tuesday,1,5,May,2,,False,False,Standard,,False,20.8,5.6,1,Rain
-2025-05-14,2253.3,82,27.48,Wednesday,2,5,May,2,,False,False,Standard,,False,16.8,0.0,0,Normal
-2025-05-15,2227.2,85,26.2,Thursday,3,5,May,2,,False,False,Growing,,False,16.4,0.0,0,Normal
-2025-05-16,2651.4,101,26.25,Friday,4,5,May,2,,False,True,Peak,,False,15.6,0.0,0,Normal
-2025-05-17,2786.94,118,23.62,Saturday,5,5,May,2,,True,True,Very Peak,,False,19.6,0.0,0,Normal
-2025-05-18,1864.7,59,31.61,Sunday,6,5,May,2,,True,False,Moderate,,False,20.7,0.0,0,Normal
-2025-05-19,1095.12,42,26.07,Monday,0,5,May,2,,False,False,Low,,False,21.0,0.0,0,Normal
-2025-05-20,1198.53,44,27.24,Tuesday,1,5,May,2,,False,False,Standard,,False,13.6,0.0,0,Normal
-2025-05-21,1787.11,75,23.83,Wednesday,2,5,May,2,,False,False,Standard,,False,16.1,0.0,0,Normal
-2025-05-22,2353.7,93,25.31,Thursday,3,5,May,2,,False,False,Growing,,False,11.0,1.6,1,Rain
-2025-05-23,2269.85,84,27.02,Friday,4,5,May,2,,False,True,Peak,,False,18.8,0.0,0,Normal
-2025-05-24,3469.76,132,26.29,Saturday,5,5,May,2,,True,True,Very Peak,,False,17.4,0.0,0,Normal
-2025-05-25,1884.52,71,26.54,Sunday,6,5,May,2,,True,False,Moderate,,False,16.4,0.0,0,Normal
-2025-05-26,1426.75,53,26.92,Monday,0,5,May,2,,False,False,Low,,False,13.8,3.7,1,Rain
-2025-05-27,1957.67,65,30.12,Tuesday,1,5,May,2,,False,False,Standard,,False,19.7,3.7,1,Rain
-2025-05-28,1603.52,63,25.45,Wednesday,2,5,May,2,,False,False,Standard,,False,21.3,6.7,1,Rain
-2025-05-29,2823.79,106,26.64,Thursday,3,5,May,2,,False,False,Growing,Ascension Day,True,19.4,0.0,0,Normal
-2025-05-30,2954.79,115,25.69,Friday,4,5,May,2,,False,True,Peak,,False,22.2,0.0,0,Normal
-2025-05-31,3999.09,157,25.47,Saturday,5,5,May,2,,True,True,Very Peak,,False,15.7,0.0,0,Normal
-2025-06-01,2069.6,81,25.55,Sunday,6,6,June,2,,True,False,Moderate,,False,16.3,0.0,0,Normal
-2025-06-02,1884.15,59,31.93,Monday,0,6,June,2,,False,False,Low,,False,17.8,0.0,0,Normal
-2025-06-03,2026.8,69,29.37,Tuesday,1,6,June,2,,False,False,Standard,,False,21.6,0.0,0,Normal
-2025-06-04,2236.75,88,25.42,Wednesday,2,6,June,2,,False,False,Standard,,False,15.5,0.0,0,Normal
-2025-06-05,2526.3,95,26.59,Thursday,3,6,June,2,,False,False,Growing,,False,16.7,0.0,0,Normal
-2025-06-06,2881.35,110,26.19,Friday,4,6,June,2,,False,True,Peak,,False,15.9,0.0,0,Normal
-2025-06-07,3393.83,123,27.59,Saturday,5,6,June,2,,True,True,Very Peak,,False,19.6,0.0,0,Normal
-2025-06-08,2236.63,83,26.95,Sunday,6,6,June,2,,True,False,Moderate,,False,22.2,0.0,0,Normal
-2025-06-09,1715.29,64,26.8,Monday,0,6,June,2,,False,False,Low,Whit Monday,True,19.2,0.0,0,Normal
-2025-06-10,1732.67,65,26.66,Tuesday,1,6,June,2,,False,False,Standard,,False,22.2,4.2,1,Rain
-2025-06-11,2116.37,85,24.9,Wednesday,2,6,June,2,,False,False,Standard,,False,10.3,0.0,0,Normal
-2025-06-12,2141.82,97,22.08,Thursday,3,6,June,2,,False,False,Growing,,False,21.5,16.6,1,Heavy Rain
-2025-06-13,3092.87,108,28.64,Friday,4,6,June,2,,False,True,Peak,,False,13.9,13.3,1,Heavy Rain
-2025-06-14,3411.45,138,24.72,Saturday,5,6,June,2,,True,True,Very Peak,,False,18.1,0.0,0,Normal
-2025-06-15,2109.73,82,25.73,Sunday,6,6,June,2,,True,False,Moderate,,False,22.1,0.0,0,Normal
-2025-06-16,1128.55,47,24.01,Monday,0,6,June,2,,False,False,Low,,False,18.0,2.9,1,Rain
-2025-06-17,1877.64,74,25.37,Tuesday,1,6,June,2,,False,False,Standard,,False,20.5,0.0,0,Normal
-2025-06-18,2279.35,88,25.9,Wednesday,2,6,June,2,,False,False,Standard,,False,17.1,0.0,0,Normal
-2025-06-19,2717.38,108,25.16,Thursday,3,6,June,2,,False,False,Growing,Corpus Christi,True,19.8,0.0,0,Normal
-2025-06-20,3265.98,123,26.55,Friday,4,6,June,2,,False,True,Peak,,False,21.3,0.0,0,Normal
-2025-06-21,3341.0,131,25.5,Saturday,5,6,June,2,,True,True,Very Peak,,False,19.9,0.0,0,Normal
-2025-06-22,2036.53,81,25.14,Sunday,6,6,June,2,,True,False,Moderate,,False,18.3,0.0,0,Normal
-2025-06-23,1866.37,70,26.66,Monday,0,6,June,2,,False,False,Low,,False,18.0,0.0,0,Normal
-2025-06-24,1529.28,64,23.9,Tuesday,1,6,June,2,,False,False,Standard,,False,20.0,0.5,1,Rain
-2025-06-25,2170.39,80,27.13,Wednesday,2,6,June,2,,False,False,Standard,,False,19.2,0.0,0,Normal
-2025-06-26,2587.32,107,24.18,Thursday,3,6,June,2,,False,False,Growing,,False,21.8,0.0,0,Normal
-2025-06-27,2773.87,104,26.67,Friday,4,6,June,2,,False,True,Peak,,False,18.4,0.0,0,Normal
-2025-06-28,3095.88,125,24.77,Saturday,5,6,June,2,,True,True,Very Peak,,False,21.3,0.0,0,Normal
-2025-06-29,2229.55,83,26.86,Sunday,6,6,June,2,,True,False,Moderate,,False,22.3,0.0,0,Normal
-2025-06-30,1538.75,65,23.67,Monday,0,6,June,2,,False,False,Low,,False,21.4,0.0,0,Normal
-2025-07-01,2039.5,71,28.73,Tuesday,1,7,July,3,,False,False,Standard,,False,21.1,5.3,1,Rain
-2025-07-02,2229.92,87,25.63,Wednesday,2,7,July,3,,False,False,Standard,,False,16.8,0.0,0,Normal
-2025-07-03,2313.33,90,25.7,Thursday,3,7,July,3,,False,False,Growing,,False,22.4,0.0,0,Normal
-2025-07-04,2997.49,114,26.29,Friday,4,7,July,3,,False,True,Peak,,False,15.9,0.0,0,Normal
-2025-07-05,3383.1,136,24.88,Saturday,5,7,July,3,,True,True,Very Peak,,False,22.5,0.0,0,Normal
-2025-07-06,1894.58,85,22.29,Sunday,6,7,July,3,,True,False,Moderate,,False,23.7,0.0,0,Normal
-2025-07-07,1932.48,76,25.43,Monday,0,7,July,3,,False,False,Low,,False,19.9,6.1,1,Rain
-2025-07-08,1768.2,64,27.63,Tuesday,1,7,July,3,,False,False,Standard,,False,19.3,11.5,1,Heavy Rain
-2025-07-09,2166.98,88,24.62,Wednesday,2,7,July,3,,False,False,Standard,,False,17.6,0.0,0,Normal
-2025-07-10,2303.48,95,24.25,Thursday,3,7,July,3,,False,False,Growing,,False,23.2,0.0,0,Normal
-2025-07-11,2492.99,89,28.01,Friday,4,7,July,3,,False,True,Peak,,False,26.6,0.0,0,Hot
-2025-07-12,3388.09,131,25.86,Saturday,5,7,July,3,,True,True,Very Peak,,False,14.0,0.0,0,Normal
-2025-07-13,2123.72,85,24.98,Sunday,6,7,July,3,,True,False,Moderate,,False,22.4,0.0,0,Normal
-2025-07-14,1606.85,55,29.22,Monday,0,7,July,3,,False,False,Low,,False,21.9,0.0,0,Normal
-2025-07-15,1591.02,69,23.06,Tuesday,1,7,July,3,,False,False,Standard,,False,15.5,0.0,0,Normal
-2025-07-16,2424.2,86,28.19,Wednesday,2,7,July,3,,False,False,Standard,,False,16.9,3.1,1,Rain
-2025-07-17,2271.7,89,25.52,Thursday,3,7,July,3,,False,False,Growing,,False,16.7,0.0,0,Normal
-2025-07-18,2651.03,106,25.01,Friday,4,7,July,3,,False,True,Peak,,False,21.2,0.0,0,Normal
-2025-07-19,2843.27,113,25.16,Saturday,5,7,July,3,,True,True,Very Peak,,False,20.0,0.0,0,Normal
-2025-07-20,1847.27,77,23.99,Sunday,6,7,July,3,,True,False,Moderate,,False,18.1,5.2,1,Rain
-2025-07-21,1158.3,48,24.13,Monday,0,7,July,3,,False,False,Low,,False,23.7,0.0,0,Normal
-2025-07-22,2011.78,74,27.19,Tuesday,1,7,July,3,,False,False,Standard,,False,18.6,0.0,0,Normal
-2025-07-23,1911.9,79,24.2,Wednesday,2,7,July,3,,False,False,Standard,,False,14.3,5.6,1,Rain
-2025-07-24,2225.25,90,24.72,Thursday,3,7,July,3,,False,False,Growing,,False,16.5,0.0,0,Normal
-2025-07-25,3098.57,104,29.79,Friday,4,7,July,3,,False,True,Peak,,False,21.1,0.0,0,Normal
-2025-07-26,3070.1,125,24.56,Saturday,5,7,July,3,,True,True,Very Peak,,False,14.5,4.3,1,Rain
-2025-07-27,1795.78,70,25.65,Sunday,6,7,July,3,,True,False,Moderate,,False,11.7,0.0,0,Normal
-2025-07-28,1420.1,52,27.31,Monday,0,7,July,3,,False,False,Low,,False,19.7,1.0,1,Rain
-2025-07-29,1369.12,54,25.35,Tuesday,1,7,July,3,,False,False,Standard,,False,24.1,0.0,0,Normal
-2025-07-30,1646.27,66,24.94,Wednesday,2,7,July,3,,False,False,Standard,,False,19.2,3.6,1,Rain
-2025-07-31,2694.88,99,27.22,Thursday,3,7,July,3,,False,False,Growing,,False,15.5,0.0,0,Normal
-2025-08-01,2690.68,102,26.38,Friday,4,8,August,3,,False,True,Peak,,False,17.4,0.0,0,Normal
-2025-08-02,3400.21,124,27.42,Saturday,5,8,August,3,,True,True,Very Peak,,False,14.4,0.0,0,Normal
-2025-08-03,1863.88,76,24.52,Sunday,6,8,August,3,,True,False,Moderate,,False,19.1,0.0,0,Normal
-2025-08-04,1328.93,50,26.58,Monday,0,8,August,3,,False,False,Low,,False,13.2,0.0,0,Normal
-2025-08-05,1960.37,75,26.14,Tuesday,1,8,August,3,,False,False,Standard,,False,16.0,0.0,0,Normal
-2025-08-06,1715.7,62,27.67,Wednesday,2,8,August,3,,False,False,Standard,,False,11.8,0.0,0,Normal
-2025-08-07,2025.53,79,25.64,Thursday,3,8,August,3,,False,False,Growing,,False,13.1,0.0,0,Normal
-2025-08-08,2547.87,100,25.48,Friday,4,8,August,3,,False,True,Peak,,False,16.1,0.0,0,Normal
-2025-08-09,3428.6,133,25.78,Saturday,5,8,August,3,,True,True,Very Peak,,False,6.2,0.0,0,Normal
-2025-08-10,1877.55,72,26.08,Sunday,6,8,August,3,,True,False,Moderate,,False,15.8,3.7,1,Rain
-2025-08-11,1417.17,64,22.14,Monday,0,8,August,3,,False,False,Low,,False,15.5,0.0,0,Normal
-2025-08-12,1774.99,71,25.0,Tuesday,1,8,August,3,,False,False,Standard,,False,17.5,0.0,0,Normal
-2025-08-13,1909.34,77,24.8,Wednesday,2,8,August,3,,False,False,Standard,,False,18.6,0.0,0,Normal
-2025-08-14,2360.58,92,25.66,Thursday,3,8,August,3,,False,False,Growing,,False,15.8,0.0,0,Normal
-2025-08-15,2998.37,105,28.56,Friday,4,8,August,3,,False,True,Peak,,False,12.0,0.0,0,Normal
-2025-08-16,3668.36,128,28.66,Saturday,5,8,August,3,,True,True,Very Peak,,False,15.6,0.0,0,Normal
-2025-08-17,1895.8,68,27.88,Sunday,6,8,August,3,,True,False,Moderate,,False,15.8,0.0,0,Normal
-2025-08-18,1451.55,59,24.6,Monday,0,8,August,3,,False,False,Low,,False,17.8,0.0,0,Normal
-2025-08-19,1713.9,64,26.78,Tuesday,1,8,August,3,,False,False,Standard,,False,9.6,0.0,0,Normal
-2025-08-20,1586.1,62,25.58,Wednesday,2,8,August,3,,False,False,Standard,,False,15.4,2.7,1,Rain
-2025-08-21,1870.8,67,27.92,Thursday,3,8,August,3,,False,False,Growing,,False,17.4,0.5,1,Rain
-2025-08-22,2375.55,92,25.82,Friday,4,8,August,3,,False,True,Peak,,False,14.6,0.0,0,Normal
-2025-08-23,2928.43,106,27.63,Saturday,5,8,August,3,,True,True,Very Peak,,False,13.1,0.0,0,Normal
-2025-08-24,1695.85,69,24.58,Sunday,6,8,August,3,,True,False,Moderate,,False,9.1,0.0,0,Normal
-2025-08-25,1345.58,51,26.38,Monday,0,8,August,3,,False,False,Low,,False,15.3,0.0,0,Normal
-2025-08-26,1139.15,47,24.24,Tuesday,1,8,August,3,,False,False,Standard,,False,12.5,1.9,1,Rain
-2025-08-27,1429.2,59,24.22,Wednesday,2,8,August,3,,False,False,Standard,,False,12.8,0.0,0,Normal
-2025-08-28,2368.89,97,24.42,Thursday,3,8,August,3,,False,False,Growing,,False,16.5,0.0,0,Normal
-2025-08-29,2987.7,111,26.92,Friday,4,8,August,3,,False,True,Peak,,False,16.6,3.2,1,Rain
-2025-08-30,3183.35,122,26.09,Saturday,5,8,August,3,,True,True,Very Peak,,False,20.6,0.0,0,Normal
-2025-08-31,2265.6,84,26.97,Sunday,6,8,August,3,,True,False,Moderate,,False,10.9,0.0,0,Normal
-2025-09-01,1380.82,50,27.62,Monday,0,9,September,3,,False,False,Low,,False,9.7,0.0,0,Normal
-2025-09-02,1613.55,59,27.35,Tuesday,1,9,September,3,,False,False,Standard,,False,11.8,0.0,0,Normal
-2025-09-03,1793.73,70,25.62,Wednesday,2,9,September,3,,False,False,Standard,,False,13.7,0.0,0,Normal
-2025-09-04,2164.22,77,28.11,Thursday,3,9,September,3,,False,False,Growing,,False,13.4,1.1,1,Rain
-2025-09-05,2766.62,96,28.82,Friday,4,9,September,3,,False,True,Peak,,False,8.3,0.0,0,Normal
-2025-09-06,2773.18,106,26.16,Saturday,5,9,September,3,,True,True,Very Peak,,False,8.6,0.0,0,Normal
-2025-09-07,1963.57,65,30.21,Sunday,6,9,September,3,,True,False,Moderate,,False,12.8,0.0,0,Normal
-2025-09-08,1165.45,43,27.1,Monday,0,9,September,3,,False,False,Low,,False,7.2,0.0,0,Normal
-2025-09-09,1745.99,66,26.45,Tuesday,1,9,September,3,,False,False,Standard,,False,12.3,4.2,1,Rain
-2025-09-10,1654.05,63,26.25,Wednesday,2,9,September,3,,False,False,Standard,,False,15.3,0.0,0,Normal
-2025-09-11,1346.76,60,22.45,Thursday,3,9,September,3,,False,False,Growing,,False,9.9,0.0,0,Normal
-2025-09-12,2498.71,103,24.26,Friday,4,9,September,3,,False,True,Peak,,False,10.2,0.0,0,Normal
-2025-09-13,2665.88,112,23.8,Saturday,5,9,September,3,,True,True,Very Peak,,False,6.9,0.0,0,Normal
-2025-09-14,2153.3,80,26.92,Sunday,6,9,September,3,,True,False,Moderate,,False,13.2,0.0,0,Normal
-2025-09-15,1018.23,33,30.86,Monday,0,9,September,3,,False,False,Low,,False,13.5,2.9,1,Rain
-2025-09-16,1195.33,53,22.55,Tuesday,1,9,September,3,,False,False,Standard,,False,8.2,0.0,0,Normal
-2025-09-17,1899.93,68,27.94,Wednesday,2,9,September,3,,False,False,Standard,,False,14.5,0.0,0,Normal
-2025-09-18,1612.13,64,25.19,Thursday,3,9,September,3,,False,False,Growing,,False,8.8,2.0,1,Rain
-2025-09-19,2384.53,92,25.92,Friday,4,9,September,3,,False,True,Peak,,False,8.8,0.0,0,Normal
-2025-09-20,2403.27,88,27.31,Saturday,5,9,September,3,,True,True,Very Peak,,False,9.0,0.5,1,Rain
-2025-09-21,1862.85,70,26.61,Sunday,6,9,September,3,,True,False,Moderate,,False,8.0,0.0,0,Normal
-2025-09-22,1345.48,48,28.03,Monday,0,9,September,3,,False,False,Low,,False,12.3,0.0,0,Normal
-2025-09-23,1338.88,52,25.75,Tuesday,1,9,September,3,,False,False,Standard,,False,7.2,0.0,0,Normal
-2025-09-24,1493.72,62,24.09,Wednesday,2,9,September,3,,False,False,Standard,,False,8.4,5.8,1,Rain
-2025-09-25,1994.11,78,25.57,Thursday,3,9,September,3,,False,False,Growing,,False,10.6,0.0,0,Normal
-2025-09-26,2578.1,100,25.78,Friday,4,9,September,3,,False,True,Peak,,False,8.7,0.0,0,Normal
-2025-09-27,3344.45,118,28.34,Saturday,5,9,September,3,,True,True,Very Peak,,False,11.6,0.0,0,Normal
-2025-09-28,1405.45,56,25.1,Sunday,6,9,September,3,,True,False,Moderate,,False,8.8,4.8,1,Rain
-2025-09-29,1564.0,60,26.07,Monday,0,9,September,3,,False,False,Low,,False,9.8,0.0,0,Normal
-2025-09-30,1249.88,51,24.51,Tuesday,1,9,September,3,,False,False,Standard,,False,11.0,0.0,0,Normal
-2025-10-01,1446.45,56,25.83,Wednesday,2,10,October,4,,False,False,Standard,,False,8.1,5.6,1,Rain
-2025-10-02,1595.47,63,25.32,Thursday,3,10,October,4,,False,False,Growing,,False,3.5,3.1,1,Rain
-2025-10-03,2640.85,106,24.91,Friday,4,10,October,4,,False,True,Peak,German Unity Day,True,11.7,5.9,1,Rain
-2025-10-04,2731.37,104,26.26,Saturday,5,10,October,4,,True,True,Very Peak,,False,5.3,3.6,1,Rain
-2025-10-05,2179.86,80,27.25,Sunday,6,10,October,4,,True,False,Moderate,,False,7.0,0.0,0,Normal
-2025-10-06,1065.61,43,24.78,Monday,0,10,October,4,,False,False,Low,,False,12.9,9.7,1,Rain
-2025-10-07,1399.11,52,26.91,Tuesday,1,10,October,4,,False,False,Standard,,False,6.5,1.2,1,Rain
-2025-10-08,1400.72,57,24.57,Wednesday,2,10,October,4,,False,False,Standard,,False,6.4,7.0,1,Rain
-2025-10-09,1551.58,61,25.44,Thursday,3,10,October,4,,False,False,Growing,,False,4.6,0.0,0,Normal
-2025-10-10,2280.15,84,27.14,Friday,4,10,October,4,,False,True,Peak,,False,8.4,5.7,1,Rain
-2025-10-11,2676.88,100,26.77,Saturday,5,10,October,4,,True,True,Very Peak,,False,6.2,2.4,1,Rain
-2025-10-12,1764.48,74,23.84,Sunday,6,10,October,4,,True,False,Moderate,,False,5.4,0.0,0,Normal
-2025-10-13,1465.23,56,26.16,Monday,0,10,October,4,,False,False,Low,,False,3.6,0.0,0,Normal
-2025-10-14,1546.98,58,26.67,Tuesday,1,10,October,4,,False,False,Standard,,False,10.2,5.8,1,Rain
-2025-10-15,1136.04,53,21.43,Wednesday,2,10,October,4,,False,False,Standard,,False,7.4,9.9,1,Rain
-2025-10-16,1921.35,73,26.32,Thursday,3,10,October,4,,False,False,Growing,,False,4.3,0.0,0,Normal
-2025-10-17,2076.42,87,23.87,Friday,4,10,October,4,,False,True,Peak,,False,6.8,0.0,0,Normal
-2025-10-18,2875.62,107,26.87,Saturday,5,10,October,4,,True,True,Very Peak,,False,4.9,0.0,0,Normal
-2025-10-19,1940.79,73,26.59,Sunday,6,10,October,4,,True,False,Moderate,,False,-1.0,0.0,0,Cold
-2025-10-20,1177.75,47,25.06,Monday,0,10,October,4,,False,False,Low,,False,4.0,0.0,0,Normal
-2025-10-21,1236.47,46,26.88,Tuesday,1,10,October,4,,False,False,Standard,,False,7.9,0.0,0,Normal
-2025-10-22,1605.37,64,25.08,Wednesday,2,10,October,4,,False,False,Standard,,False,2.7,6.1,1,Rain
-2025-10-23,1587.13,66,24.05,Thursday,3,10,October,4,,False,False,Growing,,False,5.3,2.2,1,Rain
-2025-10-24,2564.16,97,26.43,Friday,4,10,October,4,,False,True,Peak,,False,0.5,11.8,1,Heavy Rain
-2025-10-25,2657.63,111,23.94,Saturday,5,10,October,4,,True,True,Very Peak,,False,8.9,4.5,1,Rain
-2025-10-26,2143.93,81,26.47,Sunday,6,10,October,4,,True,False,Moderate,,False,9.6,0.0,0,Normal
-2025-10-27,1128.56,40,28.21,Monday,0,10,October,4,,False,False,Low,,False,8.0,0.0,0,Normal
-2025-10-28,1428.3,57,25.06,Tuesday,1,10,October,4,,False,False,Standard,,False,5.2,0.0,0,Normal
-2025-10-29,1679.03,64,26.23,Wednesday,2,10,October,4,,False,False,Standard,,False,-0.4,7.8,1,Rain
-2025-10-30,1600.2,69,23.19,Thursday,3,10,October,4,,False,False,Growing,,False,7.4,0.0,0,Normal
-2025-10-31,2278.32,86,26.49,Friday,4,10,October,4,,False,True,Peak,,False,1.5,8.3,1,Rain
-2025-11-01,2709.22,105,25.8,Saturday,5,11,November,4,,True,True,Very Peak,All Saints' Day,True,8.7,1.6,1,Rain
-2025-11-02,2386.23,83,28.75,Sunday,6,11,November,4,,True,False,Moderate,,False,3.5,0.0,0,Normal
-2025-11-03,1337.2,51,26.22,Monday,0,11,November,4,,False,False,Low,,False,0.3,1.1,1,Rain
-2025-11-04,1359.28,55,24.71,Tuesday,1,11,November,4,,False,False,Standard,,False,8.1,0.0,0,Normal
-2025-11-05,1413.75,59,23.96,Wednesday,2,11,November,4,,False,False,Standard,,False,7.9,0.8,1,Rain
-2025-11-06,1700.65,67,25.38,Thursday,3,11,November,4,,False,False,Growing,,False,8.2,0.0,0,Normal
-2025-11-07,2052.52,77,26.66,Friday,4,11,November,4,,False,True,Peak,,False,3.6,0.0,0,Normal
-2025-11-08,2259.87,89,25.39,Saturday,5,11,November,4,,True,True,Very Peak,,False,1.7,3.4,1,Rain
-2025-11-09,1457.95,54,27.0,Sunday,6,11,November,4,,True,False,Moderate,,False,5.0,1.9,1,Rain
-2025-11-10,1394.23,51,27.34,Monday,0,11,November,4,,False,False,Low,,False,4.9,0.0,0,Normal
-2025-11-11,1647.37,55,29.95,Tuesday,1,11,November,4,,False,False,Standard,,False,4.6,0.0,0,Normal
-2025-11-12,1386.88,55,25.22,Wednesday,2,11,November,4,,False,False,Standard,,False,0.8,0.0,0,Cold
-2025-11-13,1796.48,67,26.81,Thursday,3,11,November,4,,False,False,Growing,,False,3.5,0.0,0,Normal
-2025-11-14,1669.5,72,23.19,Friday,4,11,November,4,,False,True,Peak,,False,2.8,0.8,1,Rain
-2025-11-15,2435.2,96,25.37,Saturday,5,11,November,4,,True,True,Very Peak,,False,3.0,2.0,1,Rain
-2025-11-16,1896.72,69,27.49,Sunday,6,11,November,4,,True,False,Moderate,,False,-2.3,0.0,0,Cold
-2025-11-17,1326.06,43,30.84,Monday,0,11,November,4,,False,False,Low,,False,1.2,0.0,0,Cold
-2025-11-18,1172.0,49,23.92,Tuesday,1,11,November,4,,False,False,Standard,,False,6.7,0.0,0,Normal
-2025-11-19,1814.85,68,26.69,Wednesday,2,11,November,4,,False,False,Standard,,False,8.3,0.0,0,Normal
-2025-11-20,1905.44,78,24.43,Thursday,3,11,November,4,,False,False,Growing,,False,7.3,1.2,1,Rain
-2025-11-21,2132.15,80,26.65,Friday,4,11,November,4,,False,True,Peak,,False,1.8,0.0,0,Cold
-2025-11-22,2976.73,108,27.56,Saturday,5,11,November,4,,True,True,Very Peak,,False,4.4,0.0,0,Normal
-2025-11-23,1683.55,64,26.31,Sunday,6,11,November,4,,True,False,Moderate,,False,5.3,2.9,1,Rain
-2025-11-24,997.3,46,21.68,Monday,0,11,November,4,,False,False,Low,,False,2.2,5.7,1,Rain
-2025-11-25,1353.4,50,27.07,Tuesday,1,11,November,4,,False,False,Standard,,False,3.7,0.0,0,Normal
-2025-11-26,1276.73,48,26.6,Wednesday,2,11,November,4,,False,False,Standard,,False,7.3,0.0,0,Normal
-2025-11-27,1532.58,55,27.87,Thursday,3,11,November,4,,False,False,Growing,,False,2.3,2.8,1,Rain
-2025-11-28,2153.08,79,27.25,Friday,4,11,November,4,,False,True,Peak,,False,0.5,0.0,0,Cold
-2025-11-29,2450.15,104,23.56,Saturday,5,11,November,4,,True,True,Very Peak,,False,2.3,0.0,0,Normal
-2025-11-30,1733.7,69,25.13,Sunday,6,11,November,4,,True,False,Moderate,,False,2.1,0.0,0,Normal
-2025-12-01,1110.0,44,25.23,Monday,0,12,December,4,,False,False,Low,,False,4.3,8.1,1,Rain
-2025-12-02,1745.34,70,24.93,Tuesday,1,12,December,4,,False,False,Standard,,False,1.1,0.0,0,Cold
-2025-12-03,1199.83,47,25.53,Wednesday,2,12,December,4,,False,False,Standard,,False,1.0,0.0,0,Cold
-2025-12-04,1912.4,72,26.56,Thursday,3,12,December,4,,False,False,Growing,,False,-0.6,3.2,1,Rain
-2025-12-05,2024.52,72,28.12,Friday,4,12,December,4,,False,True,Peak,,False,0.5,0.0,0,Cold
-2025-12-06,2808.88,96,29.26,Saturday,5,12,December,4,,True,True,Very Peak,,False,1.2,13.5,1,Heavy Rain
-2025-12-07,1564.4,55,28.44,Sunday,6,12,December,4,,True,False,Moderate,,False,1.7,0.0,0,Cold
-2025-12-08,1220.48,45,27.12,Monday,0,12,December,4,,False,False,Low,,False,1.2,1.7,1,Rain
-2025-12-09,1389.18,53,26.21,Tuesday,1,12,December,4,,False,False,Standard,,False,-1.9,7.1,1,Rain
-2025-12-10,1386.15,54,25.67,Wednesday,2,12,December,4,,False,False,Standard,,False,-3.0,6.2,1,Rain
-2025-12-11,1640.82,65,25.24,Thursday,3,12,December,4,,False,False,Growing,,False,1.0,5.6,1,Rain
-2025-12-12,3014.0,108,27.91,Friday,4,12,December,4,,False,True,Peak,,False,3.7,0.0,0,Normal
-2025-12-13,3440.4,124,27.75,Saturday,5,12,December,4,,True,True,Very Peak,,False,3.6,0.0,0,Normal
-2025-12-14,1317.12,53,24.85,Sunday,6,12,December,4,,True,False,Moderate,,False,5.3,3.5,1,Rain
-2025-12-15,1272.75,46,27.67,Monday,0,12,December,4,,False,False,Low,,False,2.7,0.0,0,Normal
-2025-12-16,1174.45,42,27.96,Tuesday,1,12,December,4,,False,False,Standard,,False,-0.2,0.0,0,Cold
-2025-12-17,1199.63,49,24.48,Wednesday,2,12,December,4,,False,False,Standard,,False,1.6,4.9,1,Rain
-2025-12-18,1986.71,71,27.98,Thursday,3,12,December,4,,False,False,Growing,,False,4.0,0.0,0,Normal
-2025-12-19,2587.0,102,25.36,Friday,4,12,December,4,,False,True,Peak,,False,8.0,3.1,1,Rain
-2025-12-20,2433.47,97,25.09,Saturday,5,12,December,4,,True,True,Very Peak,,False,1.6,3.3,1,Rain
-2025-12-21,2200.03,77,28.57,Sunday,6,12,December,4,,True,False,Moderate,,False,-2.0,0.0,0,Cold
-2025-12-22,1427.06,53,26.93,Monday,0,12,December,4,,False,False,Low,,False,1.8,0.0,0,Cold
-2025-12-23,1777.18,65,27.34,Tuesday,1,12,December,4,,False,False,Standard,,False,5.1,0.0,0,Normal
-2025-12-24,1263.4,52,24.3,Wednesday,2,12,December,4,,False,False,Standard,,False,-3.0,0.0,0,Cold
-2025-12-25,1712.96,67,25.57,Thursday,3,12,December,4,,False,False,Growing,Christmas Day,True,1.8,0.0,0,Cold
-2025-12-26,3163.2,112,28.24,Friday,4,12,December,4,,False,True,Peak,Boxing Day,True,-0.0,0.0,0,Cold
-2025-12-27,2762.6,105,26.31,Saturday,5,12,December,4,,True,True,Very Peak,,False,4.2,3.8,1,Rain
-2025-12-28,1768.65,68,26.01,Sunday,6,12,December,4,,True,False,Moderate,,False,-3.0,0.7,1,Rain
-2025-12-29,1126.6,42,26.82,Monday,0,12,December,4,,False,False,Low,,False,-0.1,5.5,1,Rain
-2025-12-30,1094.55,44,24.88,Tuesday,1,12,December,4,,False,False,Standard,,False,4.7,0.2,1,Rain
-2025-12-31,1398.0,50,27.96,Wednesday,2,12,December,4,,False,False,Standard,,False,3.4,0.0,0,Normal
+date,revenue,orders,average_order_value,day_of_week,day_of_week_num,month,month_name,quarter,week_of_year,is_weekend,restaurant_peak_day,restaurant_day_type,holiday_name,is_holiday,temperature_c,temp_max_c,temp_min_c,precipitation_mm,is_rainy,weather_condition,is_promo_day
+2024-01-01,1396.3,40,34.91,Monday,1,1,January,1,1,0,0,Quiet,New Year's Day,1,3.8,7.0,1.3,1.3,1,Rain,0
+2024-01-02,2118.0,56,37.82,Tuesday,2,1,January,1,1,0,0,Quiet,,0,1.3,3.6,-0.5,0.0,0,Cold,0
+2024-01-03,1527.3,50,30.55,Wednesday,3,1,January,1,1,0,0,Quiet,,0,3.4,5.3,1.9,7.0,1,Rain,0
+2024-01-04,2532.3,67,37.8,Thursday,4,1,January,1,1,0,0,Medium,,0,5.7,6.8,4.8,1.0,1,Rain,0
+2024-01-05,3420.7,91,37.59,Friday,5,1,January,1,1,0,1,Peak,,0,-0.1,1.3,-1.2,3.3,1,Rain,0
+2024-01-06,4289.2,103,41.64,Saturday,6,1,January,1,1,1,1,Peak,,0,-2.6,-0.8,-4.0,1.1,1,Rain,0
+2024-01-07,2311.2,64,36.11,Sunday,7,1,January,1,1,1,0,Medium,,0,-0.7,1.5,-2.5,5.7,1,Rain,0
+2024-01-08,1355.89,34,39.88,Monday,1,1,January,1,2,0,0,Quiet,,0,-0.5,1.3,-2.0,4.2,1,Rain,1
+2024-01-09,1958.19,55,35.6,Tuesday,2,1,January,1,2,0,0,Quiet,,0,0.8,4.1,-1.9,0.5,0,Cold,1
+2024-01-10,1717.62,47,36.55,Wednesday,3,1,January,1,2,0,0,Quiet,,0,-0.7,1.7,-2.7,0.2,0,Cold,1
+2024-01-11,2218.67,59,37.6,Thursday,4,1,January,1,2,0,0,Medium,,0,2.7,4.9,0.8,0.0,0,Normal,1
+2024-01-12,3359.73,79,42.53,Friday,5,1,January,1,2,0,1,Peak,,0,4.4,7.8,1.7,2.8,1,Rain,1
+2024-01-13,4636.8,115,40.32,Saturday,6,1,January,1,2,1,1,Peak,,0,4.5,7.3,2.3,0.0,0,Normal,1
+2024-01-14,2492.33,72,34.62,Sunday,7,1,January,1,2,1,0,Medium,,0,7.1,9.1,5.4,0.0,0,Normal,1
+2024-01-15,1373.4,41,33.5,Monday,1,1,January,1,3,0,0,Quiet,,0,6.8,7.9,5.8,8.6,1,Rain,1
+2024-01-16,1746.43,46,37.97,Tuesday,2,1,January,1,3,0,0,Quiet,,0,3.9,5.7,2.4,0.0,0,Normal,1
+2024-01-17,1564.34,46,34.01,Wednesday,3,1,January,1,3,0,0,Quiet,,0,4.7,7.8,2.1,0.0,0,Normal,1
+2024-01-18,2151.0,60,35.85,Thursday,4,1,January,1,3,0,0,Medium,,0,1.8,4.1,0.0,0.2,0,Cold,1
+2024-01-19,3644.32,101,36.08,Friday,5,1,January,1,3,0,1,Peak,,0,4.5,7.1,2.4,0.0,0,Normal,1
+2024-01-20,4569.97,112,40.8,Saturday,6,1,January,1,3,1,1,Peak,,0,4.1,6.5,2.1,0.0,0,Normal,1
+2024-01-21,2152.21,57,37.76,Sunday,7,1,January,1,3,1,0,Medium,,0,3.4,6.4,1.0,0.0,0,Normal,1
+2024-01-22,1363.45,42,32.46,Monday,1,1,January,1,4,0,0,Quiet,,0,1.7,3.6,0.1,0.0,0,Cold,1
+2024-01-23,2842.45,76,37.4,Tuesday,2,1,January,1,4,0,0,Quiet,,0,5.3,7.1,3.9,0.0,0,Normal,1
+2024-01-24,1503.73,47,31.99,Wednesday,3,1,January,1,4,0,0,Quiet,,0,4.4,7.0,2.2,0.0,0,Normal,1
+2024-01-25,3434.67,87,39.48,Thursday,4,1,January,1,4,0,0,Medium,,0,3.0,5.9,0.7,0.0,0,Normal,1
+2024-01-26,3370.48,90,37.45,Friday,5,1,January,1,4,0,1,Peak,,0,2.3,5.0,0.1,0.0,0,Normal,1
+2024-01-27,3824.59,93,41.12,Saturday,6,1,January,1,4,1,1,Peak,,0,4.0,5.9,2.4,0.0,0,Normal,1
+2024-01-28,2526.64,63,40.11,Sunday,7,1,January,1,4,1,0,Medium,,0,4.8,7.7,2.4,0.3,0,Normal,1
+2024-01-29,1260.9,41,30.75,Monday,1,1,January,1,5,0,0,Quiet,,0,5.5,7.5,3.9,0.7,0,Normal,0
+2024-01-30,1240.3,37,33.52,Tuesday,2,1,January,1,5,0,0,Quiet,,0,5.7,6.9,4.6,8.0,1,Rain,0
+2024-01-31,1462.2,53,27.59,Wednesday,3,1,January,1,5,0,0,Quiet,,0,10.5,11.5,9.7,3.8,1,Rain,0
+2024-02-01,1927.3,60,32.12,Thursday,4,2,February,1,5,0,0,Medium,,0,7.4,9.9,5.4,1.1,1,Rain,0
+2024-02-02,3507.0,85,41.26,Friday,5,2,February,1,5,0,1,Peak,,0,5.3,8.2,3.0,0.9,0,Normal,0
+2024-02-03,3523.5,95,37.09,Saturday,6,2,February,1,5,1,1,Peak,,0,2.4,4.4,0.7,2.3,1,Rain,0
+2024-02-04,3446.1,86,40.07,Sunday,7,2,February,1,5,1,0,Medium,,0,4.6,7.9,1.9,0.1,0,Normal,0
+2024-02-05,2428.4,60,40.47,Monday,1,2,February,1,6,0,0,Quiet,,0,7.2,11.6,3.7,0.0,0,Normal,0
+2024-02-06,1863.9,54,34.52,Tuesday,2,2,February,1,6,0,0,Quiet,,0,6.0,7.3,4.9,0.0,0,Normal,0
+2024-02-07,1739.4,50,34.79,Wednesday,3,2,February,1,6,0,0,Quiet,,0,3.2,5.2,1.6,0.0,0,Normal,0
+2024-02-08,2499.4,66,37.87,Thursday,4,2,February,1,6,0,0,Medium,,0,1.2,3.3,-0.5,0.0,0,Cold,0
+2024-02-09,4482.8,100,44.83,Friday,5,2,February,1,6,0,1,Peak,,0,3.6,5.5,2.0,0.0,0,Normal,0
+2024-02-10,4217.0,101,41.75,Saturday,6,2,February,1,6,1,1,Peak,,0,5.6,7.3,4.1,0.0,0,Normal,0
+2024-02-11,2395.2,62,38.63,Sunday,7,2,February,1,6,1,0,Medium,,0,6.1,7.5,4.9,5.5,1,Rain,0
+2024-02-12,1830.4,50,36.61,Monday,1,2,February,1,7,0,0,Quiet,,0,3.6,4.4,2.9,6.3,1,Rain,0
+2024-02-13,2193.7,61,35.96,Tuesday,2,2,February,1,7,0,0,Quiet,,0,4.6,7.3,2.4,0.0,0,Normal,0
+2024-02-14,2402.7,69,34.82,Wednesday,3,2,February,1,7,0,0,Quiet,,0,4.3,5.9,2.9,6.4,1,Rain,0
+2024-02-15,2644.6,72,36.73,Thursday,4,2,February,1,7,0,0,Medium,,0,4.6,6.5,3.0,1.1,1,Rain,0
+2024-02-16,3070.2,77,39.87,Friday,5,2,February,1,7,0,1,Peak,,0,7.0,9.8,4.7,0.0,0,Normal,0
+2024-02-17,4791.9,122,39.28,Saturday,6,2,February,1,7,1,1,Peak,,0,6.5,8.5,4.8,1.7,1,Rain,0
+2024-02-18,2226.8,50,44.54,Sunday,7,2,February,1,7,1,0,Medium,,0,7.9,10.2,6.1,0.6,0,Normal,0
+2024-02-19,1612.2,46,35.05,Monday,1,2,February,1,8,0,0,Quiet,,0,7.2,11.0,4.0,0.0,0,Normal,0
+2024-02-20,1714.7,44,38.97,Tuesday,2,2,February,1,8,0,0,Quiet,,0,7.2,9.8,5.1,0.0,0,Normal,0
+2024-02-21,991.9,27,36.74,Wednesday,3,2,February,1,8,0,0,Quiet,,0,8.1,9.4,7.1,0.3,0,Normal,0
+2024-02-22,1740.4,44,39.55,Thursday,4,2,February,1,8,0,0,Medium,,0,3.5,5.3,2.0,0.0,0,Normal,0
+2024-02-23,4289.5,109,39.35,Friday,5,2,February,1,8,0,1,Peak,,0,3.1,4.4,2.0,0.0,0,Normal,0
+2024-02-24,4670.3,108,43.24,Saturday,6,2,February,1,8,1,1,Peak,,0,2.5,4.9,0.4,0.0,0,Normal,0
+2024-02-25,2506.6,65,38.56,Sunday,7,2,February,1,8,1,0,Medium,,0,1.6,4.0,-0.4,0.0,0,Cold,0
+2024-02-26,1209.1,38,31.82,Monday,1,2,February,1,9,0,0,Quiet,,0,1.9,4.1,0.2,0.8,0,Cold,0
+2024-02-27,1665.5,45,37.01,Tuesday,2,2,February,1,9,0,0,Quiet,,0,6.8,10.6,3.6,0.6,0,Normal,0
+2024-02-28,1429.0,42,34.02,Wednesday,3,2,February,1,9,0,0,Quiet,,0,3.8,5.8,2.2,11.8,1,Heavy Rain,0
+2024-02-29,2363.7,69,34.26,Thursday,4,2,February,1,9,0,0,Medium,,0,6.7,8.8,5.0,3.2,1,Rain,0
+2024-03-01,3619.9,90,40.22,Friday,5,3,March,1,9,0,1,Peak,,0,3.1,5.0,1.6,0.0,0,Normal,0
+2024-03-02,4272.1,105,40.69,Saturday,6,3,March,1,9,1,1,Peak,,0,3.2,5.0,1.7,0.0,0,Normal,0
+2024-03-03,2013.0,56,35.95,Sunday,7,3,March,1,9,1,0,Medium,,0,3.9,5.5,2.6,23.2,1,Heavy Rain,0
+2024-03-04,1442.6,44,32.79,Monday,1,3,March,1,10,0,0,Quiet,,0,5.7,7.4,4.3,4.8,1,Rain,0
+2024-03-05,2029.9,68,29.85,Tuesday,2,3,March,1,10,0,0,Quiet,,0,7.2,8.1,6.6,3.0,1,Rain,0
+2024-03-06,2019.6,54,37.4,Wednesday,3,3,March,1,10,0,0,Quiet,,0,9.0,11.3,7.1,0.0,0,Normal,0
+2024-03-07,2798.0,71,39.41,Thursday,4,3,March,1,10,0,0,Medium,,0,7.5,10.0,5.5,0.1,0,Normal,0
+2024-03-08,3607.6,90,40.08,Friday,5,3,March,1,10,0,1,Peak,,0,6.3,8.6,4.3,0.9,0,Normal,0
+2024-03-09,3656.8,92,39.75,Saturday,6,3,March,1,10,1,1,Peak,,0,8.2,10.2,6.6,0.7,0,Normal,0
+2024-03-10,2531.6,65,38.95,Sunday,7,3,March,1,10,1,0,Medium,,0,7.0,8.3,6.0,1.2,1,Rain,0
+2024-03-11,1857.4,57,32.59,Monday,1,3,March,1,11,0,0,Quiet,,0,4.5,6.9,2.6,0.0,0,Normal,1
+2024-03-12,2005.58,57,35.19,Tuesday,2,3,March,1,11,0,0,Quiet,,0,2.8,5.3,0.7,0.0,0,Normal,1
+2024-03-13,2055.57,69,29.79,Wednesday,3,3,March,1,11,0,0,Quiet,,0,2.0,4.9,-0.3,0.0,0,Cold,1
+2024-03-14,2723.52,76,35.84,Thursday,4,3,March,1,11,0,0,Medium,,0,4.5,7.7,1.9,0.0,0,Normal,1
+2024-03-15,3771.75,99,38.1,Friday,5,3,March,1,11,0,1,Peak,,0,5.6,7.9,3.8,0.0,0,Normal,1
+2024-03-16,4018.22,94,42.75,Saturday,6,3,March,1,11,1,1,Peak,,0,7.6,9.8,5.9,0.0,0,Normal,1
+2024-03-17,2957.41,79,37.44,Sunday,7,3,March,1,11,1,0,Medium,,0,6.7,9.5,4.5,0.0,0,Normal,1
+2024-03-18,1762.63,53,33.26,Monday,1,3,March,1,12,0,0,Quiet,,0,7.3,10.2,5.0,0.1,0,Normal,1
+2024-03-19,1795.13,54,33.24,Tuesday,2,3,March,1,12,0,0,Quiet,,0,8.8,11.0,7.0,0.0,0,Normal,1
+2024-03-20,1956.39,58,33.73,Wednesday,3,3,March,1,12,0,0,Quiet,,0,7.9,10.9,5.5,0.0,0,Normal,1
+2024-03-21,2582.03,75,34.43,Thursday,4,3,March,1,12,0,0,Medium,,0,9.0,12.1,6.4,0.0,0,Normal,1
+2024-03-22,3488.99,91,38.34,Friday,5,3,March,1,12,0,1,Peak,,0,6.9,9.4,4.9,3.0,1,Rain,1
+2024-03-23,3896.16,102,38.2,Saturday,6,3,March,1,12,1,1,Peak,,0,6.8,10.5,3.9,0.0,0,Normal,1
+2024-03-24,1952.85,63,31.0,Sunday,7,3,March,1,12,1,0,Medium,,0,6.5,8.4,4.9,0.0,0,Normal,1
+2024-03-25,1781.7,58,30.72,Monday,1,3,March,1,13,0,0,Quiet,,0,4.5,7.0,2.5,0.0,0,Normal,0
+2024-03-26,1689.0,51,33.12,Tuesday,2,3,March,1,13,0,0,Quiet,,0,6.3,7.9,5.0,16.3,1,Heavy Rain,0
+2024-03-27,1870.1,51,36.67,Wednesday,3,3,March,1,13,0,0,Quiet,,0,6.3,8.7,4.3,0.0,0,Normal,0
+2024-03-28,2096.2,51,41.1,Thursday,4,3,March,1,13,0,0,Medium,,0,6.7,7.9,5.7,4.8,1,Rain,0
+2024-03-29,3615.4,93,38.88,Friday,5,3,March,1,13,0,1,Peak,Good Friday,1,8.7,10.2,7.5,0.7,0,Normal,0
+2024-03-30,5402.6,126,42.88,Saturday,6,3,March,1,13,1,1,Peak,,0,9.8,12.3,7.7,0.0,0,Normal,0
+2024-03-31,2035.6,66,30.84,Sunday,7,3,March,1,13,1,0,Medium,,0,11.1,13.1,9.5,0.0,0,Normal,0
+2024-04-01,1794.6,48,37.39,Monday,1,4,April,2,14,0,0,Quiet,Easter Monday,1,10.0,11.7,8.7,7.7,1,Rain,0
+2024-04-02,1753.5,59,29.72,Tuesday,2,4,April,2,14,0,0,Quiet,,0,8.9,10.0,8.0,2.8,1,Rain,0
+2024-04-03,1750.1,49,35.72,Wednesday,3,4,April,2,14,0,0,Quiet,,0,9.2,11.0,7.8,0.0,0,Normal,0
+2024-04-04,2372.4,72,32.95,Thursday,4,4,April,2,14,0,0,Medium,,0,5.8,8.4,3.6,0.0,0,Normal,0
+2024-04-05,3087.1,83,37.19,Friday,5,4,April,2,14,0,1,Peak,,0,3.8,6.4,1.7,0.0,0,Normal,0
+2024-04-06,4304.0,108,39.85,Saturday,6,4,April,2,14,1,1,Peak,,0,2.7,5.6,0.4,0.0,0,Normal,0
+2024-04-07,2628.8,68,38.66,Sunday,7,4,April,2,14,1,0,Medium,,0,2.7,6.6,-0.5,0.0,0,Normal,0
+2024-04-08,1455.8,35,41.59,Monday,1,4,April,2,15,0,0,Quiet,,0,5.7,8.3,3.5,0.0,0,Normal,0
+2024-04-09,2680.6,76,35.27,Tuesday,2,4,April,2,15,0,0,Quiet,,0,5.1,7.9,2.8,0.0,0,Normal,0
+2024-04-10,2750.0,76,36.18,Wednesday,3,4,April,2,15,0,0,Quiet,,0,5.8,7.5,4.3,0.0,0,Normal,0
+2024-04-11,2631.5,71,37.06,Thursday,4,4,April,2,15,0,0,Medium,,0,9.6,10.4,8.9,2.2,1,Rain,0
+2024-04-12,3756.9,96,39.13,Friday,5,4,April,2,15,0,1,Peak,,0,9.4,12.9,6.5,0.0,0,Normal,0
+2024-04-13,4720.8,115,41.05,Saturday,6,4,April,2,15,1,1,Peak,,0,11.4,13.3,9.9,0.0,0,Normal,0
+2024-04-14,2423.2,74,32.75,Sunday,7,4,April,2,15,1,0,Medium,,0,9.3,11.1,7.9,0.0,0,Normal,0
+2024-04-15,1292.8,39,33.15,Monday,1,4,April,2,16,0,0,Quiet,,0,9.0,10.6,7.7,18.7,1,Heavy Rain,0
+2024-04-16,1795.1,48,37.4,Tuesday,2,4,April,2,16,0,0,Quiet,,0,7.5,9.0,6.2,1.2,1,Rain,0
+2024-04-17,2056.4,57,36.08,Wednesday,3,4,April,2,16,0,0,Quiet,,0,8.2,10.0,6.6,0.0,0,Normal,0
+2024-04-18,2098.1,59,35.56,Thursday,4,4,April,2,16,0,0,Medium,,0,10.5,11.9,9.4,16.9,1,Heavy Rain,0
+2024-04-19,3599.0,97,37.1,Friday,5,4,April,2,16,0,1,Peak,,0,7.4,10.7,4.7,0.0,0,Normal,0
+2024-04-20,4111.6,100,41.12,Saturday,6,4,April,2,16,1,1,Peak,,0,9.6,11.5,8.0,0.0,0,Normal,0
+2024-04-21,2253.4,69,32.66,Sunday,7,4,April,2,16,1,0,Medium,,0,10.8,12.3,9.5,0.0,0,Normal,0
+2024-04-22,1694.0,47,36.04,Monday,1,4,April,2,17,0,0,Quiet,,0,9.8,12.9,7.3,0.0,0,Normal,0
+2024-04-23,2161.8,63,34.31,Tuesday,2,4,April,2,17,0,0,Quiet,,0,7.4,10.2,5.1,0.0,0,Normal,0
+2024-04-24,1624.9,47,34.57,Wednesday,3,4,April,2,17,0,0,Quiet,,0,8.9,11.0,7.2,0.0,0,Normal,0
+2024-04-25,2661.1,79,33.68,Thursday,4,4,April,2,17,0,0,Medium,,0,8.8,10.2,7.6,0.0,0,Normal,0
+2024-04-26,3789.5,91,41.64,Friday,5,4,April,2,17,0,1,Peak,,0,10.3,12.3,8.7,0.0,0,Normal,0
+2024-04-27,4548.2,117,38.87,Saturday,6,4,April,2,17,1,1,Peak,,0,11.1,13.5,9.1,0.0,0,Normal,0
+2024-04-28,2400.5,56,42.87,Sunday,7,4,April,2,17,1,0,Medium,,0,15.0,18.2,12.3,0.0,0,Normal,0
+2024-04-29,1888.6,49,38.54,Monday,1,4,April,2,18,0,0,Quiet,,0,13.9,15.7,12.4,0.0,0,Normal,0
+2024-04-30,1490.0,43,34.65,Tuesday,2,4,April,2,18,0,0,Quiet,,0,11.5,13.9,9.5,0.0,0,Normal,0
+2024-05-01,1547.3,52,29.76,Wednesday,3,5,May,2,18,0,0,Quiet,Labour Day,1,11.2,15.0,8.0,12.3,1,Heavy Rain,0
+2024-05-02,2144.9,67,32.01,Thursday,4,5,May,2,18,0,0,Medium,,0,11.9,13.7,10.4,4.3,1,Rain,0
+2024-05-03,3526.8,88,40.08,Friday,5,5,May,2,18,0,1,Peak,,0,16.1,22.0,11.3,0.7,0,Normal,0
+2024-05-04,2649.9,82,32.32,Saturday,6,5,May,2,18,1,1,Peak,,0,16.0,18.6,13.9,18.9,1,Heavy Rain,0
+2024-05-05,2371.7,69,34.37,Sunday,7,5,May,2,18,1,0,Medium,,0,15.8,19.4,12.8,1.7,1,Rain,0
+2024-05-06,1495.5,47,31.82,Monday,1,5,May,2,19,0,0,Quiet,,0,19.3,24.7,14.9,0.0,0,Normal,0
+2024-05-07,1997.6,51,39.17,Tuesday,2,5,May,2,19,0,0,Quiet,,0,15.2,21.2,10.4,0.0,0,Normal,0
+2024-05-08,2419.1,70,34.56,Wednesday,3,5,May,2,19,0,0,Quiet,,0,13.5,19.1,9.0,0.0,0,Normal,0
+2024-05-09,3051.2,84,36.32,Thursday,4,5,May,2,19,0,0,Medium,Ascension Day,1,11.7,15.4,8.7,0.8,0,Normal,0
+2024-05-10,3550.7,92,38.59,Friday,5,5,May,2,19,0,1,Peak,,0,10.4,13.3,8.1,6.1,1,Rain,0
+2024-05-11,4601.9,122,37.72,Saturday,6,5,May,2,19,1,1,Peak,,0,9.5,14.8,5.1,0.0,0,Normal,0
+2024-05-12,3118.8,89,35.04,Sunday,7,5,May,2,19,1,0,Medium,,0,12.3,17.4,8.1,0.0,0,Normal,0
+2024-05-13,1363.3,38,35.88,Monday,1,5,May,2,20,0,0,Quiet,,0,11.3,15.0,8.2,8.0,1,Rain,0
+2024-05-14,1080.0,38,28.42,Tuesday,2,5,May,2,20,0,0,Quiet,,0,10.0,15.7,5.3,0.1,0,Normal,0
+2024-05-15,1598.2,49,32.62,Wednesday,3,5,May,2,20,0,0,Quiet,,0,9.2,14.8,4.6,0.6,0,Normal,0
+2024-05-16,2751.7,81,33.97,Thursday,4,5,May,2,20,0,0,Medium,,0,10.3,13.5,7.6,7.2,1,Rain,0
+2024-05-17,3024.0,84,36.0,Friday,5,5,May,2,20,0,1,Peak,,0,13.1,15.3,11.3,1.5,1,Rain,0
+2024-05-18,5481.2,117,46.85,Saturday,6,5,May,2,20,1,1,Peak,,0,17.7,20.7,15.1,1.3,1,Rain,0
+2024-05-19,2366.7,65,36.41,Sunday,7,5,May,2,20,1,0,Medium,,0,24.1,29.6,19.6,0.5,0,Hot,0
+2024-05-20,1907.9,47,40.59,Monday,1,5,May,2,21,0,0,Quiet,Whit Monday,1,21.4,24.1,19.2,2.1,1,Rain,0
+2024-05-21,2508.5,74,33.9,Tuesday,2,5,May,2,21,0,0,Quiet,,0,18.5,24.1,13.9,0.0,0,Normal,0
+2024-05-22,1725.8,48,35.95,Wednesday,3,5,May,2,21,0,0,Quiet,,0,13.1,18.9,8.3,0.0,0,Normal,0
+2024-05-23,3305.3,98,33.73,Thursday,4,5,May,2,21,0,0,Medium,,0,14.4,19.7,10.1,0.0,0,Normal,0
+2024-05-24,3186.6,83,38.39,Friday,5,5,May,2,21,0,1,Peak,,0,11.9,13.2,10.7,3.8,1,Rain,0
+2024-05-25,4552.3,113,40.29,Saturday,6,5,May,2,21,1,1,Peak,,0,11.8,14.3,9.7,1.5,1,Rain,0
+2024-05-26,2216.8,63,35.19,Sunday,7,5,May,2,21,1,0,Medium,,0,11.3,16.0,7.5,5.7,1,Rain,0
+2024-05-27,1478.3,46,32.14,Monday,1,5,May,2,22,0,0,Quiet,,0,13.2,18.1,9.2,0.0,0,Normal,0
+2024-05-28,2237.4,66,33.9,Tuesday,2,5,May,2,22,0,0,Quiet,,0,16.4,20.3,13.2,0.0,0,Normal,0
+2024-05-29,2959.3,72,41.1,Wednesday,3,5,May,2,22,0,0,Quiet,,0,16.7,22.7,11.8,0.0,0,Normal,0
+2024-05-30,3149.3,85,37.05,Thursday,4,5,May,2,22,0,0,Medium,Corpus Christi,1,16.3,21.5,12.0,0.0,0,Normal,0
+2024-05-31,4230.2,102,41.47,Friday,5,5,May,2,22,0,1,Peak,,0,14.1,20.1,9.3,0.0,0,Normal,0
+2024-06-01,4575.7,122,37.51,Saturday,6,6,June,2,22,1,1,Peak,,0,11.7,17.1,7.3,0.0,0,Normal,0
+2024-06-02,2523.2,76,33.2,Sunday,7,6,June,2,22,1,0,Medium,,0,11.0,14.7,8.0,2.3,1,Rain,0
+2024-06-03,1818.4,44,41.33,Monday,1,6,June,2,23,0,0,Quiet,,0,13.4,18.9,8.9,0.6,0,Normal,0
+2024-06-04,1876.9,58,32.36,Tuesday,2,6,June,2,23,0,0,Quiet,,0,16.5,20.4,13.4,1.1,1,Rain,0
+2024-06-05,1707.9,52,32.84,Wednesday,3,6,June,2,23,0,0,Quiet,,0,16.6,21.5,12.6,13.8,1,Heavy Rain,0
+2024-06-06,2272.8,69,32.94,Thursday,4,6,June,2,23,0,0,Medium,,0,18.3,22.3,15.0,1.0,1,Rain,0
+2024-06-07,4076.3,107,38.1,Friday,5,6,June,2,23,0,1,Peak,,0,17.9,22.1,14.5,0.0,0,Normal,0
+2024-06-08,5126.5,120,42.72,Saturday,6,6,June,2,23,1,1,Peak,,0,15.5,21.1,11.0,0.0,0,Normal,0
+2024-06-09,3010.5,86,35.01,Sunday,7,6,June,2,23,1,0,Medium,,0,14.3,20.3,9.4,0.0,0,Normal,0
+2024-06-10,1748.2,49,35.68,Monday,1,6,June,2,24,0,0,Quiet,,0,13.8,19.9,8.9,0.8,0,Normal,0
+2024-06-11,2391.1,64,37.36,Tuesday,2,6,June,2,24,0,0,Quiet,,0,18.9,23.9,14.9,0.5,0,Normal,0
+2024-06-12,1902.3,55,34.59,Wednesday,3,6,June,2,24,0,0,Quiet,,0,15.9,20.0,12.5,7.5,1,Rain,0
+2024-06-13,2924.1,73,40.06,Thursday,4,6,June,2,24,0,0,Medium,,0,18.9,24.7,14.1,0.0,0,Normal,0
+2024-06-14,3404.0,93,36.6,Friday,5,6,June,2,24,0,1,Peak,,0,16.9,23.9,11.3,0.0,0,Normal,0
+2024-06-15,4605.0,121,38.06,Saturday,6,6,June,2,24,1,1,Peak,,0,19.0,23.7,15.1,0.0,0,Normal,0
+2024-06-16,2479.0,65,38.14,Sunday,7,6,June,2,24,1,0,Medium,,0,18.2,21.3,15.7,14.7,1,Heavy Rain,0
+2024-06-17,2212.1,65,34.03,Monday,1,6,June,2,25,0,0,Quiet,,0,17.6,20.8,15.0,10.0,1,Heavy Rain,0
+2024-06-18,1851.0,55,33.65,Tuesday,2,6,June,2,25,0,0,Quiet,,0,18.5,23.4,14.5,0.1,0,Normal,0
+2024-06-19,2256.7,64,35.26,Wednesday,3,6,June,2,25,0,0,Quiet,,0,17.2,21.9,13.4,0.0,0,Normal,0
+2024-06-20,1902.5,60,31.71,Thursday,4,6,June,2,25,0,0,Medium,,0,18.4,21.8,15.6,0.0,0,Normal,0
+2024-06-21,3784.2,92,41.13,Friday,5,6,June,2,25,0,1,Peak,,0,16.3,19.4,13.8,1.2,1,Rain,0
+2024-06-22,5289.6,126,41.98,Saturday,6,6,June,2,25,1,1,Peak,,0,15.5,21.0,11.0,0.0,0,Normal,0
+2024-06-23,2047.1,63,32.49,Sunday,7,6,June,2,25,1,0,Medium,,0,12.8,15.8,10.2,6.8,1,Rain,0
+2024-06-24,1915.6,54,35.47,Monday,1,6,June,2,26,0,0,Quiet,,0,15.6,22.1,10.3,0.0,0,Normal,0
+2024-06-25,2163.0,56,38.62,Tuesday,2,6,June,2,26,0,0,Quiet,,0,18.2,21.6,15.4,7.4,1,Rain,0
+2024-06-26,1974.7,62,31.85,Wednesday,3,6,June,2,26,0,0,Quiet,,0,18.3,22.6,14.9,6.0,1,Rain,0
+2024-06-27,2339.1,67,34.91,Thursday,4,6,June,2,26,0,0,Medium,,0,19.1,24.5,14.7,0.0,0,Normal,0
+2024-06-28,3652.1,81,45.09,Friday,5,6,June,2,26,0,1,Peak,,0,18.4,22.3,15.2,11.5,1,Heavy Rain,0
+2024-06-29,3857.7,114,33.84,Saturday,6,6,June,2,26,1,1,Peak,,0,20.7,24.2,17.7,6.4,1,Rain,0
+2024-06-30,2805.0,83,33.8,Sunday,7,6,June,2,26,1,0,Medium,,0,20.3,24.6,16.8,6.5,1,Rain,0
+2024-07-01,2510.86,62,40.5,Monday,1,7,July,3,27,0,0,Quiet,,0,20.0,25.3,15.7,0.4,0,Normal,1
+2024-07-02,3023.92,74,40.86,Tuesday,2,7,July,3,27,0,0,Quiet,,0,21.9,27.4,17.3,0.0,0,Normal,1
+2024-07-03,2134.38,62,34.43,Wednesday,3,7,July,3,27,0,0,Quiet,,0,21.9,27.4,17.5,0.0,0,Normal,1
+2024-07-04,3013.54,87,34.64,Thursday,4,7,July,3,27,0,0,Medium,,0,24.1,29.1,20.0,0.0,0,Hot,1
+2024-07-05,4434.4,108,41.06,Friday,5,7,July,3,27,0,1,Peak,,0,23.1,28.6,18.6,0.0,0,Hot,1
+2024-07-06,4463.54,125,35.71,Saturday,6,7,July,3,27,1,1,Peak,,0,19.8,26.5,14.3,0.0,0,Normal,1
+2024-07-07,2277.09,70,32.53,Sunday,7,7,July,3,27,1,0,Medium,,0,16.0,19.2,13.3,3.6,1,Rain,1
+2024-07-08,1440.79,39,36.94,Monday,1,7,July,3,28,0,0,Quiet,,0,19.7,23.4,16.7,4.8,1,Rain,1
+2024-07-09,1637.1,52,31.48,Tuesday,2,7,July,3,28,0,0,Quiet,,0,22.6,26.8,19.1,10.3,1,Heavy Rain,1
+2024-07-10,2167.44,65,33.35,Wednesday,3,7,July,3,28,0,0,Quiet,,0,22.3,28.3,17.4,0.0,0,Hot,1
+2024-07-11,1914.18,62,30.87,Thursday,4,7,July,3,28,0,0,Medium,,0,20.9,26.1,16.6,0.0,0,Normal,1
+2024-07-12,4682.04,122,38.38,Friday,5,7,July,3,28,0,1,Peak,,0,23.4,27.0,20.4,0.0,0,Normal,1
+2024-07-13,5708.29,130,43.91,Saturday,6,7,July,3,28,1,1,Peak,,0,20.3,25.9,15.8,0.0,0,Normal,1
+2024-07-14,3088.32,87,35.5,Sunday,7,7,July,3,28,1,0,Medium,,0,18.6,22.3,15.5,0.0,0,Normal,1
+2024-07-15,2664.95,73,36.51,Monday,1,7,July,3,29,0,0,Quiet,,0,20.1,26.3,15.0,0.0,0,Normal,1
+2024-07-16,2065.01,58,35.6,Tuesday,2,7,July,3,29,0,0,Quiet,,0,19.3,24.6,14.9,0.0,0,Normal,1
+2024-07-17,1898.75,57,33.31,Wednesday,3,7,July,3,29,0,0,Quiet,,0,19.4,25.3,14.6,0.0,0,Normal,1
+2024-07-18,2362.48,72,32.81,Thursday,4,7,July,3,29,0,0,Medium,,0,18.0,20.8,15.7,1.2,1,Rain,1
+2024-07-19,3667.31,98,37.42,Friday,5,7,July,3,29,0,1,Peak,,0,18.8,21.1,16.8,6.8,1,Rain,1
+2024-07-20,4468.87,103,43.39,Saturday,6,7,July,3,29,1,1,Peak,,0,22.5,27.9,18.1,0.0,0,Normal,1
+2024-07-21,2865.96,87,32.94,Sunday,7,7,July,3,29,1,0,Medium,,0,21.9,27.1,17.6,0.0,0,Normal,1
+2024-07-22,2189.4,61,35.89,Monday,1,7,July,3,30,0,0,Quiet,,0,22.5,27.4,18.5,0.0,0,Normal,1
+2024-07-23,2413.77,63,38.31,Tuesday,2,7,July,3,30,0,0,Quiet,,0,17.8,23.1,13.5,0.8,0,Normal,1
+2024-07-24,2493.23,78,31.96,Wednesday,3,7,July,3,30,0,0,Quiet,,0,17.1,22.3,12.8,28.7,1,Heavy Rain,1
+2024-07-25,3062.56,87,35.2,Thursday,4,7,July,3,30,0,0,Medium,,0,15.9,19.8,12.6,20.0,1,Heavy Rain,1
+2024-07-26,4211.79,116,36.31,Friday,5,7,July,3,30,0,1,Peak,,0,14.3,18.4,10.9,2.0,1,Rain,1
+2024-07-27,4254.21,115,36.99,Saturday,6,7,July,3,30,1,1,Peak,,0,13.8,17.7,10.6,3.2,1,Rain,1
+2024-07-28,3003.65,81,37.08,Sunday,7,7,July,3,30,1,0,Medium,,0,15.6,21.8,10.6,0.3,0,Normal,1
+2024-07-29,1808.33,47,38.48,Monday,1,7,July,3,31,0,0,Quiet,,0,18.5,23.6,14.3,0.0,0,Normal,1
+2024-07-30,2125.42,66,32.2,Tuesday,2,7,July,3,31,0,0,Quiet,,0,16.3,20.1,13.1,0.0,0,Normal,1
+2024-07-31,2804.64,73,38.42,Wednesday,3,7,July,3,31,0,0,Quiet,,0,17.2,22.3,13.1,0.0,0,Normal,1
+2024-08-01,3055.19,82,37.26,Thursday,4,8,August,3,31,0,0,Medium,,0,17.0,22.7,12.3,0.0,0,Normal,1
+2024-08-02,3742.08,98,38.18,Friday,5,8,August,3,31,0,1,Peak,,0,17.1,21.6,13.3,0.0,0,Normal,1
+2024-08-03,5344.34,137,39.01,Saturday,6,8,August,3,31,1,1,Peak,,0,19.6,24.7,15.4,0.0,0,Normal,1
+2024-08-04,2377.4,71,33.48,Sunday,7,8,August,3,31,1,0,Medium,,0,19.4,22.3,17.0,11.5,1,Heavy Rain,1
+2024-08-05,1202.12,35,34.35,Monday,1,8,August,3,32,0,0,Quiet,,0,22.8,29.0,17.7,0.0,0,Hot,1
+2024-08-06,2766.18,73,37.89,Tuesday,2,8,August,3,32,0,0,Quiet,,0,21.5,27.3,16.9,0.0,0,Normal,1
+2024-08-07,2936.1,82,35.81,Wednesday,3,8,August,3,32,0,0,Quiet,,0,19.6,25.3,15.0,0.0,0,Normal,1
+2024-08-08,3091.4,84,36.8,Thursday,4,8,August,3,32,0,0,Medium,,0,19.1,24.8,14.5,0.0,0,Normal,1
+2024-08-09,4249.79,101,42.08,Friday,5,8,August,3,32,0,1,Peak,,0,18.5,21.8,15.7,7.7,1,Rain,1
+2024-08-10,6351.8,155,40.98,Saturday,6,8,August,3,32,1,1,Peak,,0,19.9,25.3,15.5,0.0,0,Normal,1
+2024-08-11,2959.75,81,36.54,Sunday,7,8,August,3,32,1,0,Medium,,0,17.7,22.2,14.1,0.0,0,Normal,1
+2024-08-12,2095.7,64,32.75,Monday,1,8,August,3,33,0,0,Quiet,,0,17.1,19.1,15.5,27.7,1,Heavy Rain,0
+2024-08-13,1951.8,58,33.65,Tuesday,2,8,August,3,33,0,0,Quiet,,0,17.8,21.3,15.0,1.2,1,Rain,0
+2024-08-14,2649.6,74,35.81,Wednesday,3,8,August,3,33,0,0,Quiet,,0,23.8,29.3,19.4,0.0,0,Hot,0
+2024-08-15,2207.4,67,32.95,Thursday,4,8,August,3,33,0,0,Medium,,0,26.0,32.0,21.0,0.0,0,Hot,0
+2024-08-16,4917.9,115,42.76,Friday,5,8,August,3,33,0,1,Peak,,0,22.3,28.6,17.2,0.0,0,Hot,0
+2024-08-17,6035.0,146,41.34,Saturday,6,8,August,3,33,1,1,Peak,,0,20.8,27.0,15.6,0.0,0,Normal,0
+2024-08-18,2812.3,82,34.3,Sunday,7,8,August,3,33,1,0,Medium,,0,16.2,18.9,14.0,1.4,1,Rain,0
+2024-08-19,2306.2,58,39.76,Monday,1,8,August,3,34,0,0,Quiet,,0,16.6,21.6,12.5,0.0,0,Normal,0
+2024-08-20,2101.7,49,42.89,Tuesday,2,8,August,3,34,0,0,Quiet,,0,17.6,23.2,13.1,0.0,0,Normal,0
+2024-08-21,2265.0,68,33.31,Wednesday,3,8,August,3,34,0,0,Quiet,,0,20.0,26.9,14.4,0.0,0,Normal,0
+2024-08-22,3334.9,88,37.9,Thursday,4,8,August,3,34,0,0,Medium,,0,16.9,21.3,13.3,4.7,1,Rain,0
+2024-08-23,5019.6,110,45.63,Friday,5,8,August,3,34,0,1,Peak,,0,16.8,22.8,11.9,0.0,0,Normal,0
+2024-08-24,4071.4,107,38.05,Saturday,6,8,August,3,34,1,1,Peak,,0,13.1,18.0,9.0,0.1,0,Normal,0
+2024-08-25,2646.3,77,34.37,Sunday,7,8,August,3,34,1,0,Medium,,0,12.8,15.6,10.5,5.7,1,Rain,0
+2024-08-26,1686.1,49,34.41,Monday,1,8,August,3,35,0,0,Quiet,,0,11.8,15.7,8.6,2.6,1,Rain,0
+2024-08-27,2017.3,58,34.78,Tuesday,2,8,August,3,35,0,0,Quiet,,0,12.0,14.7,9.9,1.4,1,Rain,0
+2024-08-28,2246.0,62,36.23,Wednesday,3,8,August,3,35,0,0,Quiet,,0,12.7,17.8,8.6,0.1,0,Normal,0
+2024-08-29,1950.5,63,30.96,Thursday,4,8,August,3,35,0,0,Medium,,0,12.6,15.9,9.9,6.6,1,Rain,0
+2024-08-30,4028.4,105,38.37,Friday,5,8,August,3,35,0,1,Peak,,0,10.2,14.6,6.5,11.0,1,Heavy Rain,0
+2024-08-31,4700.3,118,39.83,Saturday,6,8,August,3,35,1,1,Peak,,0,10.2,15.2,6.1,0.0,0,Normal,0
+2024-09-01,2765.4,82,33.72,Sunday,7,9,September,3,35,1,0,Medium,,0,16.6,20.2,13.6,0.0,0,Normal,0
+2024-09-02,1444.0,44,32.82,Monday,1,9,September,3,36,0,0,Quiet,,0,13.8,19.4,9.3,0.0,0,Normal,0
+2024-09-03,1502.2,40,37.56,Tuesday,2,9,September,3,36,0,0,Quiet,,0,12.2,17.0,8.3,0.0,0,Normal,0
+2024-09-04,2494.9,68,36.69,Wednesday,3,9,September,3,36,0,0,Quiet,,0,17.3,22.6,13.0,0.0,0,Normal,0
+2024-09-05,2712.9,77,35.23,Thursday,4,9,September,3,36,0,0,Medium,,0,23.3,28.4,19.0,0.0,0,Hot,0
+2024-09-06,4048.9,93,43.54,Friday,5,9,September,3,36,0,1,Peak,,0,18.8,23.8,14.6,0.0,0,Normal,0
+2024-09-07,5145.5,133,38.69,Saturday,6,9,September,3,36,1,1,Peak,,0,17.2,22.9,12.5,0.0,0,Normal,0
+2024-09-08,2756.8,77,35.8,Sunday,7,9,September,3,36,1,0,Medium,,0,17.6,21.8,14.1,0.0,0,Normal,0
+2024-09-09,1542.9,50,30.86,Monday,1,9,September,3,37,0,0,Quiet,,0,19.6,22.6,17.1,44.3,1,Heavy Rain,0
+2024-09-10,2120.5,62,34.2,Tuesday,2,9,September,3,37,0,0,Quiet,,0,17.2,22.9,12.6,0.0,0,Normal,0
+2024-09-11,2775.5,85,32.65,Wednesday,3,9,September,3,37,0,0,Quiet,,0,16.2,21.0,12.2,0.0,0,Normal,0
+2024-09-12,2379.2,66,36.05,Thursday,4,9,September,3,37,0,0,Medium,,0,16.4,18.8,14.5,10.7,1,Heavy Rain,0
+2024-09-13,3215.4,75,42.87,Friday,5,9,September,3,37,0,1,Peak,,0,16.7,20.5,13.6,3.1,1,Rain,0
+2024-09-14,4767.3,111,42.95,Saturday,6,9,September,3,37,1,1,Peak,,0,16.3,22.3,11.4,0.0,0,Normal,0
+2024-09-15,3380.4,88,38.41,Sunday,7,9,September,3,37,1,0,Medium,,0,15.6,20.8,11.4,0.0,0,Normal,0
+2024-09-16,1902.2,51,37.3,Monday,1,9,September,3,38,0,0,Quiet,,0,12.4,16.4,9.2,0.0,0,Normal,0
+2024-09-17,2224.0,56,39.71,Tuesday,2,9,September,3,38,0,0,Quiet,,0,12.5,18.2,7.9,0.0,0,Normal,0
+2024-09-18,2057.7,62,33.19,Wednesday,3,9,September,3,38,0,0,Quiet,,0,12.5,16.6,9.1,0.0,0,Normal,0
+2024-09-19,2491.7,75,33.22,Thursday,4,9,September,3,38,0,0,Medium,,0,13.5,19.0,9.1,0.0,0,Normal,0
+2024-09-20,4104.6,99,41.46,Friday,5,9,September,3,38,0,1,Peak,,0,12.5,17.2,8.7,0.0,0,Normal,0
+2024-09-21,4041.1,99,40.82,Saturday,6,9,September,3,38,1,1,Peak,,0,14.0,18.4,10.3,0.0,0,Normal,0
+2024-09-22,2689.2,76,35.38,Sunday,7,9,September,3,38,1,0,Medium,,0,16.1,21.1,12.1,0.0,0,Normal,0
+2024-09-23,2285.9,60,38.1,Monday,1,9,September,3,39,0,0,Quiet,,0,15.8,20.9,11.6,0.0,0,Normal,0
+2024-09-24,2234.0,58,38.52,Tuesday,2,9,September,3,39,0,0,Quiet,,0,16.0,20.8,12.0,0.0,0,Normal,0
+2024-09-25,2295.3,64,35.86,Wednesday,3,9,September,3,39,0,0,Quiet,,0,15.4,21.0,10.8,0.0,0,Normal,0
+2024-09-26,2296.2,74,31.03,Thursday,4,9,September,3,39,0,0,Medium,,0,14.8,19.7,10.8,0.0,0,Normal,0
+2024-09-27,3657.4,87,42.04,Friday,5,9,September,3,39,0,1,Peak,,0,12.8,18.7,8.0,0.0,0,Normal,0
+2024-09-28,4725.4,112,42.19,Saturday,6,9,September,3,39,1,1,Peak,,0,13.6,19.0,9.1,0.0,0,Normal,0
+2024-09-29,2393.1,65,36.82,Sunday,7,9,September,3,39,1,0,Medium,,0,13.2,17.9,9.3,0.0,0,Normal,0
+2024-09-30,2202.6,50,44.05,Monday,1,9,September,3,40,0,0,Quiet,,0,17.6,22.2,13.8,0.0,0,Normal,0
+2024-10-01,1592.5,52,30.62,Tuesday,2,10,October,4,40,0,0,Quiet,,0,19.6,21.0,18.4,0.0,0,Normal,0
+2024-10-02,1927.4,46,41.9,Wednesday,3,10,October,4,40,0,0,Quiet,,0,18.4,21.1,16.2,0.0,0,Normal,0
+2024-10-03,2516.5,69,36.47,Thursday,4,10,October,4,40,0,0,Medium,German Unity Day,1,15.1,17.3,13.2,0.1,0,Normal,0
+2024-10-04,3488.9,89,39.2,Friday,5,10,October,4,40,0,1,Peak,,0,11.5,12.3,10.8,6.3,1,Rain,0
+2024-10-05,4612.9,119,38.76,Saturday,6,10,October,4,40,1,1,Peak,,0,14.5,16.6,12.8,0.0,0,Normal,0
+2024-10-06,2700.8,84,32.15,Sunday,7,10,October,4,40,1,0,Medium,,0,14.3,16.2,12.8,0.0,0,Normal,0
+2024-10-07,1568.03,43,36.47,Monday,1,10,October,4,41,0,0,Quiet,,0,14.6,18.2,11.8,0.0,0,Normal,1
+2024-10-08,2454.42,75,32.73,Tuesday,2,10,October,4,41,0,0,Quiet,,0,9.6,10.5,9.0,7.1,1,Rain,1
+2024-10-09,2324.13,70,33.2,Wednesday,3,10,October,4,41,0,0,Quiet,,0,12.0,12.9,11.4,2.7,1,Rain,1
+2024-10-10,2398.23,66,36.34,Thursday,4,10,October,4,41,0,0,Medium,,0,12.7,15.1,10.8,4.8,1,Rain,1
+2024-10-11,4808.63,117,41.1,Friday,5,10,October,4,41,0,1,Peak,,0,10.2,13.6,7.4,0.0,0,Normal,1
+2024-10-12,5517.6,145,38.05,Saturday,6,10,October,4,41,1,1,Peak,,0,9.4,11.4,7.8,0.0,0,Normal,1
+2024-10-13,2475.25,77,32.15,Sunday,7,10,October,4,41,1,0,Medium,,0,10.0,11.2,9.0,13.6,1,Heavy Rain,1
+2024-10-14,1744.84,51,34.21,Monday,1,10,October,4,42,0,0,Quiet,,0,10.6,13.5,8.3,0.0,0,Normal,1
+2024-10-15,2066.99,65,31.8,Tuesday,2,10,October,4,42,0,0,Quiet,,0,9.6,10.4,8.9,1.6,1,Rain,1
+2024-10-16,2517.18,75,33.56,Wednesday,3,10,October,4,42,0,0,Quiet,,0,9.9,11.1,8.9,0.4,0,Normal,1
+2024-10-17,2789.16,78,35.76,Thursday,4,10,October,4,42,0,0,Medium,,0,9.1,10.5,7.9,14.9,1,Heavy Rain,1
+2024-10-18,3590.91,91,39.46,Friday,5,10,October,4,42,0,1,Peak,,0,9.6,12.2,7.4,1.5,1,Rain,1
+2024-10-19,4035.23,101,39.95,Saturday,6,10,October,4,42,1,1,Peak,,0,13.2,15.3,11.4,0.0,0,Normal,1
+2024-10-20,1973.95,59,33.46,Sunday,7,10,October,4,42,1,0,Medium,,0,6.7,9.3,4.6,0.0,0,Normal,1
+2024-10-21,1653.79,48,34.45,Monday,1,10,October,4,43,0,0,Quiet,,0,7.0,10.3,4.4,0.8,0,Normal,1
+2024-10-22,1860.63,58,32.08,Tuesday,2,10,October,4,43,0,0,Quiet,,0,8.1,12.0,5.0,0.3,0,Normal,1
+2024-10-23,2491.92,69,36.11,Wednesday,3,10,October,4,43,0,0,Quiet,,0,9.1,11.2,7.4,0.0,0,Normal,1
+2024-10-24,2932.09,93,31.53,Thursday,4,10,October,4,43,0,0,Medium,,0,8.4,10.8,6.4,0.0,0,Normal,1
+2024-10-25,5257.61,126,41.73,Friday,5,10,October,4,43,0,1,Peak,,0,4.8,8.5,1.8,0.0,0,Normal,1
+2024-10-26,5267.25,124,42.48,Saturday,6,10,October,4,43,1,1,Peak,,0,6.7,8.1,5.5,0.4,0,Normal,1
+2024-10-27,2408.03,75,32.11,Sunday,7,10,October,4,43,1,0,Medium,,0,10.6,12.9,8.7,3.9,1,Rain,1
+2024-10-28,2196.8,58,37.88,Monday,1,10,October,4,44,0,0,Quiet,,0,6.6,7.6,5.9,4.7,1,Rain,0
+2024-10-29,1885.7,51,36.97,Tuesday,2,10,October,4,44,0,0,Quiet,,0,9.3,11.9,7.2,0.0,0,Normal,0
+2024-10-30,2495.4,68,36.7,Wednesday,3,10,October,4,44,0,0,Quiet,,0,8.3,10.7,6.5,0.0,0,Normal,0
+2024-10-31,2725.9,67,40.69,Thursday,4,10,October,4,44,0,0,Medium,,0,8.2,10.0,6.7,0.0,0,Normal,0
+2024-11-01,4214.0,105,40.13,Friday,5,11,November,4,44,0,1,Peak,All Saints' Day,1,5.5,6.4,4.7,8.5,1,Rain,0
+2024-11-02,3931.8,90,43.69,Saturday,6,11,November,4,44,1,1,Peak,,0,5.3,7.1,3.9,11.1,1,Heavy Rain,0
+2024-11-03,2699.2,71,38.02,Sunday,7,11,November,4,44,1,0,Medium,,0,9.1,12.2,6.5,0.0,0,Normal,0
+2024-11-04,1415.2,36,39.31,Monday,1,11,November,4,45,0,0,Quiet,,0,10.0,12.3,8.0,0.0,0,Normal,0
+2024-11-05,1893.0,54,35.06,Tuesday,2,11,November,4,45,0,0,Quiet,,0,13.0,15.5,10.9,0.0,0,Normal,0
+2024-11-06,2287.4,66,34.66,Wednesday,3,11,November,4,45,0,0,Quiet,,0,13.9,16.8,11.6,0.0,0,Normal,0
+2024-11-07,2810.0,83,33.86,Thursday,4,11,November,4,45,0,0,Medium,,0,13.0,14.8,11.5,0.0,0,Normal,0
+2024-11-08,3320.5,91,36.49,Friday,5,11,November,4,45,0,1,Peak,,0,15.1,18.0,12.7,0.0,0,Normal,0
+2024-11-09,3929.3,102,38.52,Saturday,6,11,November,4,45,1,1,Peak,,0,13.7,16.7,11.3,0.0,0,Normal,0
+2024-11-10,2303.3,71,32.44,Sunday,7,11,November,4,45,1,0,Medium,,0,13.6,17.8,10.1,0.0,0,Normal,0
+2024-11-11,1327.7,38,34.94,Monday,1,11,November,4,46,0,0,Quiet,,0,11.0,13.2,9.1,0.0,0,Normal,0
+2024-11-12,1266.2,34,37.24,Tuesday,2,11,November,4,46,0,0,Quiet,,0,9.8,12.0,8.1,0.0,0,Normal,0
+2024-11-13,1691.4,51,33.16,Wednesday,3,11,November,4,46,0,0,Quiet,,0,7.0,9.1,5.2,2.8,1,Rain,0
+2024-11-14,2397.4,64,37.46,Thursday,4,11,November,4,46,0,0,Medium,,0,9.1,12.2,6.7,0.0,0,Normal,0
+2024-11-15,3971.5,91,43.64,Friday,5,11,November,4,46,0,1,Peak,,0,5.8,7.9,4.1,0.0,0,Normal,0
+2024-11-16,4294.1,108,39.76,Saturday,6,11,November,4,46,1,1,Peak,,0,7.6,9.8,5.8,0.0,0,Normal,0
+2024-11-17,2265.0,59,38.39,Sunday,7,11,November,4,46,1,0,Medium,,0,6.7,9.5,4.4,0.0,0,Normal,0
+2024-11-18,2046.6,52,39.36,Monday,1,11,November,4,47,0,0,Quiet,,0,9.0,10.9,7.4,0.0,0,Normal,0
+2024-11-19,2294.5,66,34.77,Tuesday,2,11,November,4,47,0,0,Quiet,,0,9.7,11.9,7.9,0.0,0,Normal,0
+2024-11-20,2186.6,69,31.69,Wednesday,3,11,November,4,47,0,0,Quiet,,0,12.5,15.1,10.5,0.0,0,Normal,0
+2024-11-21,2960.9,81,36.55,Thursday,4,11,November,4,47,0,0,Medium,,0,12.2,15.3,9.6,0.0,0,Normal,0
+2024-11-22,3790.9,92,41.21,Friday,5,11,November,4,47,0,1,Peak,,0,6.9,9.0,5.2,0.0,0,Normal,0
+2024-11-23,4063.5,109,37.28,Saturday,6,11,November,4,47,1,1,Peak,,0,6.0,6.8,5.3,1.0,1,Rain,0
+2024-11-24,2274.4,67,33.95,Sunday,7,11,November,4,47,1,0,Medium,,0,3.2,4.0,2.5,1.8,1,Rain,0
+2024-11-25,1910.3,57,33.51,Monday,1,11,November,4,48,0,0,Quiet,,0,2.5,3.4,1.9,1.7,1,Rain,0
+2024-11-26,2064.4,59,34.99,Tuesday,2,11,November,4,48,0,0,Quiet,,0,6.4,7.2,5.7,2.6,1,Rain,0
+2024-11-27,1806.5,54,33.45,Wednesday,3,11,November,4,48,0,0,Quiet,,0,7.3,8.8,6.1,20.3,1,Heavy Rain,0
+2024-11-28,2270.1,71,31.97,Thursday,4,11,November,4,48,0,0,Medium,,0,5.0,5.9,4.4,13.6,1,Heavy Rain,0
+2024-11-29,4292.1,104,41.27,Friday,5,11,November,4,48,0,1,Peak,,0,2.7,3.8,1.8,1.4,1,Rain,0
+2024-11-30,5194.2,122,42.58,Saturday,6,11,November,4,48,1,1,Peak,,0,3.6,5.6,2.0,0.0,0,Normal,0
+2024-12-01,3346.4,99,33.8,Sunday,7,12,December,4,48,1,0,Medium,,0,0.8,3.0,-1.0,0.0,0,Cold,0
+2024-12-02,1519.59,44,34.54,Monday,1,12,December,4,49,0,0,Quiet,,0,-0.2,2.2,-2.3,10.3,1,Heavy Rain,1
+2024-12-03,1686.4,48,35.13,Tuesday,2,12,December,4,49,0,0,Quiet,,0,1.8,3.8,0.1,2.5,1,Rain,1
+2024-12-04,2905.08,81,35.87,Wednesday,3,12,December,4,49,0,0,Quiet,,0,5.4,7.0,4.1,2.3,1,Rain,1
+2024-12-05,3694.14,94,39.3,Thursday,4,12,December,4,49,0,0,Medium,,0,6.9,9.1,5.2,0.0,0,Normal,1
+2024-12-06,4452.19,104,42.81,Friday,5,12,December,4,49,0,1,Peak,,0,0.3,2.5,-1.5,0.0,0,Cold,1
+2024-12-07,5438.64,124,43.86,Saturday,6,12,December,4,49,1,1,Peak,,0,1.8,3.6,0.3,2.9,1,Rain,1
+2024-12-08,2768.21,76,36.42,Sunday,7,12,December,4,49,1,0,Medium,,0,2.9,5.7,0.5,0.0,0,Normal,1
+2024-12-09,1889.6,55,34.36,Monday,1,12,December,4,50,0,0,Quiet,,0,4.2,6.1,2.7,0.3,0,Normal,0
+2024-12-10,1850.6,56,33.05,Tuesday,2,12,December,4,50,0,0,Quiet,,0,7.9,9.5,6.6,3.6,1,Rain,0
+2024-12-11,2730.3,74,36.9,Wednesday,3,12,December,4,50,0,0,Quiet,,0,1.7,2.9,0.8,0.0,0,Cold,0
+2024-12-12,1976.1,60,32.93,Thursday,4,12,December,4,50,0,0,Medium,,0,0.8,3.4,-1.4,0.1,0,Cold,0
+2024-12-13,4186.8,107,39.13,Friday,5,12,December,4,50,0,1,Peak,,0,2.7,4.8,0.9,1.4,1,Rain,0
+2024-12-14,5405.9,124,43.6,Saturday,6,12,December,4,50,1,1,Peak,,0,-0.9,1.4,-2.7,0.5,0,Cold,0
+2024-12-15,3112.7,83,37.5,Sunday,7,12,December,4,50,1,0,Medium,,0,3.8,6.6,1.5,4.7,1,Rain,0
+2024-12-16,2283.2,63,36.24,Monday,1,12,December,4,51,0,0,Quiet,,0,5.0,6.9,3.4,0.0,0,Normal,0
+2024-12-17,2483.8,72,34.5,Tuesday,2,12,December,4,51,0,0,Quiet,,0,6.8,9.4,4.6,0.0,0,Normal,0
+2024-12-18,2219.7,62,35.8,Wednesday,3,12,December,4,51,0,0,Quiet,,0,4.0,5.6,2.7,6.7,1,Rain,0
+2024-12-19,2663.4,75,35.51,Thursday,4,12,December,4,51,0,0,Medium,,0,5.9,7.4,4.6,5.0,1,Rain,0
+2024-12-20,3617.6,90,40.2,Friday,5,12,December,4,51,0,1,Peak,,0,8.3,10.7,6.3,0.0,0,Normal,0
+2024-12-21,6014.9,146,41.2,Saturday,6,12,December,4,51,1,1,Peak,,0,7.2,8.8,5.8,1.9,1,Rain,0
+2024-12-22,2877.5,78,36.89,Sunday,7,12,December,4,51,1,0,Medium,,0,7.0,10.1,4.6,0.0,0,Normal,0
+2024-12-23,1464.7,45,32.55,Monday,1,12,December,4,52,0,0,Quiet,,0,6.8,10.1,4.0,0.0,0,Normal,0
+2024-12-24,686.7,21,32.7,Tuesday,2,12,December,4,52,0,0,Quiet,,0,3.2,4.8,1.9,11.7,1,Heavy Rain,0
+2024-12-25,2762.5,77,35.88,Wednesday,3,12,December,4,52,0,0,Quiet,Christmas Day,1,3.2,6.2,0.8,0.0,0,Normal,0
+2024-12-26,2655.5,78,34.04,Thursday,4,12,December,4,52,0,0,Medium,Boxing Day,1,2.5,3.7,1.6,2.1,1,Rain,0
+2024-12-27,3943.5,87,45.33,Friday,5,12,December,4,52,0,1,Peak,,0,3.7,5.8,1.9,4.6,1,Rain,0
+2024-12-28,4719.2,117,40.34,Saturday,6,12,December,4,52,1,1,Peak,,0,6.1,7.2,5.2,2.0,1,Rain,0
+2024-12-29,2542.9,72,35.32,Sunday,7,12,December,4,52,1,0,Medium,,0,2.5,4.8,0.6,11.1,1,Heavy Rain,0
+2024-12-30,1350.8,35,38.59,Monday,1,12,December,4,1,0,0,Quiet,,0,2.7,6.7,-0.5,0.0,0,Normal,0
+2024-12-31,1920.1,51,37.65,Tuesday,2,12,December,4,1,0,0,Quiet,,0,6.7,9.1,4.8,0.0,0,Normal,0
+2025-01-01,1194.4,34,35.13,Wednesday,3,1,January,1,1,0,0,Quiet,New Year's Day,1,4.2,5.2,3.4,0.0,0,Normal,0
+2025-01-02,2587.5,77,33.6,Thursday,4,1,January,1,1,0,0,Medium,,0,1.9,4.1,0.2,0.0,0,Cold,0
+2025-01-03,3579.8,83,43.13,Friday,5,1,January,1,1,0,1,Peak,,0,3.0,6.2,0.3,0.0,0,Normal,0
+2025-01-04,3321.1,72,46.13,Saturday,6,1,January,1,1,1,1,Peak,,0,4.9,6.9,3.3,10.7,1,Heavy Rain,0
+2025-01-05,2593.3,77,33.68,Sunday,7,1,January,1,1,1,0,Medium,,0,4.9,7.5,2.7,0.0,0,Normal,0
+2025-01-06,1591.26,46,34.59,Monday,1,1,January,1,2,0,0,Quiet,,0,7.9,11.1,5.4,0.0,0,Normal,1
+2025-01-07,1380.43,38,36.33,Tuesday,2,1,January,1,2,0,0,Quiet,,0,8.9,11.7,6.6,0.0,0,Normal,1
+2025-01-08,2232.41,53,42.12,Wednesday,3,1,January,1,2,0,0,Quiet,,0,9.6,12.9,6.9,0.0,0,Normal,1
+2025-01-09,2043.41,63,32.44,Thursday,4,1,January,1,2,0,0,Medium,,0,9.3,12.4,6.8,0.0,0,Normal,1
+2025-01-10,3865.84,99,39.05,Friday,5,1,January,1,2,0,1,Peak,,0,13.3,15.9,11.2,10.0,1,Heavy Rain,1
+2025-01-11,4290.4,98,43.78,Saturday,6,1,January,1,2,1,1,Peak,,0,10.3,13.0,8.1,0.0,0,Normal,1
+2025-01-12,3308.66,78,42.42,Sunday,7,1,January,1,2,1,0,Medium,,0,3.3,6.4,0.8,0.0,0,Normal,1
+2025-01-13,1779.31,49,36.31,Monday,1,1,January,1,3,0,0,Quiet,,0,7.5,9.7,5.6,0.0,0,Normal,1
+2025-01-14,2246.03,68,33.03,Tuesday,2,1,January,1,3,0,0,Quiet,,0,5.2,7.3,3.5,0.0,0,Normal,1
+2025-01-15,2344.14,70,33.49,Wednesday,3,1,January,1,3,0,0,Quiet,,0,5.0,8.6,2.0,0.0,0,Normal,1
+2025-01-16,2395.42,63,38.02,Thursday,4,1,January,1,3,0,0,Medium,,0,8.0,10.6,5.8,0.0,0,Normal,1
+2025-01-17,4633.07,116,39.94,Friday,5,1,January,1,3,0,1,Peak,,0,2.6,5.6,0.2,0.0,0,Normal,1
+2025-01-18,3600.77,95,37.9,Saturday,6,1,January,1,3,1,1,Peak,,0,-0.3,2.3,-2.4,0.0,0,Cold,1
+2025-01-19,1888.3,49,38.54,Sunday,7,1,January,1,3,1,0,Medium,,0,-3.3,-1.2,-5.0,0.0,0,Cold,1
+2025-01-20,1711.1,50,34.22,Monday,1,1,January,1,4,0,0,Quiet,,0,-3.4,-0.9,-5.4,0.0,0,Cold,1
+2025-01-21,1336.09,40,33.4,Tuesday,2,1,January,1,4,0,0,Quiet,,0,-0.3,3.1,-3.1,0.0,0,Cold,1
+2025-01-22,2625.34,68,38.61,Wednesday,3,1,January,1,4,0,0,Quiet,,0,2.2,5.0,-0.1,0.1,0,Normal,1
+2025-01-23,2472.97,78,31.7,Thursday,4,1,January,1,4,0,0,Medium,,0,3.3,4.7,2.2,0.0,0,Normal,1
+2025-01-24,2816.56,71,39.67,Friday,5,1,January,1,4,0,1,Peak,,0,-0.6,0.9,-1.8,32.8,1,Heavy Rain,1
+2025-01-25,3799.16,101,37.62,Saturday,6,1,January,1,4,1,1,Peak,,0,-5.0,-1.4,-8.0,0.2,0,Cold,1
+2025-01-26,2455.17,67,36.64,Sunday,7,1,January,1,4,1,0,Medium,,0,-2.8,-1.3,-4.0,2.0,1,Rain,1
+2025-01-27,1263.38,38,33.25,Monday,1,1,January,1,5,0,0,Quiet,,0,-2.3,-1.4,-2.9,2.3,1,Rain,1
+2025-01-28,2252.59,55,40.96,Tuesday,2,1,January,1,5,0,0,Quiet,,0,0.5,3.4,-1.8,6.0,1,Rain,1
+2025-01-29,2222.71,66,33.68,Wednesday,3,1,January,1,5,0,0,Quiet,,0,3.1,5.2,1.4,8.6,1,Rain,1
+2025-01-30,2515.4,70,35.93,Thursday,4,1,January,1,5,0,0,Medium,,0,3.6,5.1,2.3,3.6,1,Rain,1
+2025-01-31,3247.9,74,43.89,Friday,5,1,January,1,5,0,1,Peak,,0,5.9,8.1,4.1,0.0,0,Normal,1
+2025-02-01,4715.1,123,38.33,Saturday,6,2,February,1,5,1,1,Peak,,0,5.5,7.9,3.6,2.0,1,Rain,0
+2025-02-02,2310.6,66,35.01,Sunday,7,2,February,1,5,1,0,Medium,,0,6.7,8.9,5.0,0.0,0,Normal,0
+2025-02-03,1561.6,41,38.09,Monday,1,2,February,1,6,0,0,Quiet,,0,4.1,7.4,1.5,0.0,0,Normal,0
+2025-02-04,2257.3,58,38.92,Tuesday,2,2,February,1,6,0,0,Quiet,,0,3.2,5.2,1.6,7.6,1,Rain,0
+2025-02-05,2103.0,56,37.55,Wednesday,3,2,February,1,6,0,0,Quiet,,0,4.2,6.9,2.1,0.7,0,Normal,0
+2025-02-06,3801.2,93,40.87,Thursday,4,2,February,1,6,0,0,Medium,,0,6.3,8.9,4.2,0.0,0,Normal,0
+2025-02-07,4799.3,110,43.63,Friday,5,2,February,1,6,0,1,Peak,,0,4.6,7.0,2.7,0.0,0,Normal,0
+2025-02-08,5446.6,124,43.92,Saturday,6,2,February,1,6,1,1,Peak,,0,5.8,9.0,3.2,0.0,0,Normal,0
+2025-02-09,2535.3,70,36.22,Sunday,7,2,February,1,6,1,0,Medium,,0,4.6,6.5,3.1,0.0,0,Normal,0
+2025-02-10,1614.7,48,33.64,Monday,1,2,February,1,7,0,0,Quiet,,0,3.8,4.6,3.1,2.7,1,Rain,0
+2025-02-11,2001.8,58,34.51,Tuesday,2,2,February,1,7,0,0,Quiet,,0,5.9,7.9,4.2,3.3,1,Rain,0
+2025-02-12,1632.7,52,31.4,Wednesday,3,2,February,1,7,0,0,Quiet,,0,0.6,3.5,-1.8,0.0,0,Cold,0
+2025-02-13,2282.5,72,31.7,Thursday,4,2,February,1,7,0,0,Medium,,0,-2.2,-0.2,-3.7,12.3,1,Heavy Rain,0
+2025-02-14,4494.0,107,42.0,Friday,5,2,February,1,7,0,1,Peak,,0,-3.9,-1.2,-6.2,0.0,0,Cold,0
+2025-02-15,4709.8,111,42.43,Saturday,6,2,February,1,7,1,1,Peak,,0,-7.6,-5.4,-9.5,0.0,0,Cold,0
+2025-02-16,2697.3,79,34.14,Sunday,7,2,February,1,7,1,0,Medium,,0,-6.0,-3.0,-8.4,0.0,0,Cold,0
+2025-02-17,1371.1,34,40.33,Monday,1,2,February,1,8,0,0,Quiet,,0,-1.1,1.4,-3.1,0.0,0,Cold,0
+2025-02-18,1609.2,45,35.76,Tuesday,2,2,February,1,8,0,0,Quiet,,0,-0.2,2.0,-1.9,0.0,0,Cold,0
+2025-02-19,2173.5,60,36.22,Wednesday,3,2,February,1,8,0,0,Quiet,,0,1.3,2.7,0.2,2.2,1,Rain,0
+2025-02-20,2745.5,76,36.12,Thursday,4,2,February,1,8,0,0,Medium,,0,5.4,9.2,2.3,0.9,0,Normal,0
+2025-02-21,3277.8,75,43.7,Friday,5,2,February,1,8,0,1,Peak,,0,8.7,10.1,7.7,0.0,0,Normal,0
+2025-02-22,4097.7,105,39.03,Saturday,6,2,February,1,8,1,1,Peak,,0,7.2,9.1,5.6,23.2,1,Heavy Rain,0
+2025-02-23,2965.0,75,39.53,Sunday,7,2,February,1,8,1,0,Medium,,0,10.4,11.8,9.3,0.7,0,Normal,0
+2025-02-24,1624.2,45,36.09,Monday,1,2,February,1,9,0,0,Quiet,,0,8.8,10.4,7.6,2.3,1,Rain,0
+2025-02-25,1679.9,49,34.28,Tuesday,2,2,February,1,9,0,0,Quiet,,0,5.7,7.0,4.6,2.0,1,Rain,0
+2025-02-26,2251.4,54,41.69,Wednesday,3,2,February,1,9,0,0,Quiet,,0,4.4,5.5,3.5,0.0,0,Normal,0
+2025-02-27,2988.7,80,37.36,Thursday,4,2,February,1,9,0,0,Medium,,0,1.0,3.7,-1.3,0.0,0,Cold,0
+2025-02-28,3988.6,96,41.55,Friday,5,2,February,1,9,0,1,Peak,,0,0.1,2.3,-1.8,0.0,0,Cold,0
+2025-03-01,4126.0,101,40.85,Saturday,6,3,March,1,9,1,1,Peak,,0,0.5,1.4,-0.1,1.8,1,Rain,0
+2025-03-02,2378.4,63,37.75,Sunday,7,3,March,1,9,1,0,Medium,,0,4.1,7.1,1.6,0.0,0,Normal,0
+2025-03-03,1150.3,33,34.86,Monday,1,3,March,1,10,0,0,Quiet,,0,8.4,11.8,5.6,0.0,0,Normal,0
+2025-03-04,1571.5,50,31.43,Tuesday,2,3,March,1,10,0,0,Quiet,,0,4.8,8.3,2.0,0.0,0,Normal,0
+2025-03-05,1836.0,44,41.73,Wednesday,3,3,March,1,10,0,0,Quiet,,0,6.1,8.8,3.9,0.0,0,Normal,0
+2025-03-06,2699.4,77,35.06,Thursday,4,3,March,1,10,0,0,Medium,,0,4.0,6.5,1.9,0.0,0,Normal,0
+2025-03-07,4867.7,111,43.85,Friday,5,3,March,1,10,0,1,Peak,,0,5.8,9.1,3.0,0.0,0,Normal,0
+2025-03-08,4897.0,115,42.58,Saturday,6,3,March,1,10,1,1,Peak,,0,5.3,8.1,3.1,1.3,1,Rain,0
+2025-03-09,2317.4,76,30.49,Sunday,7,3,March,1,10,1,0,Medium,,0,2.1,5.3,-0.5,0.3,0,Normal,0
+2025-03-10,1654.31,55,30.08,Monday,1,3,March,1,11,0,0,Quiet,,0,5.5,7.3,4.0,0.0,0,Normal,1
+2025-03-11,2003.27,69,29.03,Tuesday,2,3,March,1,11,0,0,Quiet,,0,4.2,6.0,2.8,9.7,1,Rain,1
+2025-03-12,2359.17,74,31.88,Wednesday,3,3,March,1,11,0,0,Quiet,,0,4.2,7.0,1.9,0.0,0,Normal,1
+2025-03-13,2121.87,66,32.15,Thursday,4,3,March,1,11,0,0,Medium,,0,2.8,4.0,1.7,0.0,0,Normal,1
+2025-03-14,4070.28,107,38.04,Friday,5,3,March,1,11,0,1,Peak,,0,2.6,5.4,0.4,0.0,0,Normal,1
+2025-03-15,4183.7,102,41.02,Saturday,6,3,March,1,11,1,1,Peak,,0,4.9,8.9,1.7,0.0,0,Normal,1
+2025-03-16,2899.07,76,38.15,Sunday,7,3,March,1,11,1,0,Medium,,0,5.3,8.2,2.9,0.0,0,Normal,1
+2025-03-17,1291.16,37,34.9,Monday,1,3,March,1,12,0,0,Quiet,,0,6.7,10.1,3.9,0.7,0,Normal,1
+2025-03-18,2492.66,78,31.96,Tuesday,2,3,March,1,12,0,0,Quiet,,0,7.4,9.1,6.0,3.1,1,Rain,1
+2025-03-19,2122.42,62,34.23,Wednesday,3,3,March,1,12,0,0,Quiet,,0,10.3,11.9,9.0,1.2,1,Rain,1
+2025-03-20,2096.48,61,34.37,Thursday,4,3,March,1,12,0,0,Medium,,0,8.9,10.7,7.3,4.4,1,Rain,1
+2025-03-21,3836.32,98,39.15,Friday,5,3,March,1,12,0,1,Peak,,0,5.8,7.7,4.2,0.1,0,Normal,1
+2025-03-22,3722.99,100,37.23,Saturday,6,3,March,1,12,1,1,Peak,,0,8.4,9.4,7.6,9.6,1,Rain,1
+2025-03-23,2290.57,72,31.81,Sunday,7,3,March,1,12,1,0,Medium,,0,8.0,11.3,5.3,0.0,0,Normal,1
+2025-03-24,1510.2,45,33.56,Monday,1,3,March,1,13,0,0,Quiet,,0,10.6,14.0,7.8,0.0,0,Normal,0
+2025-03-25,2440.0,67,36.42,Tuesday,2,3,March,1,13,0,0,Quiet,,0,10.9,12.7,9.4,0.0,0,Normal,0
+2025-03-26,1622.1,43,37.72,Wednesday,3,3,March,1,13,0,0,Quiet,,0,10.1,13.2,7.5,0.0,0,Normal,0
+2025-03-27,2024.7,56,36.16,Thursday,4,3,March,1,13,0,0,Medium,,0,10.1,11.7,8.9,3.7,1,Rain,0
+2025-03-28,3570.2,98,36.43,Friday,5,3,March,1,13,0,1,Peak,,0,13.9,15.8,12.4,7.8,1,Rain,0
+2025-03-29,5519.0,132,41.81,Saturday,6,3,March,1,13,1,1,Peak,,0,17.4,20.2,15.1,0.1,0,Normal,0
+2025-03-30,2382.3,67,35.56,Sunday,7,3,March,1,13,1,0,Medium,,0,14.9,17.2,13.0,12.9,1,Heavy Rain,0
+2025-03-31,2021.8,53,38.15,Monday,1,3,March,1,14,0,0,Quiet,,0,14.0,16.5,11.9,0.0,0,Normal,0
+2025-04-01,1552.6,45,34.5,Tuesday,2,4,April,2,14,0,0,Quiet,,0,15.1,18.5,12.3,0.2,0,Normal,0
+2025-04-02,2626.9,72,36.48,Wednesday,3,4,April,2,14,0,0,Quiet,,0,11.4,13.2,9.9,2.5,1,Rain,0
+2025-04-03,2281.5,65,35.1,Thursday,4,4,April,2,14,0,0,Medium,,0,11.6,13.6,9.9,2.0,1,Rain,0
+2025-04-04,2964.3,81,36.6,Friday,5,4,April,2,14,0,1,Peak,,0,11.4,13.3,9.8,0.0,0,Normal,0
+2025-04-05,4759.7,118,40.34,Saturday,6,4,April,2,14,1,1,Peak,,0,11.7,15.6,8.5,0.0,0,Normal,0
+2025-04-06,2351.2,81,29.03,Sunday,7,4,April,2,14,1,0,Medium,,0,9.1,11.0,7.5,1.4,1,Rain,0
+2025-04-07,1670.9,40,41.77,Monday,1,4,April,2,15,0,0,Quiet,,0,6.3,9.3,3.9,0.0,0,Normal,0
+2025-04-08,2032.2,62,32.78,Tuesday,2,4,April,2,15,0,0,Quiet,,0,3.0,4.4,1.9,0.0,0,Normal,0
+2025-04-09,2329.3,66,35.29,Wednesday,3,4,April,2,15,0,0,Quiet,,0,2.7,4.7,1.2,0.0,0,Normal,0
+2025-04-10,2285.9,64,35.72,Thursday,4,4,April,2,15,0,0,Medium,,0,4.0,7.3,1.3,0.0,0,Normal,0
+2025-04-11,3854.8,100,38.55,Friday,5,4,April,2,15,0,1,Peak,,0,4.9,6.7,3.4,1.3,1,Rain,0
+2025-04-12,5295.5,130,40.73,Saturday,6,4,April,2,15,1,1,Peak,,0,11.0,12.3,10.1,0.4,0,Normal,0
+2025-04-13,3018.2,79,38.21,Sunday,7,4,April,2,15,1,0,Medium,,0,13.4,16.6,10.9,0.8,0,Normal,0
+2025-04-14,2346.8,65,36.1,Monday,1,4,April,2,16,0,0,Quiet,,0,10.7,12.9,9.0,0.1,0,Normal,0
+2025-04-15,1655.2,49,33.78,Tuesday,2,4,April,2,16,0,0,Quiet,,0,11.7,15.1,8.9,0.0,0,Normal,0
+2025-04-16,2184.5,62,35.23,Wednesday,3,4,April,2,16,0,0,Quiet,,0,10.3,11.9,9.1,2.4,1,Rain,0
+2025-04-17,2114.8,56,37.76,Thursday,4,4,April,2,16,0,0,Medium,,0,10.0,11.7,8.5,3.9,1,Rain,0
+2025-04-18,3644.7,88,41.42,Friday,5,4,April,2,16,0,1,Peak,Good Friday,1,10.8,13.1,8.8,3.0,1,Rain,0
+2025-04-19,3561.9,104,34.25,Saturday,6,4,April,2,16,1,1,Peak,,0,12.3,13.3,11.4,1.3,1,Rain,0
+2025-04-20,2058.9,62,33.21,Sunday,7,4,April,2,16,1,0,Medium,,0,11.8,13.6,10.3,0.4,0,Normal,0
+2025-04-21,1729.6,55,31.45,Monday,1,4,April,2,17,0,0,Quiet,Easter Monday,1,13.7,15.2,12.5,1.0,1,Rain,0
+2025-04-22,1619.1,45,35.98,Tuesday,2,4,April,2,17,0,0,Quiet,,0,11.2,14.2,8.7,0.0,0,Normal,0
+2025-04-23,2362.8,62,38.11,Wednesday,3,4,April,2,17,0,0,Quiet,,0,11.5,13.1,10.2,0.0,0,Normal,0
+2025-04-24,3112.0,75,41.49,Thursday,4,4,April,2,17,0,0,Medium,,0,17.4,18.7,16.2,0.0,0,Normal,0
+2025-04-25,4076.5,106,38.46,Friday,5,4,April,2,17,0,1,Peak,,0,16.1,18.3,14.4,4.8,1,Rain,0
+2025-04-26,5003.2,123,40.68,Saturday,6,4,April,2,17,1,1,Peak,,0,18.5,20.6,16.9,0.3,0,Normal,0
+2025-04-27,3222.0,84,38.36,Sunday,7,4,April,2,17,1,0,Medium,,0,17.2,19.4,15.3,0.1,0,Normal,0
+2025-04-28,1902.2,54,35.23,Monday,1,4,April,2,18,0,0,Quiet,,0,16.8,17.7,16.2,3.7,1,Rain,1
+2025-04-29,2112.74,61,34.64,Tuesday,2,4,April,2,18,0,0,Quiet,,0,15.6,16.7,14.6,7.3,1,Rain,1
+2025-04-30,2428.53,72,33.73,Wednesday,3,4,April,2,18,0,0,Quiet,,0,14.8,17.3,12.8,0.0,0,Normal,1
+2025-05-01,3067.69,83,36.96,Thursday,4,5,May,2,18,0,0,Medium,Labour Day,1,12.8,18.6,8.0,0.0,0,Normal,1
+2025-05-02,3247.01,93,34.91,Friday,5,5,May,2,18,0,1,Peak,,0,12.7,15.6,10.3,3.5,1,Rain,1
+2025-05-03,5113.06,132,38.74,Saturday,6,5,May,2,18,1,1,Peak,,0,10.8,15.3,7.1,11.2,1,Heavy Rain,1
+2025-05-04,2648.24,81,32.69,Sunday,7,5,May,2,18,1,0,Medium,,0,12.7,15.7,10.3,4.4,1,Rain,1
+2025-05-05,1729.3,48,36.03,Monday,1,5,May,2,19,0,0,Quiet,,0,15.0,18.0,12.6,3.8,1,Rain,0
+2025-05-06,1935.3,51,37.95,Tuesday,2,5,May,2,19,0,0,Quiet,,0,15.2,19.6,11.6,7.0,1,Rain,0
+2025-05-07,2008.3,62,32.39,Wednesday,3,5,May,2,19,0,0,Quiet,,0,15.2,20.5,10.8,0.0,0,Normal,0
+2025-05-08,3248.3,78,41.64,Thursday,4,5,May,2,19,0,0,Medium,,0,15.9,20.7,11.9,0.0,0,Normal,0
+2025-05-09,4054.3,103,39.36,Friday,5,5,May,2,19,0,1,Peak,,0,14.8,19.9,10.6,0.0,0,Normal,0
+2025-05-10,4792.0,118,40.61,Saturday,6,5,May,2,19,1,1,Peak,,0,16.7,22.9,11.7,0.0,0,Normal,0
+2025-05-11,2765.1,78,35.45,Sunday,7,5,May,2,19,1,0,Medium,,0,12.2,18.4,7.1,0.0,0,Normal,0
+2025-05-12,1418.2,47,30.17,Monday,1,5,May,2,20,0,0,Quiet,,0,11.0,13.9,8.7,6.7,1,Rain,0
+2025-05-13,2542.7,67,37.95,Tuesday,2,5,May,2,20,0,0,Quiet,,0,7.5,10.8,4.7,2.6,1,Rain,0
+2025-05-14,2173.7,62,35.06,Wednesday,3,5,May,2,20,0,0,Quiet,,0,6.0,9.5,3.2,1.3,1,Rain,0
+2025-05-15,3200.5,89,35.96,Thursday,4,5,May,2,20,0,0,Medium,,0,12.4,17.0,8.6,0.0,0,Normal,0
+2025-05-16,4236.8,106,39.97,Friday,5,5,May,2,20,0,1,Peak,,0,15.1,20.3,10.9,0.0,0,Normal,0
+2025-05-17,5369.6,124,43.3,Saturday,6,5,May,2,20,1,1,Peak,,0,13.6,18.8,9.3,0.0,0,Normal,0
+2025-05-18,2529.7,72,35.13,Sunday,7,5,May,2,20,1,0,Medium,,0,9.7,13.8,6.3,6.8,1,Rain,0
+2025-05-19,1598.9,45,35.53,Monday,1,5,May,2,21,0,0,Quiet,,0,5.8,11.8,0.9,0.0,0,Normal,0
+2025-05-20,2241.5,61,36.75,Tuesday,2,5,May,2,21,0,0,Quiet,,0,7.4,12.4,3.3,0.0,0,Normal,0
+2025-05-21,2780.1,72,38.61,Wednesday,3,5,May,2,21,0,0,Quiet,,0,14.9,20.0,10.8,0.0,0,Normal,0
+2025-05-22,4095.9,111,36.9,Thursday,4,5,May,2,21,0,0,Medium,,0,16.1,21.8,11.5,0.0,0,Normal,0
+2025-05-23,3991.7,101,39.52,Friday,5,5,May,2,21,0,1,Peak,,0,14.8,19.7,10.9,0.0,0,Normal,0
+2025-05-24,5680.5,127,44.73,Saturday,6,5,May,2,21,1,1,Peak,,0,16.2,21.8,11.6,0.0,0,Normal,0
+2025-05-25,2704.6,82,32.98,Sunday,7,5,May,2,21,1,0,Medium,,0,12.8,18.0,8.6,0.0,0,Normal,0
+2025-05-26,1621.9,50,32.44,Monday,1,5,May,2,22,0,0,Quiet,,0,13.1,17.7,9.4,0.6,0,Normal,0
+2025-05-27,1814.4,54,33.6,Tuesday,2,5,May,2,22,0,0,Quiet,,0,13.0,15.8,10.8,2.5,1,Rain,0
+2025-05-28,1647.9,60,27.46,Wednesday,3,5,May,2,22,0,0,Quiet,,0,13.5,17.8,9.9,6.9,1,Rain,0
+2025-05-29,2797.3,80,34.97,Thursday,4,5,May,2,22,0,0,Medium,Ascension Day,1,15.7,19.0,13.0,11.7,1,Heavy Rain,0
+2025-05-30,3747.7,92,40.74,Friday,5,5,May,2,22,0,1,Peak,,0,17.6,23.9,12.4,0.0,0,Normal,0
+2025-05-31,5647.1,150,37.65,Saturday,6,5,May,2,22,1,1,Peak,,0,18.8,23.7,14.8,0.0,0,Normal,0
+2025-06-01,2949.11,86,34.29,Sunday,7,6,June,2,22,1,0,Medium,,0,16.9,22.4,12.5,0.0,0,Normal,1
+2025-06-02,1642.48,55,29.86,Monday,1,6,June,2,23,0,0,Quiet,,0,18.6,25.4,13.1,0.0,0,Normal,1
+2025-06-03,2252.51,55,40.95,Tuesday,2,6,June,2,23,0,0,Quiet,,0,21.2,25.8,17.5,0.0,0,Normal,1
+2025-06-04,2581.51,65,39.72,Wednesday,3,6,June,2,23,0,0,Quiet,,0,18.3,22.3,15.0,0.0,0,Normal,1
+2025-06-05,2054.09,60,34.23,Thursday,4,6,June,2,23,0,0,Medium,,0,16.3,22.4,11.4,0.0,0,Normal,1
+2025-06-06,4206.97,116,36.27,Friday,5,6,June,2,23,0,1,Peak,,0,19.1,23.8,15.3,0.0,0,Normal,1
+2025-06-07,5354.46,129,41.51,Saturday,6,6,June,2,23,1,1,Peak,,0,18.3,23.5,14.0,0.0,0,Normal,1
+2025-06-08,2938.64,85,34.57,Sunday,7,6,June,2,23,1,0,Medium,,0,20.7,25.6,16.8,0.0,0,Normal,1
+2025-06-09,2128.1,62,34.32,Monday,1,6,June,2,24,0,0,Quiet,Whit Monday,1,19.0,24.4,14.6,0.0,0,Normal,1
+2025-06-10,2356.19,63,37.4,Tuesday,2,6,June,2,24,0,0,Quiet,,0,21.4,26.0,17.7,0.0,0,Normal,1
+2025-06-11,2088.98,71,29.42,Wednesday,3,6,June,2,24,0,0,Quiet,,0,20.7,25.8,16.5,0.0,0,Normal,1
+2025-06-12,3290.61,97,33.92,Thursday,4,6,June,2,24,0,0,Medium,,0,20.4,25.9,15.9,0.0,0,Normal,1
+2025-06-13,4394.05,105,41.85,Friday,5,6,June,2,24,0,1,Peak,,0,22.7,27.2,19.0,0.0,0,Normal,1
+2025-06-14,5164.61,123,41.99,Saturday,6,6,June,2,24,1,1,Peak,,0,20.8,25.5,16.9,0.0,0,Normal,1
+2025-06-15,2747.91,80,34.35,Sunday,7,6,June,2,24,1,0,Medium,,0,18.3,23.3,14.2,0.0,0,Normal,1
+2025-06-16,1697.27,49,34.64,Monday,1,6,June,2,25,0,0,Quiet,,0,17.5,21.7,14.0,0.0,0,Normal,1
+2025-06-17,2852.72,79,36.11,Tuesday,2,6,June,2,25,0,0,Quiet,,0,17.4,20.5,14.8,41.3,1,Heavy Rain,1
+2025-06-18,2433.33,70,34.76,Wednesday,3,6,June,2,25,0,0,Quiet,,0,14.4,17.9,11.5,16.4,1,Heavy Rain,1
+2025-06-19,2892.62,84,34.44,Thursday,4,6,June,2,25,0,0,Medium,Corpus Christi,1,17.6,22.6,13.5,0.0,0,Normal,1
+2025-06-20,4745.47,115,41.26,Friday,5,6,June,2,25,0,1,Peak,,0,16.9,21.9,12.7,0.0,0,Normal,1
+2025-06-21,5090.01,123,41.38,Saturday,6,6,June,2,25,1,1,Peak,,0,18.3,21.7,15.5,3.7,1,Rain,1
+2025-06-22,3817.92,97,39.36,Sunday,7,6,June,2,25,1,0,Medium,,0,14.8,19.6,10.9,0.8,0,Normal,1
+2025-06-23,2094.68,61,34.34,Monday,1,6,June,2,26,0,0,Quiet,,0,14.4,20.1,9.8,0.0,0,Normal,1
+2025-06-24,2604.29,73,35.68,Tuesday,2,6,June,2,26,0,0,Quiet,,0,11.3,15.6,7.8,5.6,1,Rain,1
+2025-06-25,2356.04,63,37.4,Wednesday,3,6,June,2,26,0,0,Quiet,,0,12.7,17.7,8.7,0.0,0,Normal,1
+2025-06-26,2667.13,74,36.04,Thursday,4,6,June,2,26,0,0,Medium,,0,15.0,20.5,10.4,0.0,0,Normal,1
+2025-06-27,4570.15,114,40.09,Friday,5,6,June,2,26,0,1,Peak,,0,15.8,20.8,11.6,0.0,0,Normal,1
+2025-06-28,5113.33,122,41.91,Saturday,6,6,June,2,26,1,1,Peak,,0,16.2,21.7,11.8,0.0,0,Normal,1
+2025-06-29,1735.08,59,29.41,Sunday,7,6,June,2,26,1,0,Medium,,0,15.6,20.0,11.9,9.7,1,Rain,1
+2025-06-30,2256.15,61,36.99,Monday,1,6,June,2,27,0,0,Quiet,,0,17.8,23.4,13.3,0.0,0,Normal,1
+2025-07-01,2348.04,72,32.61,Tuesday,2,7,July,3,27,0,0,Quiet,,0,16.4,20.4,13.1,0.0,0,Normal,1
+2025-07-02,2021.25,53,38.14,Wednesday,3,7,July,3,27,0,0,Quiet,,0,18.5,24.1,14.0,0.0,0,Normal,1
+2025-07-03,2921.58,76,38.44,Thursday,4,7,July,3,27,0,0,Medium,,0,20.0,26.1,15.1,0.0,0,Normal,1
+2025-07-04,6288.83,153,41.1,Friday,5,7,July,3,27,0,1,Peak,,0,19.4,22.7,16.8,2.0,1,Rain,1
+2025-07-05,5031.4,122,41.24,Saturday,6,7,July,3,27,1,1,Peak,,0,20.2,24.2,16.9,18.4,1,Heavy Rain,1
+2025-07-06,3503.97,98,35.75,Sunday,7,7,July,3,27,1,0,Medium,,0,21.5,26.2,17.6,0.0,0,Normal,1
+2025-07-07,2072.17,50,41.44,Monday,1,7,July,3,28,0,0,Quiet,,0,24.8,29.0,21.3,0.0,0,Hot,1
+2025-07-08,1996.07,57,35.02,Tuesday,2,7,July,3,28,0,0,Quiet,,0,22.0,25.5,19.2,18.2,1,Heavy Rain,1
+2025-07-09,1955.78,63,31.04,Wednesday,3,7,July,3,28,0,0,Quiet,,0,21.7,25.8,18.4,0.0,0,Normal,1
+2025-07-10,3079.61,88,35.0,Thursday,4,7,July,3,28,0,0,Medium,,0,19.8,24.9,15.7,0.0,0,Normal,1
+2025-07-11,4477.68,113,39.63,Friday,5,7,July,3,28,0,1,Peak,,0,17.9,24.0,13.0,0.0,0,Normal,1
+2025-07-12,6734.11,160,42.09,Saturday,6,7,July,3,28,1,1,Peak,,0,16.2,20.2,13.0,0.0,0,Normal,1
+2025-07-13,2596.87,75,34.62,Sunday,7,7,July,3,28,1,0,Medium,,0,14.5,17.0,12.4,36.4,1,Heavy Rain,1
+2025-07-14,1406.73,42,33.49,Monday,1,7,July,3,29,0,0,Quiet,,0,16.8,21.4,13.1,0.0,0,Normal,1
+2025-07-15,2016.66,55,36.67,Tuesday,2,7,July,3,29,0,0,Quiet,,0,18.4,23.6,14.2,0.0,0,Normal,1
+2025-07-16,1905.29,64,29.77,Wednesday,3,7,July,3,29,0,0,Quiet,,0,19.0,24.0,14.9,0.0,0,Normal,1
+2025-07-17,2343.0,77,30.43,Thursday,4,7,July,3,29,0,0,Medium,,0,17.8,24.0,12.8,0.0,0,Normal,1
+2025-07-18,4042.31,106,38.14,Friday,5,7,July,3,29,0,1,Peak,,0,20.1,26.0,15.4,0.0,0,Normal,1
+2025-07-19,5948.36,151,39.39,Saturday,6,7,July,3,29,1,1,Peak,,0,21.5,27.0,17.0,0.5,0,Normal,1
+2025-07-20,3174.26,94,33.77,Sunday,7,7,July,3,29,1,0,Medium,,0,19.6,23.1,16.7,4.7,1,Rain,1
+2025-07-21,2439.98,64,38.12,Monday,1,7,July,3,30,0,0,Quiet,,0,19.3,24.8,14.8,0.0,0,Normal,1
+2025-07-22,2541.96,65,39.11,Tuesday,2,7,July,3,30,0,0,Quiet,,0,20.5,25.2,16.7,0.0,0,Normal,1
+2025-07-23,2262.41,67,33.77,Wednesday,3,7,July,3,30,0,0,Quiet,,0,20.7,26.5,16.0,0.0,0,Normal,1
+2025-07-24,3772.98,107,35.26,Thursday,4,7,July,3,30,0,0,Medium,,0,17.8,22.3,14.1,0.0,0,Normal,1
+2025-07-25,4859.63,107,45.42,Friday,5,7,July,3,30,0,1,Peak,,0,18.3,24.0,13.5,0.0,0,Normal,1
+2025-07-26,4297.29,119,36.11,Saturday,6,7,July,3,30,1,1,Peak,,0,19.2,25.2,14.3,0.0,0,Normal,1
+2025-07-27,2856.12,79,36.15,Sunday,7,7,July,3,30,1,0,Medium,,0,17.7,23.1,13.3,0.8,0,Normal,1
+2025-07-28,1788.95,52,34.4,Monday,1,7,July,3,31,0,0,Quiet,,0,18.7,23.8,14.5,0.2,0,Normal,1
+2025-07-29,2510.93,65,38.63,Tuesday,2,7,July,3,31,0,0,Quiet,,0,16.3,21.8,11.8,0.0,0,Normal,1
+2025-07-30,2774.46,81,34.25,Wednesday,3,7,July,3,31,0,0,Quiet,,0,19.8,23.1,17.1,0.0,0,Normal,1
+2025-07-31,2489.52,70,35.56,Thursday,4,7,July,3,31,0,0,Medium,,0,22.1,27.6,17.7,0.7,0,Normal,1
+2025-08-01,5061.22,129,39.23,Friday,5,8,August,3,31,0,1,Peak,,0,21.0,26.2,16.8,0.0,0,Normal,1
+2025-08-02,5678.13,133,42.69,Saturday,6,8,August,3,31,1,1,Peak,,0,21.4,26.5,17.1,0.0,0,Normal,1
+2025-08-03,3154.74,80,39.43,Sunday,7,8,August,3,31,1,0,Medium,,0,16.4,22.1,11.7,0.0,0,Normal,1
+2025-08-04,1804.05,51,35.37,Monday,1,8,August,3,32,0,0,Quiet,,0,15.2,20.3,10.9,0.0,0,Normal,1
+2025-08-05,2438.71,67,36.4,Tuesday,2,8,August,3,32,0,0,Quiet,,0,15.9,20.4,12.2,0.0,0,Normal,1
+2025-08-06,3077.49,82,37.53,Wednesday,3,8,August,3,32,0,0,Quiet,,0,15.0,20.1,10.8,0.0,0,Normal,1
+2025-08-07,3565.58,93,38.34,Thursday,4,8,August,3,32,0,0,Medium,,0,17.6,22.9,13.3,0.0,0,Normal,1
+2025-08-08,3878.78,106,36.59,Friday,5,8,August,3,32,0,1,Peak,,0,22.0,27.3,17.6,0.0,0,Normal,1
+2025-08-09,4157.1,109,38.14,Saturday,6,8,August,3,32,1,1,Peak,,0,17.9,21.4,15.0,6.2,1,Rain,1
+2025-08-10,3675.2,93,39.52,Sunday,7,8,August,3,32,1,0,Medium,,0,17.7,23.6,12.9,0.0,0,Normal,1
+2025-08-11,2043.52,62,32.96,Monday,1,8,August,3,33,0,0,Quiet,,0,18.7,23.2,15.0,0.0,0,Normal,1
+2025-08-12,2433.95,67,36.33,Tuesday,2,8,August,3,33,0,0,Quiet,,0,20.8,24.3,17.9,3.4,1,Rain,1
+2025-08-13,2323.74,62,37.48,Wednesday,3,8,August,3,33,0,0,Quiet,,0,17.8,22.1,14.3,13.1,1,Heavy Rain,1
+2025-08-14,3073.27,86,35.74,Thursday,4,8,August,3,33,0,0,Medium,,0,19.7,23.7,16.3,0.0,0,Normal,1
+2025-08-15,4178.49,106,39.42,Friday,5,8,August,3,33,0,1,Peak,,0,21.8,25.4,19.0,15.0,1,Heavy Rain,1
+2025-08-16,6585.13,157,41.94,Saturday,6,8,August,3,33,1,1,Peak,,0,18.9,23.7,14.9,0.1,0,Normal,1
+2025-08-17,2410.01,77,31.3,Sunday,7,8,August,3,33,1,0,Medium,,0,15.3,18.5,12.7,7.3,1,Rain,1
+2025-08-18,2068.99,67,30.88,Monday,1,8,August,3,34,0,0,Quiet,,0,16.4,21.0,12.6,0.0,0,Normal,1
+2025-08-19,2083.92,57,36.56,Tuesday,2,8,August,3,34,0,0,Quiet,,0,14.9,18.2,12.2,27.8,1,Heavy Rain,1
+2025-08-20,2864.83,79,36.26,Wednesday,3,8,August,3,34,0,0,Quiet,,0,18.3,24.8,13.1,0.0,0,Normal,1
+2025-08-21,3137.0,96,32.68,Thursday,4,8,August,3,34,0,0,Medium,,0,18.9,23.2,15.3,0.0,0,Normal,1
+2025-08-22,6496.54,144,45.11,Friday,5,8,August,3,34,0,1,Peak,,0,15.4,19.9,11.8,0.0,0,Normal,1
+2025-08-23,5552.65,137,40.53,Saturday,6,8,August,3,34,1,1,Peak,,0,16.0,18.5,13.9,9.7,1,Rain,1
+2025-08-24,3311.84,107,30.95,Sunday,7,8,August,3,34,1,0,Medium,,0,16.4,22.7,11.2,0.1,0,Normal,1
+2025-08-25,1115.01,40,27.88,Monday,1,8,August,3,35,0,0,Quiet,,0,18.0,21.1,15.5,4.6,1,Rain,1
+2025-08-26,3423.64,91,37.62,Tuesday,2,8,August,3,35,0,0,Quiet,,0,17.7,22.9,13.4,0.8,0,Normal,1
+2025-08-27,2353.81,66,35.66,Wednesday,3,8,August,3,35,0,0,Quiet,,0,15.3,18.5,12.8,12.5,1,Heavy Rain,1
+2025-08-28,2761.53,80,34.52,Thursday,4,8,August,3,35,0,0,Medium,,0,16.7,19.4,14.4,3.5,1,Rain,1
+2025-08-29,4393.59,109,40.31,Friday,5,8,August,3,35,0,1,Peak,,0,18.0,21.2,15.4,14.0,1,Heavy Rain,1
+2025-08-30,4757.42,121,39.32,Saturday,6,8,August,3,35,1,1,Peak,,0,18.3,23.4,14.2,7.0,1,Rain,1
+2025-08-31,3025.79,83,36.46,Sunday,7,8,August,3,35,1,0,Medium,,0,15.8,21.9,10.7,0.0,0,Normal,1
+2025-09-01,2019.5,52,38.84,Monday,1,9,September,3,36,0,0,Quiet,,0,17.3,22.0,13.5,0.0,0,Normal,0
+2025-09-02,1992.3,53,37.59,Tuesday,2,9,September,3,36,0,0,Quiet,,0,15.0,20.7,10.4,0.0,0,Normal,0
+2025-09-03,2393.2,68,35.19,Wednesday,3,9,September,3,36,0,0,Quiet,,0,16.0,20.7,12.2,0.0,0,Normal,0
+2025-09-04,2856.0,89,32.09,Thursday,4,9,September,3,36,0,0,Medium,,0,13.2,17.2,9.9,0.5,0,Normal,0
+2025-09-05,5488.4,132,41.58,Friday,5,9,September,3,36,0,1,Peak,,0,15.1,21.0,10.3,0.0,0,Normal,0
+2025-09-06,3751.8,102,36.78,Saturday,6,9,September,3,36,1,1,Peak,,0,13.8,19.8,8.9,0.0,0,Normal,0
+2025-09-07,2483.0,68,36.51,Sunday,7,9,September,3,36,1,0,Medium,,0,11.8,17.7,6.9,0.0,0,Normal,0
+2025-09-08,1400.8,39,35.92,Monday,1,9,September,3,37,0,0,Quiet,,0,14.6,19.5,10.5,0.0,0,Normal,0
+2025-09-09,2629.8,75,35.06,Tuesday,2,9,September,3,37,0,0,Quiet,,0,15.5,20.6,11.3,0.0,0,Normal,0
+2025-09-10,2105.4,64,32.9,Wednesday,3,9,September,3,37,0,0,Quiet,,0,13.2,17.0,10.0,2.4,1,Rain,0
+2025-09-11,2895.7,80,36.2,Thursday,4,9,September,3,37,0,0,Medium,,0,16.7,20.4,13.7,1.4,1,Rain,0
+2025-09-12,4031.2,95,42.43,Friday,5,9,September,3,37,0,1,Peak,,0,16.4,21.3,12.3,0.0,0,Normal,0
+2025-09-13,4358.5,108,40.36,Saturday,6,9,September,3,37,1,1,Peak,,0,16.2,20.4,12.8,0.0,0,Normal,0
+2025-09-14,2449.6,63,38.88,Sunday,7,9,September,3,37,1,0,Medium,,0,15.4,18.9,12.6,29.2,1,Heavy Rain,0
+2025-09-15,2323.0,64,36.3,Monday,1,9,September,3,38,0,0,Quiet,,0,14.9,20.9,10.1,0.0,0,Normal,0
+2025-09-16,2131.7,62,34.38,Tuesday,2,9,September,3,38,0,0,Quiet,,0,16.0,20.5,12.4,0.0,0,Normal,0
+2025-09-17,3040.4,75,40.54,Wednesday,3,9,September,3,38,0,0,Quiet,,0,14.6,20.3,10.0,0.0,0,Normal,0
+2025-09-18,2952.5,76,38.85,Thursday,4,9,September,3,38,0,0,Medium,,0,13.8,19.3,9.4,0.4,0,Normal,0
+2025-09-19,4130.1,108,38.24,Friday,5,9,September,3,38,0,1,Peak,,0,17.0,22.7,12.3,0.0,0,Normal,0
+2025-09-20,4806.4,118,40.73,Saturday,6,9,September,3,38,1,1,Peak,,0,14.1,19.9,9.4,0.0,0,Normal,0
+2025-09-21,1877.7,57,32.94,Sunday,7,9,September,3,38,1,0,Medium,,0,7.8,10.8,5.4,2.9,1,Rain,0
+2025-09-22,1572.5,44,35.74,Monday,1,9,September,3,39,0,0,Quiet,,0,12.8,15.1,10.9,2.1,1,Rain,0
+2025-09-23,2039.8,60,34.0,Tuesday,2,9,September,3,39,0,0,Quiet,,0,19.5,24.4,15.6,0.0,0,Normal,0
+2025-09-24,1766.5,58,30.46,Wednesday,3,9,September,3,39,0,0,Quiet,,0,15.9,19.9,12.7,2.9,1,Rain,0
+2025-09-25,1819.4,56,32.49,Thursday,4,9,September,3,39,0,0,Medium,,0,10.9,13.9,8.4,1.0,1,Rain,0
+2025-09-26,5044.6,119,42.39,Friday,5,9,September,3,39,0,1,Peak,,0,11.9,16.6,8.0,0.0,0,Normal,0
+2025-09-27,3692.1,93,39.7,Saturday,6,9,September,3,39,1,1,Peak,,0,11.8,15.8,8.5,0.0,0,Normal,0
+2025-09-28,2934.2,74,39.65,Sunday,7,9,September,3,39,1,0,Medium,,0,11.8,18.2,6.6,0.0,0,Normal,0
+2025-09-29,1506.8,48,31.39,Monday,1,9,September,3,40,0,0,Quiet,,0,9.9,15.6,5.1,0.0,0,Normal,0
+2025-09-30,3436.7,81,42.43,Tuesday,2,9,September,3,40,0,0,Quiet,,0,10.8,14.8,7.7,11.6,1,Heavy Rain,0
+2025-10-01,2179.97,64,34.06,Wednesday,3,10,October,4,40,0,0,Quiet,,0,13.5,16.6,10.9,0.0,0,Normal,1
+2025-10-02,2767.21,74,37.39,Thursday,4,10,October,4,40,0,0,Medium,,0,10.1,13.0,7.8,0.0,0,Normal,1
+2025-10-03,4694.14,124,37.86,Friday,5,10,October,4,40,0,1,Peak,German Unity Day,1,12.0,13.4,10.8,1.7,1,Rain,1
+2025-10-04,4651.44,119,39.09,Saturday,6,10,October,4,40,1,1,Peak,,0,16.4,17.9,15.2,2.8,1,Rain,1
+2025-10-05,2755.26,79,34.88,Sunday,7,10,October,4,40,1,0,Medium,,0,16.0,18.2,14.2,0.0,0,Normal,1
+2025-10-06,1765.31,61,28.94,Monday,1,10,October,4,41,0,0,Quiet,,0,13.9,17.2,11.1,42.8,1,Heavy Rain,1
+2025-10-07,2301.54,64,35.96,Tuesday,2,10,October,4,41,0,0,Quiet,,0,13.4,16.2,11.0,0.0,0,Normal,1
+2025-10-08,2449.3,80,30.62,Wednesday,3,10,October,4,41,0,0,Quiet,,0,14.3,16.5,12.6,0.0,0,Normal,1
+2025-10-09,2572.9,71,36.24,Thursday,4,10,October,4,41,0,0,Medium,,0,9.9,12.7,7.7,0.0,0,Normal,1
+2025-10-10,2997.67,78,38.43,Friday,5,10,October,4,41,0,1,Peak,,0,10.8,12.6,9.3,0.0,0,Normal,1
+2025-10-11,4901.06,120,40.84,Saturday,6,10,October,4,41,1,1,Peak,,0,10.2,13.7,7.4,0.0,0,Normal,1
+2025-10-12,2505.82,79,31.72,Sunday,7,10,October,4,41,1,0,Medium,,0,14.5,16.6,12.9,0.0,0,Normal,1
+2025-10-13,1864.83,60,31.08,Monday,1,10,October,4,42,0,0,Quiet,,0,12.9,14.8,11.3,2.8,1,Rain,1
+2025-10-14,2538.07,76,33.4,Tuesday,2,10,October,4,42,0,0,Quiet,,0,16.3,19.5,13.7,0.0,0,Normal,1
+2025-10-15,2422.67,67,36.16,Wednesday,3,10,October,4,42,0,0,Quiet,,0,12.4,15.2,10.2,0.0,0,Normal,1
+2025-10-16,2719.03,76,35.78,Thursday,4,10,October,4,42,0,0,Medium,,0,13.3,15.8,11.2,0.0,0,Normal,1
+2025-10-17,4432.46,111,39.93,Friday,5,10,October,4,42,0,1,Peak,,0,13.3,15.7,11.2,0.0,0,Normal,1
+2025-10-18,5176.92,133,38.92,Saturday,6,10,October,4,42,1,1,Peak,,0,10.6,13.1,8.6,0.0,0,Normal,1
+2025-10-19,2657.76,79,33.64,Sunday,7,10,October,4,42,1,0,Medium,,0,11.0,13.1,9.3,0.0,0,Normal,1
+2025-10-20,1713.68,53,32.33,Monday,1,10,October,4,43,0,0,Quiet,,0,13.4,15.6,11.6,0.0,0,Normal,1
+2025-10-21,1959.65,53,36.97,Tuesday,2,10,October,4,43,0,0,Quiet,,0,11.8,15.2,9.0,0.0,0,Normal,1
+2025-10-22,2927.59,85,34.44,Wednesday,3,10,October,4,43,0,0,Quiet,,0,7.7,10.1,5.7,0.0,0,Normal,1
+2025-10-23,3246.7,91,35.68,Thursday,4,10,October,4,43,0,0,Medium,,0,8.2,10.2,6.6,0.0,0,Normal,1
+2025-10-24,4614.71,126,36.62,Friday,5,10,October,4,43,0,1,Peak,,0,6.7,8.8,5.0,0.0,0,Normal,1
+2025-10-25,4114.97,112,36.74,Saturday,6,10,October,4,43,1,1,Peak,,0,6.4,8.7,4.5,8.3,1,Rain,1
+2025-10-26,2253.47,70,32.19,Sunday,7,10,October,4,43,1,0,Medium,,0,6.9,9.0,5.3,8.1,1,Rain,1
+2025-10-27,1513.52,49,30.89,Monday,1,10,October,4,44,0,0,Quiet,,0,4.2,7.1,1.9,0.0,0,Normal,1
+2025-10-28,1882.3,60,31.37,Tuesday,2,10,October,4,44,0,0,Quiet,,0,2.1,4.4,0.2,0.0,0,Normal,1
+2025-10-29,2346.05,66,35.55,Wednesday,3,10,October,4,44,0,0,Quiet,,0,5.1,7.9,2.7,0.0,0,Normal,1
+2025-10-30,2722.24,73,37.29,Thursday,4,10,October,4,44,0,0,Medium,,0,5.0,7.0,3.3,0.0,0,Normal,1
+2025-10-31,4293.5,103,41.68,Friday,5,10,October,4,44,0,1,Peak,,0,0.1,1.5,-1.1,2.4,1,Rain,1
+2025-11-01,4127.6,107,38.58,Saturday,6,11,November,4,44,1,1,Peak,All Saints' Day,1,4.0,6.3,2.2,6.6,1,Rain,0
+2025-11-02,2852.3,67,42.57,Sunday,7,11,November,4,44,1,0,Medium,,0,5.7,7.9,3.9,1.7,1,Rain,0
+2025-11-03,2246.4,63,35.66,Monday,1,11,November,4,45,0,0,Quiet,,0,5.2,7.0,3.7,0.0,0,Normal,0
+2025-11-04,1682.5,49,34.34,Tuesday,2,11,November,4,45,0,0,Quiet,,0,2.8,3.8,1.9,3.9,1,Rain,0
+2025-11-05,2047.5,63,32.5,Wednesday,3,11,November,4,45,0,0,Quiet,,0,5.9,7.6,4.5,15.1,1,Heavy Rain,0
+2025-11-06,1659.0,43,38.58,Thursday,4,11,November,4,45,0,0,Medium,,0,7.5,11.1,4.5,0.0,0,Normal,0
+2025-11-07,4063.4,107,37.98,Friday,5,11,November,4,45,0,1,Peak,,0,12.6,13.8,11.6,0.0,0,Normal,0
+2025-11-08,5149.8,130,39.61,Saturday,6,11,November,4,45,1,1,Peak,,0,12.1,14.8,9.9,0.1,0,Normal,0
+2025-11-09,2607.6,70,37.25,Sunday,7,11,November,4,45,1,0,Medium,,0,11.6,13.2,10.3,0.4,0,Normal,0
+2025-11-10,1561.5,43,36.31,Monday,1,11,November,4,46,0,0,Quiet,,0,9.6,10.8,8.6,7.4,1,Rain,0
+2025-11-11,1329.5,42,31.65,Tuesday,2,11,November,4,46,0,0,Quiet,,0,10.5,11.9,9.4,9.5,1,Rain,0
+2025-11-12,2004.6,58,34.56,Wednesday,3,11,November,4,46,0,0,Quiet,,0,10.7,12.1,9.7,4.4,1,Rain,0
+2025-11-13,2580.8,73,35.35,Thursday,4,11,November,4,46,0,0,Medium,,0,12.2,13.5,11.2,6.5,1,Rain,0
+2025-11-14,4685.5,119,39.37,Friday,5,11,November,4,46,0,1,Peak,,0,9.8,12.3,7.8,0.0,0,Normal,0
+2025-11-15,5628.5,130,43.3,Saturday,6,11,November,4,46,1,1,Peak,,0,7.9,10.0,6.2,0.0,0,Normal,0
+2025-11-16,2874.8,77,37.34,Sunday,7,11,November,4,46,1,0,Medium,,0,6.5,8.0,5.3,0.0,0,Normal,0
+2025-11-17,1744.3,55,31.71,Monday,1,11,November,4,47,0,0,Quiet,,0,8.2,11.2,5.7,0.5,0,Normal,0
+2025-11-18,1297.8,45,28.84,Tuesday,2,11,November,4,47,0,0,Quiet,,0,10.9,13.8,8.4,0.0,0,Normal,0
+2025-11-19,2271.7,62,36.64,Wednesday,3,11,November,4,47,0,0,Quiet,,0,8.6,11.6,6.1,0.0,0,Normal,0
+2025-11-20,2739.3,80,34.24,Thursday,4,11,November,4,47,0,0,Medium,,0,7.0,8.4,5.8,0.0,0,Normal,0
+2025-11-21,4563.2,105,43.46,Friday,5,11,November,4,47,0,1,Peak,,0,7.4,10.1,5.2,0.0,0,Normal,0
+2025-11-22,4487.2,103,43.57,Saturday,6,11,November,4,47,1,1,Peak,,0,6.5,9.4,4.1,0.0,0,Normal,0
+2025-11-23,2418.1,68,35.56,Sunday,7,11,November,4,47,1,0,Medium,,0,7.9,8.9,7.2,3.4,1,Rain,0
+2025-11-24,1133.6,42,26.99,Monday,1,11,November,4,48,0,0,Quiet,,0,2.4,4.0,1.0,4.5,1,Rain,0
+2025-11-25,1985.3,63,31.51,Tuesday,2,11,November,4,48,0,0,Quiet,,0,1.4,2.9,0.1,18.1,1,Heavy Rain,0
+2025-11-26,2229.4,62,35.96,Wednesday,3,11,November,4,48,0,0,Quiet,,0,1.2,4.9,-1.9,0.0,0,Cold,0
+2025-11-27,2613.4,75,34.85,Thursday,4,11,November,4,48,0,0,Medium,,0,-2.6,1.1,-5.7,0.0,0,Cold,0
+2025-11-28,3786.2,98,38.63,Friday,5,11,November,4,48,0,1,Peak,,0,-2.5,-1.1,-3.6,0.0,0,Cold,0
+2025-11-29,4320.6,103,41.95,Saturday,6,11,November,4,48,1,1,Peak,,0,-2.3,1.9,-5.6,0.0,0,Cold,0
+2025-11-30,2617.7,78,33.56,Sunday,7,11,November,4,48,1,0,Medium,,0,-0.6,1.3,-2.1,0.1,0,Cold,0
+2025-12-01,2307.14,62,37.21,Monday,1,12,December,4,49,0,0,Quiet,,0,3.8,7.0,1.3,0.9,0,Normal,1
+2025-12-02,2638.25,65,40.59,Tuesday,2,12,December,4,49,0,0,Quiet,,0,3.5,6.7,1.0,0.0,0,Normal,1
+2025-12-03,2902.66,79,36.74,Wednesday,3,12,December,4,49,0,0,Quiet,,0,1.3,3.1,-0.2,0.0,0,Cold,1
+2025-12-04,3780.89,105,36.01,Thursday,4,12,December,4,49,0,0,Medium,,0,2.1,4.9,-0.2,0.0,0,Normal,1
+2025-12-05,5226.4,123,42.49,Friday,5,12,December,4,49,0,1,Peak,,0,5.5,7.9,3.6,0.1,0,Normal,1
+2025-12-06,5869.84,137,42.85,Saturday,6,12,December,4,49,1,1,Peak,,0,2.8,5.6,0.5,0.0,0,Normal,1
+2025-12-07,2773.46,72,38.52,Sunday,7,12,December,4,49,1,0,Medium,,0,0.9,3.6,-1.2,0.7,0,Cold,1
+2025-12-08,1972.9,58,34.02,Monday,1,12,December,4,50,0,0,Quiet,,0,3.4,6.6,0.7,0.0,0,Normal,0
+2025-12-09,1703.7,55,30.98,Tuesday,2,12,December,4,50,0,0,Quiet,,0,2.7,4.3,1.3,1.9,1,Rain,0
+2025-12-10,2668.0,75,35.57,Wednesday,3,12,December,4,50,0,0,Quiet,,0,5.1,7.4,3.1,0.1,0,Normal,0
+2025-12-11,3336.1,95,35.12,Thursday,4,12,December,4,50,0,0,Medium,,0,4.4,6.7,2.5,7.5,1,Rain,0
+2025-12-12,4010.6,98,40.92,Friday,5,12,December,4,50,0,1,Peak,,0,6.0,8.0,4.3,3.3,1,Rain,0
+2025-12-13,3926.2,108,36.35,Saturday,6,12,December,4,50,1,1,Peak,,0,2.6,4.7,0.9,8.0,1,Rain,0
+2025-12-14,2096.7,68,30.83,Sunday,7,12,December,4,50,1,0,Medium,,0,2.9,4.0,1.9,10.9,1,Heavy Rain,0
+2025-12-15,2008.1,56,35.86,Monday,1,12,December,4,51,0,0,Quiet,,0,2.9,4.6,1.4,0.0,0,Normal,0
+2025-12-16,1753.6,47,37.31,Tuesday,2,12,December,4,51,0,0,Quiet,,0,0.0,2.1,-1.7,0.0,0,Cold,0
+2025-12-17,2729.2,80,34.11,Wednesday,3,12,December,4,51,0,0,Quiet,,0,-2.9,-0.8,-4.6,0.0,0,Cold,0
+2025-12-18,3150.1,96,32.81,Thursday,4,12,December,4,51,0,0,Medium,,0,0.8,3.8,-1.7,0.0,0,Cold,0
+2025-12-19,3441.1,86,40.01,Friday,5,12,December,4,51,0,1,Peak,,0,0.4,2.6,-1.5,2.3,1,Rain,0
+2025-12-20,4339.9,110,39.45,Saturday,6,12,December,4,51,1,1,Peak,,0,-1.4,0.1,-2.6,9.2,1,Rain,0
+2025-12-21,2298.5,73,31.49,Sunday,7,12,December,4,51,1,0,Medium,,0,-0.3,2.3,-2.3,17.8,1,Heavy Rain,0
+2025-12-22,2162.9,61,35.46,Monday,1,12,December,4,52,0,0,Quiet,,0,4.1,7.5,1.3,0.2,0,Normal,0
+2025-12-23,2158.0,57,37.86,Tuesday,2,12,December,4,52,0,0,Quiet,,0,-1.8,0.8,-4.0,0.1,0,Cold,0
+2025-12-24,990.3,26,38.09,Wednesday,3,12,December,4,52,0,0,Quiet,,0,-4.1,-2.2,-5.7,0.0,0,Cold,0
+2025-12-25,3175.5,89,35.68,Thursday,4,12,December,4,52,0,0,Medium,Christmas Day,1,-4.2,-0.7,-7.1,0.0,0,Cold,0
+2025-12-26,5019.4,138,36.37,Friday,5,12,December,4,52,0,1,Peak,Boxing Day,1,1.8,4.2,-0.2,0.0,0,Cold,0
+2025-12-27,4453.8,106,42.02,Saturday,6,12,December,4,52,1,1,Peak,,0,3.1,5.6,1.0,0.0,0,Normal,0
+2025-12-28,2529.4,67,37.75,Sunday,7,12,December,4,52,1,0,Medium,,0,4.8,6.2,3.7,8.9,1,Rain,0
+2025-12-29,1468.9,43,34.16,Monday,1,12,December,4,1,0,0,Quiet,,0,1.9,3.8,0.3,0.0,0,Cold,0
+2025-12-30,2040.0,56,36.43,Tuesday,2,12,December,4,1,0,0,Quiet,,0,-0.5,1.0,-1.7,0.0,0,Cold,0
+2025-12-31,2324.0,73,31.84,Wednesday,3,12,December,4,1,0,0,Quiet,,0,1.9,4.8,-0.5,0.0,0,Cold,0
