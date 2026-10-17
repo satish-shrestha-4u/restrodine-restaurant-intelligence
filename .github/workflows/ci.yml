@@ -6,14 +6,12 @@ on:
     paths:
       - "data/**"
       - "*.py"
-      - "schema.sql"
       - "requirements.txt"
       - ".github/workflows/**"
   pull_request:
     paths:
       - "data/**"
       - "*.py"
-      - "schema.sql"
       - "requirements.txt"
       - ".github/workflows/**"
 
@@ -36,6 +34,9 @@ jobs:
 
       - name: Check Python syntax
         run: python -m py_compile load_database.py
+
+      - name: Check schema file exists
+        run: test -f data/schema.sql
 
       - name: Check CSV files
         run: |

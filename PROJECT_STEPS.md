@@ -14,18 +14,20 @@ The dataset is synthetic. Be explicit about that in the README and presentation.
 ```text
 RestroDine/
 ├── data/
+│   ├── *.csv
+│   └── schema.sql
+├── load_database.py
 ├── notebooks/
 ├── src/
 ├── app/
 ├── models/
 ├── outputs/
 ├── tests/
-├── restrodine.db
 ├── requirements.txt
 └── README.md
 ```
 
-Copy the supplied `data/` directory and `restrodine.db` into the project.
+Use the supplied `data/` directory and CSV files. `load_database.py` creates and fills the MySQL database. The existing `restrodine.db` is an older SQLite snapshot and is not used by the MySQL workflow.
 
 Recommended source modules later:
 
@@ -44,9 +46,11 @@ src/
 
 # PHASE 1 — REVENUE INTELLIGENCE
 
-## 2. Inspect the database first
+## 2. Create and inspect the MySQL database
 
-Open SQLite and confirm the tables:
+Start your local MySQL Server. Create and activate a Python 3.11 environment with `conda create -n restrodine-mysql python=3.11 -y` and `conda activate restrodine-mysql`, install requirements with `python -m pip install -r requirements.txt`, then run `python load_database.py`. The loader prompts for the MySQL password, creates the dedicated `restrodine` database, imports the CSVs, and runs integrity checks. Each run drops and recreates the project tables, so use this only with the dedicated `restrodine` database.
+
+Refresh the Schemas panel in MySQL Workbench and confirm these tables:
 
 - customers
 - products
@@ -450,7 +454,7 @@ Simulate Next Day
         ↓
 Generate new transactions
         ↓
-Insert into SQLite
+Insert into MySQL
         ↓
 Update analytics
         ↓
@@ -490,7 +494,7 @@ Do not rebuild historical data every time the API is called.
 ```text
 Historical POS Data
        ↓
-SQLite
+MySQL
        ↓
 Cleaning + Validation
        ↓
@@ -533,7 +537,7 @@ Core project is complete only when these work:
 - [ ] Labour cost calculated
 - [ ] Review sentiment implemented
 - [ ] Aspect analysis implemented
-- [ ] Streamlit pages connected to SQLite
+- [ ] Streamlit pages connected to MySQL
 - [ ] End-to-end workflow tested
 
 Only then add one optional extension such as inventory/waste, menu engineering, promotion effectiveness, alerts, or receipt OCR.
