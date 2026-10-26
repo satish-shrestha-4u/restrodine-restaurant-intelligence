@@ -2,7 +2,7 @@
 
 Usage:  python load_database.py [--host localhost] [--port 3306] [--user root] [--database restrodine]
 WARNING: every run DROPS and recreates the project tables in the given database.
-The data is SYNTHETIC (generated for a student project) - it is not real restaurant data.
+The data is SYNTHETIC (generated for a project) - it is not real restaurant data.
 """
 import argparse, getpass, re, sys
 from datetime import date, timedelta

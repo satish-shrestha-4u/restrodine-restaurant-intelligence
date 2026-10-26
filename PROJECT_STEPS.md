@@ -3,9 +3,7 @@
 ## 0. Do not change the data model yet
 Use the supplied dataset as the project baseline. Do not regenerate random values manually inside notebooks.
 
-Historical period: **2025-01-01 to 2025-12-31**.
-
-The dataset is synthetic. Be explicit about that in the README and presentation.
+Historical period: **2024-01-01 to 2025-12-31**.
 
 ---
 
@@ -27,9 +25,7 @@ RestroDine/
 └── README.md
 ```
 
-Use the supplied `data/` directory and CSV files. `load_database.py` creates and fills the MySQL database. The existing `restrodine.db` is an older SQLite snapshot and is not used by the MySQL workflow.
-
-Recommended source modules later:
+Use the supplied `data/` directory and CSV files. `load_database.py` creates and fills the MySQL database.
 
 ```text
 src/
@@ -96,14 +92,7 @@ For the actual analysis, demonstrate the SQL aggregation instead of relying only
 Conceptually:
 
 ```sql
-SELECT
-    DATE(order_datetime) AS date,
-    SUM(order_total) AS revenue,
-    COUNT(DISTINCT order_id) AS orders,
-    AVG(order_total) AS average_order_value
-FROM orders
-GROUP BY DATE(order_datetime)
-ORDER BY date;
+w
 ```
 
 Then join the result with `calendar` and `weather`.
