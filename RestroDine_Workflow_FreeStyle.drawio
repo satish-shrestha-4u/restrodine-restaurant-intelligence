@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="restrodine-workflow" name="RestroDine Workflow">
-        <mxGraphModel dx="2138" dy="1398" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="2000" pageHeight="1400" background="#ffffff" math="0" shadow="0">
+        <mxGraphModel dx="2053" dy="1487" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="2000" pageHeight="1400" background="#ffffff" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -67,7 +67,7 @@
                 <mxCell id="customer" parent="1" style="rounded=true;whiteSpace=wrap;html=1;fillColor=#f5f3ff;strokeColor=#a78bfa;fontSize=14;fontStyle=1;spacing=8;verticalAlign=middle;" value="&lt;font style=&quot;font-size: 29px;&quot;&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255);&quot;&gt;CUSTOMER INTELLIGENCE&lt;br&gt;&lt;/span&gt;&lt;br&gt;Customer Reviews&lt;br&gt;NLP / AI&lt;br&gt;Sentiment Analysis&lt;br&gt;Aspect Analysis&lt;br&gt;Customer Insights&lt;/font&gt;" vertex="1">
                     <mxGeometry height="270" width="480" x="1200" y="820" as="geometry"/>
                 </mxCell>
-                <mxCell id="app" parent="1" style="rounded=true;whiteSpace=wrap;html=1;fillColor=#fff1f2;strokeColor=#fda4af;fontSize=15;fontStyle=1;spacing=8;verticalAlign=middle;" value="&lt;font style=&quot;font-size: 29px;&quot;&gt;Dashboard     Forecast     Roster     Customers     Menu     Simulation&lt;/font&gt;" vertex="1">
+                <mxCell id="app" parent="1" style="rounded=true;whiteSpace=wrap;html=1;fillColor=#fff1f2;strokeColor=#fda4af;fontSize=15;fontStyle=1;spacing=8;verticalAlign=middle;" value="&lt;font style=&quot;font-size: 29px;&quot;&gt;Dashboard - Forecast     Roster - Customers     Menu     Simulation&lt;/font&gt;" vertex="1">
                     <mxGeometry height="75" width="1080" x="395" y="1440" as="geometry"/>
                 </mxCell>
                 <mxCell id="decision_label" parent="1" style="rounded=true;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=17;fontStyle=1;spacing=8;verticalAlign=middle;gradientColor=#97d077;" value="&lt;div&gt;&lt;span style=&quot;color: rgb(63, 63, 63); background-color: transparent;&quot;&gt;&lt;font style=&quot;font-size: 33px;&quot;&gt;&amp;nbsp;MANAGEMENT DECISIONS&lt;/font&gt;&lt;/span&gt;&lt;/div&gt;" vertex="1">
