@@ -38,6 +38,11 @@ jobs:
       - name: Check schema file exists
         run: test -f data/schema.sql
 
+      - name: Check production forecasting model
+        run: |
+          test -f models/restrodine_prophet_calendar_weather.json
+          test -f models/restrodine_prophet_calendar_weather_metadata.json
+
       - name: Check CSV files
         run: |
           python - <<'PY'

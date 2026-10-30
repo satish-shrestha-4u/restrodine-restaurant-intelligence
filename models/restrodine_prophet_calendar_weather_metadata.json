@@ -1,0 +1,22 @@
+{
+    "model": "Prophet \u2014 Calendar + Weather",
+    "weekly_seasonality": true,
+    "yearly_seasonality": false,
+    "daily_seasonality": false,
+    "seasonality_mode": "additive",
+    "regressors": [
+        "is_holiday",
+        "is_promo_day",
+        "temperature_avg_c",
+        "precipitation_mm",
+        "is_rainy"
+    ],
+    "rain_threshold_mm": 1.0,
+    "location": {
+        "latitude": 51.4324,
+        "longitude": 7.00435,
+        "region": "North Rhine-Westphalia, Germany"
+    },
+    "training_start": "2024-01-01",
+    "training_end": "2025-12-31"
+}
