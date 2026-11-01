@@ -5,13 +5,14 @@
     "daily_seasonality": false,
     "seasonality_mode": "additive",
     "regressors": [
+        "is_weekend",
         "is_holiday",
         "is_promo_day",
         "temperature_avg_c",
         "precipitation_mm",
         "is_rainy"
     ],
-    "rain_threshold_mm": 1.0,
+    "rain_threshold_mm": 1,
     "location": {
         "latitude": 51.4324,
         "longitude": 7.00435,

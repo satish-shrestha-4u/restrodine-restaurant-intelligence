@@ -2,6 +2,12 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import plotly.express as px
+import requests
+import json
+from pathlib import Path
+from dateutil.easter import easter
+
+from prophet.serialize import model_from_json
 
 
 # ============================================================
@@ -287,12 +293,212 @@ elif page == "Revenue Intelligence":
 
     st.markdown(
         """
-        ### Interactive Revenue Forecast
+        ### Weather-Aware Revenue Forecast
 
-        Change the date, weather, promotion and holiday assumptions
-        to explore how the revenue forecast changes.
+        The dashboard uses the **final production Prophet model** from
+        the revenue forecasting notebook. It combines weekly seasonality
+        with calendar/business effects and weather information.
         """
     )
+
+    # ========================================================
+    # PRODUCTION MODEL CONFIGURATION
+    # ========================================================
+
+    # IMPORTANT: these must match the regressors stored in the
+    # serialized production Prophet model.
+    SELECTED_PROPHET_REGRESSORS = [
+        "is_weekend",
+        "is_holiday",
+        "is_promo_day",
+        "temperature_avg_c",
+        "precipitation_mm",
+        "is_rainy"
+    ]
+
+    RAIN_THRESHOLD_MM = 1.0
+    RESTAURANT_LATITUDE = 51.4324
+    RESTAURANT_LONGITUDE = 7.00435
+    WEATHER_TIMEZONE = "Europe/Berlin"
+    PLANNED_PROMOTION_DATES = []
+
+    MODEL_DIR = Path("models")
+    MODEL_PATH = MODEL_DIR / "restrodine_prophet_calendar_weather.json"
+    METADATA_PATH = (
+        MODEL_DIR /
+        "restrodine_prophet_calendar_weather_metadata.json"
+    )
+
+    # ========================================================
+    # LOAD PRODUCTION MODEL
+    # ========================================================
+
+    @st.cache_resource
+    def load_production_model(model_path):
+        if not model_path.exists():
+            raise FileNotFoundError(
+                f"Production model not found: {model_path}"
+            )
+
+        with open(model_path, "r") as file:
+            return model_from_json(file.read())
+
+    @st.cache_data
+    def load_model_metadata(metadata_path):
+        if not metadata_path.exists():
+            return {}
+
+        with open(metadata_path, "r") as file:
+            return json.load(file)
+
+    try:
+        production_model = load_production_model(MODEL_PATH)
+        model_metadata = load_model_metadata(METADATA_PATH)
+        model_available = True
+    except Exception as e:
+        model_available = False
+        st.error(
+            "The production forecasting model could not be loaded. "
+            f"Expected: {MODEL_PATH}"
+        )
+        st.exception(e)
+        st.stop()
+
+    # ========================================================
+    # NRW PUBLIC HOLIDAYS
+    # ========================================================
+
+    def get_nrw_public_holidays(year):
+        easter_sunday = pd.Timestamp(easter(year))
+
+        return {
+            pd.Timestamp(year, 1, 1): "New Year's Day",
+            easter_sunday - pd.Timedelta(days=2): "Good Friday",
+            easter_sunday + pd.Timedelta(days=1): "Easter Monday",
+            easter_sunday + pd.Timedelta(days=39): "Ascension Day",
+            easter_sunday + pd.Timedelta(days=50): "Whit Monday",
+            easter_sunday + pd.Timedelta(days=60): "Corpus Christi",
+            pd.Timestamp(year, 5, 1): "Labour Day",
+            pd.Timestamp(year, 10, 3): "German Unity Day",
+            pd.Timestamp(year, 11, 1): "All Saints' Day",
+            pd.Timestamp(year, 12, 25): "Christmas Day",
+            pd.Timestamp(year, 12, 26): "Boxing Day"
+        }
+
+    # ========================================================
+    # OPEN-METEO WEATHER API
+    # ========================================================
+
+    @st.cache_data(ttl=60 * 60)
+    def fetch_openmeteo_daily_weather(
+        latitude,
+        longitude,
+        start_date,
+        end_date
+    ):
+        url = "https://api.open-meteo.com/v1/forecast"
+
+        params = {
+            "latitude": latitude,
+            "longitude": longitude,
+            "daily": (
+                "temperature_2m_mean,"
+                "temperature_2m_max,"
+                "temperature_2m_min,"
+                "precipitation_sum"
+            ),
+            "timezone": WEATHER_TIMEZONE,
+            "start_date": pd.Timestamp(start_date).date().isoformat(),
+            "end_date": pd.Timestamp(end_date).date().isoformat()
+        }
+
+        response = requests.get(
+            url,
+            params=params,
+            timeout=30
+        )
+        response.raise_for_status()
+
+        daily = response.json()["daily"]
+
+        return pd.DataFrame({
+            "date": pd.to_datetime(daily["time"]),
+            "temperature_avg_c": daily["temperature_2m_mean"],
+            "temp_max_c": daily["temperature_2m_max"],
+            "temp_min_c": daily["temperature_2m_min"],
+            "precipitation_mm": daily["precipitation_sum"]
+        })
+
+    # ========================================================
+    # BUILD PRODUCTION FEATURES
+    # ========================================================
+
+    def build_selected_prophet_future_features(weather):
+        weather = weather.copy()
+        weather["date"] = pd.to_datetime(weather["date"])
+
+        holiday_lookup = {}
+
+        years = weather["date"].dt.year.unique()
+
+        for year in years:
+            holiday_lookup.update(
+                get_nrw_public_holidays(int(year))
+            )
+
+        weather["holiday_name"] = weather["date"].map(
+            holiday_lookup
+        )
+
+        weather["is_weekend"] = (
+            weather["date"].dt.dayofweek >= 5
+        ).astype(int)
+
+        weather["is_holiday"] = (
+            weather["date"].isin(holiday_lookup.keys())
+        ).astype(int)
+
+        weather["is_rainy"] = (
+            weather["precipitation_mm"] >= RAIN_THRESHOLD_MM
+        ).astype(int)
+
+        promotion_dates = pd.to_datetime(
+            PLANNED_PROMOTION_DATES
+        )
+
+        weather["is_promo_day"] = (
+            weather["date"].isin(promotion_dates)
+        ).astype(int)
+
+        return weather[
+            ["date"] + SELECTED_PROPHET_REGRESSORS
+        ].copy()
+
+    # ========================================================
+    # FORECAST SETTINGS
+    # ========================================================
+
+    st.subheader("🔮 Forecast Settings")
+
+    col1, col2 = st.columns(2)
+
+    today = pd.Timestamp.now(tz=WEATHER_TIMEZONE).normalize().tz_localize(None)
+
+    with col1:
+        forecast_horizon = st.selectbox(
+            "Forecast horizon",
+            [7, 14],
+            index=0
+        )
+
+    with col2:
+        forecast_start = today + pd.Timedelta(days=1)
+        st.metric(
+            "Forecast starts",
+            forecast_start.strftime("%d %b %Y")
+        )
+
+    st.divider()
 
     # ========================================================
     # HISTORICAL DATA
@@ -318,290 +524,126 @@ elif page == "Revenue Intelligence":
         use_container_width=True
     )
 
-    st.divider()
-
     # ========================================================
-    # FORECAST SETTINGS
-    # ========================================================
-
-    st.subheader("🔮 Forecast Settings")
-
-    col1, col2, col3 = st.columns(3)
-
-    latest_date = df["date"].max().date()
-
-    with col1:
-
-        forecast_start = st.date_input(
-            "Forecast start date",
-            value=(
-                pd.Timestamp(latest_date)
-                + pd.Timedelta(days=1)
-            ).date(),
-            min_value=(
-                pd.Timestamp(latest_date)
-                + pd.Timedelta(days=1)
-            ).date()
-        )
-
-    with col2:
-
-        forecast_days = st.selectbox(
-            "Forecast horizon",
-            [7, 14, 30],
-            index=2
-        )
-
-    with col3:
-
-        model_choice = st.selectbox(
-            "Forecast model",
-            [
-                "Prophet",
-                "Weekday Mean"
-            ]
-        )
-
-    st.divider()
-
-    # ========================================================
-    # SCENARIO INPUTS
-    # ========================================================
-
-    st.subheader("🌦️ Business Scenario")
-
-    st.markdown(
-        """
-        These inputs represent the conditions you want to test.
-        For the current prototype, the selected weather and
-        promotion conditions are applied across the forecast period.
-        """
-    )
-
-    col1, col2, col3, col4 = st.columns(4)
-
-    with col1:
-
-        temperature = st.slider(
-            "Average temperature (°C)",
-            min_value=-5.0,
-            max_value=35.0,
-            value=float(
-                df["temperature_avg_c"].mean()
-            ),
-            step=0.5
-        )
-
-    with col2:
-
-        precipitation = st.slider(
-            "Precipitation (mm)",
-            min_value=0.0,
-            max_value=30.0,
-            value=0.0,
-            step=0.5
-        )
-
-    with col3:
-
-        is_holiday = st.checkbox(
-            "Holiday",
-            value=False
-        )
-
-    with col4:
-
-        is_promo = st.checkbox(
-            "Promotion",
-            value=False
-        )
-
-    if precipitation >= 1:
-        is_rainy = 1
-        weather_condition = "Rain"
-    else:
-        is_rainy = 0
-        weather_condition = "Clear"
-
-    promotion_discount = 0.0
-
-    if is_promo:
-
-        promotion_discount = st.slider(
-            "Promotion discount (%)",
-            min_value=0.0,
-            max_value=50.0,
-            value=10.0,
-            step=1.0
-        )
-
-    st.info(
-        f"Scenario: "
-        f"{temperature:.1f}°C · "
-        f"{precipitation:.1f} mm precipitation · "
-        f"{weather_condition} · "
-        f"{'Holiday' if is_holiday else 'Normal day'} · "
-        f"{'Promotion' if is_promo else 'No promotion'}"
-    )
-
-    # ========================================================
-    # BUILD FUTURE DATAFRAME
+    # OPERATIONAL FORECAST
     # ========================================================
 
     forecast_dates = pd.date_range(
         start=forecast_start,
-        periods=forecast_days,
+        periods=forecast_horizon,
         freq="D"
     )
 
-    future_df = pd.DataFrame({
-        "date": forecast_dates,
-        "temperature_avg_c": temperature,
-        "precipitation_mm": precipitation,
-        "is_rainy": is_rainy,
-        "is_holiday": int(is_holiday),
-        "is_promo_day": int(is_promo)
-    })
-
-    # ========================================================
-    # WEEKDAY MEAN FORECAST
-    # ========================================================
-
-    weekday_means = (
-        df.groupby(
-            df["date"].dt.dayofweek
-        )["revenue"]
-        .mean()
-    )
-
-    future_df["weekday_mean_forecast"] = (
-        future_df["date"]
-        .dt.dayofweek
-        .map(weekday_means)
-    )
-
-    # ========================================================
-    # PROPHET FORECAST
-    # ========================================================
-
-    prophet_available = True
-
     try:
+        future_weather = fetch_openmeteo_daily_weather(
+            RESTAURANT_LATITUDE,
+            RESTAURANT_LONGITUDE,
+            forecast_dates.min(),
+            forecast_dates.max()
+        )
 
-        from prophet import Prophet
+        future_features = build_selected_prophet_future_features(
+            future_weather
+        )
 
-        prophet_train = df[
-            [
-                "date",
-                "revenue",
-                "temperature_avg_c",
-                "precipitation_mm",
-                "is_rainy",
-                "is_holiday",
-                "is_promo_day"
+        prophet_future = (
+            future_features
+            .rename(columns={"date": "ds"})
+            .copy()
+        )
+
+        # Verify that the future dataframe contains exactly the
+        # regressors expected by the serialized Prophet model.
+        model_regressors = list(
+            production_model.extra_regressors.keys()
+        )
+
+        missing_regressors = [
+            col for col in model_regressors
+            if col not in prophet_future.columns
+        ]
+
+        if missing_regressors:
+            raise ValueError(
+                "Future forecast data is missing model regressors: "
+                + ", ".join(missing_regressors)
+            )
+
+        forecast = production_model.predict(
+            prophet_future[
+                ["ds"] + model_regressors
             ]
-        ].copy()
-
-        prophet_train = prophet_train.rename(
-            columns={
-                "date": "ds",
-                "revenue": "y"
-            }
         )
 
-        model = Prophet(
-            weekly_seasonality=True,
-            yearly_seasonality=True,
-            daily_seasonality=False
-        )
+        future_forecast = pd.DataFrame({
+            "date": pd.to_datetime(forecast["ds"]),
+            "forecast_revenue": forecast["yhat"].clip(lower=0),
+            "lower_bound": forecast["yhat_lower"].clip(lower=0),
+            "upper_bound": forecast["yhat_upper"].clip(lower=0)
+        })
 
-        model.add_regressor(
-            "temperature_avg_c"
-        )
-
-        model.add_regressor(
-            "precipitation_mm"
-        )
-
-        model.add_regressor(
-            "is_rainy"
-        )
-
-        model.add_regressor(
-            "is_holiday"
-        )
-
-        model.add_regressor(
-            "is_promo_day"
-        )
-
-        model.fit(prophet_train)
-
-        prophet_future = future_df[
-            [
-                "date",
-                "temperature_avg_c",
-                "precipitation_mm",
-                "is_rainy",
-                "is_holiday",
-                "is_promo_day"
-            ]
-        ].rename(
-            columns={
-                "date": "ds"
-            }
-        )
-
-        prophet_prediction = model.predict(
-            prophet_future
-        )
-
-        future_df["prophet_forecast"] = (
-            prophet_prediction["yhat"]
-            .clip(lower=0)
-            .values
+        future_forecast = future_forecast.merge(
+            future_features,
+            on="date",
+            how="left"
         )
 
     except Exception as e:
-
-        prophet_available = False
-
-        future_df["prophet_forecast"] = (
-            future_df["weekday_mean_forecast"]
+        st.error(
+            "The operational forecast could not be generated."
         )
+        st.exception(e)
+        st.stop()
 
+    # ========================================================
+    # HISTORY GAP CHECK
+    # ========================================================
+
+    last_observed_date = df["date"].max()
+    history_gap_days = (
+        forecast_start - last_observed_date
+    ).days - 1
+
+    if history_gap_days > 0:
         st.warning(
-            "Prophet could not be used. "
-            "The app is showing the Weekday Mean forecast instead."
+            f"The historical revenue data ends on "
+            f"{last_observed_date.date()}, while the operational "
+            f"forecast starts on {forecast_start.date()}. "
+            f"There are {history_gap_days} days without observed "
+            f"revenue. The model can forecast mathematically, but "
+            f"the dashboard should use updated operational revenue "
+            f"data for a true live deployment."
         )
 
     # ========================================================
-    # SELECT MODEL
+    # FORECAST QUALITY CHECK
     # ========================================================
 
-    if model_choice == "Prophet" and prophet_available:
+    expected_rows = forecast_horizon
+    actual_rows = len(future_forecast)
+    missing_forecasts = future_forecast[
+        "forecast_revenue"
+    ].isna().sum()
 
-        future_df["forecast"] = (
-            future_df["prophet_forecast"]
+    if actual_rows != expected_rows or missing_forecasts > 0:
+        st.error(
+            "Forecast quality check failed. "
+            f"Expected {expected_rows} rows, got {actual_rows}; "
+            f"missing forecasts: {missing_forecasts}."
         )
-
-        selected_model_name = "Prophet"
-
-    else:
-
-        future_df["forecast"] = (
-            future_df["weekday_mean_forecast"]
-        )
-
-        selected_model_name = "Weekday Mean"
+        st.stop()
 
     # ========================================================
     # FORECAST KPIs
     # ========================================================
 
-    total_forecast = future_df["forecast"].sum()
+    total_forecast = future_forecast[
+        "forecast_revenue"
+    ].sum()
 
-    average_forecast = future_df["forecast"].mean()
+    average_forecast = future_forecast[
+        "forecast_revenue"
+    ].mean()
 
     historical_daily_average = df["revenue"].mean()
 
@@ -609,10 +651,7 @@ elif page == "Revenue Intelligence":
         (average_forecast / historical_daily_average) - 1
     ) * 100
 
-    # Estimate orders using historical AOV
-    historical_aov = (
-        df["average_order_value"].mean()
-    )
+    historical_aov = df["average_order_value"].mean()
 
     estimated_orders = (
         total_forecast / historical_aov
@@ -641,21 +680,57 @@ elif page == "Revenue Intelligence":
     )
 
     st.caption(
-        f"Forecast model: **{selected_model_name}**"
+        "Forecast model: **Prophet — Calendar + Weather**"
     )
 
-    st.divider()
+    # ========================================================
+    # MODEL INFORMATION
+    # ========================================================
+
+    with st.expander("Model configuration"):
+        st.write(
+            "The dashboard loads the serialized production model "
+            "created in the revenue forecasting notebook."
+        )
+
+        model_info = {
+            "Model": "Prophet — Calendar + Weather",
+            "Weekly seasonality": "Enabled",
+            "Yearly seasonality": "Disabled",
+            "Daily seasonality": "Disabled",
+            "Seasonality mode": "Additive",
+            "Prediction interval": "80%",
+            "Rain threshold": f"{RAIN_THRESHOLD_MM:.1f} mm",
+            "Training start": model_metadata.get(
+                "training_start", "Not available"
+            ),
+            "Training end": model_metadata.get(
+                "training_end", "Not available"
+            ),
+            "Model file": str(MODEL_PATH)
+        }
+
+        st.dataframe(
+            pd.DataFrame(
+                model_info.items(),
+                columns=["Setting", "Value"]
+            ),
+            use_container_width=True,
+            hide_index=True
+        )
+
+        st.markdown("**Production regressors**")
+        st.write(", ".join(SELECTED_PROPHET_REGRESSORS))
 
     # ========================================================
     # FORECAST CHART
     # ========================================================
 
-    st.subheader("📊 Revenue Forecast")
+    st.subheader("📊 Operational Revenue Forecast")
 
     historical_recent = df[
         df["date"] >= (
-            pd.Timestamp(forecast_start)
-            - pd.Timedelta(days=60)
+            forecast_start - pd.Timedelta(days=60)
         )
     ][
         ["date", "revenue"]
@@ -663,23 +738,16 @@ elif page == "Revenue Intelligence":
 
     historical_recent["Type"] = "Historical"
 
-    forecast_plot = future_df[
-        ["date", "forecast"]
-    ].copy()
-
-    forecast_plot = forecast_plot.rename(
-        columns={
-            "forecast": "revenue"
-        }
+    forecast_plot = future_forecast[
+        ["date", "forecast_revenue"]
+    ].rename(
+        columns={"forecast_revenue": "revenue"}
     )
 
     forecast_plot["Type"] = "Forecast"
 
     plot_df = pd.concat(
-        [
-            historical_recent,
-            forecast_plot
-        ],
+        [historical_recent, forecast_plot],
         ignore_index=True
     )
 
@@ -689,8 +757,8 @@ elif page == "Revenue Intelligence":
         y="revenue",
         color="Type",
         title=(
-            f"Historical Revenue + "
-            f"{selected_model_name} Forecast"
+            "Historical Revenue + "
+            f"{forecast_horizon}-Day Operational Forecast"
         )
     )
 
@@ -706,151 +774,216 @@ elif page == "Revenue Intelligence":
     )
 
     # ========================================================
+    # PREDICTION INTERVAL
+    # ========================================================
+
+    st.subheader("Forecast Uncertainty")
+
+    interval_fig = px.line(
+        future_forecast,
+        x="date",
+        y="forecast_revenue",
+        title="Forecast Revenue with 80% Prediction Interval"
+    )
+
+    interval_fig.add_scatter(
+        x=future_forecast["date"],
+        y=future_forecast["upper_bound"],
+        mode="lines",
+        line=dict(width=0),
+        showlegend=False,
+        hoverinfo="skip"
+    )
+
+    interval_fig.add_scatter(
+        x=future_forecast["date"],
+        y=future_forecast["lower_bound"],
+        mode="lines",
+        fill="tonexty",
+        line=dict(width=0),
+        name="80% interval"
+    )
+
+    interval_fig.update_layout(
+        xaxis_title="Date",
+        yaxis_title="Revenue (€)",
+        hovermode="x unified"
+    )
+
+    st.plotly_chart(
+        interval_fig,
+        use_container_width=True
+    )
+
+    # ========================================================
     # DAILY FORECAST TABLE
     # ========================================================
 
-    st.subheader("📅 Daily Forecast")
+    st.subheader("📅 Daily Operational Forecast")
 
-    display_forecast = future_df[
+    display_forecast = future_forecast[
         [
             "date",
             "temperature_avg_c",
             "precipitation_mm",
+            "is_rainy",
             "is_holiday",
             "is_promo_day",
-            "forecast"
+            "forecast_revenue",
+            "lower_bound",
+            "upper_bound"
         ]
     ].copy()
 
-    display_forecast["Holiday"] = (
-        display_forecast["is_holiday"]
-        .map({
-            0: "No",
-            1: "Yes"
-        })
-    )
+    display_forecast["Holiday"] = display_forecast[
+        "is_holiday"
+    ].map({
+        0: "No",
+        1: "Yes"
+    })
 
-    display_forecast["Promotion"] = (
-        display_forecast["is_promo_day"]
-        .map({
-            0: "No",
-            1: "Yes"
-        })
-    )
+    display_forecast["Promotion"] = display_forecast[
+        "is_promo_day"
+    ].map({
+        0: "No",
+        1: "Yes"
+    })
 
-    display_forecast = display_forecast[
-        [
-            "date",
-            "temperature_avg_c",
-            "precipitation_mm",
-            "Holiday",
-            "Promotion",
-            "forecast"
-        ]
-    ]
+    display_forecast["Rain"] = display_forecast[
+        "is_rainy"
+    ].map({
+        0: "No",
+        1: "Yes"
+    })
 
     display_forecast = display_forecast.rename(
         columns={
             "date": "Date",
-            "temperature_avg_c"
+            "temperature_avg_c": "Temperature (°C)",
             "precipitation_mm": "Precipitation (mm)",
-            "forecast": "Forecast Revenue (€)"
+            "forecast_revenue": "Forecast Revenue (€)",
+            "lower_bound": "Lower Bound (€)",
+            "upper_bound": "Upper Bound (€)"
         }
     )
+
+    display_forecast = display_forecast[
+        [
+            "Date",
+            "Temperature (°C)",
+            "Precipitation (mm)",
+            "Rain",
+            "Holiday",
+            "Promotion",
+            "Forecast Revenue (€)",
+            "Lower Bound (€)",
+            "Upper Bound (€)"
+        ]
+    ]
 
     st.dataframe(
         display_forecast.style.format({
             "Temperature (°C)": "{:.1f}",
             "Precipitation (mm)": "{:.1f}",
-            "Forecast Revenue (€)": "€{:,.2f}"
+            "Forecast Revenue (€)": "€{:,.2f}",
+            "Lower Bound (€)": "€{:,.2f}",
+            "Upper Bound (€)": "€{:,.2f}"
         }),
         use_container_width=True,
         hide_index=True
     )
 
     # ========================================================
-    # WEEKDAY PATTERN
+    # WEATHER AND CALENDAR CONTEXT
     # ========================================================
 
-    st.subheader("Revenue Forecast by Day of Week")
+    st.subheader("🌦️ Forecast Context")
 
-    weekday_forecast = (
-        future_df.assign(
-            day_of_week=
-            future_df["date"].dt.day_name()
+    context_col1, context_col2 = st.columns(2)
+
+    with context_col1:
+        rainy_days = int(
+            future_forecast["is_rainy"].sum()
         )
-        .groupby("day_of_week")["forecast"]
-        .mean()
-        .reindex([
-            "Monday",
-            "Tuesday",
-            "Wednesday",
-            "Thursday",
-            "Friday",
-            "Saturday",
-            "Sunday"
-        ])
-        .reset_index()
-    )
+        holiday_days = int(
+            future_forecast["is_holiday"].sum()
+        )
 
-    fig = px.bar(
-        weekday_forecast,
-        x="day_of_week",
-        y="forecast",
-        title="Average Forecast Revenue by Weekday"
-    )
+        st.metric("Rainy Days", rainy_days)
+        st.metric("NRW Public Holidays", holiday_days)
 
-    fig.update_layout(
-        xaxis_title="Day",
-        yaxis_title="Forecast Revenue (€)"
-    )
+    with context_col2:
+        average_temperature = future_forecast[
+            "temperature_avg_c"
+        ].mean()
+        total_precipitation = future_forecast[
+            "precipitation_mm"
+        ].sum()
 
-    st.plotly_chart(
-        fig,
-        use_container_width=True
-    )
+        st.metric(
+            "Average Temperature",
+            f"{average_temperature:.1f} °C"
+        )
+        st.metric(
+            "Total Precipitation",
+            f"{total_precipitation:.1f} mm"
+        )
 
     # ========================================================
-    # MODEL COMPARISON
+    # MODEL VALIDATION RESULTS
     # ========================================================
 
     st.divider()
+    st.subheader("🏆 Model Validation Results")
 
-    st.subheader("🏆 Current Baseline Validation")
-
-    # Latest rolling validation results from your notebook
     model_results = pd.DataFrame({
         "Model": [
+            "Prophet — Calendar + Weather",
+            "Prophet — Weather + Calendar + Holiday + Promotion",
+            "SARIMA — Weekly",
+            "Prophet — Weekly Seasonality",
+            "Prophet — Revenue + Calendar",
+            "Gradient Boosting — Lag + Calendar",
             "Weekday Mean",
-            "Seasonal Naive",
-            "Recent Mean",
-            "Mean",
-            "Drift",
-            "Naive"
+            "Random Forest — Weather + Calendar + Holiday + Promotion",
+            "AR — 7 Lags",
+            "Seasonal Naive"
         ],
         "MAE": [
-            431.64,
-            556.35,
-            959.34,
-            946.32,
-            1427.95,
-            1439.36
+            400.86,
+            406.78,
+            407.98,
+            418.27,
+            418.53,
+            429.30,
+            429.43,
+            429.93,
+            526.05,
+            552.67
         ],
         "RMSE": [
-            563.71,
-            720.18,
-            1211.03,
-            1213.95,
-            1844.36,
-            1854.49
+            525.20,
+            532.60,
+            532.29,
+            538.31,
+            544.50,
+            np.nan,
+            559.83,
+            np.nan,
+            703.82,
+            717.66
         ],
         "MAPE (%)": [
-            14.46,
-            18.94,
-            34.27,
-            33.06,
-            40.84,
-            41.20
+            14.85,
+            15.26,
+            14.87,
+            14.94,
+            14.96,
+            np.nan,
+            14.76,
+            np.nan,
+            18.65,
+            19.76
         ]
     })
 
@@ -864,49 +997,16 @@ elif page == "Revenue Intelligence":
         hide_index=True
     )
 
-    best_model = model_results.loc[
-        model_results["MAE"].idxmin(),
-        "Model"
-    ]
-
     st.success(
-        f"Current benchmark: **{best_model}** "
-        f"with MAPE of **14.46%**."
-    )
-
-    # ========================================================
-    # MODEL STATUS
-    # ========================================================
-
-    st.subheader("Forecasting Model Development")
-
-    st.markdown(
-        """
-        **Current status**
-
-        - ✅ Naive baseline
-        - ✅ Mean baseline
-        - ✅ Recent Mean baseline
-        - ✅ Drift baseline
-        - ✅ Seasonal Naive baseline
-        - ✅ Weekday Mean baseline
-        - 🔄 Moving Average
-        - 🔄 Autoregressive (AR)
-        - 🔄 ARIMA
-        - 🔄 SARIMA
-        - 🔄 Prophet
-        - 🔄 SARIMAX
-        - 🔄 Random Forest
-
-        The final production model will be selected using
-        out-of-sample MAE, RMSE and MAPE.
-        """
+        "Selected production model: **Prophet — Calendar + Weather** "
+        "with rolling-validation MAE of **€400.86/day**."
     )
 
     st.info(
-        "The interactive Prophet forecast is currently a prototype. "
-        "The final model will be selected after the complete "
-        "forecasting model comparison is finished."
+        "Weather information provides incremental predictive value, "
+        "but the improvement cannot be attributed to rainfall alone. "
+        "The selected model combines weather, calendar/business effects "
+        "and weekly seasonality."
     )
 
 
