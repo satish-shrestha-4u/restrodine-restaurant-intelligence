@@ -1,0 +1,201 @@
+date,employee_id,employee_name,role,employment_type,shift_type,start_time,end_time,hours,hourly_cost,labour_cost
+2026-11-03,E006,Anna Wagner,Chef,Full-time,Lunch,10:30,16:00,5.5,20.5,112.75
+2026-11-03,E028,Nina Schmidt,Dishwasher,Part-time,Lunch,10:30,16:00,5.5,14.0,77.0
+2026-11-03,E010,Yusuf Jung,Kitchen Assistant,Part-time,Lunch,10:30,16:00,5.5,15.0,82.5
+2026-11-03,E015,Carla Weber,Waiter,Full-time,Lunch,10:30,16:00,5.5,15.5,85.25
+2026-11-03,E017,Tom Richter,Waiter,Full-time,Lunch,10:30,16:00,5.5,15.5,85.25
+2026-11-03,E002,Piotr Lange,Restaurant Manager,Full-time,Full,11:30,20:00,8.0,24.5,196.0
+2026-11-03,E026,Ayşe Meier,Bartender,Part-time,Dinner,16:30,23:00,6.5,16.5,107.25
+2026-11-03,E006,Anna Wagner,Chef,Full-time,Dinner,16:30,23:00,6.5,20.5,133.25
+2026-11-03,E009,David Kowalski,Chef,Part-time,Dinner,16:30,23:00,6.5,21.0,136.5
+2026-11-03,E029,Felix Schulz,Dishwasher,Part-time,Dinner,16:30,23:00,6.5,14.0,91.0
+2026-11-03,E011,Leon Meyer,Kitchen Assistant,Part-time,Dinner,16:30,23:00,6.5,15.5,100.75
+2026-11-03,E018,Leon Koch,Waiter,Part-time,Dinner,16:30,23:00,6.5,14.5,94.25
+2026-11-03,E023,Omar Fischer,Waiter,Minijob,Dinner,16:30,23:00,6.5,14.0,91.0
+2026-11-03,E022,Yusuf Wagner,Waiter,Minijob,Dinner,16:30,23:00,6.5,14.0,91.0
+2026-11-04,E005,Katarina Fischer,Chef,Full-time,Lunch,10:30,16:00,5.5,20.5,112.75
+2026-11-04,E028,Nina Schmidt,Dishwasher,Part-time,Lunch,10:30,16:00,5.5,14.0,77.0
+2026-11-04,E012,Lena Becker,Kitchen Assistant,Part-time,Lunch,10:30,16:00,5.5,14.0,77.0
+2026-11-04,E019,Laura Meyer,Waiter,Part-time,Lunch,10:30,16:00,5.5,15.0,82.5
+2026-11-04,E021,Piotr Huber,Waiter,Part-time,Lunch,10:30,16:00,5.5,14.5,79.75
+2026-11-04,E001,Clara Krause,Restaurant Manager,Full-time,Full,11:30,20:00,8.0,25.0,200.0
+2026-11-04,E025,Lisa Werner,Bartender,Full-time,Dinner,16:30,23:00,6.5,16.5,107.25
+2026-11-04,E007,Felix Nowak,Chef,Full-time,Dinner,16:30,23:00,6.5,20.5,133.25
+2026-11-04,E005,Katarina Fischer,Chef,Full-time,Dinner,16:30,23:00,6.5,20.5,133.25
+2026-11-04,E029,Felix Schulz,Dishwasher,Part-time,Dinner,16:30,23:00,6.5,14.0,91.0
+2026-11-04,E013,Lena Müller,Kitchen Assistant,Minijob,Dinner,16:30,23:00,6.5,13.5,87.75
+2026-11-04,E024,Emma Yilmaz,Waiter,Minijob,Dinner,16:30,23:00,6.5,13.5,87.75
+2026-11-04,E019,Laura Meyer,Waiter,Part-time,Dinner,16:30,23:00,6.5,15.0,97.5
+2026-11-04,E021,Piotr Huber,Waiter,Part-time,Dinner,16:30,23:00,6.5,14.5,94.25
+2026-11-05,E009,David Kowalski,Chef,Part-time,Lunch,10:30,16:00,5.5,21.0,115.5
+2026-11-05,E029,Felix Schulz,Dishwasher,Part-time,Lunch,10:30,16:00,5.5,14.0,77.0
+2026-11-05,E010,Yusuf Jung,Kitchen Assistant,Part-time,Lunch,10:30,16:00,5.5,15.0,82.5
+2026-11-05,E015,Carla Weber,Waiter,Full-time,Lunch,10:30,16:00,5.5,15.5,85.25
+2026-11-05,E016,Laura Jung,Waiter,Full-time,Lunch,10:30,16:00,5.5,15.0,82.5
+2026-11-05,E001,Clara Krause,Restaurant Manager,Full-time,Full,11:30,20:00,8.0,25.0,200.0
+2026-11-05,E025,Lisa Werner,Bartender,Full-time,Dinner,16:30,23:00,6.5,16.5,107.25
+2026-11-05,E006,Anna Wagner,Chef,Full-time,Dinner,16:30,23:00,6.5,20.5,133.25
+2026-11-05,E005,Katarina Fischer,Chef,Full-time,Dinner,16:30,23:00,6.5,20.5,133.25
+2026-11-05,E029,Felix Schulz,Dishwasher,Part-time,Dinner,16:30,23:00,6.5,14.0,91.0
+2026-11-05,E010,Yusuf Jung,Kitchen Assistant,Part-time,Dinner,16:30,23:00,6.5,15.0,97.5
+2026-11-05,E015,Carla Weber,Waiter,Full-time,Dinner,16:30,23:00,6.5,15.5,100.75
+2026-11-05,E016,Laura Jung,Waiter,Full-time,Dinner,16:30,23:00,6.5,15.0,97.5
+2026-11-05,E018,Leon Koch,Waiter,Part-time,Dinner,16:30,23:00,6.5,14.5,94.25
+2026-11-06,E007,Felix Nowak,Chef,Full-time,Lunch,10:30,16:00,5.5,20.5,112.75
+2026-11-06,E028,Nina Schmidt,Dishwasher,Part-time,Lunch,10:30,16:00,5.5,14.0,77.0
+2026-11-06,E012,Lena Becker,Kitchen Assistant,Part-time,Lunch,10:30,16:00,5.5,14.0,77.0
+2026-11-06,E023,Omar Fischer,Waiter,Minijob,Lunch,10:30,16:00,5.5,14.0,77.0
+2026-11-06,E017,Tom Richter,Waiter,Full-time,Lunch,10:30,16:00,5.5,15.5,85.25
+2026-11-06,E022,Yusuf Wagner,Waiter,Minijob,Lunch,10:30,16:00,5.5,14.0,77.0
+2026-11-06,E001,Clara Krause,Restaurant Manager,Full-time,Full,11:30,20:00,8.0,25.0,200.0
+2026-11-06,E003,Carla Schmitt,Assistant Manager,Full-time,Dinner,16:30,23:00,6.5,21.0,136.5
+2026-11-06,E026,Ayşe Meier,Bartender,Part-time,Dinner,16:30,23:00,6.5,16.5,107.25
+2026-11-06,E027,Felix Klein,Bartender,Part-time,Dinner,16:30,23:00,6.5,16.0,104.0
+2026-11-06,E009,David Kowalski,Chef,Part-time,Dinner,16:30,23:00,6.5,21.0,136.5
+2026-11-06,E007,Felix Nowak,Chef,Full-time,Dinner,16:30,23:00,6.5,20.5,133.25
+2026-11-06,E028,Nina Schmidt,Dishwasher,Part-time,Dinner,16:30,23:00,6.5,14.0,91.0
+2026-11-06,E012,Lena Becker,Kitchen Assistant,Part-time,Dinner,16:30,23:00,6.5,14.0,91.0
+2026-11-06,E016,Laura Jung,Waiter,Full-time,Dinner,16:30,23:00,6.5,15.0,97.5
+2026-11-06,E019,Laura Meyer,Waiter,Part-time,Dinner,16:30,23:00,6.5,15.0,97.5
+2026-11-06,E018,Leon Koch,Waiter,Part-time,Dinner,16:30,23:00,6.5,14.5,94.25
+2026-11-06,E021,Piotr Huber,Waiter,Part-time,Dinner,16:30,23:00,6.5,14.5,94.25
+2026-11-06,E017,Tom Richter,Waiter,Full-time,Dinner,16:30,23:00,6.5,15.5,100.75
+2026-11-07,E005,Katarina Fischer,Chef,Full-time,Lunch,10:30,16:00,5.5,20.5,112.75
+2026-11-07,E028,Nina Schmidt,Dishwasher,Part-time,Lunch,10:30,16:00,5.5,14.0,77.0
+2026-11-07,E011,Leon Meyer,Kitchen Assistant,Part-time,Lunch,10:30,16:00,5.5,15.5,85.25
+2026-11-07,E015,Carla Weber,Waiter,Full-time,Lunch,10:30,16:00,5.5,15.5,85.25
+2026-11-07,E024,Emma Yilmaz,Waiter,Minijob,Lunch,10:30,16:00,5.5,13.5,74.25
+2026-11-07,E017,Tom Richter,Waiter,Full-time,Lunch,10:30,16:00,5.5,15.5,85.25
+2026-11-07,E002,Piotr Lange,Restaurant Manager,Full-time,Full,11:30,20:00,8.0,24.5,196.0
+2026-11-07,E004,Giulia Kowalski,Assistant Manager,Full-time,Dinner,16:30,23:00,6.5,19.5,126.75
+2026-11-07,E027,Felix Klein,Bartender,Part-time,Dinner,16:30,23:00,6.5,16.0,104.0
+2026-11-07,E025,Lisa Werner,Bartender,Full-time,Dinner,16:30,23:00,6.5,16.5,107.25
+2026-11-07,E006,Anna Wagner,Chef,Full-time,Dinner,16:30,23:00,6.5,20.5,133.25
+2026-11-07,E007,Felix Nowak,Chef,Full-time,Dinner,16:30,23:00,6.5,20.5,133.25
+2026-11-07,E011,Leon Meyer,Kitchen Assistant,Part-time,Dinner,16:30,23:00,6.5,15.5,100.75
+2026-11-07,E010,Yusuf Jung,Kitchen Assistant,Part-time,Dinner,16:30,23:00,6.5,15.0,97.5
+2026-11-07,E015,Carla Weber,Waiter,Full-time,Dinner,16:30,23:00,6.5,15.5,100.75
+2026-11-07,E016,Laura Jung,Waiter,Full-time,Dinner,16:30,23:00,6.5,15.0,97.5
+2026-11-07,E019,Laura Meyer,Waiter,Part-time,Dinner,16:30,23:00,6.5,15.0,97.5
+2026-11-07,E018,Leon Koch,Waiter,Part-time,Dinner,16:30,23:00,6.5,14.5,94.25
+2026-11-07,E021,Piotr Huber,Waiter,Part-time,Dinner,16:30,23:00,6.5,14.5,94.25
+2026-11-08,E005,Katarina Fischer,Chef,Full-time,Lunch,10:30,16:00,5.5,20.5,112.75
+2026-11-08,E013,Lena Müller,Kitchen Assistant,Minijob,Lunch,10:30,16:00,5.5,13.5,74.25
+2026-11-08,E016,Laura Jung,Waiter,Full-time,Lunch,10:30,16:00,5.5,15.0,82.5
+2026-11-08,E017,Tom Richter,Waiter,Full-time,Lunch,10:30,16:00,5.5,15.5,85.25
+2026-11-08,E002,Piotr Lange,Restaurant Manager,Full-time,Full,11:30,20:00,8.0,24.5,196.0
+2026-11-08,E027,Felix Klein,Bartender,Part-time,Dinner,16:30,23:00,6.5,16.0,104.0
+2026-11-08,E006,Anna Wagner,Chef,Full-time,Dinner,16:30,23:00,6.5,20.5,133.25
+2026-11-08,E007,Felix Nowak,Chef,Full-time,Dinner,16:30,23:00,6.5,20.5,133.25
+2026-11-08,E012,Lena Becker,Kitchen Assistant,Part-time,Dinner,16:30,23:00,6.5,14.0,91.0
+2026-11-08,E015,Carla Weber,Waiter,Full-time,Dinner,16:30,23:00,6.5,15.5,100.75
+2026-11-08,E016,Laura Jung,Waiter,Full-time,Dinner,16:30,23:00,6.5,15.0,97.5
+2026-11-08,E017,Tom Richter,Waiter,Full-time,Dinner,16:30,23:00,6.5,15.5,100.75
+2026-11-09,E007,Felix Nowak,Chef,Full-time,Lunch,10:30,16:00,5.5,20.5,112.75
+2026-11-09,E016,Laura Jung,Waiter,Full-time,Lunch,10:30,16:00,5.5,15.0,82.5
+2026-11-09,E017,Tom Richter,Waiter,Full-time,Lunch,10:30,16:00,5.5,15.5,85.25
+2026-11-09,E002,Piotr Lange,Restaurant Manager,Full-time,Full,11:30,20:00,8.0,24.5,196.0
+2026-11-09,E026,Ayşe Meier,Bartender,Part-time,Dinner,16:30,23:00,6.5,16.5,107.25
+2026-11-09,E007,Felix Nowak,Chef,Full-time,Dinner,16:30,23:00,6.5,20.5,133.25
+2026-11-09,E029,Felix Schulz,Dishwasher,Part-time,Dinner,16:30,23:00,6.5,14.0,91.0
+2026-11-09,E010,Yusuf Jung,Kitchen Assistant,Part-time,Dinner,16:30,23:00,6.5,15.0,97.5
+2026-11-09,E019,Laura Meyer,Waiter,Part-time,Dinner,16:30,23:00,6.5,15.0,97.5
+2026-11-09,E021,Piotr Huber,Waiter,Part-time,Dinner,16:30,23:00,6.5,14.5,94.25
+2026-11-10,E006,Anna Wagner,Chef,Full-time,Lunch,10:30,16:00,5.5,20.5,112.75
+2026-11-10,E028,Nina Schmidt,Dishwasher,Part-time,Lunch,10:30,16:00,5.5,14.0,77.0
+2026-11-10,E011,Leon Meyer,Kitchen Assistant,Part-time,Lunch,10:30,16:00,5.5,15.5,85.25
+2026-11-10,E015,Carla Weber,Waiter,Full-time,Lunch,10:30,16:00,5.5,15.5,85.25
+2026-11-10,E018,Leon Koch,Waiter,Part-time,Lunch,10:30,16:00,5.5,14.5,79.75
+2026-11-10,E002,Piotr Lange,Restaurant Manager,Full-time,Full,11:30,20:00,8.0,24.5,196.0
+2026-11-10,E026,Ayşe Meier,Bartender,Part-time,Dinner,16:30,23:00,6.5,16.5,107.25
+2026-11-10,E006,Anna Wagner,Chef,Full-time,Dinner,16:30,23:00,6.5,20.5,133.25
+2026-11-10,E009,David Kowalski,Chef,Part-time,Dinner,16:30,23:00,6.5,21.0,136.5
+2026-11-10,E028,Nina Schmidt,Dishwasher,Part-time,Dinner,16:30,23:00,6.5,14.0,91.0
+2026-11-10,E011,Leon Meyer,Kitchen Assistant,Part-time,Dinner,16:30,23:00,6.5,15.5,100.75
+2026-11-10,E024,Emma Yilmaz,Waiter,Minijob,Dinner,16:30,23:00,6.5,13.5,87.75
+2026-11-10,E023,Omar Fischer,Waiter,Minijob,Dinner,16:30,23:00,6.5,14.0,91.0
+2026-11-10,E022,Yusuf Wagner,Waiter,Minijob,Dinner,16:30,23:00,6.5,14.0,91.0
+2026-11-11,E005,Katarina Fischer,Chef,Full-time,Lunch,10:30,16:00,5.5,20.5,112.75
+2026-11-11,E029,Felix Schulz,Dishwasher,Part-time,Lunch,10:30,16:00,5.5,14.0,77.0
+2026-11-11,E012,Lena Becker,Kitchen Assistant,Part-time,Lunch,10:30,16:00,5.5,14.0,77.0
+2026-11-11,E019,Laura Meyer,Waiter,Part-time,Lunch,10:30,16:00,5.5,15.0,82.5
+2026-11-11,E018,Leon Koch,Waiter,Part-time,Lunch,10:30,16:00,5.5,14.5,79.75
+2026-11-11,E001,Clara Krause,Restaurant Manager,Full-time,Full,11:30,20:00,8.0,25.0,200.0
+2026-11-11,E025,Lisa Werner,Bartender,Full-time,Dinner,16:30,23:00,6.5,16.5,107.25
+2026-11-11,E009,David Kowalski,Chef,Part-time,Dinner,16:30,23:00,6.5,21.0,136.5
+2026-11-11,E005,Katarina Fischer,Chef,Full-time,Dinner,16:30,23:00,6.5,20.5,133.25
+2026-11-11,E029,Felix Schulz,Dishwasher,Part-time,Dinner,16:30,23:00,6.5,14.0,91.0
+2026-11-11,E013,Lena Müller,Kitchen Assistant,Minijob,Dinner,16:30,23:00,6.5,13.5,87.75
+2026-11-11,E019,Laura Meyer,Waiter,Part-time,Dinner,16:30,23:00,6.5,15.0,97.5
+2026-11-11,E018,Leon Koch,Waiter,Part-time,Dinner,16:30,23:00,6.5,14.5,94.25
+2026-11-11,E021,Piotr Huber,Waiter,Part-time,Dinner,16:30,23:00,6.5,14.5,94.25
+2026-11-12,E005,Katarina Fischer,Chef,Full-time,Lunch,10:30,16:00,5.5,20.5,112.75
+2026-11-12,E029,Felix Schulz,Dishwasher,Part-time,Lunch,10:30,16:00,5.5,14.0,77.0
+2026-11-12,E010,Yusuf Jung,Kitchen Assistant,Part-time,Lunch,10:30,16:00,5.5,15.0,82.5
+2026-11-12,E015,Carla Weber,Waiter,Full-time,Lunch,10:30,16:00,5.5,15.5,85.25
+2026-11-12,E016,Laura Jung,Waiter,Full-time,Lunch,10:30,16:00,5.5,15.0,82.5
+2026-11-12,E001,Clara Krause,Restaurant Manager,Full-time,Full,11:30,20:00,8.0,25.0,200.0
+2026-11-12,E025,Lisa Werner,Bartender,Full-time,Dinner,16:30,23:00,6.5,16.5,107.25
+2026-11-12,E006,Anna Wagner,Chef,Full-time,Dinner,16:30,23:00,6.5,20.5,133.25
+2026-11-12,E009,David Kowalski,Chef,Part-time,Dinner,16:30,23:00,6.5,21.0,136.5
+2026-11-12,E010,Yusuf Jung,Kitchen Assistant,Part-time,Dinner,16:30,23:00,6.5,15.0,97.5
+2026-11-12,E015,Carla Weber,Waiter,Full-time,Dinner,16:30,23:00,6.5,15.5,100.75
+2026-11-12,E016,Laura Jung,Waiter,Full-time,Dinner,16:30,23:00,6.5,15.0,97.5
+2026-11-12,E021,Piotr Huber,Waiter,Part-time,Dinner,16:30,23:00,6.5,14.5,94.25
+2026-11-13,E007,Felix Nowak,Chef,Full-time,Lunch,10:30,16:00,5.5,20.5,112.75
+2026-11-13,E028,Nina Schmidt,Dishwasher,Part-time,Lunch,10:30,16:00,5.5,14.0,77.0
+2026-11-13,E012,Lena Becker,Kitchen Assistant,Part-time,Lunch,10:30,16:00,5.5,14.0,77.0
+2026-11-13,E023,Omar Fischer,Waiter,Minijob,Lunch,10:30,16:00,5.5,14.0,77.0
+2026-11-13,E017,Tom Richter,Waiter,Full-time,Lunch,10:30,16:00,5.5,15.5,85.25
+2026-11-13,E022,Yusuf Wagner,Waiter,Minijob,Lunch,10:30,16:00,5.5,14.0,77.0
+2026-11-13,E001,Clara Krause,Restaurant Manager,Full-time,Full,11:30,20:00,8.0,25.0,200.0
+2026-11-13,E003,Carla Schmitt,Assistant Manager,Full-time,Dinner,16:30,23:00,6.5,21.0,136.5
+2026-11-13,E027,Felix Klein,Bartender,Part-time,Dinner,16:30,23:00,6.5,16.0,104.0
+2026-11-13,E025,Lisa Werner,Bartender,Full-time,Dinner,16:30,23:00,6.5,16.5,107.25
+2026-11-13,E007,Felix Nowak,Chef,Full-time,Dinner,16:30,23:00,6.5,20.5,133.25
+2026-11-13,E005,Katarina Fischer,Chef,Full-time,Dinner,16:30,23:00,6.5,20.5,133.25
+2026-11-13,E028,Nina Schmidt,Dishwasher,Part-time,Dinner,16:30,23:00,6.5,14.0,91.0
+2026-11-13,E012,Lena Becker,Kitchen Assistant,Part-time,Dinner,16:30,23:00,6.5,14.0,91.0
+2026-11-13,E015,Carla Weber,Waiter,Full-time,Dinner,16:30,23:00,6.5,15.5,100.75
+2026-11-13,E016,Laura Jung,Waiter,Full-time,Dinner,16:30,23:00,6.5,15.0,97.5
+2026-11-13,E019,Laura Meyer,Waiter,Part-time,Dinner,16:30,23:00,6.5,15.0,97.5
+2026-11-13,E018,Leon Koch,Waiter,Part-time,Dinner,16:30,23:00,6.5,14.5,94.25
+2026-11-13,E017,Tom Richter,Waiter,Full-time,Dinner,16:30,23:00,6.5,15.5,100.75
+2026-11-14,E006,Anna Wagner,Chef,Full-time,Lunch,10:30,16:00,5.5,20.5,112.75
+2026-11-14,E028,Nina Schmidt,Dishwasher,Part-time,Lunch,10:30,16:00,5.5,14.0,77.0
+2026-11-14,E013,Lena Müller,Kitchen Assistant,Minijob,Lunch,10:30,16:00,5.5,13.5,74.25
+2026-11-14,E024,Emma Yilmaz,Waiter,Minijob,Lunch,10:30,16:00,5.5,13.5,74.25
+2026-11-14,E021,Piotr Huber,Waiter,Part-time,Lunch,10:30,16:00,5.5,14.5,79.75
+2026-11-14,E017,Tom Richter,Waiter,Full-time,Lunch,10:30,16:00,5.5,15.5,85.25
+2026-11-14,E002,Piotr Lange,Restaurant Manager,Full-time,Full,11:30,20:00,8.0,24.5,196.0
+2026-11-14,E004,Giulia Kowalski,Assistant Manager,Full-time,Dinner,16:30,23:00,6.5,19.5,126.75
+2026-11-14,E027,Felix Klein,Bartender,Part-time,Dinner,16:30,23:00,6.5,16.0,104.0
+2026-11-14,E025,Lisa Werner,Bartender,Full-time,Dinner,16:30,23:00,6.5,16.5,107.25
+2026-11-14,E009,David Kowalski,Chef,Part-time,Dinner,16:30,23:00,6.5,21.0,136.5
+2026-11-14,E005,Katarina Fischer,Chef,Full-time,Dinner,16:30,23:00,6.5,20.5,133.25
+2026-11-14,E012,Lena Becker,Kitchen Assistant,Part-time,Dinner,16:30,23:00,6.5,14.0,91.0
+2026-11-14,E011,Leon Meyer,Kitchen Assistant,Part-time,Dinner,16:30,23:00,6.5,15.5,100.75
+2026-11-14,E015,Carla Weber,Waiter,Full-time,Dinner,16:30,23:00,6.5,15.5,100.75
+2026-11-14,E016,Laura Jung,Waiter,Full-time,Dinner,16:30,23:00,6.5,15.0,97.5
+2026-11-14,E017,Tom Richter,Waiter,Full-time,Dinner,16:30,23:00,6.5,15.5,100.75
+2026-11-15,E006,Anna Wagner,Chef,Full-time,Lunch,10:30,16:00,5.5,20.5,112.75
+2026-11-15,E029,Felix Schulz,Dishwasher,Part-time,Lunch,10:30,16:00,5.5,14.0,77.0
+2026-11-15,E010,Yusuf Jung,Kitchen Assistant,Part-time,Lunch,10:30,16:00,5.5,15.0,82.5
+2026-11-15,E015,Carla Weber,Waiter,Full-time,Lunch,10:30,16:00,5.5,15.5,85.25
+2026-11-15,E017,Tom Richter,Waiter,Full-time,Lunch,10:30,16:00,5.5,15.5,85.25
+2026-11-15,E001,Clara Krause,Restaurant Manager,Full-time,Full,11:30,20:00,8.0,25.0,200.0
+2026-11-15,E027,Felix Klein,Bartender,Part-time,Dinner,16:30,23:00,6.5,16.0,104.0
+2026-11-15,E006,Anna Wagner,Chef,Full-time,Dinner,16:30,23:00,6.5,20.5,133.25
+2026-11-15,E007,Felix Nowak,Chef,Full-time,Dinner,16:30,23:00,6.5,20.5,133.25
+2026-11-15,E011,Leon Meyer,Kitchen Assistant,Part-time,Dinner,16:30,23:00,6.5,15.5,100.75
+2026-11-15,E016,Laura Jung,Waiter,Full-time,Dinner,16:30,23:00,6.5,15.0,97.5
+2026-11-16,E007,Felix Nowak,Chef,Full-time,Lunch,10:30,16:00,5.5,20.5,112.75
+2026-11-16,E016,Laura Jung,Waiter,Full-time,Lunch,10:30,16:00,5.5,15.0,82.5
+2026-11-16,E017,Tom Richter,Waiter,Full-time,Lunch,10:30,16:00,5.5,15.5,85.25
+2026-11-16,E002,Piotr Lange,Restaurant Manager,Full-time,Full,11:30,20:00,8.0,24.5,196.0
+2026-11-16,E026,Ayşe Meier,Bartender,Part-time,Dinner,16:30,23:00,6.5,16.5,107.25
+2026-11-16,E007,Felix Nowak,Chef,Full-time,Dinner,16:30,23:00,6.5,20.5,133.25
+2026-11-16,E029,Felix Schulz,Dishwasher,Part-time,Dinner,16:30,23:00,6.5,14.0,91.0
+2026-11-16,E010,Yusuf Jung,Kitchen Assistant,Part-time,Dinner,16:30,23:00,6.5,15.0,97.5
+2026-11-16,E019,Laura Meyer,Waiter,Part-time,Dinner,16:30,23:00,6.5,15.0,97.5
+2026-11-16,E021,Piotr Huber,Waiter,Part-time,Dinner,16:30,23:00,6.5,14.5,94.25
