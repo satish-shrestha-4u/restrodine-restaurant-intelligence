@@ -1,0 +1,25 @@
+{
+    "project": "RestroDine",
+    "module": "Customer Intelligence",
+    "data_type": "Synthetic demonstration data",
+    "description": "Customer feedback and aspect sentiment analysis using pre-generated synthetic labels.",
+    "reference_period": {
+        "start": "2024-01-01",
+        "end": "2025-12-31"
+    },
+    "total_reviews": 4306,
+    "total_customers_reviewed": 2030,
+    "average_rating": 4.21,
+    "total_aspect_mentions": 12157,
+    "sentiment_distribution": {
+        "positive_percentage": 73.23,
+        "neutral_percentage": 12.69,
+        "negative_percentage": 14.07
+    },
+    "rfm": {
+        "customers_analysed": 3841,
+        "high_value_spending_threshold": 488.43,
+        "high_value_customers_with_negative_feedback": 464
+    },
+    "methodology_note": "Aspect sentiment values are supplied synthetic annotations. They are descriptive inputs to this dashboard, not predictions from a trained NLP model."
+}

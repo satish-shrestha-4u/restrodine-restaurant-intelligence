@@ -1,0 +1,31 @@
+product_name,category,menu_class,quantity_sold,sales_mix_pct,contribution_margin,gross_margin_pct,total_revenue,total_gross_profit,recommended_action
+Panna Cotta,Dessert,Dog,5327,2.1242064631384183,4.37,73.9341053661719,31268.100000000002,23117.79,"Review customer demand, recipe cost and strategic purpose. Consider redesigning or removing after further review."
+Chocolate Lava Cake,Dessert,Dog,5267,2.1002807286183685,4.9700000000000015,71.88786129149837,36159.86,25994.550000000003,"Review customer demand, recipe cost and strategic purpose. Consider redesigning or removing after further review."
+Ice Cream,Dessert,Dog,4268,1.70191724885954,3.4300000000000006,69.84935635125868,20808.710000000003,14534.750000000002,"Review customer demand, recipe cost and strategic purpose. Consider redesigning or removing after further review."
+Side Salad,Salad,Dog,2973,1.1855201454684658,3.91,71.03569596938297,16320.33,11593.26,"Review customer demand, recipe cost and strategic purpose. Consider redesigning or removing after further review."
+Cola,Drink,Plowhorse,21704,8.654735700386002,2.83,80.27579499776535,73725.05,59183.37,"Review portion cost, supplier pricing and selling price. Avoid damaging demand through large price increases."
+Beer 0.5L,Drink,Plowhorse,18907,7.539397709509682,3.51,77.62328726591961,83649.15,64931.219999999994,"Review portion cost, supplier pricing and selling price. Avoid damaging demand through large price increases."
+Mineral Water,Drink,Plowhorse,16935,6.753038568284047,2.5300000000000002,78.42342044251342,52586.880000000005,41240.43,"Review portion cost, supplier pricing and selling price. Avoid damaging demand through large price increases."
+House Wine,Drink,Plowhorse,14657,5.844658181006157,4.46,80.75824478223878,79219.8,63976.52,"Review portion cost, supplier pricing and selling price. Avoid damaging demand through large price increases."
+Espresso,Drink,Plowhorse,13499,5.382891504769197,2.21,78.5615497338905,37150.119999999995,29185.71,"Review portion cost, supplier pricing and selling price. Avoid damaging demand through large price increases."
+Apple Spritzer,Drink,Plowhorse,11412,4.550674705713465,3.2,81.49610019957639,43171.439999999995,35183.04,"Review portion cost, supplier pricing and selling price. Avoid damaging demand through large price increases."
+Tiramisu,Dessert,Plowhorse,9051,3.6091970523495074,4.61,70.79341550464467,58570.32,41463.93,"Review portion cost, supplier pricing and selling price. Avoid damaging demand through large price increases."
+Iced Tea,Drink,Plowhorse,6803,2.7127795323316426,2.96,79.39515090939378,24432.210000000003,19397.989999999998,"Review portion cost, supplier pricing and selling price. Avoid damaging demand through large price increases."
+Diavola,Pizza,Puzzle,5773,2.3020544230707882,9.25,73.86645773483068,71793.75,53031.5,"Improve menu placement, descriptions and staff recommendations. Test targeted promotion."
+Prosciutto,Pizza,Puzzle,5716,2.279324975276741,9.16,70.85119696014624,73340.37,51962.53,"Improve menu placement, descriptions and staff recommendations. Test targeted promotion."
+Caesar Salad,Salad,Puzzle,5182,2.066385938048298,7.5600000000000005,71.92382264499975,54263.37,39028.29,"Improve menu placement, descriptions and staff recommendations. Test targeted promotion."
+Gnocchi Gorgonzola,Pasta,Puzzle,5181,2.0659871758062973,9.42,72.87203958331295,66462.35,48432.47,"Improve menu placement, descriptions and staff recommendations. Test targeted promotion."
+Vegetarian Curry,Main Course,Puzzle,5113,2.0388713433502406,9.17,65.63041277344898,70365.96,46181.47,"Improve menu placement, descriptions and staff recommendations. Test targeted promotion."
+Greek Salad,Salad,Puzzle,4914,1.959517657192076,6.93,69.91852725775215,48516.840000000004,33922.26,"Improve menu placement, descriptions and staff recommendations. Test targeted promotion."
+Quattro Formaggi,Pizza,Puzzle,4388,1.7497687178996395,9.290000000000001,71.85128163573997,56274.96,40434.280000000006,"Improve menu placement, descriptions and staff recommendations. Test targeted promotion."
+Caprese Salad,Salad,Puzzle,4276,1.7051073467955467,6.46,67.9192334203609,40519.73,27520.69,"Improve menu placement, descriptions and staff recommendations. Test targeted promotion."
+Salmon Fillet,Main Course,Puzzle,4046,1.6133920311353558,13.529999999999998,67.69556215105548,79781.67,54008.649999999994,"Improve menu placement, descriptions and staff recommendations. Test targeted promotion."
+Margherita,Pizza,Star,12251,4.885236226752161,7.42,74.81277546278162,120626.55,90244.06999999999,Protect quality and availability; feature prominently without unnecessary discounting.
+Spaghetti Carbonara,Pasta,Star,10475,4.177034484958688,9.5,75.85301667859224,130140.48,98715.48,Protect quality and availability; feature prominently without unnecessary discounting.
+Beef Burger,Main Course,Star,10402,4.147924841292628,10.280000000000001,68.70268704100255,153550.69,105493.45000000001,Protect quality and availability; feature prominently without unnecessary discounting.
+Chicken Schnitzel,Main Course,Star,8971,3.5772960729894407,10.650000000000002,66.67817067577138,141342.03,94244.28,Protect quality and availability; feature prominently without unnecessary discounting.
+Salami,Pizza,Star,8061,3.214422432768686,8.39,72.80131275597385,92172.5,67102.79000000001,Protect quality and availability; feature prominently without unnecessary discounting.
+Tagliatelle Bolognese,Pasta,Star,6970,2.779372826745781,9.290000000000001,71.8504914587788,89385.93000000001,64224.23,Protect quality and availability; feature prominently without unnecessary discounting.
+Penne Arrabbiata,Pasta,Star,6341,2.5285513765272594,8.07,73.89196719224545,68733.75,50788.72,Protect quality and availability; feature prominently without unnecessary discounting.
+Grilled Chicken,Main Course,Star,6015,2.3985548856349888,10.719999999999999,64.65378466103147,98360.46,63593.759999999995,Protect quality and availability; feature prominently without unnecessary discounting.
+Lasagne,Pasta,Star,5898,2.3518997033208917,10.120000000000001,74.81149279561772,79144.19,59208.950000000004,Protect quality and availability; feature prominently without unnecessary discounting.

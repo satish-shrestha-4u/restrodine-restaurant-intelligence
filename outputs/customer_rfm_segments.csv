@@ -1,0 +1,3842 @@
+customer_id,Recency,Frequency,Monetary,R_Score,F_Score,M_Score,RFM_Score,RFM_Segment
+C00001,18,12,370.72,5,4,4,13,Champions
+C00002,392,4,128.41,2,3,3,8,At Risk
+C00003,60,35,1325.88,4,5,5,14,Champions
+C00004,599,4,158.82,1,3,3,7,At Risk
+C00005,32,28,863.01,4,5,5,14,Champions
+C00006,354,1,48.51,2,1,1,4,Needs Attention
+C00008,81,14,459.91,3,5,4,12,Loyal Customers
+C00009,712,4,107.26,1,3,2,6,At Risk
+C00010,70,20,845.86,4,5,5,14,Champions
+C00011,64,15,483.51,4,5,4,13,Champions
+C00012,14,39,1291.55,5,5,5,15,Champions
+C00013,599,5,106.7,1,3,2,6,At Risk
+C00014,212,9,259.17,2,4,4,10,At Risk
+C00015,6,45,1600.65,5,5,5,15,Champions
+C00017,264,3,87.6,2,2,2,6,Needs Attention
+C00019,681,2,55.0,1,2,2,5,Needs Attention
+C00020,1,20,732.31,5,5,5,15,Champions
+C00021,478,2,104.1,1,2,2,5,Needs Attention
+C00022,303,15,459.1,2,5,4,11,At Risk
+C00023,15,27,916.05,5,5,5,15,Champions
+C00024,522,6,213.48,1,3,3,7,At Risk
+C00025,420,2,81.7,2,2,2,6,Needs Attention
+C00026,594,9,234.47,1,4,3,8,At Risk
+C00027,58,9,285.31,4,4,4,12,Champions
+C00028,49,29,891.07,4,5,5,14,Champions
+C00029,568,3,140.6,1,2,3,6,Needs Attention
+C00030,10,13,513.04,5,4,5,14,Champions
+C00031,223,6,195.6,2,3,3,8,At Risk
+C00033,69,8,373.9,4,4,4,12,Champions
+C00034,68,4,149.89,4,3,3,10,Potential Loyalists
+C00035,68,5,155.28,4,3,3,10,Potential Loyalists
+C00036,114,7,263.7,3,4,4,11,Loyal Customers
+C00039,97,17,507.03,3,5,5,13,Loyal Customers
+C00040,398,12,480.56,2,4,4,10,At Risk
+C00041,600,3,88.5,1,2,2,5,Needs Attention
+C00042,43,8,296.4,4,4,4,12,Champions
+C00044,509,6,166.8,1,3,3,7,At Risk
+C00045,197,32,1024.57,2,5,5,12,At Risk
+C00046,236,17,467.09,2,5,4,11,At Risk
+C00047,299,14,466.73,2,5,4,11,At Risk
+C00048,383,1,14.9,2,1,1,4,Needs Attention
+C00049,180,22,654.19,3,5,5,13,Loyal Customers
+C00050,117,10,367.86,3,4,4,11,Loyal Customers
+C00051,432,12,298.1,2,4,4,10,At Risk
+C00053,446,7,129.11,1,4,3,8,At Risk
+C00054,343,8,217.76,2,4,3,9,At Risk
+C00055,42,11,270.31,4,4,4,12,Champions
+C00056,20,63,2093.17,5,5,5,15,Champions
+C00057,561,2,39.4,1,2,1,4,Needs Attention
+C00058,556,19,620.0,1,5,5,11,At Risk
+C00059,125,6,165.74,3,3,3,9,Regular Customers
+C00060,11,64,2392.87,5,5,5,15,Champions
+C00061,42,17,577.58,4,5,5,14,Champions
+C00062,15,27,1040.92,5,5,5,15,Champions
+C00063,316,2,28.7,2,2,1,5,Needs Attention
+C00064,159,6,234.62,3,3,3,9,Regular Customers
+C00065,549,6,173.67,1,3,3,7,At Risk
+C00066,11,67,2017.05,5,5,5,15,Champions
+C00067,40,5,187.7,4,3,3,10,Potential Loyalists
+C00068,9,8,280.29,5,4,4,13,Champions
+C00069,80,15,497.5,3,5,5,13,Loyal Customers
+C00071,58,9,413.5,4,4,4,12,Champions
+C00072,67,8,230.76,4,4,3,11,Loyal Customers
+C00073,23,30,897.41,5,5,5,15,Champions
+C00074,6,25,796.29,5,5,5,15,Champions
+C00075,75,14,445.91,3,5,4,12,Loyal Customers
+C00076,68,5,190.19,4,3,3,10,Potential Loyalists
+C00077,413,11,450.19,2,4,4,10,At Risk
+C00078,156,10,283.92,3,4,4,11,Loyal Customers
+C00079,336,8,276.72,2,4,4,10,At Risk
+C00080,6,36,1080.95,5,5,5,15,Champions
+C00081,720,1,47.52,1,1,1,3,Needs Attention
+C00082,415,3,70.2,2,2,2,6,Needs Attention
+C00083,531,7,238.18,1,4,4,9,At Risk
+C00084,13,28,1079.47,5,5,5,15,Champions
+C00085,555,2,34.9,1,2,1,4,Needs Attention
+C00086,207,4,111.3,2,3,2,7,At Risk
+C00087,26,6,181.42,4,3,3,10,Potential Loyalists
+C00089,455,10,249.48,1,4,4,9,At Risk
+C00090,29,14,483.69,4,5,4,13,Champions
+C00091,34,8,248.08,4,4,4,12,Champions
+C00092,58,9,300.06,4,4,4,12,Champions
+C00093,2,4,84.4,5,3,2,10,Potential Loyalists
+C00094,28,10,388.11,4,4,4,12,Champions
+C00097,126,4,160.63,3,3,3,9,Regular Customers
+C00098,670,3,63.4,1,2,2,5,Needs Attention
+C00099,142,22,751.87,3,5,5,13,Loyal Customers
+C00100,648,2,47.6,1,2,1,4,Needs Attention
+C00101,703,2,101.0,1,2,2,5,Needs Attention
+C00102,533,9,287.68,1,4,4,9,At Risk
+C00103,249,31,981.91,2,5,5,12,At Risk
+C00105,6,17,477.82,5,5,4,14,Champions
+C00108,122,10,310.35,3,4,4,11,Loyal Customers
+C00109,378,4,193.6,2,3,3,8,At Risk
+C00110,634,1,14.4,1,1,1,3,Needs Attention
+C00112,5,29,906.65,5,5,5,15,Champions
+C00113,22,31,1007.02,5,5,5,15,Champions
+C00114,21,20,726.27,5,5,5,15,Champions
+C00115,183,1,57.69,3,1,2,6,Regular Customers
+C00117,534,3,84.95,1,2,2,5,Needs Attention
+C00119,16,37,1384.93,5,5,5,15,Champions
+C00121,1,25,943.35,5,5,5,15,Champions
+C00123,649,1,18.4,1,1,1,3,Needs Attention
+C00124,235,5,268.82,2,3,4,9,At Risk
+C00125,6,30,938.31,5,5,5,15,Champions
+C00126,129,19,670.76,3,5,5,13,Loyal Customers
+C00129,279,2,60.0,2,2,2,6,Needs Attention
+C00130,535,8,154.47,1,4,3,8,At Risk
+C00131,289,5,150.0,2,3,3,8,At Risk
+C00132,454,5,240.25,1,3,4,8,At Risk
+C00133,78,5,138.3,3,3,3,9,Regular Customers
+C00134,168,2,32.93,3,2,1,6,Regular Customers
+C00135,26,23,732.35,4,5,5,14,Champions
+C00136,3,6,130.03,5,3,3,11,Potential Loyalists
+C00137,102,8,325.47,3,4,4,11,Loyal Customers
+C00138,234,2,70.2,2,2,2,6,Needs Attention
+C00139,697,1,24.3,1,1,1,3,Needs Attention
+C00140,615,3,127.9,1,2,3,6,Needs Attention
+C00141,278,1,26.9,2,1,1,4,Needs Attention
+C00142,465,8,361.48,1,4,4,9,At Risk
+C00143,11,28,987.01,5,5,5,15,Champions
+C00144,425,10,299.53,2,4,4,10,At Risk
+C00145,547,9,559.98,1,4,5,10,At Risk
+C00146,509,6,173.96,1,3,3,7,At Risk
+C00147,442,3,96.33,1,2,2,5,Needs Attention
+C00149,638,5,140.96,1,3,3,7,At Risk
+C00150,403,2,141.3,2,2,3,7,Needs Attention
+C00151,80,24,768.11,3,5,5,13,Loyal Customers
+C00152,14,27,1057.61,5,5,5,15,Champions
+C00153,68,27,1037.91,4,5,5,14,Champions
+C00154,65,12,607.91,4,4,5,13,Champions
+C00155,127,7,137.67,3,4,3,10,Loyal Customers
+C00156,507,1,16.4,1,1,1,3,Needs Attention
+C00158,51,8,233.6,4,4,3,11,Loyal Customers
+C00159,573,2,118.5,1,2,2,5,Needs Attention
+C00160,69,4,113.72,4,3,2,9,Potential Loyalists
+C00162,713,2,107.3,1,2,2,5,Needs Attention
+C00163,158,7,368.33,3,4,4,11,Loyal Customers
+C00167,438,1,16.5,2,1,1,4,Needs Attention
+C00168,691,1,72.7,1,1,2,4,Needs Attention
+C00169,418,12,492.12,2,4,5,11,At Risk
+C00170,132,7,268.22,3,4,4,11,Loyal Customers
+C00173,178,3,154.88,3,2,3,8,Regular Customers
+C00174,456,2,92.96,1,2,2,5,Needs Attention
+C00175,102,7,247.19,3,4,4,11,Loyal Customers
+C00179,47,25,864.64,4,5,5,14,Champions
+C00180,140,7,223.85,3,4,3,10,Loyal Customers
+C00181,202,4,77.92,2,3,2,7,At Risk
+C00182,490,4,203.21,1,3,3,7,At Risk
+C00183,21,64,2153.93,5,5,5,15,Champions
+C00184,44,9,273.8,4,4,4,12,Champions
+C00186,718,2,68.01,1,2,2,5,Needs Attention
+C00187,119,2,26.56,3,2,1,6,Regular Customers
+C00188,14,15,518.46,5,5,5,15,Champions
+C00190,187,8,183.99,3,4,3,10,Loyal Customers
+C00191,592,2,73.8,1,2,2,5,Needs Attention
+C00192,517,7,197.87,1,4,3,8,At Risk
+C00194,4,17,805.84,5,5,5,15,Champions
+C00195,26,36,1339.71,4,5,5,14,Champions
+C00196,306,2,55.4,2,2,2,6,Needs Attention
+C00197,564,11,381.9,1,4,4,9,At Risk
+C00198,44,39,1362.8,4,5,5,14,Champions
+C00199,563,3,95.7,1,2,2,5,Needs Attention
+C00200,181,1,10.9,3,1,1,5,Regular Customers
+C00201,90,34,1004.92,3,5,5,13,Loyal Customers
+C00202,479,5,275.6,1,3,4,8,At Risk
+C00203,664,2,29.7,1,2,1,4,Needs Attention
+C00207,271,14,499.02,2,5,5,12,At Risk
+C00208,33,16,629.19,4,5,5,14,Champions
+C00209,355,6,163.17,2,3,3,8,At Risk
+C00210,329,4,115.51,2,3,2,7,At Risk
+C00211,34,11,434.57,4,4,4,12,Champions
+C00212,386,26,916.63,2,5,5,12,At Risk
+C00215,194,4,165.88,2,3,3,8,At Risk
+C00216,30,9,288.29,4,4,4,12,Champions
+C00217,12,6,211.89,5,3,3,11,Potential Loyalists
+C00218,233,6,152.93,2,3,3,8,At Risk
+C00219,184,5,187.2,3,3,3,9,Regular Customers
+C00220,392,7,303.62,2,4,4,10,At Risk
+C00221,13,7,247.67,5,4,4,13,Champions
+C00222,196,4,218.28,2,3,3,8,At Risk
+C00224,69,20,745.18,4,5,5,14,Champions
+C00225,672,6,226.8,1,3,3,7,At Risk
+C00226,39,7,206.73,4,4,3,11,Loyal Customers
+C00227,375,4,115.5,2,3,2,7,At Risk
+C00228,587,1,56.4,1,1,2,4,Needs Attention
+C00229,75,10,321.86,3,4,4,11,Loyal Customers
+C00230,541,4,123.7,1,3,2,6,At Risk
+C00233,189,5,303.98,3,3,4,10,Regular Customers
+C00234,26,20,816.71,4,5,5,14,Champions
+C00235,610,1,29.3,1,1,1,3,Needs Attention
+C00236,25,27,1007.83,4,5,5,14,Champions
+C00237,33,30,835.33,4,5,5,14,Champions
+C00238,257,1,59.1,2,1,2,5,Needs Attention
+C00240,379,11,357.51,2,4,4,10,At Risk
+C00241,383,1,29.9,2,1,1,4,Needs Attention
+C00242,321,1,34.2,2,1,1,4,Needs Attention
+C00243,520,1,30.56,1,1,1,3,Needs Attention
+C00244,408,8,293.31,2,4,4,10,At Risk
+C00247,560,7,270.4,1,4,4,9,At Risk
+C00248,725,1,78.8,1,1,2,4,Needs Attention
+C00249,725,1,16.5,1,1,1,3,Needs Attention
+C00252,43,20,673.62,4,5,5,14,Champions
+C00253,6,51,2018.23,5,5,5,15,Champions
+C00254,223,19,631.25,2,5,5,12,At Risk
+C00255,7,42,1333.81,5,5,5,15,Champions
+C00256,12,9,331.61,5,4,4,13,Champions
+C00257,124,26,835.53,3,5,5,13,Loyal Customers
+C00258,61,15,431.6,4,5,4,13,Champions
+C00259,25,7,227.17,4,4,3,11,Loyal Customers
+C00260,370,1,65.3,2,1,2,5,Needs Attention
+C00261,30,13,442.71,4,4,4,12,Champions
+C00263,730,1,12.9,1,1,1,3,Needs Attention
+C00265,53,27,1032.45,4,5,5,14,Champions
+C00266,202,1,12.78,2,1,1,4,Needs Attention
+C00267,48,13,497.84,4,4,5,13,Champions
+C00268,509,7,304.35,1,4,4,9,At Risk
+C00269,6,13,348.84,5,4,4,13,Champions
+C00270,21,2,76.67,5,2,2,9,Potential Loyalists
+C00272,730,1,16.0,1,1,1,3,Needs Attention
+C00273,479,13,367.21,1,4,4,9,At Risk
+C00274,460,4,158.91,1,3,3,7,At Risk
+C00275,559,5,229.0,1,3,3,7,At Risk
+C00276,594,1,20.3,1,1,1,3,Needs Attention
+C00277,522,8,228.39,1,4,3,8,At Risk
+C00279,1,41,1421.31,5,5,5,15,Champions
+C00280,20,12,403.8,5,4,4,13,Champions
+C00281,672,1,31.5,1,1,1,3,Needs Attention
+C00282,570,1,66.5,1,1,2,4,Needs Attention
+C00284,12,22,826.32,5,5,5,15,Champions
+C00285,271,4,133.9,2,3,3,8,At Risk
+C00286,477,4,149.7,1,3,3,7,At Risk
+C00287,229,6,148.8,2,3,3,8,At Risk
+C00288,566,4,225.52,1,3,3,7,At Risk
+C00289,6,12,496.55,5,4,5,14,Champions
+C00290,26,22,820.2,4,5,5,14,Champions
+C00291,152,20,644.72,3,5,5,13,Loyal Customers
+C00292,131,10,480.58,3,4,4,11,Loyal Customers
+C00293,147,28,856.7,3,5,5,13,Loyal Customers
+C00294,37,6,300.01,4,3,4,11,Potential Loyalists
+C00295,81,17,628.22,3,5,5,13,Loyal Customers
+C00296,299,7,249.73,2,4,4,10,At Risk
+C00297,73,8,409.25,3,4,4,11,Loyal Customers
+C00298,10,21,775.8,5,5,5,15,Champions
+C00299,397,6,315.75,2,3,4,9,At Risk
+C00300,585,2,113.6,1,2,2,5,Needs Attention
+C00301,25,21,960.37,4,5,5,14,Champions
+C00302,368,10,315.71,2,4,4,10,At Risk
+C00303,348,29,958.84,2,5,5,12,At Risk
+C00304,724,1,10.9,1,1,1,3,Needs Attention
+C00306,488,7,244.2,1,4,4,9,At Risk
+C00307,378,5,234.3,2,3,3,8,At Risk
+C00309,290,8,206.48,2,4,3,9,At Risk
+C00312,55,13,494.95,4,4,5,13,Champions
+C00313,180,10,308.3,3,4,4,11,Loyal Customers
+C00314,713,1,11.71,1,1,1,3,Needs Attention
+C00315,201,9,263.89,2,4,4,10,At Risk
+C00316,49,36,956.03,4,5,5,14,Champions
+C00318,112,6,193.24,3,3,3,9,Regular Customers
+C00319,576,4,94.9,1,3,2,6,At Risk
+C00320,93,13,418.8,3,4,4,11,Loyal Customers
+C00321,657,2,100.43,1,2,2,5,Needs Attention
+C00322,2,9,285.09,5,4,4,13,Champions
+C00324,54,1,8.7,4,1,1,6,Regular Customers
+C00326,321,4,96.0,2,3,2,7,At Risk
+C00327,549,12,414.18,1,4,4,9,At Risk
+C00328,646,4,121.5,1,3,2,6,At Risk
+C00329,335,27,713.25,2,5,5,12,At Risk
+C00330,13,33,1130.27,5,5,5,15,Champions
+C00331,688,1,39.3,1,1,1,3,Needs Attention
+C00332,65,15,568.64,4,5,5,14,Champions
+C00333,708,2,31.8,1,2,1,4,Needs Attention
+C00334,501,18,695.79,1,5,5,11,At Risk
+C00335,428,2,105.2,2,2,2,6,Needs Attention
+C00336,136,2,31.1,3,2,1,6,Regular Customers
+C00338,57,10,311.36,4,4,4,12,Champions
+C00339,508,3,204.06,1,2,3,6,Needs Attention
+C00340,522,1,35.3,1,1,1,3,Needs Attention
+C00341,497,4,150.1,1,3,3,7,At Risk
+C00342,107,21,750.59,3,5,5,13,Loyal Customers
+C00343,290,1,11.48,2,1,1,4,Needs Attention
+C00344,118,8,250.83,3,4,4,11,Loyal Customers
+C00345,5,6,183.81,5,3,3,11,Potential Loyalists
+C00346,265,6,295.0,2,3,4,9,At Risk
+C00347,417,5,98.91,2,3,2,7,At Risk
+C00348,571,2,43.8,1,2,1,4,Needs Attention
+C00349,20,27,968.78,5,5,5,15,Champions
+C00350,13,33,1213.51,5,5,5,15,Champions
+C00351,142,9,330.98,3,4,4,11,Loyal Customers
+C00352,727,1,38.1,1,1,1,3,Needs Attention
+C00353,27,15,438.64,4,5,4,13,Champions
+C00354,264,6,215.99,2,3,3,8,At Risk
+C00356,4,47,1722.94,5,5,5,15,Champions
+C00358,124,8,371.6,3,4,4,11,Loyal Customers
+C00359,25,15,495.94,4,5,5,14,Champions
+C00361,153,5,162.47,3,3,3,9,Regular Customers
+C00363,318,16,547.51,2,5,5,12,At Risk
+C00364,3,33,911.43,5,5,5,15,Champions
+C00365,699,1,74.8,1,1,2,4,Needs Attention
+C00366,229,14,456.64,2,5,4,11,At Risk
+C00367,19,9,291.81,5,4,4,13,Champions
+C00368,132,9,226.14,3,4,3,10,Loyal Customers
+C00369,5,10,359.02,5,4,4,13,Champions
+C00370,267,5,126.6,2,3,3,8,At Risk
+C00373,556,2,145.7,1,2,3,6,Needs Attention
+C00374,363,3,191.0,2,2,3,7,Needs Attention
+C00376,13,14,630.93,5,5,5,15,Champions
+C00378,443,2,103.0,1,2,2,5,Needs Attention
+C00379,80,8,279.99,3,4,4,11,Loyal Customers
+C00380,166,55,1752.9,3,5,5,13,Loyal Customers
+C00381,363,5,182.5,2,3,3,8,At Risk
+C00382,3,38,1602.5,5,5,5,15,Champions
+C00385,138,9,447.51,3,4,4,11,Loyal Customers
+C00386,385,1,67.6,2,1,2,5,Needs Attention
+C00388,525,10,221.65,1,4,3,8,At Risk
+C00389,535,1,26.1,1,1,1,3,Needs Attention
+C00390,476,1,15.4,1,1,1,3,Needs Attention
+C00392,535,3,117.81,1,2,2,5,Needs Attention
+C00393,269,1,46.0,2,1,1,4,Needs Attention
+C00394,15,21,739.21,5,5,5,15,Champions
+C00395,118,19,703.87,3,5,5,13,Loyal Customers
+C00397,179,7,232.44,3,4,3,10,Loyal Customers
+C00398,473,5,260.81,1,3,4,8,At Risk
+C00401,41,1,18.4,4,1,1,6,Regular Customers
+C00402,89,7,221.56,3,4,3,10,Loyal Customers
+C00403,34,14,488.72,4,5,5,14,Champions
+C00404,131,33,1009.62,3,5,5,13,Loyal Customers
+C00405,306,13,469.05,2,4,4,10,At Risk
+C00406,572,4,98.4,1,3,2,6,At Risk
+C00408,671,1,30.0,1,1,1,3,Needs Attention
+C00409,664,2,98.1,1,2,2,5,Needs Attention
+C00410,28,19,751.95,4,5,5,14,Champions
+C00411,31,21,867.44,4,5,5,14,Champions
+C00413,4,28,1021.25,5,5,5,15,Champions
+C00414,198,3,105.5,2,2,2,6,Needs Attention
+C00415,581,2,108.25,1,2,2,5,Needs Attention
+C00416,140,25,816.0,3,5,5,13,Loyal Customers
+C00417,647,2,62.4,1,2,2,5,Needs Attention
+C00418,653,1,40.5,1,1,1,3,Needs Attention
+C00419,51,10,218.17,4,4,3,11,Loyal Customers
+C00420,82,16,442.92,3,5,4,12,Loyal Customers
+C00421,27,14,490.74,4,5,5,14,Champions
+C00423,53,4,231.09,4,3,3,10,Potential Loyalists
+C00424,19,12,395.73,5,4,4,13,Champions
+C00425,367,13,466.72,2,4,4,10,At Risk
+C00426,26,37,1305.12,4,5,5,14,Champions
+C00427,172,3,157.85,3,2,3,8,Regular Customers
+C00428,452,7,226.3,1,4,3,8,At Risk
+C00429,68,18,508.63,4,5,5,14,Champions
+C00430,174,5,146.97,3,3,3,9,Regular Customers
+C00431,82,14,396.27,3,5,4,12,Loyal Customers
+C00433,477,2,59.2,1,2,2,5,Needs Attention
+C00436,339,5,144.8,2,3,3,8,At Risk
+C00439,423,1,19.9,2,1,1,4,Needs Attention
+C00440,684,1,80.0,1,1,2,4,Needs Attention
+C00441,76,7,342.65,3,4,4,11,Loyal Customers
+C00442,22,9,260.08,5,4,4,13,Champions
+C00443,166,5,218.18,3,3,3,9,Regular Customers
+C00445,515,9,254.75,1,4,4,9,At Risk
+C00449,418,2,58.8,2,2,2,6,Needs Attention
+C00450,75,13,475.14,3,4,4,11,Loyal Customers
+C00451,164,21,548.56,3,5,5,13,Loyal Customers
+C00452,348,5,141.51,2,3,3,8,At Risk
+C00453,54,9,341.17,4,4,4,12,Champions
+C00455,219,12,389.01,2,4,4,10,At Risk
+C00456,380,16,535.06,2,5,5,12,At Risk
+C00457,74,6,170.13,3,3,3,9,Regular Customers
+C00460,8,21,583.1,5,5,5,15,Champions
+C00461,431,7,196.85,2,4,3,9,At Risk
+C00462,378,6,169.1,2,3,3,8,At Risk
+C00463,15,7,238.22,5,4,4,13,Champions
+C00464,710,1,70.51,1,1,2,4,Needs Attention
+C00465,207,7,251.09,2,4,4,10,At Risk
+C00466,168,24,800.71,3,5,5,13,Loyal Customers
+C00467,160,10,300.34,3,4,4,11,Loyal Customers
+C00468,13,27,950.24,5,5,5,15,Champions
+C00469,247,17,665.54,2,5,5,12,At Risk
+C00470,606,4,143.2,1,3,3,7,At Risk
+C00473,69,2,96.06,4,2,2,8,Potential Loyalists
+C00474,691,2,68.3,1,2,2,5,Needs Attention
+C00475,7,6,313.67,5,3,4,12,Potential Loyalists
+C00476,399,1,35.1,2,1,1,4,Needs Attention
+C00477,434,6,186.51,2,3,3,8,At Risk
+C00478,13,9,331.4,5,4,4,13,Champions
+C00479,406,2,86.0,2,2,2,6,Needs Attention
+C00481,5,27,1193.05,5,5,5,15,Champions
+C00482,490,39,1494.24,1,5,5,11,At Risk
+C00483,111,15,454.01,3,5,4,12,Loyal Customers
+C00484,1,16,558.49,5,5,5,15,Champions
+C00485,459,1,57.1,1,1,2,4,Needs Attention
+C00486,93,4,128.0,3,3,3,9,Regular Customers
+C00487,692,2,105.91,1,2,2,5,Needs Attention
+C00488,700,1,12.7,1,1,1,3,Needs Attention
+C00490,718,1,67.81,1,1,2,4,Needs Attention
+C00492,414,9,405.26,2,4,4,10,At Risk
+C00493,230,30,1093.04,2,5,5,12,At Risk
+C00494,656,2,74.15,1,2,2,5,Needs Attention
+C00496,12,37,1234.21,5,5,5,15,Champions
+C00499,10,18,892.44,5,5,5,15,Champions
+C00500,197,2,43.73,2,2,1,5,Needs Attention
+C00501,103,20,668.81,3,5,5,13,Loyal Customers
+C00502,462,13,471.58,1,4,4,9,At Risk
+C00503,443,2,87.14,1,2,2,5,Needs Attention
+C00504,678,3,50.91,1,2,1,4,Needs Attention
+C00505,446,1,73.13,1,1,2,4,Needs Attention
+C00507,27,11,488.33,4,4,4,12,Champions
+C00508,43,6,164.91,4,3,3,10,Potential Loyalists
+C00509,697,1,40.1,1,1,1,3,Needs Attention
+C00510,588,6,234.15,1,3,3,7,At Risk
+C00511,724,1,77.61,1,1,2,4,Needs Attention
+C00512,91,2,73.22,3,2,2,7,Regular Customers
+C00515,98,13,454.86,3,4,4,11,Loyal Customers
+C00516,22,9,366.01,5,4,4,13,Champions
+C00517,426,1,32.8,2,1,1,4,Needs Attention
+C00518,729,1,39.9,1,1,1,3,Needs Attention
+C00519,404,8,232.13,2,4,3,9,At Risk
+C00520,12,8,279.07,5,4,4,13,Champions
+C00521,130,8,253.86,3,4,4,11,Loyal Customers
+C00523,671,1,14.9,1,1,1,3,Needs Attention
+C00524,10,13,479.54,5,4,4,13,Champions
+C00525,651,2,64.07,1,2,2,5,Needs Attention
+C00526,502,4,159.94,1,3,3,7,At Risk
+C00527,12,31,1045.24,5,5,5,15,Champions
+C00528,673,1,39.8,1,1,1,3,Needs Attention
+C00530,580,6,166.5,1,3,3,7,At Risk
+C00531,537,2,32.45,1,2,1,4,Needs Attention
+C00532,545,13,398.3,1,4,4,9,At Risk
+C00533,29,28,904.56,4,5,5,14,Champions
+C00534,308,4,122.87,2,3,2,7,At Risk
+C00535,550,2,55.0,1,2,2,5,Needs Attention
+C00537,675,3,75.7,1,2,2,5,Needs Attention
+C00538,170,6,319.29,3,3,4,10,Regular Customers
+C00539,142,15,625.91,3,5,5,13,Loyal Customers
+C00540,40,12,388.76,4,4,4,12,Champions
+C00541,15,12,427.45,5,4,4,13,Champions
+C00542,639,6,103.4,1,3,2,6,At Risk
+C00545,76,6,121.0,3,3,2,8,Regular Customers
+C00546,398,7,208.0,2,4,3,9,At Risk
+C00547,24,42,1404.42,4,5,5,14,Champions
+C00551,285,3,89.7,2,2,2,6,Needs Attention
+C00552,4,7,179.41,5,4,3,12,Loyal Customers
+C00553,661,1,30.9,1,1,1,3,Needs Attention
+C00554,43,26,983.7,4,5,5,14,Champions
+C00555,11,19,596.18,5,5,5,15,Champions
+C00556,550,10,314.37,1,4,4,9,At Risk
+C00557,48,11,370.85,4,4,4,12,Champions
+C00558,56,11,448.34,4,4,4,12,Champions
+C00559,215,2,56.07,2,2,2,6,Needs Attention
+C00560,386,7,228.77,2,4,3,9,At Risk
+C00561,607,4,133.68,1,3,3,7,At Risk
+C00562,89,21,738.66,3,5,5,13,Loyal Customers
+C00564,367,3,91.04,2,2,2,6,Needs Attention
+C00565,127,1,9.9,3,1,1,5,Regular Customers
+C00566,6,17,628.46,5,5,5,15,Champions
+C00569,247,1,8.93,2,1,1,4,Needs Attention
+C00570,6,57,2071.37,5,5,5,15,Champions
+C00571,641,1,44.5,1,1,1,3,Needs Attention
+C00572,445,1,34.59,1,1,1,3,Needs Attention
+C00573,134,3,98.61,3,2,2,7,Regular Customers
+C00574,50,8,288.39,4,4,4,12,Champions
+C00575,623,14,680.99,1,5,5,11,At Risk
+C00577,540,4,102.51,1,3,2,6,At Risk
+C00579,12,4,164.11,5,3,3,11,Potential Loyalists
+C00580,305,5,292.75,2,3,4,9,At Risk
+C00581,397,25,768.17,2,5,5,12,At Risk
+C00582,675,5,171.0,1,3,3,7,At Risk
+C00583,112,3,156.05,3,2,3,8,Regular Customers
+C00584,333,2,91.9,2,2,2,6,Needs Attention
+C00585,396,2,89.3,2,2,2,6,Needs Attention
+C00587,356,4,83.5,2,3,2,7,At Risk
+C00589,10,5,149.78,5,3,3,11,Potential Loyalists
+C00590,68,16,513.85,4,5,5,14,Champions
+C00591,20,2,95.16,5,2,2,9,Potential Loyalists
+C00592,63,23,870.64,4,5,5,14,Champions
+C00593,7,23,774.51,5,5,5,15,Champions
+C00594,430,1,16.9,2,1,1,4,Needs Attention
+C00595,226,3,122.27,2,2,2,6,Needs Attention
+C00596,12,52,1973.81,5,5,5,15,Champions
+C00597,25,8,271.16,4,4,4,12,Champions
+C00599,693,1,16.1,1,1,1,3,Needs Attention
+C00600,222,9,407.36,2,4,4,10,At Risk
+C00601,225,2,100.5,2,2,2,6,Needs Attention
+C00602,668,1,36.1,1,1,1,3,Needs Attention
+C00603,706,1,34.8,1,1,1,3,Needs Attention
+C00604,378,2,28.9,2,2,1,5,Needs Attention
+C00605,27,10,445.47,4,4,4,12,Champions
+C00606,102,14,477.72,3,5,4,12,Loyal Customers
+C00607,74,18,636.43,3,5,5,13,Loyal Customers
+C00608,334,4,86.0,2,3,2,7,At Risk
+C00611,568,5,199.83,1,3,3,7,At Risk
+C00612,699,1,88.4,1,1,2,4,Needs Attention
+C00613,371,10,280.05,2,4,4,10,At Risk
+C00614,282,23,905.46,2,5,5,12,At Risk
+C00615,7,44,1756.84,5,5,5,15,Champions
+C00616,369,2,63.7,2,2,2,6,Needs Attention
+C00618,256,2,67.3,2,2,2,6,Needs Attention
+C00619,391,1,18.1,2,1,1,4,Needs Attention
+C00620,433,3,97.8,2,2,2,6,Needs Attention
+C00621,491,7,216.42,1,4,3,8,At Risk
+C00622,243,1,16.4,2,1,1,4,Needs Attention
+C00623,537,4,139.55,1,3,3,7,At Risk
+C00625,146,1,27.96,3,1,1,5,Regular Customers
+C00626,57,2,67.7,4,2,2,8,Potential Loyalists
+C00628,246,16,715.49,2,5,5,12,At Risk
+C00629,316,1,12.5,2,1,1,4,Needs Attention
+C00630,65,18,548.96,4,5,5,14,Champions
+C00631,666,1,20.4,1,1,1,3,Needs Attention
+C00632,40,16,584.06,4,5,5,14,Champions
+C00633,553,3,66.5,1,2,2,5,Needs Attention
+C00634,211,1,84.1,2,1,2,5,Needs Attention
+C00635,530,2,51.33,1,2,1,4,Needs Attention
+C00636,500,1,81.2,1,1,2,4,Needs Attention
+C00637,93,11,305.03,3,4,4,11,Loyal Customers
+C00638,584,5,160.0,1,3,3,7,At Risk
+C00639,61,8,162.55,4,4,3,11,Loyal Customers
+C00640,460,1,80.6,1,1,2,4,Needs Attention
+C00641,377,12,494.33,2,4,5,11,At Risk
+C00642,51,26,1032.83,4,5,5,14,Champions
+C00644,49,13,412.31,4,4,4,12,Champions
+C00645,636,1,38.9,1,1,1,3,Needs Attention
+C00647,496,1,68.8,1,1,2,4,Needs Attention
+C00648,5,48,1920.89,5,5,5,15,Champions
+C00649,4,38,1194.38,5,5,5,15,Champions
+C00650,563,1,46.8,1,1,1,3,Needs Attention
+C00651,414,5,167.9,2,3,3,8,At Risk
+C00652,121,4,80.38,3,3,2,8,Regular Customers
+C00653,190,25,906.44,3,5,5,13,Loyal Customers
+C00654,381,11,365.31,2,4,4,10,At Risk
+C00655,212,9,374.59,2,4,4,10,At Risk
+C00656,238,2,64.8,2,2,2,6,Needs Attention
+C00658,495,4,158.8,1,3,3,7,At Risk
+C00659,424,11,479.55,2,4,4,10,At Risk
+C00660,621,3,114.8,1,2,2,5,Needs Attention
+C00661,522,3,140.05,1,2,3,6,Needs Attention
+C00662,75,7,289.94,3,4,4,11,Loyal Customers
+C00663,26,25,896.97,4,5,5,14,Champions
+C00664,47,23,984.97,4,5,5,14,Champions
+C00665,10,27,1067.95,5,5,5,15,Champions
+C00666,508,6,190.91,1,3,3,7,At Risk
+C00667,606,3,61.2,1,2,2,5,Needs Attention
+C00668,52,15,412.9,4,5,4,13,Champions
+C00669,313,4,157.4,2,3,3,8,At Risk
+C00670,629,2,72.7,1,2,2,5,Needs Attention
+C00671,460,3,89.6,1,2,2,5,Needs Attention
+C00672,386,4,123.08,2,3,2,7,At Risk
+C00673,170,44,1178.26,3,5,5,13,Loyal Customers
+C00674,520,3,95.21,1,2,2,5,Needs Attention
+C00675,139,16,674.76,3,5,5,13,Loyal Customers
+C00677,97,14,414.87,3,5,4,12,Loyal Customers
+C00678,643,1,19.7,1,1,1,3,Needs Attention
+C00679,649,3,164.31,1,2,3,6,Needs Attention
+C00680,257,20,621.41,2,5,5,12,At Risk
+C00681,653,1,53.17,1,1,1,3,Needs Attention
+C00682,323,2,53.45,2,2,1,5,Needs Attention
+C00683,436,4,110.0,2,3,2,7,At Risk
+C00687,24,12,400.61,4,4,4,12,Champions
+C00688,521,7,289.11,1,4,4,9,At Risk
+C00690,720,2,94.8,1,2,2,5,Needs Attention
+C00691,441,8,220.15,1,4,3,8,At Risk
+C00692,718,1,65.41,1,1,2,4,Needs Attention
+C00693,655,1,24.9,1,1,1,3,Needs Attention
+C00694,263,13,601.19,2,4,5,11,At Risk
+C00695,600,7,325.24,1,4,4,9,At Risk
+C00696,446,11,316.72,1,4,4,9,At Risk
+C00697,237,12,447.76,2,4,4,10,At Risk
+C00698,486,3,60.85,1,2,2,5,Needs Attention
+C00700,577,5,102.9,1,3,2,6,At Risk
+C00701,161,48,1580.88,3,5,5,13,Loyal Customers
+C00702,431,1,17.01,2,1,1,4,Needs Attention
+C00703,519,11,443.32,1,4,4,9,At Risk
+C00704,11,18,629.6,5,5,5,15,Champions
+C00705,49,17,504.96,4,5,5,14,Champions
+C00706,254,4,134.7,2,3,3,8,At Risk
+C00708,712,1,93.51,1,1,2,4,Needs Attention
+C00709,1,33,1109.65,5,5,5,15,Champions
+C00710,11,2,61.0,5,2,2,9,Potential Loyalists
+C00711,101,2,75.3,3,2,2,7,Regular Customers
+C00713,426,1,16.6,2,1,1,4,Needs Attention
+C00715,32,21,702.34,4,5,5,14,Champions
+C00716,151,15,517.28,3,5,5,13,Loyal Customers
+C00718,6,21,711.6,5,5,5,15,Champions
+C00719,88,27,963.28,3,5,5,13,Loyal Customers
+C00720,372,8,187.28,2,4,3,9,At Risk
+C00721,30,11,332.6,4,4,4,12,Champions
+C00722,555,1,59.9,1,1,2,4,Needs Attention
+C00723,77,15,630.73,3,5,5,13,Loyal Customers
+C00725,383,2,56.8,2,2,2,6,Needs Attention
+C00728,90,11,362.41,3,4,4,11,Loyal Customers
+C00729,616,1,16.0,1,1,1,3,Needs Attention
+C00730,710,2,122.25,1,2,2,5,Needs Attention
+C00731,506,6,216.5,1,3,3,7,At Risk
+C00733,269,3,56.9,2,2,2,6,Needs Attention
+C00734,235,6,139.3,2,3,3,8,At Risk
+C00735,726,1,32.5,1,1,1,3,Needs Attention
+C00736,19,7,195.11,5,4,3,12,Loyal Customers
+C00737,701,1,15.9,1,1,1,3,Needs Attention
+C00738,20,23,829.12,5,5,5,15,Champions
+C00739,198,15,496.91,2,5,5,12,At Risk
+C00740,6,12,419.42,5,4,4,13,Champions
+C00741,250,2,122.2,2,2,2,6,Needs Attention
+C00742,635,5,147.5,1,3,3,7,At Risk
+C00743,6,41,1356.17,5,5,5,15,Champions
+C00744,229,1,59.0,2,1,2,5,Needs Attention
+C00748,207,2,67.13,2,2,2,6,Needs Attention
+C00750,634,2,111.05,1,2,2,5,Needs Attention
+C00751,177,2,85.5,3,2,2,7,Regular Customers
+C00752,680,1,17.0,1,1,1,3,Needs Attention
+C00755,469,10,282.21,1,4,4,9,At Risk
+C00757,10,14,364.48,5,5,4,14,Champions
+C00758,4,5,180.21,5,3,3,11,Potential Loyalists
+C00759,48,12,464.29,4,4,4,12,Champions
+C00761,477,1,41.7,1,1,1,3,Needs Attention
+C00762,98,9,294.35,3,4,4,11,Loyal Customers
+C00763,714,1,36.46,1,1,1,3,Needs Attention
+C00764,610,11,332.27,1,4,4,9,At Risk
+C00765,28,13,462.76,4,4,4,12,Champions
+C00767,397,1,9.9,2,1,1,4,Needs Attention
+C00768,50,6,136.25,4,3,3,10,Potential Loyalists
+C00769,127,20,681.37,3,5,5,13,Loyal Customers
+C00770,5,49,1645.1,5,5,5,15,Champions
+C00771,31,10,331.92,4,4,4,12,Champions
+C00772,70,10,344.45,4,4,4,12,Champions
+C00774,246,2,119.03,2,2,2,6,Needs Attention
+C00775,13,57,2112.21,5,5,5,15,Champions
+C00776,369,1,25.7,2,1,1,4,Needs Attention
+C00778,5,21,766.51,5,5,5,15,Champions
+C00779,623,3,113.3,1,2,2,5,Needs Attention
+C00780,148,1,20.66,3,1,1,5,Regular Customers
+C00781,329,1,9.9,2,1,1,4,Needs Attention
+C00783,382,1,34.3,2,1,1,4,Needs Attention
+C00784,376,11,312.89,2,4,4,10,At Risk
+C00785,513,6,265.45,1,3,4,8,At Risk
+C00786,102,7,227.7,3,4,3,10,Loyal Customers
+C00787,107,12,468.19,3,4,4,11,Loyal Customers
+C00788,449,5,127.08,1,3,3,7,At Risk
+C00789,20,27,892.54,5,5,5,15,Champions
+C00791,627,2,65.73,1,2,2,5,Needs Attention
+C00793,623,3,64.5,1,2,2,5,Needs Attention
+C00794,87,2,48.9,3,2,1,6,Regular Customers
+C00795,53,20,605.44,4,5,5,14,Champions
+C00796,105,26,1020.65,3,5,5,13,Loyal Customers
+C00798,603,2,25.5,1,2,1,4,Needs Attention
+C00799,723,2,23.81,1,2,1,4,Needs Attention
+C00801,1,22,709.28,5,5,5,15,Champions
+C00802,7,55,1692.64,5,5,5,15,Champions
+C00803,275,1,14.9,2,1,1,4,Needs Attention
+C00805,688,1,50.2,1,1,1,3,Needs Attention
+C00806,483,6,284.1,1,3,4,8,At Risk
+C00807,375,2,36.6,2,2,1,5,Needs Attention
+C00808,7,25,1029.98,5,5,5,15,Champions
+C00809,23,47,1931.0,5,5,5,15,Champions
+C00810,216,14,480.31,2,5,4,11,At Risk
+C00811,614,3,60.53,1,2,2,5,Needs Attention
+C00813,691,1,32.6,1,1,1,3,Needs Attention
+C00814,726,1,54.4,1,1,1,3,Needs Attention
+C00815,625,8,333.6,1,4,4,9,At Risk
+C00816,647,4,135.81,1,3,3,7,At Risk
+C00817,689,5,312.62,1,3,4,8,At Risk
+C00818,523,14,614.25,1,5,5,11,At Risk
+C00819,567,10,315.01,1,4,4,9,At Risk
+C00820,74,1,41.01,3,1,1,5,Regular Customers
+C00821,127,3,101.02,3,2,2,7,Regular Customers
+C00822,63,5,153.3,4,3,3,10,Potential Loyalists
+C00823,725,1,18.4,1,1,1,3,Needs Attention
+C00824,80,6,142.33,3,3,3,9,Regular Customers
+C00825,17,21,781.25,5,5,5,15,Champions
+C00826,19,70,2695.07,5,5,5,15,Champions
+C00827,183,2,83.03,3,2,2,7,Regular Customers
+C00828,48,14,399.0,4,5,4,13,Champions
+C00829,372,13,438.68,2,4,4,10,At Risk
+C00830,26,60,2071.4,4,5,5,14,Champions
+C00831,20,26,698.04,5,5,5,15,Champions
+C00832,77,2,46.41,3,2,1,6,Regular Customers
+C00833,10,3,89.95,5,2,2,9,Potential Loyalists
+C00834,74,36,1150.93,3,5,5,13,Loyal Customers
+C00836,573,2,81.7,1,2,2,5,Needs Attention
+C00838,167,4,100.69,3,3,2,8,Regular Customers
+C00839,502,5,209.7,1,3,3,7,At Risk
+C00841,701,2,97.0,1,2,2,5,Needs Attention
+C00842,10,29,1198.97,5,5,5,15,Champions
+C00843,587,1,33.1,1,1,1,3,Needs Attention
+C00845,22,22,922.1,5,5,5,15,Champions
+C00846,586,9,314.5,1,4,4,9,At Risk
+C00847,518,1,67.99,1,1,2,4,Needs Attention
+C00848,84,11,340.05,3,4,4,11,Loyal Customers
+C00850,670,1,28.4,1,1,1,3,Needs Attention
+C00851,670,2,62.2,1,2,2,5,Needs Attention
+C00852,726,1,16.0,1,1,1,3,Needs Attention
+C00853,696,1,12.9,1,1,1,3,Needs Attention
+C00854,33,16,517.7,4,5,5,14,Champions
+C00855,124,16,729.26,3,5,5,13,Loyal Customers
+C00856,59,5,182.5,4,3,3,10,Potential Loyalists
+C00857,118,3,190.7,3,2,3,8,Regular Customers
+C00858,426,4,99.5,2,3,2,7,At Risk
+C00859,320,2,29.3,2,2,1,5,Needs Attention
+C00860,171,4,65.96,3,3,2,8,Regular Customers
+C00861,167,5,118.0,3,3,2,8,Regular Customers
+C00862,33,21,658.76,4,5,5,14,Champions
+C00863,670,1,9.9,1,1,1,3,Needs Attention
+C00864,631,1,18.8,1,1,1,3,Needs Attention
+C00865,376,23,824.88,2,5,5,12,At Risk
+C00866,686,7,291.2,1,4,4,9,At Risk
+C00867,524,7,194.65,1,4,3,8,At Risk
+C00868,45,22,969.77,4,5,5,14,Champions
+C00869,389,3,130.79,2,2,3,7,Needs Attention
+C00871,572,7,331.6,1,4,4,9,At Risk
+C00872,58,5,164.77,4,3,3,10,Potential Loyalists
+C00874,20,18,712.64,5,5,5,15,Champions
+C00876,711,3,84.1,1,2,2,5,Needs Attention
+C00877,581,1,28.5,1,1,1,3,Needs Attention
+C00878,437,7,243.01,2,4,4,10,At Risk
+C00879,195,10,337.58,2,4,4,10,At Risk
+C00881,9,13,448.4,5,4,4,13,Champions
+C00882,191,14,395.58,3,5,4,12,Loyal Customers
+C00883,641,1,41.9,1,1,1,3,Needs Attention
+C00884,74,7,298.37,3,4,4,11,Loyal Customers
+C00885,440,5,203.28,1,3,3,7,At Risk
+C00886,699,1,27.3,1,1,1,3,Needs Attention
+C00887,25,11,351.26,4,4,4,12,Champions
+C00890,572,1,22.3,1,1,1,3,Needs Attention
+C00891,645,6,159.51,1,3,3,7,At Risk
+C00892,8,22,709.75,5,5,5,15,Champions
+C00894,15,20,860.26,5,5,5,15,Champions
+C00895,665,2,65.8,1,2,2,5,Needs Attention
+C00896,649,4,98.88,1,3,2,6,At Risk
+C00897,2,9,250.08,5,4,4,13,Champions
+C00898,63,19,769.0,4,5,5,14,Champions
+C00899,84,13,618.71,3,4,5,12,Loyal Customers
+C00900,707,1,54.8,1,1,2,4,Needs Attention
+C00901,244,11,351.83,2,4,4,10,At Risk
+C00902,522,8,264.29,1,4,4,9,At Risk
+C00903,326,8,349.3,2,4,4,10,At Risk
+C00904,562,3,188.7,1,2,3,6,Needs Attention
+C00905,223,5,118.7,2,3,2,7,At Risk
+C00906,52,16,586.99,4,5,5,14,Champions
+C00907,712,1,14.8,1,1,1,3,Needs Attention
+C00908,7,9,232.78,5,4,3,12,Loyal Customers
+C00909,108,24,861.53,3,5,5,13,Loyal Customers
+C00910,642,4,82.0,1,3,2,6,At Risk
+C00911,686,1,27.5,1,1,1,3,Needs Attention
+C00912,20,7,218.84,5,4,3,12,Loyal Customers
+C00913,82,9,421.4,3,4,4,11,Loyal Customers
+C00914,628,2,34.8,1,2,1,4,Needs Attention
+C00915,596,7,204.74,1,4,3,8,At Risk
+C00916,453,4,159.9,1,3,3,7,At Risk
+C00917,655,1,18.6,1,1,1,3,Needs Attention
+C00918,206,11,505.25,2,4,5,11,At Risk
+C00920,1,26,913.47,5,5,5,15,Champions
+C00921,10,39,1276.44,5,5,5,15,Champions
+C00922,20,37,1208.26,5,5,5,15,Champions
+C00923,487,7,273.55,1,4,4,9,At Risk
+C00925,495,12,388.49,1,4,4,9,At Risk
+C00926,51,29,1014.8,4,5,5,14,Champions
+C00927,193,6,189.2,2,3,3,8,At Risk
+C00928,471,8,268.47,1,4,4,9,At Risk
+C00929,44,5,123.8,4,3,2,9,Potential Loyalists
+C00930,4,25,917.68,5,5,5,15,Champions
+C00931,687,1,34.1,1,1,1,3,Needs Attention
+C00932,677,1,18.4,1,1,1,3,Needs Attention
+C00933,47,14,640.36,4,5,5,14,Champions
+C00934,550,6,157.2,1,3,3,7,At Risk
+C00937,164,4,153.53,3,3,3,9,Regular Customers
+C00938,48,26,1029.55,4,5,5,14,Champions
+C00939,242,5,124.93,2,3,3,8,At Risk
+C00940,692,4,93.61,1,3,2,6,At Risk
+C00942,10,34,1192.6,5,5,5,15,Champions
+C00943,23,23,1065.93,5,5,5,15,Champions
+C00944,11,9,303.61,5,4,4,13,Champions
+C00945,54,26,756.21,4,5,5,14,Champions
+C00949,26,9,293.6,4,4,4,12,Champions
+C00950,668,2,69.0,1,2,2,5,Needs Attention
+C00951,59,10,384.01,4,4,4,12,Champions
+C00952,4,16,419.0,5,5,4,14,Champions
+C00954,56,14,502.2,4,5,5,14,Champions
+C00955,635,1,9.9,1,1,1,3,Needs Attention
+C00956,652,2,60.7,1,2,2,5,Needs Attention
+C00958,12,9,241.65,5,4,4,13,Champions
+C00960,234,2,100.5,2,2,2,6,Needs Attention
+C00961,412,1,38.9,2,1,1,4,Needs Attention
+C00962,709,1,36.0,1,1,1,3,Needs Attention
+C00963,315,14,595.85,2,5,5,12,At Risk
+C00965,439,2,75.63,1,2,2,5,Needs Attention
+C00966,424,24,1006.79,2,5,5,12,At Risk
+C00968,286,31,960.73,2,5,5,12,At Risk
+C00969,463,5,174.77,1,3,3,7,At Risk
+C00970,625,3,176.47,1,2,3,6,Needs Attention
+C00971,69,20,835.54,4,5,5,14,Champions
+C00972,6,9,225.89,5,4,3,12,Loyal Customers
+C00973,442,14,374.24,1,5,4,10,At Risk
+C00974,685,1,16.6,1,1,1,3,Needs Attention
+C00975,316,4,98.7,2,3,2,7,At Risk
+C00976,225,11,472.85,2,4,4,10,At Risk
+C00978,509,12,334.9,1,4,4,9,At Risk
+C00979,2,33,1069.2,5,5,5,15,Champions
+C00980,32,38,1342.72,4,5,5,14,Champions
+C00981,438,4,100.24,2,3,2,7,At Risk
+C00982,513,2,113.54,1,2,2,5,Needs Attention
+C00983,25,21,738.21,4,5,5,14,Champions
+C00985,10,25,895.4,5,5,5,15,Champions
+C00986,6,8,219.1,5,4,3,12,Loyal Customers
+C00988,28,19,485.01,4,5,4,13,Champions
+C00989,615,2,53.6,1,2,1,4,Needs Attention
+C00990,119,9,287.7,3,4,4,11,Loyal Customers
+C00991,6,5,175.3,5,3,3,11,Potential Loyalists
+C00992,554,3,104.1,1,2,2,5,Needs Attention
+C00993,629,3,87.3,1,2,2,5,Needs Attention
+C00995,644,3,65.5,1,2,2,5,Needs Attention
+C00996,619,4,158.2,1,3,3,7,At Risk
+C00997,357,2,82.41,2,2,2,6,Needs Attention
+C00999,5,1,46.7,5,1,1,7,Regular Customers
+C01000,138,12,321.66,3,4,4,11,Loyal Customers
+C01001,628,2,85.2,1,2,2,5,Needs Attention
+C01002,105,5,125.4,3,3,3,9,Regular Customers
+C01004,714,3,129.06,1,2,3,6,Needs Attention
+C01005,583,3,129.7,1,2,3,6,Needs Attention
+C01006,5,84,3066.41,5,5,5,15,Champions
+C01007,621,1,50.6,1,1,1,3,Needs Attention
+C01008,219,2,88.6,2,2,2,6,Needs Attention
+C01009,27,19,636.73,4,5,5,14,Champions
+C01010,442,10,310.08,1,4,4,9,At Risk
+C01011,125,15,539.81,3,5,5,13,Loyal Customers
+C01012,501,7,221.39,1,4,3,8,At Risk
+C01013,340,3,181.1,2,2,3,7,Needs Attention
+C01014,530,1,74.93,1,1,2,4,Needs Attention
+C01015,632,2,35.4,1,2,1,4,Needs Attention
+C01016,318,20,909.22,2,5,5,12,At Risk
+C01017,8,84,3007.51,5,5,5,15,Champions
+C01018,116,7,170.21,3,4,3,10,Loyal Customers
+C01019,375,13,463.43,2,4,4,10,At Risk
+C01020,1,34,1118.44,5,5,5,15,Champions
+C01021,712,1,14.9,1,1,1,3,Needs Attention
+C01022,502,1,13.9,1,1,1,3,Needs Attention
+C01023,130,22,814.26,3,5,5,13,Loyal Customers
+C01024,5,32,1126.24,5,5,5,15,Champions
+C01025,7,6,179.7,5,3,3,11,Potential Loyalists
+C01026,48,19,709.65,4,5,5,14,Champions
+C01027,538,1,31.65,1,1,1,3,Needs Attention
+C01028,3,4,232.18,5,3,3,11,Potential Loyalists
+C01029,72,3,104.4,3,2,2,7,Regular Customers
+C01030,15,30,1138.71,5,5,5,15,Champions
+C01032,69,11,319.83,4,4,4,12,Champions
+C01033,21,30,929.31,5,5,5,15,Champions
+C01034,635,3,116.3,1,2,2,5,Needs Attention
+C01035,105,10,288.96,3,4,4,11,Loyal Customers
+C01036,42,8,309.92,4,4,4,12,Champions
+C01039,667,4,157.71,1,3,3,7,At Risk
+C01040,529,1,24.13,1,1,1,3,Needs Attention
+C01041,17,9,366.52,5,4,4,13,Champions
+C01042,5,9,221.48,5,4,3,12,Loyal Customers
+C01043,632,2,68.98,1,2,2,5,Needs Attention
+C01044,594,10,313.77,1,4,4,9,At Risk
+C01045,203,9,350.88,2,4,4,10,At Risk
+C01047,723,1,30.6,1,1,1,3,Needs Attention
+C01048,390,5,215.17,2,3,3,8,At Risk
+C01051,175,7,292.1,3,4,4,11,Loyal Customers
+C01052,76,11,407.41,3,4,4,11,Loyal Customers
+C01053,16,11,350.29,5,4,4,13,Champions
+C01054,20,29,1047.07,5,5,5,15,Champions
+C01055,28,21,748.7,4,5,5,14,Champions
+C01056,446,6,193.22,1,3,3,7,At Risk
+C01059,61,3,82.5,4,2,2,8,Potential Loyalists
+C01060,664,4,149.7,1,3,3,7,At Risk
+C01061,292,4,204.5,2,3,3,8,At Risk
+C01062,727,1,17.4,1,1,1,3,Needs Attention
+C01065,124,3,75.35,3,2,2,7,Regular Customers
+C01066,371,10,350.81,2,4,4,10,At Risk
+C01067,23,21,726.49,5,5,5,15,Champions
+C01068,183,21,737.84,3,5,5,13,Loyal Customers
+C01070,98,18,672.97,3,5,5,13,Loyal Customers
+C01071,7,17,782.6,5,5,5,15,Champions
+C01074,28,44,1385.83,4,5,5,14,Champions
+C01075,434,12,458.62,2,4,4,10,At Risk
+C01076,153,9,385.46,3,4,4,11,Loyal Customers
+C01077,704,1,39.9,1,1,1,3,Needs Attention
+C01080,14,85,2918.44,5,5,5,15,Champions
+C01081,110,17,775.43,3,5,5,13,Loyal Customers
+C01082,6,29,1383.92,5,5,5,15,Champions
+C01083,487,2,46.61,1,2,1,4,Needs Attention
+C01084,544,1,60.86,1,1,2,4,Needs Attention
+C01087,12,51,1965.84,5,5,5,15,Champions
+C01088,677,3,135.9,1,2,3,6,Needs Attention
+C01089,300,6,223.1,2,3,3,8,At Risk
+C01091,726,1,16.1,1,1,1,3,Needs Attention
+C01092,82,20,657.35,3,5,5,13,Loyal Customers
+C01093,131,1,16.41,3,1,1,5,Regular Customers
+C01095,228,1,15.9,2,1,1,4,Needs Attention
+C01097,380,4,96.56,2,3,2,7,At Risk
+C01098,518,9,219.69,1,4,3,8,At Risk
+C01099,553,4,130.03,1,3,3,7,At Risk
+C01103,316,4,118.78,2,3,2,7,At Risk
+C01104,507,2,43.4,1,2,1,4,Needs Attention
+C01105,678,2,74.16,1,2,2,5,Needs Attention
+C01107,40,5,264.8,4,3,4,11,Potential Loyalists
+C01109,25,18,577.55,4,5,5,14,Champions
+C01111,314,6,193.52,2,3,3,8,At Risk
+C01112,46,16,530.48,4,5,5,14,Champions
+C01113,136,7,244.93,3,4,4,11,Loyal Customers
+C01114,19,21,653.31,5,5,5,15,Champions
+C01115,62,5,232.4,4,3,3,10,Potential Loyalists
+C01118,188,4,159.94,3,3,3,9,Regular Customers
+C01120,56,6,240.76,4,3,4,11,Potential Loyalists
+C01121,58,3,58.4,4,2,2,8,Potential Loyalists
+C01122,550,3,108.8,1,2,2,5,Needs Attention
+C01123,236,8,350.08,2,4,4,10,At Risk
+C01124,618,3,76.8,1,2,2,5,Needs Attention
+C01125,278,3,88.78,2,2,2,6,Needs Attention
+C01127,509,9,288.7,1,4,4,9,At Risk
+C01129,692,3,93.4,1,2,2,5,Needs Attention
+C01130,50,12,385.36,4,4,4,12,Champions
+C01132,241,1,39.4,2,1,1,4,Needs Attention
+C01134,6,6,201.77,5,3,3,11,Potential Loyalists
+C01136,84,3,54.8,3,2,2,7,Regular Customers
+C01137,49,11,316.77,4,4,4,12,Champions
+C01138,132,4,157.28,3,3,3,9,Regular Customers
+C01139,3,63,2436.52,5,5,5,15,Champions
+C01140,293,5,174.45,2,3,3,8,At Risk
+C01141,476,6,189.58,1,3,3,7,At Risk
+C01142,424,6,181.4,2,3,3,8,At Risk
+C01143,137,7,325.66,3,4,4,11,Loyal Customers
+C01144,453,1,31.1,1,1,1,3,Needs Attention
+C01145,33,6,200.4,4,3,3,10,Potential Loyalists
+C01146,700,2,61.2,1,2,2,5,Needs Attention
+C01148,573,5,156.6,1,3,3,7,At Risk
+C01149,312,3,156.0,2,2,3,7,Needs Attention
+C01150,508,2,143.83,1,2,3,6,Needs Attention
+C01151,3,20,635.67,5,5,5,15,Champions
+C01152,464,12,385.02,1,4,4,9,At Risk
+C01154,696,4,96.71,1,3,2,6,At Risk
+C01155,21,19,640.61,5,5,5,15,Champions
+C01156,29,2,47.4,4,2,1,7,Potential Loyalists
+C01157,377,2,133.1,2,2,3,7,Needs Attention
+C01158,322,3,61.93,2,2,2,6,Needs Attention
+C01159,356,33,1398.66,2,5,5,12,At Risk
+C01160,634,4,154.53,1,3,3,7,At Risk
+C01161,169,5,100.98,3,3,2,8,Regular Customers
+C01162,447,6,304.55,1,3,4,8,At Risk
+C01163,570,8,368.61,1,4,4,9,At Risk
+C01164,462,2,41.2,1,2,1,4,Needs Attention
+C01165,667,2,93.1,1,2,2,5,Needs Attention
+C01167,578,2,60.7,1,2,2,5,Needs Attention
+C01168,531,10,361.92,1,4,4,9,At Risk
+C01169,450,2,74.5,1,2,2,5,Needs Attention
+C01170,20,28,849.45,5,5,5,15,Champions
+C01171,545,1,98.69,1,1,2,4,Needs Attention
+C01172,321,1,29.9,2,1,1,4,Needs Attention
+C01173,273,2,60.6,2,2,2,6,Needs Attention
+C01174,655,4,104.07,1,3,2,6,At Risk
+C01175,337,56,2251.07,2,5,5,12,At Risk
+C01176,429,3,92.3,2,2,2,6,Needs Attention
+C01177,559,3,124.32,1,2,3,6,Needs Attention
+C01178,27,26,826.36,4,5,5,14,Champions
+C01180,483,4,137.55,1,3,3,7,At Risk
+C01181,62,34,1016.7,4,5,5,14,Champions
+C01182,190,3,68.41,3,2,2,7,Regular Customers
+C01183,108,14,497.82,3,5,5,13,Loyal Customers
+C01184,396,5,170.23,2,3,3,8,At Risk
+C01185,125,6,166.0,3,3,3,9,Regular Customers
+C01186,36,15,547.05,4,5,5,14,Champions
+C01188,147,9,338.37,3,4,4,11,Loyal Customers
+C01189,28,49,1711.74,4,5,5,14,Champions
+C01190,181,8,230.01,3,4,3,10,Loyal Customers
+C01192,584,12,314.4,1,4,4,9,At Risk
+C01193,517,1,13.65,1,1,1,3,Needs Attention
+C01194,4,30,946.24,5,5,5,15,Champions
+C01195,361,19,634.97,2,5,5,12,At Risk
+C01196,7,57,1863.85,5,5,5,15,Champions
+C01197,284,6,215.72,2,3,3,8,At Risk
+C01198,588,1,13.4,1,1,1,3,Needs Attention
+C01200,87,23,783.55,3,5,5,13,Loyal Customers
+C01201,75,9,313.44,3,4,4,11,Loyal Customers
+C01202,521,4,93.98,1,3,2,6,At Risk
+C01203,661,3,117.8,1,2,2,5,Needs Attention
+C01204,697,2,41.9,1,2,1,4,Needs Attention
+C01205,598,1,17.4,1,1,1,3,Needs Attention
+C01208,257,14,420.09,2,5,4,11,At Risk
+C01209,90,10,473.65,3,4,4,11,Loyal Customers
+C01210,469,7,264.44,1,4,4,9,At Risk
+C01213,545,3,122.45,1,2,2,5,Needs Attention
+C01214,19,76,3144.97,5,5,5,15,Champions
+C01215,97,13,505.5,3,4,5,12,Loyal Customers
+C01218,440,3,48.38,1,2,1,4,Needs Attention
+C01219,67,11,426.03,4,4,4,12,Champions
+C01220,283,6,334.03,2,3,4,9,At Risk
+C01221,726,1,72.2,1,1,2,4,Needs Attention
+C01222,13,38,1142.69,5,5,5,15,Champions
+C01224,85,10,348.88,3,4,4,11,Loyal Customers
+C01225,470,1,79.0,1,1,2,4,Needs Attention
+C01227,598,1,16.4,1,1,1,3,Needs Attention
+C01228,723,2,122.95,1,2,2,5,Needs Attention
+C01230,85,13,537.6,3,4,5,12,Loyal Customers
+C01231,429,2,86.8,2,2,2,6,Needs Attention
+C01234,701,2,99.1,1,2,2,5,Needs Attention
+C01236,307,2,37.5,2,2,1,5,Needs Attention
+C01238,726,1,43.5,1,1,1,3,Needs Attention
+C01239,513,9,359.17,1,4,4,9,At Risk
+C01240,60,13,487.98,4,4,4,12,Champions
+C01241,624,3,68.9,1,2,2,5,Needs Attention
+C01242,15,41,1279.75,5,5,5,15,Champions
+C01243,67,27,936.91,4,5,5,14,Champions
+C01244,247,4,108.3,2,3,2,7,At Risk
+C01245,72,20,707.83,3,5,5,13,Loyal Customers
+C01246,113,8,157.93,3,4,3,10,Loyal Customers
+C01247,524,4,112.78,1,3,2,6,At Risk
+C01249,643,4,124.5,1,3,3,7,At Risk
+C01250,722,1,27.75,1,1,1,3,Needs Attention
+C01251,10,5,126.61,5,3,3,11,Potential Loyalists
+C01252,45,4,123.53,4,3,2,9,Potential Loyalists
+C01253,29,37,1528.73,4,5,5,14,Champions
+C01254,70,16,697.87,4,5,5,14,Champions
+C01255,135,12,540.95,3,4,5,12,Loyal Customers
+C01256,46,14,606.51,4,5,5,14,Champions
+C01258,7,17,498.6,5,5,5,15,Champions
+C01260,198,20,620.11,2,5,5,12,At Risk
+C01261,152,4,91.61,3,3,2,8,Regular Customers
+C01262,60,2,42.65,4,2,1,7,Potential Loyalists
+C01264,47,1,27.9,4,1,1,6,Regular Customers
+C01265,12,27,885.69,5,5,5,15,Champions
+C01266,109,1,23.9,3,1,1,5,Regular Customers
+C01268,40,12,404.83,4,4,4,12,Champions
+C01269,426,12,465.7,2,4,4,10,At Risk
+C01270,194,4,153.85,2,3,3,8,At Risk
+C01271,278,2,95.0,2,2,2,6,Needs Attention
+C01273,117,5,168.45,3,3,3,9,Regular Customers
+C01274,401,4,259.47,2,3,4,9,At Risk
+C01275,132,4,150.77,3,3,3,9,Regular Customers
+C01276,26,8,169.96,4,4,3,11,Loyal Customers
+C01277,313,1,33.7,2,1,1,4,Needs Attention
+C01281,486,2,36.8,1,2,1,4,Needs Attention
+C01282,195,1,32.8,2,1,1,4,Needs Attention
+C01283,31,18,637.99,4,5,5,14,Champions
+C01284,629,3,133.61,1,2,3,6,Needs Attention
+C01285,30,5,186.36,4,3,3,10,Potential Loyalists
+C01286,30,18,719.55,4,5,5,14,Champions
+C01287,720,1,10.35,1,1,1,3,Needs Attention
+C01288,544,7,312.16,1,4,4,9,At Risk
+C01289,26,20,1020.29,4,5,5,14,Champions
+C01290,479,3,86.41,1,2,2,5,Needs Attention
+C01291,3,7,234.18,5,4,3,12,Loyal Customers
+C01292,82,10,400.27,3,4,4,11,Loyal Customers
+C01293,237,9,239.97,2,4,4,10,At Risk
+C01294,161,8,260.58,3,4,4,11,Loyal Customers
+C01295,601,3,132.6,1,2,3,6,Needs Attention
+C01296,468,1,32.9,1,1,1,3,Needs Attention
+C01297,630,1,33.4,1,1,1,3,Needs Attention
+C01298,6,46,1628.35,5,5,5,15,Champions
+C01299,684,1,15.4,1,1,1,3,Needs Attention
+C01301,204,5,189.03,2,3,3,8,At Risk
+C01302,210,8,247.05,2,4,4,10,At Risk
+C01303,4,36,1225.26,5,5,5,15,Champions
+C01304,572,2,126.6,1,2,3,6,Needs Attention
+C01306,126,13,675.33,3,4,5,12,Loyal Customers
+C01307,149,1,15.65,3,1,1,5,Regular Customers
+C01308,204,10,345.8,2,4,4,10,At Risk
+C01309,20,36,1435.89,5,5,5,15,Champions
+C01310,56,30,1181.53,4,5,5,14,Champions
+C01311,451,10,388.33,1,4,4,9,At Risk
+C01312,28,12,535.38,4,4,5,13,Champions
+C01313,477,5,164.88,1,3,3,7,At Risk
+C01314,535,7,244.3,1,4,4,9,At Risk
+C01315,600,8,312.37,1,4,4,9,At Risk
+C01316,4,1,37.7,5,1,1,7,Regular Customers
+C01317,13,36,1301.47,5,5,5,15,Champions
+C01318,374,13,445.26,2,4,4,10,At Risk
+C01319,286,3,134.25,2,2,3,7,Needs Attention
+C01322,25,9,213.6,4,4,3,11,Loyal Customers
+C01323,723,2,85.5,1,2,2,5,Needs Attention
+C01324,124,11,319.63,3,4,4,11,Loyal Customers
+C01325,599,7,224.91,1,4,3,8,At Risk
+C01326,19,17,622.82,5,5,5,15,Champions
+C01327,496,1,27.8,1,1,1,3,Needs Attention
+C01328,22,1,13.9,5,1,1,7,Regular Customers
+C01330,27,30,994.44,4,5,5,14,Champions
+C01332,701,1,37.2,1,1,1,3,Needs Attention
+C01333,478,3,113.5,1,2,2,5,Needs Attention
+C01334,26,24,827.38,4,5,5,14,Champions
+C01335,277,26,866.07,2,5,5,12,At Risk
+C01336,60,17,734.73,4,5,5,14,Champions
+C01337,160,10,285.98,3,4,4,11,Loyal Customers
+C01338,6,17,597.43,5,5,5,15,Champions
+C01339,26,2,47.0,4,2,1,7,Potential Loyalists
+C01340,71,15,625.52,3,5,5,13,Loyal Customers
+C01341,601,2,73.1,1,2,2,5,Needs Attention
+C01342,717,1,14.9,1,1,1,3,Needs Attention
+C01343,571,1,16.4,1,1,1,3,Needs Attention
+C01345,14,5,163.77,5,3,3,11,Potential Loyalists
+C01346,82,26,834.79,3,5,5,13,Loyal Customers
+C01347,27,25,920.71,4,5,5,14,Champions
+C01348,685,1,23.0,1,1,1,3,Needs Attention
+C01350,110,4,137.23,3,3,3,9,Regular Customers
+C01351,1,7,230.69,5,4,3,12,Loyal Customers
+C01352,480,7,253.9,1,4,4,9,At Risk
+C01353,39,12,393.85,4,4,4,12,Champions
+C01354,327,2,48.21,2,2,1,5,Needs Attention
+C01355,7,20,593.36,5,5,5,15,Champions
+C01356,194,6,231.15,2,3,3,8,At Risk
+C01357,516,5,144.05,1,3,3,7,At Risk
+C01358,11,5,191.7,5,3,3,11,Potential Loyalists
+C01359,43,13,344.38,4,4,4,12,Champions
+C01360,367,14,412.66,2,5,4,11,At Risk
+C01361,416,10,505.11,2,4,5,11,At Risk
+C01363,74,2,53.2,3,2,1,6,Regular Customers
+C01364,706,1,28.11,1,1,1,3,Needs Attention
+C01365,617,6,153.27,1,3,3,7,At Risk
+C01367,421,2,66.6,2,2,2,6,Needs Attention
+C01368,6,44,1299.54,5,5,5,15,Champions
+C01369,88,21,741.97,3,5,5,13,Loyal Customers
+C01370,6,25,938.52,5,5,5,15,Champions
+C01371,276,11,308.09,2,4,4,10,At Risk
+C01373,17,20,917.6,5,5,5,15,Champions
+C01374,89,19,730.64,3,5,5,13,Loyal Customers
+C01375,81,12,410.48,3,4,4,11,Loyal Customers
+C01376,15,18,537.88,5,5,5,15,Champions
+C01378,534,1,13.41,1,1,1,3,Needs Attention
+C01380,60,23,1041.31,4,5,5,14,Champions
+C01381,345,17,741.86,2,5,5,12,At Risk
+C01383,622,2,101.6,1,2,2,5,Needs Attention
+C01384,378,1,36.4,2,1,1,4,Needs Attention
+C01385,17,24,745.19,5,5,5,15,Champions
+C01386,656,3,103.0,1,2,2,5,Needs Attention
+C01387,707,3,130.08,1,2,3,6,Needs Attention
+C01388,16,29,939.64,5,5,5,15,Champions
+C01389,10,5,214.26,5,3,3,11,Potential Loyalists
+C01390,684,1,62.9,1,1,2,4,Needs Attention
+C01391,328,2,36.35,2,2,1,5,Needs Attention
+C01392,188,2,65.79,3,2,2,7,Regular Customers
+C01394,21,32,1194.77,5,5,5,15,Champions
+C01395,334,16,559.62,2,5,5,12,At Risk
+C01396,110,9,522.03,3,4,5,12,Loyal Customers
+C01397,670,2,132.9,1,2,3,6,Needs Attention
+C01398,54,22,749.62,4,5,5,14,Champions
+C01400,571,8,250.2,1,4,4,9,At Risk
+C01401,719,1,34.4,1,1,1,3,Needs Attention
+C01402,418,5,132.21,2,3,3,8,At Risk
+C01404,34,40,1250.32,4,5,5,14,Champions
+C01405,264,16,401.2,2,5,4,11,At Risk
+C01406,427,7,199.2,2,4,3,9,At Risk
+C01408,271,9,342.9,2,4,4,10,At Risk
+C01409,33,24,851.34,4,5,5,14,Champions
+C01410,139,7,217.87,3,4,3,10,Loyal Customers
+C01411,103,1,15.7,3,1,1,5,Regular Customers
+C01412,1,67,2140.7,5,5,5,15,Champions
+C01413,26,12,568.92,4,4,5,13,Champions
+C01414,138,4,134.28,3,3,3,9,Regular Customers
+C01415,62,15,457.6,4,5,4,13,Champions
+C01416,46,17,559.12,4,5,5,14,Champions
+C01417,236,9,328.64,2,4,4,10,At Risk
+C01418,198,16,664.54,2,5,5,12,At Risk
+C01419,558,2,39.6,1,2,1,4,Needs Attention
+C01421,382,5,202.51,2,3,3,8,At Risk
+C01422,656,1,33.4,1,1,1,3,Needs Attention
+C01425,15,30,1031.75,5,5,5,15,Champions
+C01426,18,4,222.4,5,3,3,11,Potential Loyalists
+C01428,28,7,282.35,4,4,4,12,Champions
+C01429,586,2,48.63,1,2,1,4,Needs Attention
+C01430,709,1,119.56,1,1,2,4,Needs Attention
+C01431,61,14,584.51,4,5,5,14,Champions
+C01432,353,38,1661.11,2,5,5,12,At Risk
+C01433,532,9,257.65,1,4,4,9,At Risk
+C01434,608,3,89.91,1,2,2,5,Needs Attention
+C01435,650,2,70.08,1,2,2,5,Needs Attention
+C01436,534,8,324.24,1,4,4,9,At Risk
+C01437,22,8,350.77,5,4,4,13,Champions
+C01438,324,15,522.19,2,5,5,12,At Risk
+C01439,561,2,110.8,1,2,2,5,Needs Attention
+C01440,518,2,28.9,1,2,1,4,Needs Attention
+C01442,1,12,541.6,5,4,5,14,Champions
+C01443,18,19,636.01,5,5,5,15,Champions
+C01444,186,5,116.61,3,3,2,8,Regular Customers
+C01445,200,4,85.64,2,3,2,7,At Risk
+C01447,45,11,523.92,4,4,5,13,Champions
+C01448,319,3,150.94,2,2,3,7,Needs Attention
+C01449,517,2,55.58,1,2,2,5,Needs Attention
+C01451,22,11,419.53,5,4,4,13,Champions
+C01453,501,6,144.48,1,3,3,7,At Risk
+C01454,12,1,18.2,5,1,1,7,Regular Customers
+C01455,114,7,247.11,3,4,4,11,Loyal Customers
+C01457,154,7,120.03,3,4,2,9,Loyal Customers
+C01458,604,4,94.0,1,3,2,6,At Risk
+C01460,6,36,1237.15,5,5,5,15,Champions
+C01461,4,13,522.83,5,4,5,14,Champions
+C01463,700,2,72.0,1,2,2,5,Needs Attention
+C01464,27,16,550.56,4,5,5,14,Champions
+C01467,613,1,32.2,1,1,1,3,Needs Attention
+C01468,111,13,460.53,3,4,4,11,Loyal Customers
+C01469,582,2,72.2,1,2,2,5,Needs Attention
+C01470,194,18,787.66,2,5,5,12,At Risk
+C01473,62,11,488.44,4,4,5,13,Champions
+C01474,689,1,59.5,1,1,2,4,Needs Attention
+C01475,231,10,428.38,2,4,4,10,At Risk
+C01476,48,17,692.45,4,5,5,14,Champions
+C01477,411,1,36.3,2,1,1,4,Needs Attention
+C01478,245,5,127.95,2,3,3,8,At Risk
+C01479,116,9,399.9,3,4,4,11,Loyal Customers
+C01480,162,6,170.0,3,3,3,9,Regular Customers
+C01481,34,8,226.87,4,4,3,11,Loyal Customers
+C01482,545,7,159.72,1,4,3,8,At Risk
+C01483,96,18,666.33,3,5,5,13,Loyal Customers
+C01484,685,1,9.9,1,1,1,3,Needs Attention
+C01485,37,15,447.07,4,5,4,13,Champions
+C01486,133,10,377.61,3,4,4,11,Loyal Customers
+C01487,569,4,174.7,1,3,3,7,At Risk
+C01488,601,3,224.0,1,2,3,6,Needs Attention
+C01489,573,7,175.28,1,4,3,8,At Risk
+C01492,646,6,161.7,1,3,3,7,At Risk
+C01493,649,1,37.53,1,1,1,3,Needs Attention
+C01494,638,1,26.8,1,1,1,3,Needs Attention
+C01495,72,11,485.66,3,4,4,11,Loyal Customers
+C01497,181,4,80.23,3,3,2,8,Regular Customers
+C01498,251,10,267.47,2,4,4,10,At Risk
+C01500,7,9,322.54,5,4,4,13,Champions
+C01501,37,8,374.86,4,4,4,12,Champions
+C01503,34,30,933.97,4,5,5,14,Champions
+C01504,5,13,472.54,5,4,4,13,Champions
+C01505,716,1,35.1,1,1,1,3,Needs Attention
+C01507,57,34,1378.37,4,5,5,14,Champions
+C01509,313,17,525.7,2,5,5,12,At Risk
+C01510,687,1,33.9,1,1,1,3,Needs Attention
+C01511,281,6,221.2,2,3,3,8,At Risk
+C01512,623,4,110.1,1,3,2,6,At Risk
+C01513,692,1,44.9,1,1,1,3,Needs Attention
+C01514,36,18,670.64,4,5,5,14,Champions
+C01515,18,36,1053.96,5,5,5,15,Champions
+C01516,133,15,406.74,3,5,4,12,Loyal Customers
+C01517,443,5,227.01,1,3,3,7,At Risk
+C01518,99,4,117.87,3,3,2,8,Regular Customers
+C01520,358,2,50.56,2,2,1,5,Needs Attention
+C01521,294,1,15.4,2,1,1,4,Needs Attention
+C01523,271,4,162.95,2,3,3,8,At Risk
+C01524,286,13,430.87,2,4,4,10,At Risk
+C01526,602,1,41.2,1,1,1,3,Needs Attention
+C01528,709,1,14.1,1,1,1,3,Needs Attention
+C01529,594,6,217.25,1,3,3,7,At Risk
+C01531,501,3,163.8,1,2,3,6,Needs Attention
+C01532,696,1,37.8,1,1,1,3,Needs Attention
+C01533,543,5,150.57,1,3,3,7,At Risk
+C01537,18,22,752.69,5,5,5,15,Champions
+C01539,4,45,1330.58,5,5,5,15,Champions
+C01542,75,5,118.5,3,3,2,8,Regular Customers
+C01543,15,11,313.33,5,4,4,13,Champions
+C01544,405,20,769.04,2,5,5,12,At Risk
+C01545,194,3,108.6,2,2,2,6,Needs Attention
+C01546,88,13,414.57,3,4,4,11,Loyal Customers
+C01548,92,5,116.53,3,3,2,8,Regular Customers
+C01549,24,30,1036.55,4,5,5,14,Champions
+C01550,354,4,223.67,2,3,3,8,At Risk
+C01551,11,3,89.3,5,2,2,9,Potential Loyalists
+C01552,249,2,82.5,2,2,2,6,Needs Attention
+C01553,710,1,31.51,1,1,1,3,Needs Attention
+C01554,146,5,199.03,3,3,3,9,Regular Customers
+C01555,7,41,1460.8,5,5,5,15,Champions
+C01556,180,5,135.37,3,3,3,9,Regular Customers
+C01557,402,6,177.93,2,3,3,8,At Risk
+C01559,418,1,51.9,2,1,1,4,Needs Attention
+C01560,484,19,801.74,1,5,5,11,At Risk
+C01561,301,4,109.08,2,3,2,7,At Risk
+C01562,92,1,33.4,3,1,1,5,Regular Customers
+C01565,498,2,64.6,1,2,2,5,Needs Attention
+C01566,431,3,125.11,2,2,3,7,Needs Attention
+C01567,84,8,275.56,3,4,4,11,Loyal Customers
+C01568,5,3,53.1,5,2,1,8,Potential Loyalists
+C01570,201,8,260.98,2,4,4,10,At Risk
+C01571,696,1,32.5,1,1,1,3,Needs Attention
+C01572,642,1,45.8,1,1,1,3,Needs Attention
+C01573,626,1,46.1,1,1,1,3,Needs Attention
+C01574,2,11,418.99,5,4,4,13,Champions
+C01575,527,3,58.43,1,2,2,5,Needs Attention
+C01576,629,2,37.4,1,2,1,4,Needs Attention
+C01577,578,3,88.28,1,2,2,5,Needs Attention
+C01578,312,11,465.7,2,4,4,10,At Risk
+C01581,621,1,35.0,1,1,1,3,Needs Attention
+C01582,376,7,242.6,2,4,4,10,At Risk
+C01583,36,17,613.06,4,5,5,14,Champions
+C01584,8,28,960.31,5,5,5,15,Champions
+C01585,1,20,757.74,5,5,5,15,Champions
+C01586,635,1,85.4,1,1,2,4,Needs Attention
+C01587,219,5,173.7,2,3,3,8,At Risk
+C01588,143,23,713.25,3,5,5,13,Loyal Customers
+C01589,109,4,241.3,3,3,4,10,Regular Customers
+C01590,656,1,25.31,1,1,1,3,Needs Attention
+C01591,4,25,787.22,5,5,5,15,Champions
+C01592,9,10,382.76,5,4,4,13,Champions
+C01594,167,8,374.0,3,4,4,11,Loyal Customers
+C01596,709,2,63.91,1,2,2,5,Needs Attention
+C01597,112,5,195.76,3,3,3,9,Regular Customers
+C01598,7,56,1896.13,5,5,5,15,Champions
+C01599,335,3,125.71,2,2,3,7,Needs Attention
+C01600,27,31,965.34,4,5,5,14,Champions
+C01601,52,15,622.27,4,5,5,14,Champions
+C01602,20,4,185.3,5,3,3,11,Potential Loyalists
+C01603,42,15,500.25,4,5,5,14,Champions
+C01604,440,5,205.21,1,3,3,7,At Risk
+C01605,32,26,712.52,4,5,5,14,Champions
+C01606,18,52,1689.89,5,5,5,15,Champions
+C01607,473,1,25.3,1,1,1,3,Needs Attention
+C01608,364,1,59.1,2,1,2,5,Needs Attention
+C01609,191,19,786.73,3,5,5,13,Loyal Customers
+C01610,165,11,515.18,3,4,5,12,Loyal Customers
+C01611,511,3,162.1,1,2,3,6,Needs Attention
+C01612,307,6,307.06,2,3,4,9,At Risk
+C01613,222,8,241.49,2,4,4,10,At Risk
+C01615,184,5,246.53,3,3,4,10,Regular Customers
+C01616,103,5,131.3,3,3,3,9,Regular Customers
+C01617,201,1,33.1,2,1,1,4,Needs Attention
+C01619,697,1,27.5,1,1,1,3,Needs Attention
+C01620,713,1,101.95,1,1,2,4,Needs Attention
+C01621,68,2,32.1,4,2,1,7,Potential Loyalists
+C01623,64,16,649.56,4,5,5,14,Champions
+C01624,18,16,538.87,5,5,5,15,Champions
+C01625,118,6,219.4,3,3,3,9,Regular Customers
+C01626,633,3,78.9,1,2,2,5,Needs Attention
+C01627,439,3,116.93,1,2,2,5,Needs Attention
+C01629,61,12,357.55,4,4,4,12,Champions
+C01630,676,3,87.5,1,2,2,5,Needs Attention
+C01632,21,13,346.58,5,4,4,13,Champions
+C01633,268,3,143.6,2,2,3,7,Needs Attention
+C01635,426,2,91.7,2,2,2,6,Needs Attention
+C01636,548,4,71.48,1,3,2,6,At Risk
+C01638,278,8,297.4,2,4,4,10,At Risk
+C01639,637,7,293.86,1,4,4,9,At Risk
+C01640,545,5,162.39,1,3,3,7,At Risk
+C01641,45,22,783.14,4,5,5,14,Champions
+C01642,394,11,422.3,2,4,4,10,At Risk
+C01643,566,10,262.43,1,4,4,9,At Risk
+C01644,245,15,570.32,2,5,5,12,At Risk
+C01645,96,5,135.71,3,3,3,9,Regular Customers
+C01646,24,9,328.57,4,4,4,12,Champions
+C01647,664,1,29.5,1,1,1,3,Needs Attention
+C01648,322,4,194.6,2,3,3,8,At Risk
+C01649,35,13,515.04,4,4,5,13,Champions
+C01650,558,8,244.11,1,4,4,9,At Risk
+C01652,426,17,703.72,2,5,5,12,At Risk
+C01657,419,39,1449.05,2,5,5,12,At Risk
+C01658,622,3,122.5,1,2,2,5,Needs Attention
+C01659,362,11,386.28,2,4,4,10,At Risk
+C01661,137,2,55.48,3,2,2,7,Regular Customers
+C01662,81,7,236.78,3,4,3,10,Loyal Customers
+C01664,189,1,32.26,3,1,1,5,Regular Customers
+C01665,174,13,400.9,3,4,4,11,Loyal Customers
+C01666,514,3,69.15,1,2,2,5,Needs Attention
+C01668,202,8,274.68,2,4,4,10,At Risk
+C01669,1,23,669.54,5,5,5,15,Champions
+C01670,149,17,607.98,3,5,5,13,Loyal Customers
+C01671,292,23,872.45,2,5,5,12,At Risk
+C01672,706,2,47.3,1,2,1,4,Needs Attention
+C01673,286,2,87.17,2,2,2,6,Needs Attention
+C01674,54,36,1260.74,4,5,5,14,Champions
+C01675,474,4,299.39,1,3,4,8,At Risk
+C01677,153,3,73.25,3,2,2,7,Regular Customers
+C01678,180,2,43.0,3,2,1,6,Regular Customers
+C01679,26,14,495.18,4,5,5,14,Champions
+C01681,16,17,692.1,5,5,5,15,Champions
+C01682,110,10,302.04,3,4,4,11,Loyal Customers
+C01683,7,46,1651.66,5,5,5,15,Champions
+C01685,31,14,476.05,4,5,4,13,Champions
+C01686,5,28,886.4,5,5,5,15,Champions
+C01687,35,29,935.45,4,5,5,14,Champions
+C01688,488,2,49.1,1,2,1,4,Needs Attention
+C01689,389,9,297.96,2,4,4,10,At Risk
+C01690,525,5,156.48,1,3,3,7,At Risk
+C01692,710,1,14.9,1,1,1,3,Needs Attention
+C01693,242,6,283.63,2,3,4,9,At Risk
+C01694,125,8,243.75,3,4,4,11,Loyal Customers
+C01695,397,1,58.3,2,1,2,5,Needs Attention
+C01698,27,15,616.05,4,5,5,14,Champions
+C01699,312,3,104.6,2,2,2,6,Needs Attention
+C01700,6,15,535.31,5,5,5,15,Champions
+C01702,41,36,1603.61,4,5,5,14,Champions
+C01703,593,5,144.55,1,3,3,7,At Risk
+C01704,710,1,12.9,1,1,1,3,Needs Attention
+C01705,543,6,215.41,1,3,3,7,At Risk
+C01709,4,21,562.92,5,5,5,15,Champions
+C01710,396,20,568.2,2,5,5,12,At Risk
+C01711,553,1,15.9,1,1,1,3,Needs Attention
+C01712,62,23,791.6,4,5,5,14,Champions
+C01713,622,13,517.03,1,4,5,10,At Risk
+C01714,243,1,67.4,2,1,2,5,Needs Attention
+C01715,14,7,224.69,5,4,3,12,Loyal Customers
+C01716,644,4,105.8,1,3,2,6,At Risk
+C01717,30,10,332.56,4,4,4,12,Champions
+C01718,383,3,82.6,2,2,2,6,Needs Attention
+C01719,274,4,147.7,2,3,3,8,At Risk
+C01720,10,19,578.95,5,5,5,15,Champions
+C01721,462,10,386.3,1,4,4,9,At Risk
+C01722,555,1,9.9,1,1,1,3,Needs Attention
+C01723,14,24,885.41,5,5,5,15,Champions
+C01725,34,7,196.4,4,4,3,11,Loyal Customers
+C01726,404,12,290.48,2,4,4,10,At Risk
+C01727,110,1,57.4,3,1,2,6,Regular Customers
+C01729,32,29,897.59,4,5,5,14,Champions
+C01730,299,7,253.05,2,4,4,10,At Risk
+C01731,90,6,226.48,3,3,3,9,Regular Customers
+C01734,220,2,37.4,2,2,1,5,Needs Attention
+C01735,171,2,70.34,3,2,2,7,Regular Customers
+C01736,64,11,330.95,4,4,4,12,Champions
+C01737,588,9,366.05,1,4,4,9,At Risk
+C01738,98,17,501.35,3,5,5,13,Loyal Customers
+C01739,585,1,15.4,1,1,1,3,Needs Attention
+C01740,5,54,2030.56,5,5,5,15,Champions
+C01741,55,16,541.54,4,5,5,14,Champions
+C01743,420,1,43.0,2,1,1,4,Needs Attention
+C01744,686,2,26.3,1,2,1,4,Needs Attention
+C01745,25,35,1103.42,4,5,5,14,Champions
+C01746,460,3,87.1,1,2,2,5,Needs Attention
+C01747,41,11,316.76,4,4,4,12,Champions
+C01748,190,9,271.65,3,4,4,11,Loyal Customers
+C01749,161,8,306.3,3,4,4,11,Loyal Customers
+C01750,547,1,13.5,1,1,1,3,Needs Attention
+C01751,727,1,42.1,1,1,1,3,Needs Attention
+C01752,310,11,370.5,2,4,4,10,At Risk
+C01753,624,1,12.5,1,1,1,3,Needs Attention
+C01754,184,10,214.63,3,4,3,10,Loyal Customers
+C01755,231,3,82.7,2,2,2,6,Needs Attention
+C01756,587,7,189.53,1,4,3,8,At Risk
+C01758,600,1,13.5,1,1,1,3,Needs Attention
+C01759,712,2,77.85,1,2,2,5,Needs Attention
+C01760,145,6,240.16,3,3,4,10,Regular Customers
+C01761,697,1,22.8,1,1,1,3,Needs Attention
+C01762,14,56,1631.75,5,5,5,15,Champions
+C01763,41,27,1169.32,4,5,5,14,Champions
+C01765,97,3,188.68,3,2,3,8,Regular Customers
+C01766,61,15,555.09,4,5,5,14,Champions
+C01767,16,29,1033.91,5,5,5,15,Champions
+C01768,537,9,281.85,1,4,4,9,At Risk
+C01769,527,2,76.78,1,2,2,5,Needs Attention
+C01771,36,21,754.94,4,5,5,14,Champions
+C01772,684,1,41.3,1,1,1,3,Needs Attention
+C01774,15,42,1401.16,5,5,5,15,Champions
+C01775,79,4,96.44,3,3,2,8,Regular Customers
+C01776,14,24,741.11,5,5,5,15,Champions
+C01777,11,31,1062.71,5,5,5,15,Champions
+C01778,19,34,1220.38,5,5,5,15,Champions
+C01779,223,5,188.5,2,3,3,8,At Risk
+C01780,40,7,196.73,4,4,3,11,Loyal Customers
+C01781,94,2,31.82,3,2,1,6,Regular Customers
+C01782,509,5,171.28,1,3,3,7,At Risk
+C01783,90,23,665.6,3,5,5,13,Loyal Customers
+C01784,179,6,210.25,3,3,3,9,Regular Customers
+C01785,720,1,15.9,1,1,1,3,Needs Attention
+C01787,78,7,199.47,3,4,3,10,Loyal Customers
+C01788,359,10,311.35,2,4,4,10,At Risk
+C01789,86,5,240.33,3,3,4,10,Regular Customers
+C01790,216,8,286.23,2,4,4,10,At Risk
+C01791,659,2,53.6,1,2,1,4,Needs Attention
+C01792,660,3,94.0,1,2,2,5,Needs Attention
+C01793,63,13,387.98,4,4,4,12,Champions
+C01794,476,3,73.2,1,2,2,5,Needs Attention
+C01795,96,3,84.3,3,2,2,7,Regular Customers
+C01796,63,37,1509.91,4,5,5,14,Champions
+C01797,55,14,534.93,4,5,5,14,Champions
+C01798,4,11,391.75,5,4,4,13,Champions
+C01799,669,1,16.4,1,1,1,3,Needs Attention
+C01800,699,1,28.4,1,1,1,3,Needs Attention
+C01801,29,55,1914.41,4,5,5,14,Champions
+C01802,600,1,25.8,1,1,1,3,Needs Attention
+C01803,410,6,172.05,2,3,3,8,At Risk
+C01804,718,1,33.61,1,1,1,3,Needs Attention
+C01805,397,6,304.91,2,3,4,9,At Risk
+C01806,319,6,209.2,2,3,3,8,At Risk
+C01807,271,4,97.5,2,3,2,7,At Risk
+C01809,549,7,281.25,1,4,4,9,At Risk
+C01811,525,3,79.81,1,2,2,5,Needs Attention
+C01813,331,3,128.9,2,2,3,7,Needs Attention
+C01815,367,16,403.0,2,5,4,11,At Risk
+C01816,19,18,635.05,5,5,5,15,Champions
+C01818,510,9,356.59,1,4,4,9,At Risk
+C01819,47,31,998.2,4,5,5,14,Champions
+C01820,23,26,981.69,5,5,5,15,Champions
+C01821,37,24,794.52,4,5,5,14,Champions
+C01822,655,3,56.2,1,2,2,5,Needs Attention
+C01823,69,5,113.01,4,3,2,9,Potential Loyalists
+C01824,295,7,270.4,2,4,4,10,At Risk
+C01825,22,2,140.01,5,2,3,10,Potential Loyalists
+C01827,482,16,569.43,1,5,5,11,At Risk
+C01829,642,5,213.5,1,3,3,7,At Risk
+C01830,1,38,1287.19,5,5,5,15,Champions
+C01831,616,5,131.71,1,3,3,7,At Risk
+C01832,15,7,195.79,5,4,3,12,Loyal Customers
+C01833,632,2,49.1,1,2,1,4,Needs Attention
+C01834,83,21,861.04,3,5,5,13,Loyal Customers
+C01835,49,14,637.91,4,5,5,14,Champions
+C01836,67,14,404.32,4,5,4,13,Champions
+C01837,481,3,191.5,1,2,3,6,Needs Attention
+C01838,504,6,194.8,1,3,3,7,At Risk
+C01839,21,6,167.6,5,3,3,11,Potential Loyalists
+C01840,182,2,51.32,3,2,1,6,Regular Customers
+C01842,20,12,381.95,5,4,4,13,Champions
+C01843,1,35,1290.97,5,5,5,15,Champions
+C01845,286,12,398.78,2,4,4,10,At Risk
+C01846,64,18,550.1,4,5,5,14,Champions
+C01848,483,2,75.4,1,2,2,5,Needs Attention
+C01849,34,4,121.37,4,3,2,9,Potential Loyalists
+C01850,678,4,86.0,1,3,2,6,At Risk
+C01851,10,44,1551.64,5,5,5,15,Champions
+C01852,117,29,936.58,3,5,5,13,Loyal Customers
+C01853,704,1,23.0,1,1,1,3,Needs Attention
+C01854,428,19,899.66,2,5,5,12,At Risk
+C01856,16,15,515.51,5,5,5,15,Champions
+C01860,223,11,386.46,2,4,4,10,At Risk
+C01861,20,11,357.53,5,4,4,13,Champions
+C01862,39,9,275.5,4,4,4,12,Champions
+C01863,63,16,685.34,4,5,5,14,Champions
+C01865,39,11,373.37,4,4,4,12,Champions
+C01866,28,12,318.74,4,4,4,12,Champions
+C01867,1,6,306.3,5,3,4,12,Potential Loyalists
+C01868,527,2,58.33,1,2,2,5,Needs Attention
+C01869,211,4,165.87,2,3,3,8,At Risk
+C01870,32,35,1219.09,4,5,5,14,Champions
+C01872,389,4,210.76,2,3,3,8,At Risk
+C01873,6,6,200.37,5,3,3,11,Potential Loyalists
+C01875,69,17,489.38,4,5,5,14,Champions
+C01876,48,10,314.09,4,4,4,12,Champions
+C01877,99,6,237.2,3,3,3,9,Regular Customers
+C01878,18,72,2423.92,5,5,5,15,Champions
+C01881,320,16,471.48,2,5,4,11,At Risk
+C01882,6,114,3991.0,5,5,5,15,Champions
+C01883,45,20,884.4,4,5,5,14,Champions
+C01885,516,14,394.81,1,5,4,10,At Risk
+C01886,69,18,572.29,4,5,5,14,Champions
+C01887,686,2,71.6,1,2,2,5,Needs Attention
+C01888,523,5,258.11,1,3,4,8,At Risk
+C01889,52,10,413.89,4,4,4,12,Champions
+C01890,689,3,141.45,1,2,3,6,Needs Attention
+C01891,727,1,46.7,1,1,1,3,Needs Attention
+C01892,327,6,136.89,2,3,3,8,At Risk
+C01893,554,7,270.21,1,4,4,9,At Risk
+C01894,31,10,213.83,4,4,3,11,Loyal Customers
+C01895,636,1,21.9,1,1,1,3,Needs Attention
+C01896,19,30,1142.56,5,5,5,15,Champions
+C01897,29,48,1836.37,4,5,5,14,Champions
+C01898,321,8,272.51,2,4,4,10,At Risk
+C01899,2,13,381.42,5,4,4,13,Champions
+C01900,643,2,81.2,1,2,2,5,Needs Attention
+C01901,631,1,41.7,1,1,1,3,Needs Attention
+C01902,561,7,206.5,1,4,3,8,At Risk
+C01903,311,7,355.93,2,4,4,10,At Risk
+C01904,533,8,310.19,1,4,4,9,At Risk
+C01905,714,1,52.51,1,1,1,3,Needs Attention
+C01906,165,13,442.35,3,4,4,11,Loyal Customers
+C01907,20,14,479.16,5,5,4,14,Champions
+C01908,482,1,88.9,1,1,2,4,Needs Attention
+C01909,727,1,35.4,1,1,1,3,Needs Attention
+C01910,54,3,75.7,4,2,2,8,Potential Loyalists
+C01911,635,2,62.8,1,2,2,5,Needs Attention
+C01912,143,4,124.65,3,3,3,9,Regular Customers
+C01913,62,18,569.35,4,5,5,14,Champions
+C01915,36,18,650.99,4,5,5,14,Champions
+C01916,193,12,409.16,2,4,4,10,At Risk
+C01917,89,12,359.65,3,4,4,11,Loyal Customers
+C01919,237,2,79.8,2,2,2,6,Needs Attention
+C01920,544,1,25.2,1,1,1,3,Needs Attention
+C01922,576,1,79.6,1,1,2,4,Needs Attention
+C01923,537,1,62.87,1,1,2,4,Needs Attention
+C01924,20,28,1064.94,5,5,5,15,Champions
+C01926,201,9,387.58,2,4,4,10,At Risk
+C01927,288,6,152.25,2,3,3,8,At Risk
+C01928,7,7,345.82,5,4,4,13,Champions
+C01929,578,6,184.64,1,3,3,7,At Risk
+C01930,616,5,148.21,1,3,3,7,At Risk
+C01931,518,4,128.02,1,3,3,7,At Risk
+C01932,265,4,99.38,2,3,2,7,At Risk
+C01933,24,23,726.43,4,5,5,14,Champions
+C01934,12,40,1447.02,5,5,5,15,Champions
+C01935,588,4,211.0,1,3,3,7,At Risk
+C01936,117,14,524.12,3,5,5,13,Loyal Customers
+C01937,61,16,766.39,4,5,5,14,Champions
+C01938,39,9,254.85,4,4,4,12,Champions
+C01940,405,2,41.2,2,2,1,5,Needs Attention
+C01941,604,2,80.8,1,2,2,5,Needs Attention
+C01942,727,1,19.9,1,1,1,3,Needs Attention
+C01943,55,19,457.39,4,5,4,13,Champions
+C01944,58,2,73.2,4,2,2,8,Potential Loyalists
+C01945,216,2,100.9,2,2,2,6,Needs Attention
+C01946,110,27,1025.04,3,5,5,13,Loyal Customers
+C01947,403,2,42.2,2,2,1,5,Needs Attention
+C01948,201,5,120.06,2,3,2,7,At Risk
+C01949,149,1,33.8,3,1,1,5,Regular Customers
+C01950,515,5,121.7,1,3,2,6,At Risk
+C01951,306,4,118.2,2,3,2,7,At Risk
+C01953,592,3,68.1,1,2,2,5,Needs Attention
+C01954,509,2,87.85,1,2,2,5,Needs Attention
+C01955,22,17,725.85,5,5,5,15,Champions
+C01956,41,14,426.68,4,5,4,13,Champions
+C01957,677,2,82.0,1,2,2,5,Needs Attention
+C01958,720,1,68.21,1,1,2,4,Needs Attention
+C01959,326,5,184.28,2,3,3,8,At Risk
+C01960,705,2,52.3,1,2,1,4,Needs Attention
+C01961,501,10,319.99,1,4,4,9,At Risk
+C01962,678,2,55.5,1,2,2,5,Needs Attention
+C01965,353,3,97.78,2,2,2,6,Needs Attention
+C01967,34,7,309.88,4,4,4,12,Champions
+C01970,361,10,283.48,2,4,4,10,At Risk
+C01971,178,18,615.13,3,5,5,13,Loyal Customers
+C01972,26,47,1783.26,4,5,5,14,Champions
+C01973,1,5,243.63,5,3,4,12,Potential Loyalists
+C01974,8,50,1485.46,5,5,5,15,Champions
+C01975,11,15,592.96,5,5,5,15,Champions
+C01976,77,11,308.63,3,4,4,11,Loyal Customers
+C01977,63,8,185.41,4,4,3,11,Loyal Customers
+C01978,7,6,170.41,5,3,3,11,Potential Loyalists
+C01980,4,46,1486.89,5,5,5,15,Champions
+C01981,630,8,315.95,1,4,4,9,At Risk
+C01982,18,15,378.73,5,5,4,14,Champions
+C01983,180,7,350.78,3,4,4,11,Loyal Customers
+C01985,435,3,90.4,2,2,2,6,Needs Attention
+C01986,67,25,837.15,4,5,5,14,Champions
+C01987,663,2,104.91,1,2,2,5,Needs Attention
+C01988,472,2,65.2,1,2,2,5,Needs Attention
+C01990,590,2,63.1,1,2,2,5,Needs Attention
+C01991,12,40,1388.92,5,5,5,15,Champions
+C01992,634,4,128.1,1,3,3,7,At Risk
+C01993,700,1,30.5,1,1,1,3,Needs Attention
+C01994,81,2,53.0,3,2,1,6,Regular Customers
+C01995,243,19,967.91,2,5,5,12,At Risk
+C01996,711,1,44.32,1,1,1,3,Needs Attention
+C01997,479,7,258.48,1,4,4,9,At Risk
+C01998,26,8,298.12,4,4,4,12,Champions
+C01999,40,7,245.7,4,4,4,12,Champions
+C02000,715,1,10.35,1,1,1,3,Needs Attention
+C02001,651,4,92.7,1,3,2,6,At Risk
+C02002,137,4,145.2,3,3,3,9,Regular Customers
+C02003,476,1,52.7,1,1,1,3,Needs Attention
+C02004,471,8,172.08,1,4,3,8,At Risk
+C02005,176,27,930.05,3,5,5,13,Loyal Customers
+C02006,621,2,72.6,1,2,2,5,Needs Attention
+C02007,672,2,42.9,1,2,1,4,Needs Attention
+C02008,716,1,35.8,1,1,1,3,Needs Attention
+C02009,145,8,210.7,3,4,3,10,Loyal Customers
+C02010,106,5,223.02,3,3,3,9,Regular Customers
+C02011,632,5,168.7,1,3,3,7,At Risk
+C02014,628,2,85.1,1,2,2,5,Needs Attention
+C02015,495,9,327.08,1,4,4,9,At Risk
+C02016,161,6,230.82,3,3,3,9,Regular Customers
+C02018,302,1,81.4,2,1,2,5,Needs Attention
+C02019,58,7,318.0,4,4,4,12,Champions
+C02020,273,12,362.45,2,4,4,10,At Risk
+C02022,208,19,520.95,2,5,5,12,At Risk
+C02023,90,10,461.42,3,4,4,11,Loyal Customers
+C02024,42,13,496.14,4,4,5,13,Champions
+C02027,9,24,739.01,5,5,5,15,Champions
+C02028,108,7,246.54,3,4,4,11,Loyal Customers
+C02029,29,2,31.22,4,2,1,7,Potential Loyalists
+C02030,13,7,366.28,5,4,4,13,Champions
+C02032,189,3,164.15,3,2,3,8,Regular Customers
+C02033,59,4,62.25,4,3,2,9,Potential Loyalists
+C02034,481,4,162.74,1,3,3,7,At Risk
+C02035,75,10,398.44,3,4,4,11,Loyal Customers
+C02036,6,1,57.9,5,1,2,8,Regular Customers
+C02037,10,35,991.58,5,5,5,15,Champions
+C02038,89,7,217.9,3,4,3,10,Loyal Customers
+C02040,536,4,145.91,1,3,3,7,At Risk
+C02041,30,31,1153.03,4,5,5,14,Champions
+C02042,5,7,240.95,5,4,4,13,Champions
+C02043,543,1,22.95,1,1,1,3,Needs Attention
+C02045,164,1,12.78,3,1,1,5,Regular Customers
+C02047,7,40,1256.88,5,5,5,15,Champions
+C02048,2,3,107.51,5,2,2,9,Potential Loyalists
+C02049,384,7,186.3,2,4,3,9,At Risk
+C02050,459,1,73.2,1,1,2,4,Needs Attention
+C02051,16,31,1128.02,5,5,5,15,Champions
+C02052,6,18,642.22,5,5,5,15,Champions
+C02054,119,5,137.1,3,3,3,9,Regular Customers
+C02056,71,14,391.7,3,5,4,12,Loyal Customers
+C02057,245,7,320.4,2,4,4,10,At Risk
+C02058,411,5,174.58,2,3,3,8,At Risk
+C02059,31,17,556.79,4,5,5,14,Champions
+C02060,702,2,43.2,1,2,1,4,Needs Attention
+C02062,82,15,507.37,3,5,5,13,Loyal Customers
+C02063,354,10,340.75,2,4,4,10,At Risk
+C02065,10,47,1606.81,5,5,5,15,Champions
+C02066,698,4,210.2,1,3,3,7,At Risk
+C02068,68,4,156.58,4,3,3,10,Potential Loyalists
+C02069,583,2,106.12,1,2,2,5,Needs Attention
+C02070,287,1,32.8,2,1,1,4,Needs Attention
+C02071,293,6,139.5,2,3,3,8,At Risk
+C02072,600,5,152.2,1,3,3,7,At Risk
+C02073,68,10,285.66,4,4,4,12,Champions
+C02074,13,20,619.53,5,5,5,15,Champions
+C02075,17,4,90.52,5,3,2,10,Potential Loyalists
+C02076,5,41,1509.41,5,5,5,15,Champions
+C02078,677,3,116.86,1,2,2,5,Needs Attention
+C02079,503,1,30.4,1,1,1,3,Needs Attention
+C02081,30,11,330.34,4,4,4,12,Champions
+C02082,358,4,156.61,2,3,3,8,At Risk
+C02083,192,18,598.2,3,5,5,13,Loyal Customers
+C02084,446,8,359.99,1,4,4,9,At Risk
+C02085,503,6,312.37,1,3,4,8,At Risk
+C02086,692,4,84.1,1,3,2,6,At Risk
+C02089,119,5,217.25,3,3,3,9,Regular Customers
+C02093,23,5,231.4,5,3,3,11,Potential Loyalists
+C02095,68,14,515.28,4,5,5,14,Champions
+C02096,504,9,353.62,1,4,4,9,At Risk
+C02097,76,5,150.95,3,3,3,9,Regular Customers
+C02098,18,23,765.71,5,5,5,15,Champions
+C02099,71,38,1376.99,3,5,5,13,Loyal Customers
+C02102,351,19,669.91,2,5,5,12,At Risk
+C02104,713,1,30.51,1,1,1,3,Needs Attention
+C02105,236,4,191.87,2,3,3,8,At Risk
+C02107,653,5,234.17,1,3,3,7,At Risk
+C02108,10,19,736.68,5,5,5,15,Champions
+C02109,397,7,255.01,2,4,4,10,At Risk
+C02110,156,4,201.49,3,3,3,9,Regular Customers
+C02111,231,13,515.08,2,4,5,11,At Risk
+C02113,352,1,23.5,2,1,1,4,Needs Attention
+C02114,14,30,1167.04,5,5,5,15,Champions
+C02115,35,6,133.3,4,3,3,10,Potential Loyalists
+C02116,523,12,429.64,1,4,4,9,At Risk
+C02117,68,13,484.4,4,4,4,12,Champions
+C02118,48,23,901.43,4,5,5,14,Champions
+C02120,91,5,112.1,3,3,2,8,Regular Customers
+C02121,215,8,193.73,2,4,3,9,At Risk
+C02122,9,11,304.4,5,4,4,13,Champions
+C02123,677,2,87.35,1,2,2,5,Needs Attention
+C02124,19,9,416.01,5,4,4,13,Champions
+C02126,19,30,1052.29,5,5,5,15,Champions
+C02127,85,4,108.44,3,3,2,8,Regular Customers
+C02128,1,24,827.71,5,5,5,15,Champions
+C02129,271,5,156.02,2,3,3,8,At Risk
+C02131,76,3,127.64,3,2,3,8,Regular Customers
+C02132,46,23,872.22,4,5,5,14,Champions
+C02133,657,1,55.2,1,1,2,4,Needs Attention
+C02134,120,6,187.3,3,3,3,9,Regular Customers
+C02135,563,4,115.9,1,3,2,6,At Risk
+C02137,21,20,622.46,5,5,5,15,Champions
+C02138,646,1,28.6,1,1,1,3,Needs Attention
+C02139,721,1,44.61,1,1,1,3,Needs Attention
+C02140,287,2,41.67,2,2,1,5,Needs Attention
+C02141,321,8,403.17,2,4,4,10,At Risk
+C02143,527,17,679.55,1,5,5,11,At Risk
+C02144,222,12,337.4,2,4,4,10,At Risk
+C02145,171,6,202.81,3,3,3,9,Regular Customers
+C02147,36,10,310.14,4,4,4,12,Champions
+C02148,30,28,1184.19,4,5,5,14,Champions
+C02149,410,41,1263.47,2,5,5,12,At Risk
+C02150,629,10,255.25,1,4,4,9,At Risk
+C02151,104,4,117.4,3,3,2,8,Regular Customers
+C02152,453,1,31.7,1,1,1,3,Needs Attention
+C02153,229,4,97.2,2,3,2,7,At Risk
+C02154,396,17,551.95,2,5,5,12,At Risk
+C02155,6,6,195.5,5,3,3,11,Potential Loyalists
+C02156,13,15,542.08,5,5,5,15,Champions
+C02157,341,2,94.59,2,2,2,6,Needs Attention
+C02159,59,48,1773.05,4,5,5,14,Champions
+C02161,1,33,1110.61,5,5,5,15,Champions
+C02163,650,2,67.87,1,2,2,5,Needs Attention
+C02164,174,13,403.34,3,4,4,11,Loyal Customers
+C02165,505,1,21.7,1,1,1,3,Needs Attention
+C02166,62,19,710.61,4,5,5,14,Champions
+C02167,516,35,1063.41,1,5,5,11,At Risk
+C02168,48,10,318.64,4,4,4,12,Champions
+C02169,731,1,37.0,1,1,1,3,Needs Attention
+C02171,174,6,341.52,3,3,4,10,Regular Customers
+C02174,1,46,1759.08,5,5,5,15,Champions
+C02175,78,7,229.62,3,4,3,10,Loyal Customers
+C02176,262,2,129.2,2,2,3,7,Needs Attention
+C02177,105,11,341.51,3,4,4,11,Loyal Customers
+C02179,459,12,374.81,1,4,4,9,At Risk
+C02180,712,4,127.96,1,3,3,7,At Risk
+C02181,380,1,57.2,2,1,2,5,Needs Attention
+C02182,674,2,61.9,1,2,2,5,Needs Attention
+C02183,707,3,180.97,1,2,3,6,Needs Attention
+C02184,56,20,789.48,4,5,5,14,Champions
+C02185,664,2,65.5,1,2,2,5,Needs Attention
+C02186,552,6,203.7,1,3,3,7,At Risk
+C02187,33,25,1070.14,4,5,5,14,Champions
+C02190,5,61,2241.93,5,5,5,15,Champions
+C02191,496,8,326.91,1,4,4,9,At Risk
+C02192,726,1,18.4,1,1,1,3,Needs Attention
+C02193,560,4,146.4,1,3,3,7,At Risk
+C02194,133,8,246.65,3,4,4,11,Loyal Customers
+C02195,627,1,13.7,1,1,1,3,Needs Attention
+C02196,224,2,91.4,2,2,2,6,Needs Attention
+C02198,32,10,367.28,4,4,4,12,Champions
+C02200,148,39,1490.23,3,5,5,13,Loyal Customers
+C02201,21,38,1567.65,5,5,5,15,Champions
+C02202,451,8,353.43,1,4,4,9,At Risk
+C02203,85,11,507.05,3,4,5,12,Loyal Customers
+C02204,586,2,55.1,1,2,2,5,Needs Attention
+C02206,554,5,137.2,1,3,3,7,At Risk
+C02207,676,2,44.9,1,2,1,4,Needs Attention
+C02208,266,2,54.1,2,2,1,5,Needs Attention
+C02209,180,6,158.45,3,3,3,9,Regular Customers
+C02210,138,6,219.61,3,3,3,9,Regular Customers
+C02211,465,4,149.1,1,3,3,7,At Risk
+C02213,96,4,202.71,3,3,3,9,Regular Customers
+C02214,299,10,286.95,2,4,4,10,At Risk
+C02216,43,11,370.23,4,4,4,12,Champions
+C02218,32,8,338.68,4,4,4,12,Champions
+C02221,469,16,538.86,1,5,5,11,At Risk
+C02222,78,15,446.12,3,5,4,12,Loyal Customers
+C02224,727,1,20.0,1,1,1,3,Needs Attention
+C02225,395,5,103.0,2,3,2,7,At Risk
+C02226,397,1,40.6,2,1,1,4,Needs Attention
+C02227,364,29,1096.44,2,5,5,12,At Risk
+C02228,234,6,179.2,2,3,3,8,At Risk
+C02229,23,21,709.16,5,5,5,15,Champions
+C02230,30,9,409.63,4,4,4,12,Champions
+C02231,6,21,572.54,5,5,5,15,Champions
+C02233,116,7,280.19,3,4,4,11,Loyal Customers
+C02234,377,4,180.6,2,3,3,8,At Risk
+C02236,12,44,1591.19,5,5,5,15,Champions
+C02237,191,10,457.39,3,4,4,11,Loyal Customers
+C02240,670,1,17.4,1,1,1,3,Needs Attention
+C02241,298,2,44.22,2,2,1,5,Needs Attention
+C02242,66,3,93.51,4,2,2,8,Potential Loyalists
+C02243,651,1,25.53,1,1,1,3,Needs Attention
+C02244,697,2,72.31,1,2,2,5,Needs Attention
+C02245,651,1,11.48,1,1,1,3,Needs Attention
+C02248,722,1,91.2,1,1,2,4,Needs Attention
+C02249,61,12,476.77,4,4,4,12,Champions
+C02251,639,2,77.4,1,2,2,5,Needs Attention
+C02252,704,4,103.21,1,3,2,6,At Risk
+C02253,730,1,16.6,1,1,1,3,Needs Attention
+C02254,18,29,1002.62,5,5,5,15,Champions
+C02255,47,5,150.4,4,3,3,10,Potential Loyalists
+C02256,501,3,65.4,1,2,2,5,Needs Attention
+C02257,132,30,1043.62,3,5,5,13,Loyal Customers
+C02258,651,1,36.4,1,1,1,3,Needs Attention
+C02259,620,1,50.1,1,1,1,3,Needs Attention
+C02261,201,2,39.95,2,2,1,5,Needs Attention
+C02262,6,17,432.93,5,5,4,14,Champions
+C02263,642,10,341.41,1,4,4,9,At Risk
+C02264,47,14,417.28,4,5,4,13,Champions
+C02266,480,1,33.1,1,1,1,3,Needs Attention
+C02267,14,53,1779.56,5,5,5,15,Champions
+C02268,1,48,1541.74,5,5,5,15,Champions
+C02269,19,18,746.8,5,5,5,15,Champions
+C02270,691,3,160.91,1,2,3,6,Needs Attention
+C02271,26,16,656.36,4,5,5,14,Champions
+C02272,70,7,251.49,4,4,4,12,Champions
+C02273,530,2,133.14,1,2,3,6,Needs Attention
+C02275,34,46,1741.35,4,5,5,14,Champions
+C02276,43,37,1350.26,4,5,5,14,Champions
+C02277,314,2,56.3,2,2,2,6,Needs Attention
+C02278,128,4,128.51,3,3,3,9,Regular Customers
+C02279,550,9,394.68,1,4,4,9,At Risk
+C02280,45,4,90.13,4,3,2,9,Potential Loyalists
+C02281,55,15,627.75,4,5,5,14,Champions
+C02282,12,17,558.34,5,5,5,15,Champions
+C02283,12,21,628.33,5,5,5,15,Champions
+C02284,426,2,74.0,2,2,2,6,Needs Attention
+C02285,477,1,60.4,1,1,2,4,Needs Attention
+C02286,140,6,227.26,3,3,3,9,Regular Customers
+C02287,594,11,344.48,1,4,4,9,At Risk
+C02288,198,21,867.26,2,5,5,12,At Risk
+C02289,713,2,115.27,1,2,2,5,Needs Attention
+C02291,9,25,904.19,5,5,5,15,Champions
+C02292,391,27,891.23,2,5,5,12,At Risk
+C02293,3,31,1163.71,5,5,5,15,Champions
+C02294,5,18,627.61,5,5,5,15,Champions
+C02295,503,2,56.4,1,2,2,5,Needs Attention
+C02297,476,24,784.12,1,5,5,11,At Risk
+C02299,75,10,255.38,3,4,4,11,Loyal Customers
+C02303,11,14,480.43,5,5,4,14,Champions
+C02304,384,16,538.81,2,5,5,12,At Risk
+C02305,677,1,30.4,1,1,1,3,Needs Attention
+C02306,15,8,271.52,5,4,4,13,Champions
+C02307,644,1,74.8,1,1,2,4,Needs Attention
+C02308,26,17,576.81,4,5,5,14,Champions
+C02309,303,8,315.58,2,4,4,10,At Risk
+C02310,582,1,11.5,1,1,1,3,Needs Attention
+C02312,37,9,234.51,4,4,3,11,Loyal Customers
+C02313,37,1,21.6,4,1,1,6,Regular Customers
+C02314,265,5,148.55,2,3,3,8,At Risk
+C02315,69,14,619.82,4,5,5,14,Champions
+C02316,677,1,70.2,1,1,2,4,Needs Attention
+C02317,676,2,44.5,1,2,1,4,Needs Attention
+C02318,451,3,148.19,1,2,3,6,Needs Attention
+C02319,712,1,29.81,1,1,1,3,Needs Attention
+C02320,47,11,538.69,4,4,5,13,Champions
+C02321,2,35,1091.94,5,5,5,15,Champions
+C02322,44,13,397.88,4,4,4,12,Champions
+C02323,37,10,442.73,4,4,4,12,Champions
+C02324,144,7,161.31,3,4,3,10,Loyal Customers
+C02325,373,6,332.62,2,3,4,9,At Risk
+C02326,109,34,1093.96,3,5,5,13,Loyal Customers
+C02328,592,1,36.4,1,1,1,3,Needs Attention
+C02329,165,2,54.75,3,2,2,7,Regular Customers
+C02330,642,2,23.2,1,2,1,4,Needs Attention
+C02332,581,2,141.1,1,2,3,6,Needs Attention
+C02333,243,1,50.1,2,1,1,4,Needs Attention
+C02334,525,4,143.62,1,3,3,7,At Risk
+C02335,165,4,130.81,3,3,3,9,Regular Customers
+C02336,383,28,765.1,2,5,5,12,At Risk
+C02337,676,1,22.0,1,1,1,3,Needs Attention
+C02338,390,4,136.02,2,3,3,8,At Risk
+C02339,404,6,130.0,2,3,3,8,At Risk
+C02340,137,27,929.89,3,5,5,13,Loyal Customers
+C02341,142,1,53.52,3,1,1,5,Regular Customers
+C02342,35,17,559.42,4,5,5,14,Champions
+C02343,602,1,22.6,1,1,1,3,Needs Attention
+C02345,671,3,119.01,1,2,2,5,Needs Attention
+C02347,511,2,47.4,1,2,1,4,Needs Attention
+C02349,33,17,663.45,4,5,5,14,Champions
+C02350,106,12,345.71,3,4,4,11,Loyal Customers
+C02351,436,21,640.84,2,5,5,12,At Risk
+C02352,13,29,865.37,5,5,5,15,Champions
+C02353,69,5,208.6,4,3,3,10,Potential Loyalists
+C02354,34,5,118.16,4,3,2,9,Potential Loyalists
+C02355,489,15,602.82,1,5,5,11,At Risk
+C02356,550,1,13.0,1,1,1,3,Needs Attention
+C02358,501,2,29.3,1,2,1,4,Needs Attention
+C02359,119,7,321.31,3,4,4,11,Loyal Customers
+C02360,23,13,339.45,5,4,4,13,Champions
+C02361,14,53,1715.09,5,5,5,15,Champions
+C02362,677,1,27.2,1,1,1,3,Needs Attention
+C02363,424,15,443.1,2,5,4,11,At Risk
+C02365,475,7,316.75,1,4,4,9,At Risk
+C02367,10,36,1125.17,5,5,5,15,Champions
+C02368,338,27,930.28,2,5,5,12,At Risk
+C02369,290,4,170.63,2,3,3,8,At Risk
+C02370,614,3,173.3,1,2,3,6,Needs Attention
+C02371,21,2,118.7,5,2,2,9,Potential Loyalists
+C02373,638,7,258.64,1,4,4,9,At Risk
+C02374,140,19,770.83,3,5,5,13,Loyal Customers
+C02375,439,6,160.21,1,3,3,7,At Risk
+C02376,22,1,42.5,5,1,1,7,Regular Customers
+C02377,2,57,2009.61,5,5,5,15,Champions
+C02378,187,4,205.45,3,3,3,9,Regular Customers
+C02380,699,2,47.3,1,2,1,4,Needs Attention
+C02381,403,5,182.1,2,3,3,8,At Risk
+C02382,272,1,71.5,2,1,2,5,Needs Attention
+C02383,1,82,2320.24,5,5,5,15,Champions
+C02385,9,31,1183.95,5,5,5,15,Champions
+C02386,135,2,43.9,3,2,1,6,Regular Customers
+C02387,589,2,74.3,1,2,2,5,Needs Attention
+C02388,613,4,147.8,1,3,3,7,At Risk
+C02389,301,5,175.62,2,3,3,8,At Risk
+C02390,109,8,243.46,3,4,4,11,Loyal Customers
+C02391,43,22,808.88,4,5,5,14,Champions
+C02392,468,5,175.1,1,3,3,7,At Risk
+C02393,191,4,210.23,3,3,3,9,Regular Customers
+C02395,662,3,81.6,1,2,2,5,Needs Attention
+C02396,6,25,719.54,5,5,5,15,Champions
+C02397,693,1,44.9,1,1,1,3,Needs Attention
+C02398,15,38,1458.79,5,5,5,15,Champions
+C02399,4,18,652.64,5,5,5,15,Champions
+C02400,297,16,589.94,2,5,5,12,At Risk
+C02401,253,1,41.7,2,1,1,4,Needs Attention
+C02402,205,7,171.63,2,4,3,9,At Risk
+C02403,53,35,1103.98,4,5,5,14,Champions
+C02404,475,6,376.5,1,3,4,8,At Risk
+C02405,338,17,596.95,2,5,5,12,At Risk
+C02407,690,4,155.1,1,3,3,7,At Risk
+C02408,231,4,153.7,2,3,3,8,At Risk
+C02409,609,3,63.4,1,2,2,5,Needs Attention
+C02410,216,1,19.3,2,1,1,4,Needs Attention
+C02411,312,7,235.0,2,4,3,9,At Risk
+C02412,75,14,587.01,3,5,5,13,Loyal Customers
+C02413,447,2,161.83,1,2,3,6,Needs Attention
+C02414,469,1,24.7,1,1,1,3,Needs Attention
+C02417,3,13,684.85,5,4,5,14,Champions
+C02418,498,2,77.85,1,2,2,5,Needs Attention
+C02420,492,13,588.24,1,4,5,10,At Risk
+C02422,62,15,641.66,4,5,5,14,Champions
+C02423,313,14,639.64,2,5,5,12,At Risk
+C02424,159,7,187.04,3,4,3,10,Loyal Customers
+C02425,1,24,719.57,5,5,5,15,Champions
+C02426,22,10,384.98,5,4,4,13,Champions
+C02427,429,38,1106.92,2,5,5,12,At Risk
+C02429,79,2,41.2,3,2,1,6,Regular Customers
+C02430,359,12,437.57,2,4,4,10,At Risk
+C02431,54,4,71.4,4,3,2,9,Potential Loyalists
+C02432,88,2,45.51,3,2,1,6,Regular Customers
+C02433,301,23,984.08,2,5,5,12,At Risk
+C02435,29,13,415.76,4,4,4,12,Champions
+C02436,371,23,664.64,2,5,5,12,At Risk
+C02437,286,10,493.44,2,4,5,11,At Risk
+C02439,394,6,140.54,2,3,3,8,At Risk
+C02440,73,11,455.53,3,4,4,11,Loyal Customers
+C02441,232,19,455.98,2,5,4,11,At Risk
+C02442,534,5,233.26,1,3,3,7,At Risk
+C02443,78,10,411.81,3,4,4,11,Loyal Customers
+C02444,71,5,246.18,3,3,4,10,Regular Customers
+C02445,97,15,517.21,3,5,5,13,Loyal Customers
+C02446,416,11,340.63,2,4,4,10,At Risk
+C02447,5,18,739.82,5,5,5,15,Champions
+C02448,92,52,1728.97,3,5,5,13,Loyal Customers
+C02450,19,15,573.09,5,5,5,15,Champions
+C02451,239,9,297.11,2,4,4,10,At Risk
+C02452,564,1,32.5,1,1,1,3,Needs Attention
+C02454,36,29,921.05,4,5,5,14,Champions
+C02455,14,27,838.59,5,5,5,15,Champions
+C02456,168,9,415.67,3,4,4,11,Loyal Customers
+C02457,144,3,111.0,3,2,2,7,Regular Customers
+C02458,599,1,35.6,1,1,1,3,Needs Attention
+C02460,378,9,214.3,2,4,3,9,At Risk
+C02461,407,3,64.3,2,2,2,6,Needs Attention
+C02462,650,1,118.37,1,1,2,4,Needs Attention
+C02464,214,1,38.47,2,1,1,4,Needs Attention
+C02465,249,2,118.53,2,2,2,6,Needs Attention
+C02467,320,1,28.9,2,1,1,4,Needs Attention
+C02468,9,22,681.07,5,5,5,15,Champions
+C02469,275,5,139.75,2,3,3,8,At Risk
+C02470,74,7,252.98,3,4,4,11,Loyal Customers
+C02471,18,25,1016.87,5,5,5,15,Champions
+C02472,624,1,20.0,1,1,1,3,Needs Attention
+C02473,664,1,22.8,1,1,1,3,Needs Attention
+C02474,418,4,106.9,2,3,2,7,At Risk
+C02475,221,13,418.19,2,4,4,10,At Risk
+C02477,47,7,234.97,4,4,3,11,Loyal Customers
+C02479,559,1,32.1,1,1,1,3,Needs Attention
+C02480,21,6,207.5,5,3,3,11,Potential Loyalists
+C02482,308,3,151.0,2,2,3,7,Needs Attention
+C02483,10,3,153.34,5,2,3,10,Potential Loyalists
+C02484,573,1,30.4,1,1,1,3,Needs Attention
+C02485,61,14,588.87,4,5,5,14,Champions
+C02486,542,6,155.75,1,3,3,7,At Risk
+C02487,637,2,74.8,1,2,2,5,Needs Attention
+C02488,183,5,145.51,3,3,3,9,Regular Customers
+C02490,240,32,1207.64,2,5,5,12,At Risk
+C02491,110,31,976.15,3,5,5,13,Loyal Customers
+C02492,53,14,472.78,4,5,4,13,Champions
+C02493,420,1,59.3,2,1,2,5,Needs Attention
+C02494,32,12,436.23,4,4,4,12,Champions
+C02495,272,3,98.03,2,2,2,6,Needs Attention
+C02496,596,1,41.8,1,1,1,3,Needs Attention
+C02497,306,1,28.0,2,1,1,4,Needs Attention
+C02498,162,40,1429.9,3,5,5,13,Loyal Customers
+C02499,23,11,358.36,5,4,4,13,Champions
+C02500,65,9,274.91,4,4,4,12,Champions
+C02502,274,2,62.9,2,2,2,6,Needs Attention
+C02504,324,9,317.14,2,4,4,10,At Risk
+C02505,218,9,253.36,2,4,4,10,At Risk
+C02506,649,2,41.93,1,2,1,4,Needs Attention
+C02507,111,6,168.34,3,3,3,9,Regular Customers
+C02508,64,2,67.24,4,2,2,8,Potential Loyalists
+C02509,574,4,154.7,1,3,3,7,At Risk
+C02510,649,1,75.64,1,1,2,4,Needs Attention
+C02511,187,9,307.68,3,4,4,11,Loyal Customers
+C02512,208,4,175.56,2,3,3,8,At Risk
+C02514,356,36,1167.96,2,5,5,12,At Risk
+C02515,602,1,114.6,1,1,2,4,Needs Attention
+C02516,15,9,312.01,5,4,4,13,Champions
+C02517,61,26,1001.46,4,5,5,14,Champions
+C02518,128,5,187.95,3,3,3,9,Regular Customers
+C02519,125,8,222.13,3,4,3,10,Loyal Customers
+C02520,139,6,176.34,3,3,3,9,Regular Customers
+C02521,629,1,16.6,1,1,1,3,Needs Attention
+C02522,34,29,1068.05,4,5,5,14,Champions
+C02523,138,22,699.93,3,5,5,13,Loyal Customers
+C02525,41,23,815.97,4,5,5,14,Champions
+C02527,369,10,489.68,2,4,5,11,At Risk
+C02528,47,26,901.77,4,5,5,14,Champions
+C02529,166,3,118.8,3,2,2,7,Regular Customers
+C02530,161,10,435.78,3,4,4,11,Loyal Customers
+C02531,294,2,54.4,2,2,1,5,Needs Attention
+C02532,13,15,452.6,5,5,4,14,Champions
+C02533,70,10,379.3,4,4,4,12,Champions
+C02534,69,7,212.17,4,4,3,11,Loyal Customers
+C02535,12,3,111.25,5,2,2,9,Potential Loyalists
+C02537,573,6,180.65,1,3,3,7,At Risk
+C02539,1,6,208.74,5,3,3,11,Potential Loyalists
+C02540,640,1,10.5,1,1,1,3,Needs Attention
+C02542,405,12,401.6,2,4,4,10,At Risk
+C02543,552,1,59.5,1,1,2,4,Needs Attention
+C02545,414,16,576.76,2,5,5,12,At Risk
+C02546,23,7,174.88,5,4,3,12,Loyal Customers
+C02547,10,111,3497.4,5,5,5,15,Champions
+C02548,509,5,95.85,1,3,2,6,At Risk
+C02549,25,2,108.64,4,2,2,8,Potential Loyalists
+C02551,624,1,15.9,1,1,1,3,Needs Attention
+C02552,572,3,162.0,1,2,3,6,Needs Attention
+C02554,170,13,507.12,3,4,5,12,Loyal Customers
+C02555,90,10,383.72,3,4,4,11,Loyal Customers
+C02556,23,5,164.32,5,3,3,11,Potential Loyalists
+C02557,6,32,1129.46,5,5,5,15,Champions
+C02558,393,5,235.76,2,3,3,8,At Risk
+C02559,642,2,46.1,1,2,1,4,Needs Attention
+C02560,572,1,53.9,1,1,1,3,Needs Attention
+C02561,10,11,502.86,5,4,5,14,Champions
+C02562,74,8,205.78,3,4,3,10,Loyal Customers
+C02563,407,14,599.67,2,5,5,12,At Risk
+C02564,91,6,284.88,3,3,4,10,Regular Customers
+C02565,614,3,71.6,1,2,2,5,Needs Attention
+C02566,41,17,697.43,4,5,5,14,Champions
+C02567,554,3,120.6,1,2,2,5,Needs Attention
+C02568,96,19,742.24,3,5,5,13,Loyal Customers
+C02570,393,2,96.02,2,2,2,6,Needs Attention
+C02573,392,9,350.95,2,4,4,10,At Risk
+C02574,2,17,718.68,5,5,5,15,Champions
+C02575,265,7,243.8,2,4,4,10,At Risk
+C02576,139,4,90.28,3,3,2,8,Regular Customers
+C02577,541,1,35.46,1,1,1,3,Needs Attention
+C02580,20,9,179.78,5,4,3,12,Loyal Customers
+C02581,16,29,882.97,5,5,5,15,Champions
+C02582,462,9,246.78,1,4,4,9,At Risk
+C02583,394,2,65.6,2,2,2,6,Needs Attention
+C02586,83,8,277.2,3,4,4,11,Loyal Customers
+C02587,572,2,90.6,1,2,2,5,Needs Attention
+C02588,461,4,101.25,1,3,2,6,At Risk
+C02589,18,38,1225.83,5,5,5,15,Champions
+C02590,6,21,704.54,5,5,5,15,Champions
+C02591,519,6,234.95,1,3,3,7,At Risk
+C02592,188,7,271.4,3,4,4,11,Loyal Customers
+C02593,17,19,711.18,5,5,5,15,Champions
+C02594,105,13,406.77,3,4,4,11,Loyal Customers
+C02595,59,5,245.33,4,3,4,11,Potential Loyalists
+C02596,80,9,250.76,3,4,4,11,Loyal Customers
+C02597,593,1,36.3,1,1,1,3,Needs Attention
+C02598,18,40,1159.6,5,5,5,15,Champions
+C02599,21,16,651.99,5,5,5,15,Champions
+C02600,37,10,361.75,4,4,4,12,Champions
+C02601,548,2,116.88,1,2,2,5,Needs Attention
+C02603,594,2,67.8,1,2,2,5,Needs Attention
+C02604,5,6,152.01,5,3,3,11,Potential Loyalists
+C02605,128,10,396.0,3,4,4,11,Loyal Customers
+C02607,500,14,703.73,1,5,5,11,At Risk
+C02609,301,6,303.67,2,3,4,9,At Risk
+C02610,168,5,144.0,3,3,3,9,Regular Customers
+C02611,36,3,60.4,4,2,2,8,Potential Loyalists
+C02612,580,2,31.5,1,2,1,4,Needs Attention
+C02614,355,16,385.55,2,5,4,11,At Risk
+C02615,544,2,33.83,1,2,1,4,Needs Attention
+C02616,26,17,411.77,4,5,4,13,Champions
+C02617,152,6,203.57,3,3,3,9,Regular Customers
+C02618,16,13,360.5,5,4,4,13,Champions
+C02619,138,4,221.15,3,3,3,9,Regular Customers
+C02620,264,2,70.8,2,2,2,6,Needs Attention
+C02621,383,1,32.6,2,1,1,4,Needs Attention
+C02622,216,4,112.8,2,3,2,7,At Risk
+C02623,27,16,502.28,4,5,5,14,Champions
+C02624,5,19,626.85,5,5,5,15,Champions
+C02625,324,4,118.59,2,3,2,7,At Risk
+C02626,27,18,518.64,4,5,5,14,Champions
+C02627,435,1,33.3,2,1,1,4,Needs Attention
+C02628,622,1,31.9,1,1,1,3,Needs Attention
+C02630,491,3,128.5,1,2,3,6,Needs Attention
+C02631,44,6,152.72,4,3,3,10,Potential Loyalists
+C02632,295,1,34.55,2,1,1,4,Needs Attention
+C02633,51,20,834.98,4,5,5,14,Champions
+C02634,445,8,177.58,1,4,3,8,At Risk
+C02635,89,5,316.71,3,3,4,10,Regular Customers
+C02637,602,1,36.7,1,1,1,3,Needs Attention
+C02638,492,3,210.73,1,2,3,6,Needs Attention
+C02639,12,28,884.62,5,5,5,15,Champions
+C02640,70,33,1120.24,4,5,5,14,Champions
+C02641,553,4,125.6,1,3,3,7,At Risk
+C02642,621,1,72.4,1,1,2,4,Needs Attention
+C02643,7,52,1728.3,5,5,5,15,Champions
+C02644,344,4,121.11,2,3,2,7,At Risk
+C02645,573,3,82.6,1,2,2,5,Needs Attention
+C02646,23,9,431.52,5,4,4,13,Champions
+C02647,28,7,205.35,4,4,3,11,Loyal Customers
+C02648,357,9,289.64,2,4,4,10,At Risk
+C02649,587,1,25.9,1,1,1,3,Needs Attention
+C02650,30,3,171.62,4,2,3,9,Potential Loyalists
+C02651,200,12,489.09,2,4,5,11,At Risk
+C02652,609,1,13.5,1,1,1,3,Needs Attention
+C02653,321,1,114.2,2,1,2,5,Needs Attention
+C02654,6,15,434.88,5,5,4,14,Champions
+C02657,256,6,209.4,2,3,3,8,At Risk
+C02659,123,15,651.41,3,5,5,13,Loyal Customers
+C02660,616,2,79.8,1,2,2,5,Needs Attention
+C02662,82,10,301.97,3,4,4,11,Loyal Customers
+C02663,451,4,172.41,1,3,3,7,At Risk
+C02664,25,25,743.1,4,5,5,14,Champions
+C02665,32,26,978.45,4,5,5,14,Champions
+C02666,154,4,150.35,3,3,3,9,Regular Customers
+C02667,571,1,16.9,1,1,1,3,Needs Attention
+C02668,343,5,147.95,2,3,3,8,At Risk
+C02669,536,3,98.73,1,2,2,5,Needs Attention
+C02670,489,6,170.96,1,3,3,7,At Risk
+C02671,612,1,52.4,1,1,1,3,Needs Attention
+C02672,272,2,67.6,2,2,2,6,Needs Attention
+C02673,594,1,17.8,1,1,1,3,Needs Attention
+C02674,67,14,441.81,4,5,4,13,Champions
+C02675,139,7,337.05,3,4,4,11,Loyal Customers
+C02676,369,6,182.7,2,3,3,8,At Risk
+C02679,48,10,410.45,4,4,4,12,Champions
+C02681,115,9,287.21,3,4,4,11,Loyal Customers
+C02682,21,5,127.38,5,3,3,11,Potential Loyalists
+C02684,17,34,1281.45,5,5,5,15,Champions
+C02685,90,1,54.9,3,1,2,6,Regular Customers
+C02687,138,6,241.76,3,3,4,10,Regular Customers
+C02689,283,1,29.5,2,1,1,4,Needs Attention
+C02690,518,1,43.43,1,1,1,3,Needs Attention
+C02691,503,3,97.2,1,2,2,5,Needs Attention
+C02693,255,14,330.27,2,5,4,11,At Risk
+C02695,1,26,914.87,5,5,5,15,Champions
+C02697,475,3,54.8,1,2,2,5,Needs Attention
+C02698,48,11,356.98,4,4,4,12,Champions
+C02699,75,3,112.01,3,2,2,7,Regular Customers
+C02700,5,9,334.64,5,4,4,13,Champions
+C02702,33,6,209.28,4,3,3,10,Potential Loyalists
+C02703,602,2,74.5,1,2,2,5,Needs Attention
+C02704,603,1,83.9,1,1,2,4,Needs Attention
+C02705,46,12,532.55,4,4,5,13,Champions
+C02706,525,2,27.95,1,2,1,4,Needs Attention
+C02707,450,13,414.52,1,4,4,9,At Risk
+C02708,565,1,38.5,1,1,1,3,Needs Attention
+C02709,582,1,17.4,1,1,1,3,Needs Attention
+C02710,14,11,381.65,5,4,4,13,Champions
+C02711,97,7,194.69,3,4,3,10,Loyal Customers
+C02712,505,4,124.75,1,3,3,7,At Risk
+C02713,49,6,142.66,4,3,3,10,Potential Loyalists
+C02714,558,1,38.7,1,1,1,3,Needs Attention
+C02715,475,1,83.7,1,1,2,4,Needs Attention
+C02716,87,2,84.51,3,2,2,7,Regular Customers
+C02718,38,13,468.12,4,4,4,12,Champions
+C02719,20,6,242.2,5,3,4,12,Potential Loyalists
+C02720,4,3,165.77,5,2,3,10,Potential Loyalists
+C02721,140,4,134.63,3,3,3,9,Regular Customers
+C02722,284,4,147.25,2,3,3,8,At Risk
+C02723,539,2,23.55,1,2,1,4,Needs Attention
+C02724,133,2,49.53,3,2,1,6,Regular Customers
+C02725,55,7,268.67,4,4,4,12,Champions
+C02726,54,8,293.42,4,4,4,12,Champions
+C02727,2,18,622.06,5,5,5,15,Champions
+C02729,575,1,12.5,1,1,1,3,Needs Attention
+C02730,453,7,154.27,1,4,3,8,At Risk
+C02731,591,1,21.0,1,1,1,3,Needs Attention
+C02732,195,6,217.85,2,3,3,8,At Risk
+C02733,428,1,34.4,2,1,1,4,Needs Attention
+C02734,58,4,159.7,4,3,3,10,Potential Loyalists
+C02735,25,8,378.87,4,4,4,12,Champions
+C02737,317,1,16.4,2,1,1,4,Needs Attention
+C02738,392,1,36.72,2,1,1,4,Needs Attention
+C02739,132,2,60.8,3,2,2,7,Regular Customers
+C02742,105,7,141.25,3,4,3,10,Loyal Customers
+C02744,13,16,578.23,5,5,5,15,Champions
+C02745,96,6,296.04,3,3,4,10,Regular Customers
+C02746,69,5,155.71,4,3,3,10,Potential Loyalists
+C02747,27,12,438.23,4,4,4,12,Champions
+C02748,437,17,710.35,2,5,5,12,At Risk
+C02749,488,11,504.6,1,4,5,10,At Risk
+C02750,18,4,88.43,5,3,2,10,Potential Loyalists
+C02752,570,1,35.3,1,1,1,3,Needs Attention
+C02753,17,5,159.7,5,3,3,11,Potential Loyalists
+C02754,144,31,1102.24,3,5,5,13,Loyal Customers
+C02755,388,6,125.48,2,3,3,8,At Risk
+C02756,26,3,91.15,4,2,2,8,Potential Loyalists
+C02757,293,10,378.1,2,4,4,10,At Risk
+C02759,48,48,1695.95,4,5,5,14,Champions
+C02760,388,19,658.4,2,5,5,12,At Risk
+C02762,254,7,231.5,2,4,3,9,At Risk
+C02763,10,48,1659.66,5,5,5,15,Champions
+C02764,61,5,139.15,4,3,3,10,Potential Loyalists
+C02767,320,15,462.62,2,5,4,11,At Risk
+C02768,4,26,796.08,5,5,5,15,Champions
+C02769,7,15,501.41,5,5,5,15,Champions
+C02770,587,1,76.0,1,1,2,4,Needs Attention
+C02771,531,2,58.68,1,2,2,5,Needs Attention
+C02772,403,3,71.48,2,2,2,6,Needs Attention
+C02773,2,10,292.26,5,4,4,13,Champions
+C02774,11,33,1237.69,5,5,5,15,Champions
+C02776,525,2,45.48,1,2,1,4,Needs Attention
+C02777,87,12,381.1,3,4,4,11,Loyal Customers
+C02778,82,4,159.16,3,3,3,9,Regular Customers
+C02779,12,24,740.11,5,5,5,15,Champions
+C02780,107,17,624.05,3,5,5,13,Loyal Customers
+C02782,93,4,135.36,3,3,3,9,Regular Customers
+C02783,383,3,80.8,2,2,2,6,Needs Attention
+C02784,13,15,477.44,5,5,4,14,Champions
+C02785,9,25,918.93,5,5,5,15,Champions
+C02786,509,3,81.5,1,2,2,5,Needs Attention
+C02787,133,3,145.19,3,2,3,8,Regular Customers
+C02788,123,5,154.2,3,3,3,9,Regular Customers
+C02789,403,4,132.8,2,3,3,8,At Risk
+C02791,319,25,789.84,2,5,5,12,At Risk
+C02792,481,2,127.0,1,2,3,6,Needs Attention
+C02794,4,42,1367.9,5,5,5,15,Champions
+C02795,286,25,701.75,2,5,5,12,At Risk
+C02796,559,1,41.3,1,1,1,3,Needs Attention
+C02797,306,7,188.3,2,4,3,9,At Risk
+C02798,52,17,589.87,4,5,5,14,Champions
+C02799,299,3,87.55,2,2,2,6,Needs Attention
+C02801,23,3,75.9,5,2,2,9,Potential Loyalists
+C02802,347,2,134.65,2,2,3,7,Needs Attention
+C02803,13,29,1079.78,5,5,5,15,Champions
+C02804,145,10,436.04,3,4,4,11,Loyal Customers
+C02805,575,2,66.7,1,2,2,5,Needs Attention
+C02806,356,2,47.0,2,2,1,5,Needs Attention
+C02807,30,45,1335.66,4,5,5,14,Champions
+C02808,380,12,346.1,2,4,4,10,At Risk
+C02809,6,5,137.1,5,3,3,11,Potential Loyalists
+C02810,340,7,273.22,2,4,4,10,At Risk
+C02811,68,13,408.13,4,4,4,12,Champions
+C02812,442,8,356.37,1,4,4,9,At Risk
+C02813,511,3,147.79,1,2,3,6,Needs Attention
+C02814,508,2,34.81,1,2,1,4,Needs Attention
+C02815,41,3,70.1,4,2,2,8,Potential Loyalists
+C02816,218,40,1332.54,2,5,5,12,At Risk
+C02818,513,1,18.05,1,1,1,3,Needs Attention
+C02819,519,1,32.28,1,1,1,3,Needs Attention
+C02821,514,1,36.34,1,1,1,3,Needs Attention
+C02822,179,6,159.7,3,3,3,9,Regular Customers
+C02823,36,12,412.65,4,4,4,12,Champions
+C02824,203,1,20.73,2,1,1,4,Needs Attention
+C02826,116,5,245.67,3,3,4,10,Regular Customers
+C02829,173,13,488.43,3,4,5,12,Loyal Customers
+C02830,14,24,984.32,5,5,5,15,Champions
+C02831,27,13,452.97,4,4,4,12,Champions
+C02832,281,9,287.88,2,4,4,10,At Risk
+C02833,278,1,66.5,2,1,2,5,Needs Attention
+C02834,114,2,44.9,3,2,1,6,Regular Customers
+C02835,162,4,96.25,3,3,2,8,Regular Customers
+C02836,54,22,878.7,4,5,5,14,Champions
+C02839,30,15,675.35,4,5,5,14,Champions
+C02841,346,5,71.72,2,3,2,7,At Risk
+C02842,37,22,829.38,4,5,5,14,Champions
+C02843,559,4,142.7,1,3,3,7,At Risk
+C02844,64,26,881.33,4,5,5,14,Champions
+C02845,6,52,1531.27,5,5,5,15,Champions
+C02847,74,11,359.69,3,4,4,11,Loyal Customers
+C02848,5,2,23.8,5,2,1,8,Potential Loyalists
+C02849,160,2,72.6,3,2,2,7,Regular Customers
+C02850,252,4,94.3,2,3,2,7,At Risk
+C02851,71,4,92.7,3,3,2,8,Regular Customers
+C02852,95,5,189.43,3,3,3,9,Regular Customers
+C02853,86,16,610.44,3,5,5,13,Loyal Customers
+C02854,55,3,74.8,4,2,2,8,Potential Loyalists
+C02855,66,10,315.81,4,4,4,12,Champions
+C02856,171,1,34.7,3,1,1,5,Regular Customers
+C02857,11,30,778.46,5,5,5,15,Champions
+C02859,89,5,148.79,3,3,3,9,Regular Customers
+C02860,98,2,35.0,3,2,1,6,Regular Customers
+C02862,12,9,440.83,5,4,4,13,Champions
+C02863,10,3,90.43,5,2,2,9,Potential Loyalists
+C02865,19,19,813.84,5,5,5,15,Champions
+C02866,185,5,120.83,3,3,2,8,Regular Customers
+C02870,213,11,463.07,2,4,4,10,At Risk
+C02871,443,1,28.11,1,1,1,3,Needs Attention
+C02872,433,4,96.73,2,3,2,7,At Risk
+C02873,550,2,80.3,1,2,2,5,Needs Attention
+C02874,79,17,565.61,3,5,5,13,Loyal Customers
+C02875,68,7,214.98,4,4,3,11,Loyal Customers
+C02877,30,8,297.43,4,4,4,12,Champions
+C02879,73,15,569.6,3,5,5,13,Loyal Customers
+C02881,550,1,33.8,1,1,1,3,Needs Attention
+C02882,434,1,27.9,2,1,1,4,Needs Attention
+C02883,515,1,12.5,1,1,1,3,Needs Attention
+C02885,14,53,1532.95,5,5,5,15,Champions
+C02887,32,13,499.26,4,4,5,13,Champions
+C02888,209,2,72.45,2,2,2,6,Needs Attention
+C02890,457,1,35.2,1,1,1,3,Needs Attention
+C02891,249,6,346.3,2,3,4,9,At Risk
+C02892,554,3,86.5,1,2,2,5,Needs Attention
+C02895,418,2,91.3,2,2,2,6,Needs Attention
+C02898,23,10,364.75,5,4,4,13,Champions
+C02899,504,2,51.44,1,2,1,4,Needs Attention
+C02900,281,2,110.0,2,2,2,6,Needs Attention
+C02901,118,12,545.93,3,4,5,12,Loyal Customers
+C02902,45,14,457.07,4,5,4,13,Champions
+C02903,328,12,359.1,2,4,4,10,At Risk
+C02904,366,11,377.81,2,4,4,10,At Risk
+C02905,373,4,112.8,2,3,2,7,At Risk
+C02906,552,1,16.5,1,1,1,3,Needs Attention
+C02907,406,6,128.1,2,3,3,8,At Risk
+C02908,6,20,732.19,5,5,5,15,Champions
+C02909,501,1,15.7,1,1,1,3,Needs Attention
+C02910,353,14,394.91,2,5,4,11,At Risk
+C02911,93,5,166.5,3,3,3,9,Regular Customers
+C02913,484,1,41.3,1,1,1,3,Needs Attention
+C02914,136,4,138.59,3,3,3,9,Regular Customers
+C02915,110,8,328.72,3,4,4,11,Loyal Customers
+C02916,299,16,570.17,2,5,5,12,At Risk
+C02917,437,2,77.71,2,2,2,6,Needs Attention
+C02918,439,5,326.41,1,3,4,8,At Risk
+C02919,147,12,477.03,3,4,4,11,Loyal Customers
+C02920,343,5,157.37,2,3,3,8,At Risk
+C02921,5,10,233.54,5,4,3,12,Loyal Customers
+C02922,29,22,886.72,4,5,5,14,Champions
+C02923,152,2,89.03,3,2,2,7,Regular Customers
+C02924,81,10,222.03,3,4,3,10,Loyal Customers
+C02925,18,7,249.41,5,4,4,13,Champions
+C02926,40,14,525.45,4,5,5,14,Champions
+C02927,366,10,323.03,2,4,4,10,At Risk
+C02928,510,3,69.01,1,2,2,5,Needs Attention
+C02930,74,4,157.83,3,3,3,9,Regular Customers
+C02931,458,6,133.42,1,3,3,7,At Risk
+C02933,544,2,71.67,1,2,2,5,Needs Attention
+C02934,29,18,659.44,4,5,5,14,Champions
+C02935,92,29,925.35,3,5,5,13,Loyal Customers
+C02936,1,19,573.91,5,5,5,15,Champions
+C02937,6,12,487.77,5,4,4,13,Champions
+C02938,13,1,78.2,5,1,2,8,Regular Customers
+C02940,430,2,102.3,2,2,2,6,Needs Attention
+C02941,27,19,782.48,4,5,5,14,Champions
+C02943,217,1,9.5,2,1,1,4,Needs Attention
+C02944,40,9,288.7,4,4,4,12,Champions
+C02945,510,2,74.06,1,2,2,5,Needs Attention
+C02946,101,4,158.1,3,3,3,9,Regular Customers
+C02947,89,9,239.66,3,4,4,11,Loyal Customers
+C02948,495,4,167.89,1,3,3,7,At Risk
+C02949,250,2,59.2,2,2,2,6,Needs Attention
+C02950,264,3,144.47,2,2,3,7,Needs Attention
+C02951,418,2,78.4,2,2,2,6,Needs Attention
+C02953,340,6,359.53,2,3,4,9,At Risk
+C02954,281,26,736.39,2,5,5,12,At Risk
+C02955,94,4,62.01,3,3,2,8,Regular Customers
+C02957,125,4,214.24,3,3,3,9,Regular Customers
+C02958,26,24,911.93,4,5,5,14,Champions
+C02960,414,2,44.7,2,2,1,5,Needs Attention
+C02965,266,3,74.3,2,2,2,6,Needs Attention
+C02966,118,11,351.78,3,4,4,11,Loyal Customers
+C02967,531,1,14.05,1,1,1,3,Needs Attention
+C02969,7,10,339.5,5,4,4,13,Champions
+C02970,522,4,159.66,1,3,3,7,At Risk
+C02972,3,50,1664.94,5,5,5,15,Champions
+C02973,532,1,9.9,1,1,1,3,Needs Attention
+C02975,120,18,724.81,3,5,5,13,Loyal Customers
+C02976,166,5,137.08,3,3,3,9,Regular Customers
+C02977,123,4,109.78,3,3,2,8,Regular Customers
+C02978,399,5,197.5,2,3,3,8,At Risk
+C02979,334,3,63.7,2,2,2,6,Needs Attention
+C02980,494,1,13.1,1,1,1,3,Needs Attention
+C02981,529,1,46.75,1,1,1,3,Needs Attention
+C02982,361,4,69.2,2,3,2,7,At Risk
+C02983,489,3,95.95,1,2,2,5,Needs Attention
+C02984,83,13,530.13,3,4,5,12,Loyal Customers
+C02985,433,2,26.01,2,2,1,5,Needs Attention
+C02986,195,3,113.44,2,2,2,6,Needs Attention
+C02987,52,5,116.93,4,3,2,9,Potential Loyalists
+C02988,169,5,122.9,3,3,2,8,Regular Customers
+C02991,89,8,334.96,3,4,4,11,Loyal Customers
+C02992,10,12,367.79,5,4,4,13,Champions
+C02993,69,16,428.72,4,5,4,13,Champions
+C02994,21,11,326.26,5,4,4,13,Champions
+C02995,12,10,535.73,5,4,5,14,Champions
+C02996,49,27,759.19,4,5,5,14,Champions
+C02997,111,23,792.77,3,5,5,13,Loyal Customers
+C02998,126,4,163.46,3,3,3,9,Regular Customers
+C02999,432,1,29.3,2,1,1,4,Needs Attention
+C03000,37,11,292.29,4,4,4,12,Champions
+C03004,524,1,16.05,1,1,1,3,Needs Attention
+C03005,41,7,149.26,4,4,3,11,Loyal Customers
+C03006,18,9,305.59,5,4,4,13,Champions
+C03007,524,2,73.15,1,2,2,5,Needs Attention
+C03008,146,4,94.3,3,3,2,8,Regular Customers
+C03009,15,10,404.31,5,4,4,13,Champions
+C03010,33,7,147.98,4,4,3,11,Loyal Customers
+C03011,5,13,551.26,5,4,5,14,Champions
+C03013,100,7,284.74,3,4,4,11,Loyal Customers
+C03014,21,4,124.9,5,3,3,11,Potential Loyalists
+C03016,268,18,573.83,2,5,5,12,At Risk
+C03017,20,21,659.8,5,5,5,15,Champions
+C03018,355,1,37.45,2,1,1,4,Needs Attention
+C03019,497,1,9.9,1,1,1,3,Needs Attention
+C03020,520,1,19.65,1,1,1,3,Needs Attention
+C03022,393,1,76.12,2,1,2,5,Needs Attention
+C03023,192,3,128.62,3,2,3,8,Regular Customers
+C03024,7,19,581.84,5,5,5,15,Champions
+C03025,37,25,665.85,4,5,5,14,Champions
+C03026,180,2,91.73,3,2,2,7,Regular Customers
+C03027,79,17,631.07,3,5,5,13,Loyal Customers
+C03029,62,16,605.87,4,5,5,14,Champions
+C03030,180,2,51.75,3,2,1,6,Regular Customers
+C03031,211,3,129.44,2,2,3,7,Needs Attention
+C03033,447,7,167.5,1,4,3,8,At Risk
+C03034,139,2,135.94,3,2,3,8,Regular Customers
+C03035,58,32,1111.72,4,5,5,14,Champions
+C03036,28,11,404.75,4,4,4,12,Champions
+C03037,237,1,27.9,2,1,1,4,Needs Attention
+C03038,461,6,194.55,1,3,3,7,At Risk
+C03040,67,5,215.68,4,3,3,10,Potential Loyalists
+C03041,278,6,209.28,2,3,3,8,At Risk
+C03042,12,23,835.52,5,5,5,15,Champions
+C03043,45,6,236.64,4,3,3,10,Potential Loyalists
+C03044,8,19,609.42,5,5,5,15,Champions
+C03045,4,18,707.17,5,5,5,15,Champions
+C03047,309,16,832.14,2,5,5,12,At Risk
+C03048,292,4,104.9,2,3,2,7,At Risk
+C03050,134,6,180.98,3,3,3,9,Regular Customers
+C03051,45,1,45.3,4,1,1,6,Regular Customers
+C03052,70,2,50.17,4,2,1,7,Potential Loyalists
+C03055,317,9,299.06,2,4,4,10,At Risk
+C03056,463,2,109.88,1,2,2,5,Needs Attention
+C03057,16,33,1068.03,5,5,5,15,Champions
+C03058,511,1,16.23,1,1,1,3,Needs Attention
+C03060,422,2,67.6,2,2,2,6,Needs Attention
+C03062,5,18,675.06,5,5,5,15,Champions
+C03063,33,4,203.14,4,3,3,10,Potential Loyalists
+C03065,70,1,61.51,4,1,2,7,Regular Customers
+C03066,427,8,203.54,2,4,3,9,At Risk
+C03067,26,8,314.23,4,4,4,12,Champions
+C03068,412,3,112.4,2,2,2,6,Needs Attention
+C03069,290,3,142.01,2,2,3,7,Needs Attention
+C03070,14,11,365.94,5,4,4,13,Champions
+C03071,9,25,890.62,5,5,5,15,Champions
+C03072,27,10,404.35,4,4,4,12,Champions
+C03073,446,6,291.13,1,3,4,8,At Risk
+C03074,40,11,355.13,4,4,4,12,Champions
+C03075,12,17,445.99,5,5,4,14,Champions
+C03076,44,9,354.74,4,4,4,12,Champions
+C03077,310,1,26.0,2,1,1,4,Needs Attention
+C03078,322,4,201.83,2,3,3,8,At Risk
+C03080,42,2,113.0,4,2,2,8,Potential Loyalists
+C03081,399,7,241.9,2,4,4,10,At Risk
+C03082,41,5,122.13,4,3,2,9,Potential Loyalists
+C03083,123,11,357.5,3,4,4,11,Loyal Customers
+C03084,314,6,171.5,2,3,3,8,At Risk
+C03086,110,4,195.6,3,3,3,9,Regular Customers
+C03087,344,7,265.5,2,4,4,10,At Risk
+C03089,30,6,243.67,4,3,4,11,Potential Loyalists
+C03090,116,2,58.06,3,2,2,7,Regular Customers
+C03091,57,15,551.02,4,5,5,14,Champions
+C03094,288,2,60.3,2,2,2,6,Needs Attention
+C03095,118,7,334.15,3,4,4,11,Loyal Customers
+C03096,28,4,149.49,4,3,3,10,Potential Loyalists
+C03097,176,4,149.17,3,3,3,9,Regular Customers
+C03098,120,3,89.63,3,2,2,7,Regular Customers
+C03099,121,11,419.05,3,4,4,11,Loyal Customers
+C03100,71,4,73.62,3,3,2,8,Regular Customers
+C03101,14,5,116.18,5,3,2,10,Potential Loyalists
+C03102,9,16,640.98,5,5,5,15,Champions
+C03106,74,15,437.43,3,5,4,12,Loyal Customers
+C03107,380,5,165.5,2,3,3,8,At Risk
+C03108,223,6,179.11,2,3,3,8,At Risk
+C03109,27,9,359.34,4,4,4,12,Champions
+C03110,263,4,138.9,2,3,3,8,At Risk
+C03112,466,1,33.9,1,1,1,3,Needs Attention
+C03113,23,5,167.42,5,3,3,11,Potential Loyalists
+C03114,41,19,611.75,4,5,5,14,Champions
+C03115,26,22,723.66,4,5,5,14,Champions
+C03118,19,24,771.82,5,5,5,15,Champions
+C03119,377,1,37.1,2,1,1,4,Needs Attention
+C03120,126,4,175.47,3,3,3,9,Regular Customers
+C03121,19,8,333.75,5,4,4,13,Champions
+C03122,63,3,184.4,4,2,3,9,Potential Loyalists
+C03123,33,1,19.9,4,1,1,6,Regular Customers
+C03124,106,12,415.42,3,4,4,11,Loyal Customers
+C03127,136,9,306.69,3,4,4,11,Loyal Customers
+C03128,239,1,38.9,2,1,1,4,Needs Attention
+C03129,7,5,119.61,5,3,2,10,Potential Loyalists
+C03130,27,14,393.05,4,5,4,13,Champions
+C03131,35,14,460.44,4,5,4,13,Champions
+C03132,436,7,356.69,2,4,4,10,At Risk
+C03133,114,5,153.78,3,3,3,9,Regular Customers
+C03134,16,15,348.43,5,5,4,14,Champions
+C03135,26,8,260.71,4,4,4,12,Champions
+C03136,59,2,41.65,4,2,1,7,Potential Loyalists
+C03137,128,2,68.75,3,2,2,7,Regular Customers
+C03138,30,22,631.39,4,5,5,14,Champions
+C03139,412,11,483.4,2,4,4,10,At Risk
+C03141,46,4,115.74,4,3,2,9,Potential Loyalists
+C03142,492,1,42.3,1,1,1,3,Needs Attention
+C03143,11,3,78.76,5,2,2,9,Potential Loyalists
+C03144,124,10,271.11,3,4,4,11,Loyal Customers
+C03145,2,11,269.83,5,4,4,13,Champions
+C03146,246,4,184.58,2,3,3,8,At Risk
+C03147,209,19,577.31,2,5,5,12,At Risk
+C03148,365,2,103.7,2,2,2,6,Needs Attention
+C03149,108,9,226.14,3,4,3,10,Loyal Customers
+C03150,79,8,325.33,3,4,4,11,Loyal Customers
+C03151,6,23,764.2,5,5,5,15,Champions
+C03152,114,1,56.5,3,1,2,6,Regular Customers
+C03153,258,3,144.19,2,2,3,7,Needs Attention
+C03154,209,2,71.8,2,2,2,6,Needs Attention
+C03155,62,8,347.99,4,4,4,12,Champions
+C03157,313,2,37.2,2,2,1,5,Needs Attention
+C03158,75,14,377.97,3,5,4,12,Loyal Customers
+C03159,7,6,198.33,5,3,3,11,Potential Loyalists
+C03160,444,7,227.9,1,4,3,8,At Risk
+C03161,12,7,256.88,5,4,4,13,Champions
+C03162,359,2,29.7,2,2,1,5,Needs Attention
+C03163,122,3,67.85,3,2,2,7,Regular Customers
+C03164,61,4,135.54,4,3,3,10,Potential Loyalists
+C03165,128,8,308.81,3,4,4,11,Loyal Customers
+C03166,77,22,698.93,3,5,5,13,Loyal Customers
+C03167,17,5,188.7,5,3,3,11,Potential Loyalists
+C03168,479,1,35.8,1,1,1,3,Needs Attention
+C03170,485,1,16.4,1,1,1,3,Needs Attention
+C03171,334,1,16.4,2,1,1,4,Needs Attention
+C03172,56,4,103.65,4,3,2,9,Potential Loyalists
+C03173,410,1,28.8,2,1,1,4,Needs Attention
+C03174,106,5,254.16,3,3,4,10,Regular Customers
+C03175,226,4,157.5,2,3,3,8,At Risk
+C03176,271,8,299.62,2,4,4,10,At Risk
+C03177,8,18,638.04,5,5,5,15,Champions
+C03178,10,30,1077.97,5,5,5,15,Champions
+C03179,334,7,278.61,2,4,4,10,At Risk
+C03180,57,4,179.84,4,3,3,10,Potential Loyalists
+C03181,208,11,555.41,2,4,5,11,At Risk
+C03182,48,9,307.2,4,4,4,12,Champions
+C03183,307,7,270.81,2,4,4,10,At Risk
+C03186,8,9,350.25,5,4,4,13,Champions
+C03187,82,8,287.65,3,4,4,11,Loyal Customers
+C03189,9,8,259.07,5,4,4,13,Champions
+C03190,190,2,89.13,3,2,2,7,Regular Customers
+C03191,329,3,112.6,2,2,2,6,Needs Attention
+C03192,97,18,565.23,3,5,5,13,Loyal Customers
+C03193,90,7,240.45,3,4,4,11,Loyal Customers
+C03195,71,12,311.87,3,4,4,11,Loyal Customers
+C03196,443,2,47.23,1,2,1,4,Needs Attention
+C03197,201,6,202.56,2,3,3,8,At Risk
+C03199,182,2,52.77,3,2,1,6,Regular Customers
+C03200,275,6,156.2,2,3,3,8,At Risk
+C03201,19,9,383.98,5,4,4,13,Champions
+C03202,435,3,76.6,2,2,2,6,Needs Attention
+C03203,209,1,40.26,2,1,1,4,Needs Attention
+C03206,20,2,183.8,5,2,3,10,Potential Loyalists
+C03207,2,19,544.58,5,5,5,15,Champions
+C03208,341,4,129.46,2,3,3,8,At Risk
+C03209,216,2,65.7,2,2,2,6,Needs Attention
+C03210,328,2,145.9,2,2,3,7,Needs Attention
+C03211,390,1,59.43,2,1,2,5,Needs Attention
+C03212,23,5,138.36,5,3,3,11,Potential Loyalists
+C03213,372,6,253.13,2,3,4,9,At Risk
+C03214,118,4,85.64,3,3,2,8,Regular Customers
+C03215,311,4,158.1,2,3,3,8,At Risk
+C03216,259,2,59.43,2,2,2,6,Needs Attention
+C03217,440,3,66.2,1,2,2,5,Needs Attention
+C03218,84,4,101.47,3,3,2,8,Regular Customers
+C03219,311,6,208.33,2,3,3,8,At Risk
+C03221,76,15,556.24,3,5,5,13,Loyal Customers
+C03224,280,2,32.5,2,2,1,5,Needs Attention
+C03225,342,3,75.1,2,2,2,6,Needs Attention
+C03226,145,2,63.04,3,2,2,7,Regular Customers
+C03227,30,12,413.33,4,4,4,12,Champions
+C03228,14,23,676.82,5,5,5,15,Champions
+C03229,42,10,274.44,4,4,4,12,Champions
+C03231,99,8,249.77,3,4,4,11,Loyal Customers
+C03232,289,9,283.88,2,4,4,10,At Risk
+C03233,123,30,913.78,3,5,5,13,Loyal Customers
+C03234,33,16,441.5,4,5,4,13,Champions
+C03235,27,6,227.14,4,3,3,10,Potential Loyalists
+C03236,270,8,234.64,2,4,3,9,At Risk
+C03237,5,9,290.21,5,4,4,13,Champions
+C03238,47,18,590.11,4,5,5,14,Champions
+C03239,19,7,294.59,5,4,4,13,Champions
+C03240,48,21,793.61,4,5,5,14,Champions
+C03241,25,9,461.83,4,4,4,12,Champions
+C03243,455,1,61.6,1,1,2,4,Needs Attention
+C03244,1,12,358.64,5,4,4,13,Champions
+C03246,26,5,171.73,4,3,3,10,Potential Loyalists
+C03247,26,12,337.52,4,4,4,12,Champions
+C03249,188,4,174.91,3,3,3,9,Regular Customers
+C03251,27,18,661.31,4,5,5,14,Champions
+C03253,95,4,114.08,3,3,2,8,Regular Customers
+C03254,402,1,15.9,2,1,1,4,Needs Attention
+C03255,76,6,137.53,3,3,3,9,Regular Customers
+C03256,166,3,115.45,3,2,2,7,Regular Customers
+C03257,176,4,179.29,3,3,3,9,Regular Customers
+C03258,278,1,35.1,2,1,1,4,Needs Attention
+C03259,130,3,106.26,3,2,2,7,Regular Customers
+C03260,271,1,16.1,2,1,1,4,Needs Attention
+C03261,272,1,32.8,2,1,1,4,Needs Attention
+C03262,243,4,127.06,2,3,3,8,At Risk
+C03263,63,16,511.08,4,5,5,14,Champions
+C03264,463,1,13.9,1,1,1,3,Needs Attention
+C03265,21,11,302.21,5,4,4,13,Champions
+C03266,12,15,480.27,5,5,4,14,Champions
+C03267,221,2,66.6,2,2,2,6,Needs Attention
+C03268,208,2,53.36,2,2,1,5,Needs Attention
+C03269,356,7,157.71,2,4,3,9,At Risk
+C03270,449,2,85.1,1,2,2,5,Needs Attention
+C03272,183,1,36.5,3,1,1,5,Regular Customers
+C03273,233,3,68.4,2,2,2,6,Needs Attention
+C03275,48,5,122.7,4,3,2,9,Potential Loyalists
+C03276,121,6,232.3,3,3,3,9,Regular Customers
+C03278,425,2,35.9,2,2,1,5,Needs Attention
+C03279,21,15,544.01,5,5,5,15,Champions
+C03280,440,1,31.7,1,1,1,3,Needs Attention
+C03281,11,7,250.63,5,4,4,13,Champions
+C03282,326,14,453.49,2,5,4,11,At Risk
+C03283,382,4,104.4,2,3,2,7,At Risk
+C03284,454,1,23.6,1,1,1,3,Needs Attention
+C03285,28,5,137.8,4,3,3,10,Potential Loyalists
+C03286,375,2,55.0,2,2,2,6,Needs Attention
+C03287,40,28,881.61,4,5,5,14,Champions
+C03288,173,8,266.08,3,4,4,11,Loyal Customers
+C03289,93,11,288.87,3,4,4,11,Loyal Customers
+C03292,246,4,191.8,2,3,3,8,At Risk
+C03294,60,26,824.42,4,5,5,14,Champions
+C03295,297,2,131.51,2,2,3,7,Needs Attention
+C03296,4,5,151.98,5,3,3,11,Potential Loyalists
+C03298,418,3,74.7,2,2,2,6,Needs Attention
+C03299,117,4,89.6,3,3,2,8,Regular Customers
+C03300,375,3,173.68,2,2,3,7,Needs Attention
+C03301,160,27,911.66,3,5,5,13,Loyal Customers
+C03303,251,8,239.79,2,4,4,10,At Risk
+C03304,449,1,54.61,1,1,2,4,Needs Attention
+C03305,446,1,30.09,1,1,1,3,Needs Attention
+C03306,398,5,110.3,2,3,2,7,At Risk
+C03307,25,3,158.3,4,2,3,9,Potential Loyalists
+C03308,20,7,318.06,5,4,4,13,Champions
+C03309,208,9,318.62,2,4,4,10,At Risk
+C03310,193,13,439.11,2,4,4,10,At Risk
+C03311,48,6,176.36,4,3,3,10,Potential Loyalists
+C03312,23,28,775.98,5,5,5,15,Champions
+C03313,416,1,30.6,2,1,1,4,Needs Attention
+C03314,405,1,48.8,2,1,1,4,Needs Attention
+C03316,117,13,468.47,3,4,4,11,Loyal Customers
+C03317,124,4,125.28,3,3,3,9,Regular Customers
+C03318,166,8,235.6,3,4,3,10,Loyal Customers
+C03319,19,53,1870.39,5,5,5,15,Champions
+C03320,14,2,110.3,5,2,2,9,Potential Loyalists
+C03321,198,4,125.19,2,3,3,8,At Risk
+C03322,15,25,899.72,5,5,5,15,Champions
+C03323,315,3,143.3,2,2,3,7,Needs Attention
+C03324,206,7,185.03,2,4,3,9,At Risk
+C03325,335,3,179.31,2,2,3,7,Needs Attention
+C03326,313,2,84.6,2,2,2,6,Needs Attention
+C03327,401,2,30.0,2,2,1,5,Needs Attention
+C03328,18,4,103.88,5,3,2,10,Potential Loyalists
+C03330,203,2,97.64,2,2,2,6,Needs Attention
+C03331,154,8,253.53,3,4,4,11,Loyal Customers
+C03332,19,17,664.08,5,5,5,15,Champions
+C03333,19,12,526.8,5,4,5,14,Champions
+C03334,151,6,133.04,3,3,3,9,Regular Customers
+C03335,426,1,36.8,2,1,1,4,Needs Attention
+C03336,426,3,133.8,2,2,3,7,Needs Attention
+C03337,19,29,909.66,5,5,5,15,Champions
+C03338,291,3,67.1,2,2,2,6,Needs Attention
+C03339,24,3,103.6,4,2,2,8,Potential Loyalists
+C03340,407,3,105.42,2,2,2,6,Needs Attention
+C03341,362,7,173.91,2,4,3,9,At Risk
+C03342,37,12,488.99,4,4,5,13,Champions
+C03343,1,16,652.25,5,5,5,15,Champions
+C03344,91,3,125.47,3,2,3,8,Regular Customers
+C03345,59,5,160.9,4,3,3,10,Potential Loyalists
+C03346,25,35,1185.67,4,5,5,14,Champions
+C03347,303,4,172.23,2,3,3,8,At Risk
+C03348,177,4,130.91,3,3,3,9,Regular Customers
+C03349,421,2,46.2,2,2,1,5,Needs Attention
+C03350,257,2,52.8,2,2,1,5,Needs Attention
+C03351,26,9,394.39,4,4,4,12,Champions
+C03352,386,3,88.5,2,2,2,6,Needs Attention
+C03353,47,3,145.14,4,2,3,9,Potential Loyalists
+C03354,6,39,1120.91,5,5,5,15,Champions
+C03357,52,6,174.01,4,3,3,10,Potential Loyalists
+C03358,209,3,72.22,2,2,2,6,Needs Attention
+C03360,179,4,126.96,3,3,3,9,Regular Customers
+C03361,287,1,49.03,2,1,1,4,Needs Attention
+C03362,417,1,9.9,2,1,1,4,Needs Attention
+C03363,151,2,163.81,3,2,3,8,Regular Customers
+C03364,58,4,176.89,4,3,3,10,Potential Loyalists
+C03365,28,35,1010.37,4,5,5,14,Champions
+C03367,9,11,367.44,5,4,4,13,Champions
+C03369,177,3,117.3,3,2,2,7,Regular Customers
+C03371,20,10,314.53,5,4,4,13,Champions
+C03373,12,3,65.63,5,2,2,9,Potential Loyalists
+C03374,2,6,228.68,5,3,3,11,Potential Loyalists
+C03375,24,17,571.62,4,5,5,14,Champions
+C03376,301,2,55.7,2,2,2,6,Needs Attention
+C03379,341,1,37.8,2,1,1,4,Needs Attention
+C03380,335,5,236.33,2,3,3,8,At Risk
+C03381,379,2,100.2,2,2,2,6,Needs Attention
+C03382,55,12,450.84,4,4,4,12,Champions
+C03383,32,18,498.44,4,5,5,14,Champions
+C03384,43,4,140.27,4,3,3,10,Potential Loyalists
+C03387,293,5,247.3,2,3,4,9,At Risk
+C03388,183,18,590.38,3,5,5,13,Loyal Customers
+C03390,422,1,16.5,2,1,1,4,Needs Attention
+C03391,419,1,36.9,2,1,1,4,Needs Attention
+C03393,111,2,113.0,3,2,2,7,Regular Customers
+C03395,68,4,184.0,4,3,3,10,Potential Loyalists
+C03396,237,4,155.6,2,3,3,8,At Risk
+C03397,4,25,874.64,5,5,5,15,Champions
+C03398,341,1,37.75,2,1,1,4,Needs Attention
+C03399,356,2,80.76,2,2,2,6,Needs Attention
+C03400,262,3,81.9,2,2,2,6,Needs Attention
+C03401,35,3,117.0,4,2,2,8,Potential Loyalists
+C03402,9,43,1415.59,5,5,5,15,Champions
+C03403,7,43,1467.76,5,5,5,15,Champions
+C03404,2,25,897.98,5,5,5,15,Champions
+C03405,11,9,234.09,5,4,3,12,Loyal Customers
+C03406,194,4,243.25,2,3,4,9,At Risk
+C03407,27,1,70.9,4,1,2,7,Regular Customers
+C03408,21,5,257.38,5,3,4,12,Potential Loyalists
+C03409,4,21,878.58,5,5,5,15,Champions
+C03410,255,5,192.85,2,3,3,8,At Risk
+C03411,41,8,237.96,4,4,4,12,Champions
+C03412,256,1,16.1,2,1,1,4,Needs Attention
+C03415,96,12,413.52,3,4,4,11,Loyal Customers
+C03416,60,11,561.48,4,4,5,13,Champions
+C03417,130,7,182.53,3,4,3,10,Loyal Customers
+C03418,62,12,333.26,4,4,4,12,Champions
+C03419,69,5,241.99,4,3,4,11,Potential Loyalists
+C03421,226,7,188.62,2,4,3,9,At Risk
+C03423,37,10,325.42,4,4,4,12,Champions
+C03426,356,2,36.21,2,2,1,5,Needs Attention
+C03427,364,8,281.16,2,4,4,10,At Risk
+C03428,27,9,269.5,4,4,4,12,Champions
+C03430,133,4,170.53,3,3,3,9,Regular Customers
+C03432,168,6,259.08,3,3,4,10,Regular Customers
+C03433,19,17,712.6,5,5,5,15,Champions
+C03434,106,4,193.72,3,3,3,9,Regular Customers
+C03435,53,23,824.93,4,5,5,14,Champions
+C03436,21,9,220.1,5,4,3,12,Loyal Customers
+C03437,71,17,652.22,3,5,5,13,Loyal Customers
+C03438,76,2,124.4,3,2,3,8,Regular Customers
+C03439,208,1,34.38,2,1,1,4,Needs Attention
+C03440,228,4,103.3,2,3,2,7,At Risk
+C03441,177,2,72.63,3,2,2,7,Regular Customers
+C03442,74,15,515.98,3,5,5,13,Loyal Customers
+C03443,327,1,15.9,2,1,1,4,Needs Attention
+C03444,338,1,53.86,2,1,1,4,Needs Attention
+C03445,50,14,438.0,4,5,4,13,Champions
+C03446,411,1,15.3,2,1,1,4,Needs Attention
+C03447,195,1,16.95,2,1,1,4,Needs Attention
+C03449,267,2,72.3,2,2,2,6,Needs Attention
+C03450,12,5,206.23,5,3,3,11,Potential Loyalists
+C03451,18,4,101.53,5,3,2,10,Potential Loyalists
+C03452,313,5,126.31,2,3,3,8,At Risk
+C03453,239,2,30.3,2,2,1,5,Needs Attention
+C03454,311,1,40.6,2,1,1,4,Needs Attention
+C03455,23,19,831.53,5,5,5,15,Champions
+C03457,359,2,90.2,2,2,2,6,Needs Attention
+C03458,54,8,214.88,4,4,3,11,Loyal Customers
+C03459,209,1,33.95,2,1,1,4,Needs Attention
+C03460,36,13,516.15,4,4,5,13,Champions
+C03461,29,27,915.3,4,5,5,14,Champions
+C03462,40,2,33.78,4,2,1,7,Potential Loyalists
+C03463,308,5,249.0,2,3,4,9,At Risk
+C03464,33,2,46.4,4,2,1,7,Potential Loyalists
+C03465,89,12,315.14,3,4,4,11,Loyal Customers
+C03466,269,1,29.5,2,1,1,4,Needs Attention
+C03467,95,24,903.97,3,5,5,13,Loyal Customers
+C03468,292,1,38.5,2,1,1,4,Needs Attention
+C03469,47,6,275.2,4,3,4,11,Potential Loyalists
+C03470,48,8,251.8,4,4,4,12,Champions
+C03471,34,8,240.59,4,4,4,12,Champions
+C03472,154,5,206.09,3,3,3,9,Regular Customers
+C03473,356,2,121.75,2,2,2,6,Needs Attention
+C03474,57,2,66.9,4,2,2,8,Potential Loyalists
+C03475,320,5,214.0,2,3,3,8,At Risk
+C03476,99,2,53.0,3,2,1,6,Regular Customers
+C03477,59,3,60.12,4,2,2,8,Potential Loyalists
+C03478,48,5,226.8,4,3,3,10,Potential Loyalists
+C03479,19,27,992.41,5,5,5,15,Champions
+C03480,384,2,66.4,2,2,2,6,Needs Attention
+C03482,387,1,26.3,2,1,1,4,Needs Attention
+C03484,87,5,84.66,3,3,2,8,Regular Customers
+C03485,3,17,597.19,5,5,5,15,Champions
+C03488,299,1,32.3,2,1,1,4,Needs Attention
+C03489,12,25,898.25,5,5,5,15,Champions
+C03490,256,1,11.5,2,1,1,4,Needs Attention
+C03491,34,4,139.6,4,3,3,10,Potential Loyalists
+C03492,15,20,654.26,5,5,5,15,Champions
+C03493,393,1,33.2,2,1,1,4,Needs Attention
+C03494,49,17,635.57,4,5,5,14,Champions
+C03495,16,5,124.68,5,3,3,11,Potential Loyalists
+C03496,5,3,107.9,5,2,2,9,Potential Loyalists
+C03497,87,11,429.99,3,4,4,11,Loyal Customers
+C03498,34,9,252.57,4,4,4,12,Champions
+C03499,329,2,87.5,2,2,2,6,Needs Attention
+C03501,76,3,116.38,3,2,2,7,Regular Customers
+C03502,50,10,321.16,4,4,4,12,Champions
+C03503,294,1,60.25,2,1,2,5,Needs Attention
+C03504,69,5,156.86,4,3,3,10,Potential Loyalists
+C03505,270,1,19.8,2,1,1,4,Needs Attention
+C03506,150,1,45.21,3,1,1,5,Regular Customers
+C03507,86,8,384.83,3,4,4,11,Loyal Customers
+C03508,68,16,506.87,4,5,5,14,Champions
+C03509,389,1,36.2,2,1,1,4,Needs Attention
+C03511,257,3,116.15,2,2,2,6,Needs Attention
+C03512,25,5,274.62,4,3,4,11,Potential Loyalists
+C03513,26,7,268.65,4,4,4,12,Champions
+C03514,53,14,393.77,4,5,4,13,Champions
+C03515,370,2,52.7,2,2,1,5,Needs Attention
+C03516,148,5,239.57,3,3,4,10,Regular Customers
+C03517,30,13,449.62,4,4,4,12,Champions
+C03521,28,14,427.67,4,5,4,13,Champions
+C03522,38,9,249.67,4,4,4,12,Champions
+C03523,222,5,200.8,2,3,3,8,At Risk
+C03525,189,3,86.86,3,2,2,7,Regular Customers
+C03526,143,1,34.27,3,1,1,5,Regular Customers
+C03527,175,8,265.65,3,4,4,11,Loyal Customers
+C03528,327,3,63.35,2,2,2,6,Needs Attention
+C03529,191,7,261.35,3,4,4,11,Loyal Customers
+C03530,364,2,45.9,2,2,1,5,Needs Attention
+C03531,258,8,334.3,2,4,4,10,At Risk
+C03532,180,2,50.48,3,2,1,6,Regular Customers
+C03533,1,24,906.73,5,5,5,15,Champions
+C03535,354,2,45.9,2,2,1,5,Needs Attention
+C03536,4,20,512.3,5,5,5,15,Champions
+C03537,4,13,433.86,5,4,4,13,Champions
+C03539,102,1,16.3,3,1,1,5,Regular Customers
+C03540,389,1,45.13,2,1,1,4,Needs Attention
+C03541,251,4,197.4,2,3,3,8,At Risk
+C03544,16,9,275.24,5,4,4,13,Champions
+C03545,78,3,152.13,3,2,3,8,Regular Customers
+C03546,15,16,603.99,5,5,5,15,Champions
+C03547,26,6,198.96,4,3,3,10,Potential Loyalists
+C03550,384,2,45.2,2,2,1,5,Needs Attention
+C03551,159,4,96.61,3,3,2,8,Regular Customers
+C03554,30,14,495.58,4,5,5,14,Champions
+C03556,264,2,54.9,2,2,2,6,Needs Attention
+C03557,128,4,125.63,3,3,3,9,Regular Customers
+C03560,64,8,287.76,4,4,4,12,Champions
+C03561,15,48,1667.95,5,5,5,15,Champions
+C03562,93,6,179.0,3,3,3,9,Regular Customers
+C03563,232,11,310.06,2,4,4,10,At Risk
+C03564,27,7,210.36,4,4,3,11,Loyal Customers
+C03566,3,35,1250.52,5,5,5,15,Champions
+C03567,33,2,96.0,4,2,2,8,Potential Loyalists
+C03568,93,11,351.74,3,4,4,11,Loyal Customers
+C03569,11,8,262.56,5,4,4,13,Champions
+C03570,13,16,622.91,5,5,5,15,Champions
+C03571,313,3,75.2,2,2,2,6,Needs Attention
+C03574,11,9,341.43,5,4,4,13,Champions
+C03575,193,6,204.27,2,3,3,8,At Risk
+C03577,23,14,572.22,5,5,5,15,Champions
+C03580,229,3,88.9,2,2,2,6,Needs Attention
+C03581,13,1,71.2,5,1,2,8,Regular Customers
+C03584,11,17,763.21,5,5,5,15,Champions
+C03585,298,3,81.9,2,2,2,6,Needs Attention
+C03586,237,1,40.3,2,1,1,4,Needs Attention
+C03587,71,3,143.21,3,2,3,8,Regular Customers
+C03588,64,6,216.76,4,3,3,10,Potential Loyalists
+C03589,38,14,304.02,4,5,4,13,Champions
+C03590,64,1,12.9,4,1,1,6,Regular Customers
+C03592,127,7,260.08,3,4,4,11,Loyal Customers
+C03593,26,19,718.66,4,5,5,14,Champions
+C03594,83,3,221.45,3,2,3,8,Regular Customers
+C03595,20,2,84.2,5,2,2,9,Potential Loyalists
+C03596,33,3,56.0,4,2,2,8,Potential Loyalists
+C03597,61,2,105.58,4,2,2,8,Potential Loyalists
+C03598,376,2,112.9,2,2,2,6,Needs Attention
+C03599,178,3,59.74,3,2,2,7,Regular Customers
+C03600,169,2,32.9,3,2,1,6,Regular Customers
+C03601,24,1,35.4,4,1,1,6,Regular Customers
+C03602,358,1,84.81,2,1,2,5,Needs Attention
+C03603,330,2,32.0,2,2,1,5,Needs Attention
+C03604,194,5,99.8,2,3,2,7,At Risk
+C03605,42,6,154.93,4,3,3,10,Potential Loyalists
+C03606,274,1,28.0,2,1,1,4,Needs Attention
+C03607,1,26,783.6,5,5,5,15,Champions
+C03608,22,11,413.12,5,4,4,13,Champions
+C03609,329,1,54.8,2,1,2,5,Needs Attention
+C03610,213,1,16.01,2,1,1,4,Needs Attention
+C03611,320,3,89.36,2,2,2,6,Needs Attention
+C03613,47,6,185.44,4,3,3,10,Potential Loyalists
+C03615,315,1,12.5,2,1,1,4,Needs Attention
+C03616,159,1,41.4,3,1,1,5,Regular Customers
+C03617,145,2,37.25,3,2,1,6,Regular Customers
+C03618,52,4,133.5,4,3,3,10,Potential Loyalists
+C03622,315,1,100.7,2,1,2,5,Needs Attention
+C03624,6,5,232.43,5,3,3,11,Potential Loyalists
+C03626,122,1,15.9,3,1,1,5,Regular Customers
+C03627,6,15,440.79,5,5,4,14,Champions
+C03628,34,7,341.95,4,4,4,12,Champions
+C03629,76,5,187.96,3,3,3,9,Regular Customers
+C03632,174,1,15.38,3,1,1,5,Regular Customers
+C03633,8,41,1392.9,5,5,5,15,Champions
+C03634,28,9,368.3,4,4,4,12,Champions
+C03636,150,1,41.68,3,1,1,5,Regular Customers
+C03638,21,8,172.78,5,4,3,12,Loyal Customers
+C03639,113,7,140.95,3,4,3,10,Loyal Customers
+C03641,27,2,63.6,4,2,2,8,Potential Loyalists
+C03642,327,1,68.0,2,1,2,5,Needs Attention
+C03643,48,12,359.92,4,4,4,12,Champions
+C03644,348,2,33.3,2,2,1,5,Needs Attention
+C03645,32,10,385.52,4,4,4,12,Champions
+C03647,187,45,1523.67,3,5,5,13,Loyal Customers
+C03648,6,11,255.65,5,4,4,13,Champions
+C03649,132,1,37.8,3,1,1,5,Regular Customers
+C03650,1,10,264.25,5,4,4,13,Champions
+C03651,184,1,48.7,3,1,1,5,Regular Customers
+C03652,186,4,154.15,3,3,3,9,Regular Customers
+C03653,249,5,180.86,2,3,3,8,At Risk
+C03654,344,1,29.7,2,1,1,4,Needs Attention
+C03660,33,11,287.25,4,4,4,12,Champions
+C03661,57,10,272.84,4,4,4,12,Champions
+C03662,57,12,355.16,4,4,4,12,Champions
+C03663,312,6,193.41,2,3,3,8,At Risk
+C03664,243,3,65.51,2,2,2,6,Needs Attention
+C03665,14,32,1000.29,5,5,5,15,Champions
+C03667,103,3,172.0,3,2,3,8,Regular Customers
+C03668,14,5,97.39,5,3,2,10,Potential Loyalists
+C03669,335,1,56.7,2,1,2,5,Needs Attention
+C03670,20,11,311.92,5,4,4,13,Champions
+C03671,339,1,49.7,2,1,1,4,Needs Attention
+C03672,54,19,711.95,4,5,5,14,Champions
+C03675,54,3,183.22,4,2,3,9,Potential Loyalists
+C03676,46,1,81.1,4,1,2,7,Regular Customers
+C03677,16,7,293.55,5,4,4,13,Champions
+C03678,223,4,82.4,2,3,2,7,At Risk
+C03679,229,8,190.8,2,4,3,9,At Risk
+C03680,131,1,12.5,3,1,1,5,Regular Customers
+C03681,328,1,83.6,2,1,2,5,Needs Attention
+C03683,98,7,208.75,3,4,3,10,Loyal Customers
+C03684,175,1,8.38,3,1,1,5,Regular Customers
+C03685,271,7,138.89,2,4,3,9,At Risk
+C03686,6,12,388.3,5,4,4,13,Champions
+C03687,349,1,96.42,2,1,2,5,Needs Attention
+C03688,164,12,377.8,3,4,4,11,Loyal Customers
+C03691,252,4,132.9,2,3,3,8,At Risk
+C03693,53,6,224.78,4,3,3,10,Potential Loyalists
+C03694,60,6,285.68,4,3,4,11,Potential Loyalists
+C03696,195,3,144.89,2,2,3,7,Needs Attention
+C03697,3,8,410.55,5,4,4,13,Champions
+C03699,347,1,20.4,2,1,1,4,Needs Attention
+C03701,36,10,460.48,4,4,4,12,Champions
+C03702,63,5,257.24,4,3,4,11,Potential Loyalists
+C03703,112,5,160.12,3,3,3,9,Regular Customers
+C03704,61,11,279.06,4,4,4,12,Champions
+C03707,288,1,12.9,2,1,1,4,Needs Attention
+C03708,174,1,14.23,3,1,1,5,Regular Customers
+C03709,241,3,174.1,2,2,3,7,Needs Attention
+C03711,104,2,50.69,3,2,1,6,Regular Customers
+C03712,49,11,276.12,4,4,4,12,Champions
+C03714,59,3,169.2,4,2,3,9,Potential Loyalists
+C03715,23,18,648.82,5,5,5,15,Champions
+C03716,6,10,270.69,5,4,4,13,Champions
+C03717,11,27,1056.71,5,5,5,15,Champions
+C03720,63,6,238.67,4,3,4,11,Potential Loyalists
+C03722,21,10,346.31,5,4,4,13,Champions
+C03723,122,1,26.3,3,1,1,5,Regular Customers
+C03724,8,18,693.48,5,5,5,15,Champions
+C03725,235,3,65.8,2,2,2,6,Needs Attention
+C03726,1,38,1284.68,5,5,5,15,Champions
+C03727,22,21,744.25,5,5,5,15,Champions
+C03728,215,3,125.9,2,2,3,7,Needs Attention
+C03729,180,4,120.34,3,3,2,8,Regular Customers
+C03730,108,8,398.11,3,4,4,11,Loyal Customers
+C03731,29,14,416.81,4,5,4,13,Champions
+C03732,260,1,45.7,2,1,1,4,Needs Attention
+C03733,232,1,91.7,2,1,2,5,Needs Attention
+C03734,13,5,101.1,5,3,2,10,Potential Loyalists
+C03735,143,3,160.93,3,2,3,8,Regular Customers
+C03740,47,5,280.5,4,3,4,11,Potential Loyalists
+C03741,50,5,143.2,4,3,3,10,Potential Loyalists
+C03742,282,4,129.37,2,3,3,8,At Risk
+C03743,198,1,142.43,2,1,3,6,Needs Attention
+C03744,34,8,387.54,4,4,4,12,Champions
+C03746,16,32,961.77,5,5,5,15,Champions
+C03747,5,20,576.59,5,5,5,15,Champions
+C03748,21,7,181.56,5,4,3,12,Loyal Customers
+C03749,4,3,82.3,5,2,2,9,Potential Loyalists
+C03750,70,17,589.17,4,5,5,14,Champions
+C03751,181,10,300.48,3,4,4,11,Loyal Customers
+C03755,294,1,14.13,2,1,1,4,Needs Attention
+C03756,32,12,401.17,4,4,4,12,Champions
+C03757,95,9,242.97,3,4,4,11,Loyal Customers
+C03758,34,14,655.66,4,5,5,14,Champions
+C03759,222,9,320.8,2,4,4,10,At Risk
+C03760,167,1,33.24,3,1,1,5,Regular Customers
+C03761,121,2,46.95,3,2,1,6,Regular Customers
+C03764,11,15,348.76,5,5,4,14,Champions
+C03765,159,5,135.71,3,3,3,9,Regular Customers
+C03766,59,5,160.65,4,3,3,10,Potential Loyalists
+C03768,78,13,465.44,3,4,4,11,Loyal Customers
+C03769,193,2,130.61,2,2,3,7,Needs Attention
+C03771,229,1,16.1,2,1,1,4,Needs Attention
+C03772,327,1,32.6,2,1,1,4,Needs Attention
+C03773,47,11,310.18,4,4,4,12,Champions
+C03774,223,2,64.6,2,2,2,6,Needs Attention
+C03776,300,5,149.3,2,3,3,8,At Risk
+C03777,39,14,519.84,4,5,5,14,Champions
+C03778,5,21,895.18,5,5,5,15,Champions
+C03779,22,13,357.13,5,4,4,13,Champions
+C03782,214,2,49.4,2,2,1,5,Needs Attention
+C03783,82,2,42.4,3,2,1,6,Regular Customers
+C03785,159,6,142.98,3,3,3,9,Regular Customers
+C03786,196,6,208.28,2,3,3,8,At Risk
+C03787,97,3,46.7,3,2,1,6,Regular Customers
+C03788,308,3,72.7,2,2,2,6,Needs Attention
+C03789,11,14,399.3,5,5,4,14,Champions
+C03790,8,31,1199.38,5,5,5,15,Champions
+C03791,11,13,393.5,5,4,4,13,Champions
+C03792,48,1,28.2,4,1,1,6,Regular Customers
+C03793,193,2,42.95,2,2,1,5,Needs Attention
+C03794,285,5,202.81,2,3,3,8,At Risk
+C03796,66,1,31.91,4,1,1,6,Regular Customers
+C03797,125,4,148.54,3,3,3,9,Regular Customers
+C03800,17,17,619.92,5,5,5,15,Champions
+C03801,32,5,177.65,4,3,3,10,Potential Loyalists
+C03803,294,1,27.87,2,1,1,4,Needs Attention
+C03805,19,8,210.14,5,4,3,12,Loyal Customers
+C03806,210,3,72.65,2,2,2,6,Needs Attention
+C03807,141,1,34.1,3,1,1,5,Regular Customers
+C03808,17,12,392.54,5,4,4,13,Champions
+C03809,92,2,78.13,3,2,2,7,Regular Customers
+C03810,109,3,143.31,3,2,3,8,Regular Customers
+C03812,41,1,26.9,4,1,1,6,Regular Customers
+C03813,130,5,171.69,3,3,3,9,Regular Customers
+C03814,181,1,43.95,3,1,1,5,Regular Customers
+C03815,5,12,437.69,5,4,4,13,Champions
+C03816,11,9,259.87,5,4,4,13,Champions
+C03817,209,2,37.98,2,2,1,5,Needs Attention
+C03818,251,1,16.4,2,1,1,4,Needs Attention
+C03819,225,2,82.6,2,2,2,6,Needs Attention
+C03820,147,3,165.28,3,2,3,8,Regular Customers
+C03825,310,1,17.4,2,1,1,4,Needs Attention
+C03827,99,9,338.05,3,4,4,11,Loyal Customers
+C03829,68,7,226.88,4,4,3,11,Loyal Customers
+C03830,77,7,262.06,3,4,4,11,Loyal Customers
+C03831,13,18,549.06,5,5,5,15,Champions
+C03832,86,4,165.21,3,3,3,9,Regular Customers
+C03834,32,6,108.06,4,3,2,9,Potential Loyalists
+C03835,306,1,14.6,2,1,1,4,Needs Attention
+C03836,210,5,187.2,2,3,3,8,At Risk
+C03837,69,2,30.2,4,2,1,7,Potential Loyalists
+C03838,33,2,49.9,4,2,1,7,Potential Loyalists
+C03839,67,7,273.77,4,4,4,12,Champions
+C03840,92,5,246.64,3,3,4,10,Regular Customers
+C03841,10,2,61.7,5,2,2,9,Potential Loyalists
+C03842,67,3,111.97,4,2,2,8,Potential Loyalists
+C03843,69,1,28.33,4,1,1,6,Regular Customers
+C03844,24,4,94.2,4,3,2,9,Potential Loyalists
+C03845,101,4,111.75,3,3,2,8,Regular Customers
+C03846,270,2,84.6,2,2,2,6,Needs Attention
+C03848,294,5,142.8,2,3,3,8,At Risk
+C03849,42,2,48.23,4,2,1,7,Potential Loyalists
+C03850,77,13,521.38,3,4,5,12,Loyal Customers
+C03851,303,1,24.0,2,1,1,4,Needs Attention
+C03852,193,2,103.22,2,2,2,6,Needs Attention
+C03853,53,7,182.72,4,4,3,11,Loyal Customers
+C03855,6,2,40.08,5,2,1,8,Potential Loyalists
+C03856,39,2,56.9,4,2,2,8,Potential Loyalists
+C03857,2,18,630.61,5,5,5,15,Champions
+C03858,236,2,54.1,2,2,1,5,Needs Attention
+C03859,11,6,257.97,5,3,4,12,Potential Loyalists
+C03861,182,3,129.1,3,2,3,8,Regular Customers
+C03863,48,1,13.1,4,1,1,6,Regular Customers
+C03865,23,5,127.5,5,3,3,11,Potential Loyalists
+C03866,151,13,572.42,3,4,5,12,Loyal Customers
+C03868,110,10,435.9,3,4,4,11,Loyal Customers
+C03869,37,6,217.71,4,3,3,10,Potential Loyalists
+C03870,29,4,153.51,4,3,3,10,Potential Loyalists
+C03871,6,1,47.1,5,1,1,7,Regular Customers
+C03873,127,10,345.2,3,4,4,11,Loyal Customers
+C03876,54,7,286.61,4,4,4,12,Champions
+C03877,47,6,324.8,4,3,4,11,Potential Loyalists
+C03878,84,4,167.53,3,3,3,9,Regular Customers
+C03880,130,5,116.88,3,3,2,8,Regular Customers
+C03883,48,1,15.7,4,1,1,6,Regular Customers
+C03884,28,2,45.62,4,2,1,7,Potential Loyalists
+C03885,23,8,221.95,5,4,3,12,Loyal Customers
+C03886,126,1,9.9,3,1,1,5,Regular Customers
+C03888,37,8,302.19,4,4,4,12,Champions
+C03889,47,2,29.78,4,2,1,7,Potential Loyalists
+C03890,3,21,737.46,5,5,5,15,Champions
+C03891,96,4,184.98,3,3,3,9,Regular Customers
+C03893,9,13,458.17,5,4,4,13,Champions
+C03895,1,4,117.1,5,3,2,10,Potential Loyalists
+C03897,28,14,503.19,4,5,5,14,Champions
+C03898,65,4,142.28,4,3,3,10,Potential Loyalists
+C03901,127,2,139.93,3,2,3,8,Regular Customers
+C03902,33,4,142.8,4,3,3,10,Potential Loyalists
+C03903,37,9,213.78,4,4,3,11,Loyal Customers
+C03904,70,3,120.08,4,2,2,8,Potential Loyalists
+C03905,133,6,157.07,3,3,3,9,Regular Customers
+C03906,257,2,114.0,2,2,2,6,Needs Attention
+C03909,66,4,81.42,4,3,2,9,Potential Loyalists
+C03910,149,1,40.62,3,1,1,5,Regular Customers
+C03912,128,11,373.06,3,4,4,11,Loyal Customers
+C03915,151,1,38.0,3,1,1,5,Regular Customers
+C03916,289,1,15.7,2,1,1,4,Needs Attention
+C03917,202,2,107.97,2,2,2,6,Needs Attention
+C03919,222,1,30.1,2,1,1,4,Needs Attention
+C03920,56,9,234.57,4,4,3,11,Loyal Customers
+C03921,66,7,163.85,4,4,3,11,Loyal Customers
+C03922,258,3,67.27,2,2,2,6,Needs Attention
+C03923,21,4,167.31,5,3,3,11,Potential Loyalists
+C03924,5,6,335.85,5,3,4,12,Potential Loyalists
+C03925,67,1,15.7,4,1,1,6,Regular Customers
+C03926,9,1,25.9,5,1,1,7,Regular Customers
+C03927,12,15,516.28,5,5,5,15,Champions
+C03928,90,9,299.94,3,4,4,11,Loyal Customers
+C03930,2,2,102.1,5,2,2,9,Potential Loyalists
+C03931,272,4,147.23,2,3,3,8,At Risk
+C03932,3,15,467.52,5,5,4,14,Champions
+C03933,28,3,157.23,4,2,3,9,Potential Loyalists
+C03934,17,10,320.63,5,4,4,13,Champions
+C03935,159,3,86.78,3,2,2,7,Regular Customers
+C03936,192,1,23.41,3,1,1,5,Regular Customers
+C03937,5,11,400.83,5,4,4,13,Champions
+C03939,144,4,118.34,3,3,2,8,Regular Customers
+C03941,281,1,26.1,2,1,1,4,Needs Attention
+C03943,153,3,124.35,3,2,3,8,Regular Customers
+C03944,37,6,232.18,4,3,3,10,Potential Loyalists
+C03945,97,1,18.6,3,1,1,5,Regular Customers
+C03946,105,6,200.11,3,3,3,9,Regular Customers
+C03947,257,1,39.9,2,1,1,4,Needs Attention
+C03948,2,26,743.72,5,5,5,15,Champions
+C03949,12,7,334.23,5,4,4,13,Champions
+C03950,118,3,107.36,3,2,2,7,Regular Customers
+C03951,68,6,175.91,4,3,3,10,Potential Loyalists
+C03952,1,25,834.7,5,5,5,15,Champions
+C03953,17,4,78.25,5,3,2,10,Potential Loyalists
+C03954,68,8,218.8,4,4,3,11,Loyal Customers
+C03955,101,1,72.6,3,1,2,6,Regular Customers
+C03956,16,11,364.71,5,4,4,13,Champions
+C03957,122,17,716.3,3,5,5,13,Loyal Customers
+C03958,90,5,164.15,3,3,3,9,Regular Customers
+C03959,22,5,173.14,5,3,3,11,Potential Loyalists
+C03960,185,1,75.86,3,1,2,6,Regular Customers
+C03961,56,7,203.68,4,4,3,11,Loyal Customers
+C03962,5,4,64.08,5,3,2,10,Potential Loyalists
+C03963,19,11,380.59,5,4,4,13,Champions
+C03964,46,5,131.35,4,3,3,10,Potential Loyalists
+C03965,205,1,14.01,2,1,1,4,Needs Attention
+C03966,1,13,401.98,5,4,4,13,Champions
+C03967,83,1,16.1,3,1,1,5,Regular Customers
+C03968,18,7,183.0,5,4,3,12,Loyal Customers
+C03970,177,3,50.35,3,2,1,6,Regular Customers
+C03971,1,17,615.88,5,5,5,15,Champions
+C03973,42,1,30.3,4,1,1,6,Regular Customers
+C03974,213,3,55.7,2,2,2,6,Needs Attention
+C03976,42,2,110.55,4,2,2,8,Potential Loyalists
+C03977,37,3,140.6,4,2,3,9,Potential Loyalists
+C03978,74,2,150.7,3,2,3,8,Regular Customers
+C03979,118,3,104.82,3,2,2,7,Regular Customers
+C03980,41,10,333.28,4,4,4,12,Champions
+C03981,152,1,16.01,3,1,1,5,Regular Customers
+C03982,27,24,755.59,4,5,5,14,Champions
+C03983,53,1,8.7,4,1,1,6,Regular Customers
+C03984,152,3,57.88,3,2,2,7,Regular Customers
+C03986,34,12,409.43,4,4,4,12,Champions
+C03987,7,5,183.63,5,3,3,11,Potential Loyalists
+C03988,23,6,185.73,5,3,3,11,Potential Loyalists
+C03989,51,4,80.02,4,3,2,9,Potential Loyalists
+C03990,137,2,30.75,3,2,1,6,Regular Customers
+C03991,270,2,53.5,2,2,1,5,Needs Attention
+C03992,153,1,35.65,3,1,1,5,Regular Customers
+C03994,135,2,52.59,3,2,1,6,Regular Customers
+C03995,2,33,1134.9,5,5,5,15,Champions
+C03997,229,1,44.0,2,1,1,4,Needs Attention
+C03998,266,1,31.2,2,1,1,4,Needs Attention
+C03999,16,2,54.43,5,2,1,8,Potential Loyalists
+C04000,21,9,277.84,5,4,4,13,Champions
+C04001,4,7,288.43,5,4,4,13,Champions
+C04003,42,2,103.6,4,2,2,8,Potential Loyalists
+C04004,10,30,1177.07,5,5,5,15,Champions
+C04005,15,19,787.16,5,5,5,15,Champions
+C04007,63,8,333.77,4,4,4,12,Champions
+C04008,172,4,186.73,3,3,3,9,Regular Customers
+C04009,118,2,114.4,3,2,2,7,Regular Customers
+C04010,193,4,179.56,2,3,3,8,At Risk
+C04013,222,1,32.3,2,1,1,4,Needs Attention
+C04015,263,1,49.8,2,1,1,4,Needs Attention
+C04017,54,4,214.01,4,3,3,10,Potential Loyalists
+C04018,17,12,497.11,5,4,5,14,Champions
+C04019,191,5,109.71,3,3,2,8,Regular Customers
+C04020,84,5,204.77,3,3,3,9,Regular Customers
+C04021,12,1,17.4,5,1,1,7,Regular Customers
+C04023,69,5,207.24,4,3,3,10,Potential Loyalists
+C04024,2,29,948.3,5,5,5,15,Champions
+C04025,90,3,111.93,3,2,2,7,Regular Customers
+C04026,34,9,308.42,4,4,4,12,Champions
+C04027,255,1,10.5,2,1,1,4,Needs Attention
+C04028,59,2,116.91,4,2,2,8,Potential Loyalists
+C04029,125,1,29.16,3,1,1,5,Regular Customers
+C04030,40,6,131.99,4,3,3,10,Potential Loyalists
+C04031,196,1,19.55,2,1,1,4,Needs Attention
+C04033,60,7,267.32,4,4,4,12,Champions
+C04034,238,1,40.1,2,1,1,4,Needs Attention
+C04036,259,1,23.1,2,1,1,4,Needs Attention
+C04037,1,13,350.66,5,4,4,13,Champions
+C04039,11,6,247.85,5,3,4,12,Potential Loyalists
+C04040,214,7,242.81,2,4,4,10,At Risk
+C04042,19,16,440.38,5,5,4,14,Champions
+C04044,6,11,433.35,5,4,4,13,Champions
+C04049,112,3,81.78,3,2,2,7,Regular Customers
+C04050,42,3,82.73,4,2,2,8,Potential Loyalists
+C04051,95,3,122.65,3,2,2,7,Regular Customers
+C04052,181,4,231.28,3,3,3,9,Regular Customers
+C04053,106,16,479.93,3,5,4,12,Loyal Customers
+C04054,38,27,763.54,4,5,5,14,Champions
+C04055,38,1,28.6,4,1,1,6,Regular Customers
+C04056,57,3,140.65,4,2,3,9,Potential Loyalists
+C04057,130,4,150.51,3,3,3,9,Regular Customers
+C04059,6,3,125.1,5,2,3,10,Potential Loyalists
+C04060,218,1,15.7,2,1,1,4,Needs Attention
+C04061,149,2,110.78,3,2,2,7,Regular Customers
+C04062,104,2,37.95,3,2,1,6,Regular Customers
+C04063,54,10,324.18,4,4,4,12,Champions
+C04065,18,4,223.85,5,3,3,11,Potential Loyalists
+C04066,47,2,94.7,4,2,2,8,Potential Loyalists
+C04067,6,5,193.08,5,3,3,11,Potential Loyalists
+C04068,144,4,121.25,3,3,2,8,Regular Customers
+C04069,217,2,34.1,2,2,1,5,Needs Attention
+C04071,55,4,184.4,4,3,3,10,Potential Loyalists
+C04072,15,16,464.31,5,5,4,14,Champions
+C04073,4,15,520.79,5,5,5,15,Champions
+C04075,5,17,543.22,5,5,5,15,Champions
+C04076,223,2,80.2,2,2,2,6,Needs Attention
+C04077,153,1,31.13,3,1,1,5,Regular Customers
+C04079,195,4,106.61,2,3,2,7,At Risk
+C04081,21,15,411.18,5,5,4,14,Champions
+C04083,15,7,199.88,5,4,3,12,Loyal Customers
+C04084,20,16,538.26,5,5,5,15,Champions
+C04085,250,1,52.8,2,1,1,4,Needs Attention
+C04086,207,3,64.62,2,2,2,6,Needs Attention
+C04087,42,6,153.0,4,3,3,10,Potential Loyalists
+C04088,138,2,112.41,3,2,2,7,Regular Customers
+C04090,229,1,30.2,2,1,1,4,Needs Attention
+C04091,21,2,66.2,5,2,2,9,Potential Loyalists
+C04092,68,2,44.99,4,2,1,7,Potential Loyalists
+C04094,218,2,49.2,2,2,1,5,Needs Attention
+C04095,230,1,32.3,2,1,1,4,Needs Attention
+C04098,27,12,447.6,4,4,4,12,Champions
+C04099,97,1,35.0,3,1,1,5,Regular Customers
+C04100,6,6,300.45,5,3,4,12,Potential Loyalists
+C04101,11,2,99.6,5,2,2,9,Potential Loyalists
+C04102,19,1,33.5,5,1,1,7,Regular Customers
+C04104,4,25,794.86,5,5,5,15,Champions
+C04105,191,11,526.21,3,4,5,12,Loyal Customers
+C04106,193,1,13.41,2,1,1,4,Needs Attention
+C04107,85,2,52.69,3,2,1,6,Regular Customers
+C04108,147,2,61.18,3,2,2,7,Regular Customers
+C04109,164,2,80.4,3,2,2,7,Regular Customers
+C04110,168,3,126.17,3,2,3,8,Regular Customers
+C04111,215,1,13.9,2,1,1,4,Needs Attention
+C04112,3,30,1030.16,5,5,5,15,Champions
+C04113,26,5,253.68,4,3,4,11,Potential Loyalists
+C04114,161,4,112.13,3,3,2,8,Regular Customers
+C04115,229,1,48.6,2,1,1,4,Needs Attention
+C04116,111,3,72.86,3,2,2,7,Regular Customers
+C04117,230,1,14.8,2,1,1,4,Needs Attention
+C04118,45,4,86.7,4,3,2,9,Potential Loyalists
+C04122,209,1,33.56,2,1,1,4,Needs Attention
+C04125,32,4,93.6,4,3,2,9,Potential Loyalists
+C04126,55,3,96.12,4,2,2,8,Potential Loyalists
+C04128,152,1,34.19,3,1,1,5,Regular Customers
+C04129,23,4,164.37,5,3,3,11,Potential Loyalists
+C04130,90,5,183.97,3,3,3,9,Regular Customers
+C04131,57,5,341.3,4,3,4,11,Potential Loyalists
+C04132,42,6,153.85,4,3,3,10,Potential Loyalists
+C04133,6,6,303.0,5,3,4,12,Potential Loyalists
+C04134,4,6,358.24,5,3,4,12,Potential Loyalists
+C04135,180,1,12.5,3,1,1,5,Regular Customers
+C04136,137,1,15.83,3,1,1,5,Regular Customers
+C04137,10,13,504.74,5,4,5,14,Champions
+C04138,189,2,48.85,3,2,1,6,Regular Customers
+C04139,50,7,277.45,4,4,4,12,Champions
+C04141,38,10,414.51,4,4,4,12,Champions
+C04144,75,4,140.31,3,3,3,9,Regular Customers
+C04145,16,9,384.09,5,4,4,13,Champions
+C04146,41,7,252.59,4,4,4,12,Champions
+C04148,61,3,184.19,4,2,3,9,Potential Loyalists
+C04150,11,2,43.0,5,2,1,8,Potential Loyalists
+C04151,87,2,84.5,3,2,2,7,Regular Customers
+C04153,29,12,481.95,4,4,4,12,Champions
+C04154,188,2,58.78,3,2,2,7,Regular Customers
+C04155,228,1,50.7,2,1,1,4,Needs Attention
+C04157,103,2,71.9,3,2,2,7,Regular Customers
+C04158,188,1,13.41,3,1,1,5,Regular Customers
+C04159,153,2,48.48,3,2,1,6,Regular Customers
+C04160,72,6,267.42,3,3,4,10,Regular Customers
+C04161,33,10,343.48,4,4,4,12,Champions
+C04162,53,9,347.83,4,4,4,12,Champions
+C04163,26,6,200.28,4,3,3,10,Potential Loyalists
+C04165,28,5,185.65,4,3,3,10,Potential Loyalists
+C04167,85,5,109.37,3,3,2,8,Regular Customers
+C04168,33,5,129.71,4,3,3,10,Potential Loyalists
+C04169,112,2,169.64,3,2,3,8,Regular Customers
+C04170,172,5,126.5,3,3,3,9,Regular Customers
+C04171,40,19,805.3,4,5,5,14,Champions
+C04173,215,1,29.7,2,1,1,4,Needs Attention
+C04175,145,1,19.28,3,1,1,5,Regular Customers
+C04176,147,3,85.57,3,2,2,7,Regular Customers
+C04177,20,27,879.42,5,5,5,15,Champions
+C04178,5,7,245.68,5,4,4,13,Champions
+C04179,93,5,194.14,3,3,3,9,Regular Customers
+C04180,78,8,308.8,3,4,4,11,Loyal Customers
+C04181,26,4,213.77,4,3,3,10,Potential Loyalists
+C04183,197,1,12.78,2,1,1,4,Needs Attention
+C04185,49,5,174.14,4,3,3,10,Potential Loyalists
+C04187,109,7,197.35,3,4,3,10,Loyal Customers
+C04188,11,21,946.25,5,5,5,15,Champions
+C04189,152,10,376.64,3,4,4,11,Loyal Customers
+C04190,5,14,445.96,5,5,4,14,Champions
+C04191,191,2,58.68,3,2,2,7,Regular Customers
+C04193,103,2,27.35,3,2,1,6,Regular Customers
+C04194,20,10,208.62,5,4,3,12,Loyal Customers
+C04195,84,3,125.53,3,2,3,8,Regular Customers
+C04197,12,1,13.5,5,1,1,7,Regular Customers
+C04198,31,1,12.7,4,1,1,6,Regular Customers
+C04199,25,7,149.13,4,4,3,11,Loyal Customers
+C04200,83,7,238.2,3,4,4,11,Loyal Customers
+C04201,21,5,137.67,5,3,3,11,Potential Loyalists
+C04202,175,1,9.9,3,1,1,5,Regular Customers
+C04203,1,20,644.02,5,5,5,15,Champions
+C04204,72,5,206.8,3,3,3,9,Regular Customers
+C04206,209,1,25.8,2,1,1,4,Needs Attention
+C04207,47,4,117.04,4,3,2,9,Potential Loyalists
+C04208,82,2,132.88,3,2,3,8,Regular Customers
+C04211,131,2,51.87,3,2,1,6,Regular Customers
+C04212,103,17,628.42,3,5,5,13,Loyal Customers
+C04213,6,7,319.27,5,4,4,13,Champions
+C04214,199,3,109.79,2,2,2,6,Needs Attention
+C04216,90,1,22.9,3,1,1,5,Regular Customers
+C04219,209,1,29.19,2,1,1,4,Needs Attention
+C04220,7,4,133.99,5,3,3,11,Potential Loyalists
+C04221,83,1,61.71,3,1,2,6,Regular Customers
+C04224,17,1,17.0,5,1,1,7,Regular Customers
+C04225,20,2,34.1,5,2,1,8,Potential Loyalists
+C04226,95,9,232.26,3,4,3,10,Loyal Customers
+C04227,15,8,302.29,5,4,4,13,Champions
+C04228,21,13,400.69,5,4,4,13,Champions
+C04229,108,6,305.97,3,3,4,10,Regular Customers
+C04230,63,3,67.44,4,2,2,8,Potential Loyalists
+C04231,6,3,71.6,5,2,2,9,Potential Loyalists
+C04232,88,6,189.2,3,3,3,9,Regular Customers
+C04233,112,1,78.9,3,1,2,6,Regular Customers
+C04234,22,2,111.51,5,2,2,9,Potential Loyalists
+C04237,14,9,311.82,5,4,4,13,Champions
+C04238,24,2,30.58,4,2,1,7,Potential Loyalists
+C04239,139,5,165.87,3,3,3,9,Regular Customers
+C04241,29,1,34.0,4,1,1,6,Regular Customers
+C04242,183,3,97.91,3,2,2,7,Regular Customers
+C04243,2,4,123.91,5,3,3,11,Potential Loyalists
+C04245,150,1,11.5,3,1,1,5,Regular Customers
+C04246,192,1,40.48,3,1,1,5,Regular Customers
+C04247,80,2,80.19,3,2,2,7,Regular Customers
+C04248,201,1,64.64,2,1,2,5,Needs Attention
+C04249,32,10,358.89,4,4,4,12,Champions
+C04251,24,5,124.58,4,3,3,10,Potential Loyalists
+C04252,124,6,188.76,3,3,3,9,Regular Customers
+C04253,5,14,490.03,5,5,5,15,Champions
+C04254,48,1,16.4,4,1,1,6,Regular Customers
+C04255,95,4,142.03,3,3,3,9,Regular Customers
+C04257,79,4,175.93,3,3,3,9,Regular Customers
+C04258,173,2,59.19,3,2,2,7,Regular Customers
+C04259,187,1,13.42,3,1,1,5,Regular Customers
+C04260,23,8,188.07,5,4,3,12,Loyal Customers
+C04261,57,2,52.88,4,2,1,7,Potential Loyalists
+C04264,26,4,115.57,4,3,2,9,Potential Loyalists
+C04265,167,2,32.45,3,2,1,6,Regular Customers
+C04266,183,1,24.92,3,1,1,5,Regular Customers
+C04267,63,2,88.92,4,2,2,8,Potential Loyalists
+C04271,31,6,198.0,4,3,3,10,Potential Loyalists
+C04272,155,1,33.25,3,1,1,5,Regular Customers
+C04275,26,6,160.42,4,3,3,10,Potential Loyalists
+C04276,149,1,38.19,3,1,1,5,Regular Customers
+C04277,39,6,329.63,4,3,4,11,Potential Loyalists
+C04279,160,1,14.65,3,1,1,5,Regular Customers
+C04280,43,2,53.3,4,2,1,7,Potential Loyalists
+C04281,7,10,305.44,5,4,4,13,Champions
+C04283,6,4,196.29,5,3,3,11,Potential Loyalists
+C04288,67,2,65.09,4,2,2,8,Potential Loyalists
+C04289,37,19,823.87,4,5,5,14,Champions
+C04292,13,6,242.39,5,3,4,12,Potential Loyalists
+C04293,33,4,211.55,4,3,3,10,Potential Loyalists
+C04294,31,3,80.2,4,2,2,8,Potential Loyalists
+C04295,121,2,64.73,3,2,2,7,Regular Customers
+C04296,134,1,31.46,3,1,1,5,Regular Customers
+C04297,25,4,121.4,4,3,2,9,Potential Loyalists
+C04298,89,1,14.52,3,1,1,5,Regular Customers
+C04299,14,9,358.24,5,4,4,13,Champions
+C04301,21,3,78.07,5,2,2,9,Potential Loyalists
+C04302,106,4,97.51,3,3,2,8,Regular Customers
+C04303,41,1,36.0,4,1,1,6,Regular Customers
+C04304,53,1,36.3,4,1,1,6,Regular Customers
+C04305,53,17,693.89,4,5,5,14,Champions
+C04306,27,2,117.0,4,2,2,8,Potential Loyalists
+C04307,13,5,151.01,5,3,3,11,Potential Loyalists
+C04308,31,3,81.42,4,2,2,8,Potential Loyalists
+C04309,12,7,189.49,5,4,3,12,Loyal Customers
+C04310,63,8,354.24,4,4,4,12,Champions
+C04311,143,2,42.96,3,2,1,6,Regular Customers
+C04312,185,1,17.01,3,1,1,5,Regular Customers
+C04313,179,3,97.3,3,2,2,7,Regular Customers
+C04314,172,1,37.65,3,1,1,5,Regular Customers
+C04316,131,5,191.88,3,3,3,9,Regular Customers
+C04317,60,4,169.11,4,3,3,10,Potential Loyalists
+C04318,5,17,515.0,5,5,5,15,Champions
+C04319,184,1,19.05,3,1,1,5,Regular Customers
+C04320,70,4,163.73,4,3,3,10,Potential Loyalists
+C04321,85,5,122.0,3,3,2,8,Regular Customers
+C04322,68,3,59.39,4,2,2,8,Potential Loyalists
+C04325,33,2,53.08,4,2,1,7,Potential Loyalists
+C04327,37,6,170.11,4,3,3,10,Potential Loyalists
+C04330,34,2,64.4,4,2,2,8,Potential Loyalists
+C04331,175,2,103.95,3,2,2,7,Regular Customers
+C04332,6,17,589.19,5,5,5,15,Champions
+C04333,35,4,199.85,4,3,3,10,Potential Loyalists
+C04336,47,4,183.75,4,3,3,10,Potential Loyalists
+C04337,181,1,43.94,3,1,1,5,Regular Customers
+C04338,57,1,31.9,4,1,1,6,Regular Customers
+C04339,162,1,12.65,3,1,1,5,Regular Customers
+C04340,68,11,390.82,4,4,4,12,Champions
+C04341,101,5,228.29,3,3,3,9,Regular Customers
+C04342,132,1,38.88,3,1,1,5,Regular Customers
+C04343,77,6,209.04,3,3,3,9,Regular Customers
+C04344,18,2,57.3,5,2,2,9,Potential Loyalists
+C04345,17,2,46.7,5,2,1,8,Potential Loyalists
+C04346,19,4,106.04,5,3,2,10,Potential Loyalists
+C04347,180,1,58.86,3,1,2,6,Regular Customers
+C04349,15,4,132.88,5,3,3,11,Potential Loyalists
+C04352,86,7,258.65,3,4,4,11,Loyal Customers
+C04353,125,1,66.53,3,1,2,6,Regular Customers
+C04355,27,13,640.95,4,4,5,13,Champions
+C04356,45,5,171.32,4,3,3,10,Potential Loyalists
+C04357,136,2,53.67,3,2,1,6,Regular Customers
+C04358,75,2,61.27,3,2,2,7,Regular Customers
+C04359,62,4,206.96,4,3,3,10,Potential Loyalists
+C04360,89,7,343.91,3,4,4,11,Loyal Customers
+C04361,25,4,115.24,4,3,2,9,Potential Loyalists
+C04362,47,5,197.96,4,3,3,10,Potential Loyalists
+C04365,112,3,167.94,3,2,3,8,Regular Customers
+C04366,5,16,476.73,5,5,4,14,Champions
+C04367,175,1,34.18,3,1,1,5,Regular Customers
+C04369,4,6,183.14,5,3,3,11,Potential Loyalists
+C04370,110,1,69.5,3,1,2,6,Regular Customers
+C04371,69,1,30.6,4,1,1,6,Regular Customers
+C04372,112,2,36.65,3,2,1,6,Regular Customers
+C04375,132,1,14.65,3,1,1,5,Regular Customers
+C04376,6,8,307.24,5,4,4,13,Champions
+C04377,11,5,159.48,5,3,3,11,Potential Loyalists
+C04379,19,2,25.6,5,2,1,8,Potential Loyalists
+C04381,118,3,53.03,3,2,1,6,Regular Customers
+C04382,130,3,120.93,3,2,2,7,Regular Customers
+C04383,47,1,85.7,4,1,2,7,Regular Customers
+C04384,17,2,110.56,5,2,2,9,Potential Loyalists
+C04385,12,5,234.95,5,3,3,11,Potential Loyalists
+C04386,147,1,14.9,3,1,1,5,Regular Customers
+C04387,121,1,37.4,3,1,1,5,Regular Customers
+C04388,35,10,314.82,4,4,4,12,Champions
+C04392,105,4,122.97,3,3,2,8,Regular Customers
+C04394,120,1,16.8,3,1,1,5,Regular Customers
+C04395,10,18,610.28,5,5,5,15,Champions
+C04398,46,6,228.28,4,3,3,10,Potential Loyalists
+C04399,18,9,204.58,5,4,3,12,Loyal Customers
+C04400,49,4,130.48,4,3,3,10,Potential Loyalists
+C04402,116,4,83.87,3,3,2,8,Regular Customers
+C04405,110,1,9.9,3,1,1,5,Regular Customers
+C04406,11,10,412.13,5,4,4,13,Champions
+C04407,133,1,16.05,3,1,1,5,Regular Customers
+C04408,131,6,116.69,3,3,2,8,Regular Customers
+C04411,38,3,64.68,4,2,2,8,Potential Loyalists
+C04412,90,2,56.65,3,2,2,7,Regular Customers
+C04413,31,3,153.84,4,2,3,9,Potential Loyalists
+C04414,105,1,41.7,3,1,1,5,Regular Customers
+C04415,125,1,31.97,3,1,1,5,Regular Customers
+C04417,6,1,14.9,5,1,1,7,Regular Customers
+C04418,3,6,229.56,5,3,3,11,Potential Loyalists
+C04419,153,1,35.95,3,1,1,5,Regular Customers
+C04420,22,2,91.59,5,2,2,9,Potential Loyalists
+C04421,10,4,231.11,5,3,3,11,Potential Loyalists
+C04423,86,1,58.59,3,1,2,6,Regular Customers
+C04424,27,3,77.28,4,2,2,8,Potential Loyalists
+C04425,67,3,145.74,4,2,3,9,Potential Loyalists
+C04427,47,2,61.1,4,2,2,8,Potential Loyalists
+C04428,118,1,18.7,3,1,1,5,Regular Customers
+C04429,67,2,62.95,4,2,2,8,Potential Loyalists
+C04431,42,4,84.01,4,3,2,9,Potential Loyalists
+C04432,4,16,520.27,5,5,5,15,Champions
+C04433,76,3,169.69,3,2,3,8,Regular Customers
+C04434,14,3,133.3,5,2,3,10,Potential Loyalists
+C04435,16,3,151.62,5,2,3,10,Potential Loyalists
+C04436,53,4,77.56,4,3,2,9,Potential Loyalists
+C04437,14,1,23.7,5,1,1,7,Regular Customers
+C04438,35,5,166.0,4,3,3,10,Potential Loyalists
+C04439,14,4,106.9,5,3,2,10,Potential Loyalists
+C04440,153,1,30.06,3,1,1,5,Regular Customers
+C04441,107,1,23.0,3,1,1,5,Regular Customers
+C04442,14,7,296.49,5,4,4,13,Champions
+C04444,23,4,92.75,5,3,2,10,Potential Loyalists
+C04446,79,3,69.3,3,2,2,7,Regular Customers
+C04450,126,1,15.38,3,1,1,5,Regular Customers
+C04452,102,1,37.1,3,1,1,5,Regular Customers
+C04453,45,4,110.92,4,3,2,9,Potential Loyalists
+C04454,39,4,245.95,4,3,4,11,Potential Loyalists
+C04455,67,2,51.82,4,2,1,7,Potential Loyalists
+C04456,29,1,19.3,4,1,1,6,Regular Customers
+C04458,13,4,150.53,5,3,3,11,Potential Loyalists
+C04459,26,4,208.03,4,3,3,10,Potential Loyalists
+C04460,138,2,51.91,3,2,1,6,Regular Customers
+C04461,49,4,185.11,4,3,3,10,Potential Loyalists
+C04462,58,3,103.47,4,2,2,8,Potential Loyalists
+C04464,75,4,117.78,3,3,2,8,Regular Customers
+C04466,30,6,318.4,4,3,4,11,Potential Loyalists
+C04467,19,5,291.62,5,3,4,12,Potential Loyalists
+C04469,73,6,194.9,3,3,3,9,Regular Customers
+C04472,18,5,107.7,5,3,2,10,Potential Loyalists
+C04473,133,1,17.45,3,1,1,5,Regular Customers
+C04474,8,9,355.0,5,4,4,13,Champions
+C04476,126,2,65.24,3,2,2,7,Regular Customers
+C04477,21,4,154.78,5,3,3,11,Potential Loyalists
+C04478,35,3,126.22,4,2,3,9,Potential Loyalists
+C04479,22,2,64.1,5,2,2,9,Potential Loyalists
+C04480,13,6,235.59,5,3,3,11,Potential Loyalists
+C04481,33,3,95.75,4,2,2,8,Potential Loyalists
+C04483,139,1,31.83,3,1,1,5,Regular Customers
+C04485,13,17,632.15,5,5,5,15,Champions
+C04486,110,1,58.7,3,1,2,6,Regular Customers
+C04489,27,3,70.4,4,2,2,8,Potential Loyalists
+C04490,95,2,59.6,3,2,2,7,Regular Customers
+C04492,27,2,53.17,4,2,1,7,Potential Loyalists
+C04494,17,2,67.5,5,2,2,9,Potential Loyalists
+C04495,113,1,38.9,3,1,1,5,Regular Customers
+C04498,136,1,18.52,3,1,1,5,Regular Customers
+C04499,86,6,223.45,3,3,3,9,Regular Customers
+C04500,45,2,133.03,4,2,3,9,Potential Loyalists
+C04501,84,1,50.39,3,1,1,5,Regular Customers
+C04502,84,2,26.45,3,2,1,6,Regular Customers
+C04503,12,8,209.22,5,4,3,12,Loyal Customers
+C04505,132,1,54.07,3,1,1,5,Regular Customers
+C04506,6,2,34.3,5,2,1,8,Potential Loyalists
+C04507,3,2,78.57,5,2,2,9,Potential Loyalists
+C04508,38,3,64.75,4,2,2,8,Potential Loyalists
+C04509,104,1,38.2,3,1,1,5,Regular Customers
+C04511,62,4,124.63,4,3,3,10,Potential Loyalists
+C04512,30,5,139.82,4,3,3,10,Potential Loyalists
+C04513,121,1,32.7,3,1,1,5,Regular Customers
+C04514,6,6,290.89,5,3,4,12,Potential Loyalists
+C04515,25,7,269.38,4,4,4,12,Champions
+C04516,21,5,178.71,5,3,3,11,Potential Loyalists
+C04519,41,3,147.4,4,2,3,9,Potential Loyalists
+C04520,6,10,380.67,5,4,4,13,Champions
+C04521,7,6,194.2,5,3,3,11,Potential Loyalists
+C04522,12,3,88.85,5,2,2,9,Potential Loyalists
+C04523,27,1,33.5,4,1,1,6,Regular Customers
+C04524,48,2,168.53,4,2,3,9,Potential Loyalists
+C04525,11,7,200.01,5,4,3,12,Loyal Customers
+C04526,128,1,127.12,3,1,3,7,Regular Customers
+C04527,82,2,79.24,3,2,2,7,Regular Customers
+C04530,21,3,154.3,5,2,3,10,Potential Loyalists
+C04531,105,4,158.4,3,3,3,9,Regular Customers
+C04533,125,3,69.5,3,2,2,7,Regular Customers
+C04534,47,3,65.73,4,2,2,8,Potential Loyalists
+C04535,26,2,113.8,4,2,2,8,Potential Loyalists
+C04536,49,1,48.0,4,1,1,6,Regular Customers
+C04538,5,2,117.9,5,2,2,9,Potential Loyalists
+C04540,4,3,131.0,5,2,3,10,Potential Loyalists
+C04542,124,1,34.6,3,1,1,5,Regular Customers
+C04544,9,6,229.65,5,3,3,11,Potential Loyalists
+C04548,42,1,18.1,4,1,1,6,Regular Customers
+C04549,26,3,113.2,4,2,2,8,Potential Loyalists
+C04550,120,1,32.1,3,1,1,5,Regular Customers
+C04551,9,6,166.9,5,3,3,11,Potential Loyalists
+C04552,71,2,69.7,3,2,2,7,Regular Customers
+C04553,24,4,214.99,4,3,3,10,Potential Loyalists
+C04554,7,8,261.1,5,4,4,13,Champions
+C04556,15,1,15.4,5,1,1,7,Regular Customers
+C04557,112,1,24.4,3,1,1,5,Regular Customers
+C04558,6,15,415.49,5,5,4,14,Champions
+C04559,83,2,115.11,3,2,2,7,Regular Customers
+C04560,116,1,22.9,3,1,1,5,Regular Customers
+C04564,59,1,9.9,4,1,1,6,Regular Customers
+C04565,6,14,581.02,5,5,5,15,Champions
+C04566,62,1,25.49,4,1,1,6,Regular Customers
+C04567,1,5,174.3,5,3,3,11,Potential Loyalists
+C04569,32,2,64.8,4,2,2,8,Potential Loyalists
+C04570,62,2,60.75,4,2,2,8,Potential Loyalists
+C04573,15,11,265.41,5,4,4,13,Champions
+C04574,100,1,28.6,3,1,1,5,Regular Customers
+C04575,61,2,37.61,4,2,1,7,Potential Loyalists
+C04576,31,1,39.3,4,1,1,6,Regular Customers
+C04580,62,1,22.9,4,1,1,6,Regular Customers
+C04582,17,4,249.1,5,3,4,12,Potential Loyalists
+C04583,32,2,107.2,4,2,2,8,Potential Loyalists
+C04584,5,1,22.2,5,1,1,7,Regular Customers
+C04585,7,1,10.9,5,1,1,7,Regular Customers
+C04586,95,1,39.2,3,1,1,5,Regular Customers
+C04587,55,3,110.61,4,2,2,8,Potential Loyalists
+C04590,48,2,34.3,4,2,1,7,Potential Loyalists
+C04591,1,3,85.8,5,2,2,9,Potential Loyalists
+C04592,17,1,21.4,5,1,1,7,Regular Customers
+C04593,108,1,80.3,3,1,2,6,Regular Customers
+C04594,108,1,65.0,3,1,2,6,Regular Customers
+C04595,54,1,39.0,4,1,1,6,Regular Customers
+C04597,85,2,63.0,3,2,2,7,Regular Customers
+C04600,4,8,394.83,5,4,4,13,Champions
+C04601,46,4,151.31,4,3,3,10,Potential Loyalists
+C04602,12,5,110.7,5,3,2,10,Potential Loyalists
+C04603,39,1,34.7,4,1,1,6,Regular Customers
+C04604,11,14,437.55,5,5,4,14,Champions
+C04605,84,1,32.2,3,1,1,5,Regular Customers
+C04606,50,2,74.73,4,2,2,8,Potential Loyalists
+C04607,9,6,168.3,5,3,3,11,Potential Loyalists
+C04608,79,3,117.01,3,2,2,7,Regular Customers
+C04609,33,2,73.4,4,2,2,8,Potential Loyalists
+C04610,61,2,137.13,4,2,3,9,Potential Loyalists
+C04611,104,1,85.1,3,1,2,6,Regular Customers
+C04612,27,4,146.8,4,3,3,10,Potential Loyalists
+C04613,93,1,34.4,3,1,1,5,Regular Customers
+C04614,87,2,32.3,3,2,1,6,Regular Customers
+C04615,33,3,165.7,4,2,3,9,Potential Loyalists
+C04616,2,3,122.9,5,2,2,9,Potential Loyalists
+C04617,54,5,173.85,4,3,3,10,Potential Loyalists
+C04618,41,1,19.1,4,1,1,6,Regular Customers
+C04620,69,1,24.2,4,1,1,6,Regular Customers
+C04621,7,3,49.6,5,2,1,8,Potential Loyalists
+C04624,35,2,67.7,4,2,2,8,Potential Loyalists
+C04626,46,2,40.0,4,2,1,7,Potential Loyalists
+C04627,6,10,267.47,5,4,4,13,Champions
+C04628,16,11,357.76,5,4,4,13,Champions
+C04630,13,3,75.41,5,2,2,9,Potential Loyalists
+C04631,52,2,83.24,4,2,2,8,Potential Loyalists
+C04632,14,2,56.1,5,2,2,9,Potential Loyalists
+C04633,34,2,50.5,4,2,1,7,Potential Loyalists
+C04635,91,1,20.11,3,1,1,5,Regular Customers
+C04636,84,1,33.2,3,1,1,5,Regular Customers
+C04637,33,1,15.7,4,1,1,6,Regular Customers
+C04638,17,2,92.59,5,2,2,9,Potential Loyalists
+C04639,4,7,195.59,5,4,3,12,Loyal Customers
+C04642,97,2,45.1,3,2,1,6,Regular Customers
+C04644,26,2,103.52,4,2,2,8,Potential Loyalists
+C04645,96,1,108.0,3,1,2,6,Regular Customers
+C04648,91,2,64.6,3,2,2,7,Regular Customers
+C04653,31,1,42.63,4,1,1,6,Regular Customers
+C04654,27,1,99.66,4,1,2,7,Regular Customers
+C04655,78,1,19.9,3,1,1,5,Regular Customers
+C04656,36,2,30.8,4,2,1,7,Potential Loyalists
+C04658,5,4,142.4,5,3,3,11,Potential Loyalists
+C04659,34,1,12.5,4,1,1,6,Regular Customers
+C04661,81,1,9.5,3,1,1,5,Regular Customers
+C04662,15,1,27.5,5,1,1,7,Regular Customers
+C04663,34,3,84.91,4,2,2,8,Potential Loyalists
+C04664,91,1,17.69,3,1,1,5,Regular Customers
+C04665,11,6,223.16,5,3,3,11,Potential Loyalists
+C04666,2,1,17.1,5,1,1,7,Regular Customers
+C04667,24,2,40.8,4,2,1,7,Potential Loyalists
+C04668,8,9,329.4,5,4,4,13,Champions
+C04669,21,2,73.43,5,2,2,9,Potential Loyalists
+C04670,89,1,33.42,3,1,1,5,Regular Customers
+C04671,23,3,72.82,5,2,2,9,Potential Loyalists
+C04674,88,1,12.5,3,1,1,5,Regular Customers
+C04676,34,1,32.7,4,1,1,6,Regular Customers
+C04677,19,1,43.7,5,1,1,7,Regular Customers
+C04679,14,3,124.85,5,2,3,10,Potential Loyalists
+C04680,89,1,9.9,3,1,1,5,Regular Customers
+C04684,65,2,74.62,4,2,2,8,Potential Loyalists
+C04686,56,2,63.0,4,2,2,8,Potential Loyalists
+C04689,45,3,129.69,4,2,3,9,Potential Loyalists
+C04690,22,1,31.4,5,1,1,7,Regular Customers
+C04691,13,1,16.5,5,1,1,7,Regular Customers
+C04695,6,2,69.6,5,2,2,9,Potential Loyalists
+C04696,83,1,29.2,3,1,1,5,Regular Customers
+C04697,5,2,80.43,5,2,2,9,Potential Loyalists
+C04698,4,6,182.95,5,3,3,11,Potential Loyalists
+C04699,84,1,38.6,3,1,1,5,Regular Customers
+C04700,12,1,75.7,5,1,2,8,Regular Customers
+C04704,1,2,68.2,5,2,2,9,Potential Loyalists
+C04706,81,1,42.3,3,1,1,5,Regular Customers
+C04709,1,2,35.1,5,2,1,8,Potential Loyalists
+C04711,12,1,92.9,5,1,2,8,Regular Customers
+C04712,57,1,27.1,4,1,1,6,Regular Customers
+C04713,40,2,106.82,4,2,2,8,Potential Loyalists
+C04715,77,1,45.19,3,1,1,5,Regular Customers
+C04716,29,2,68.3,4,2,2,8,Potential Loyalists
+C04717,38,1,9.9,4,1,1,6,Regular Customers
+C04719,39,1,12.9,4,1,1,6,Regular Customers
+C04722,7,6,155.82,5,3,3,11,Potential Loyalists
+C04723,48,1,32.4,4,1,1,6,Regular Customers
+C04724,20,1,76.7,5,1,2,8,Regular Customers
+C04725,39,3,121.3,4,2,2,8,Potential Loyalists
+C04728,10,5,111.21,5,3,2,10,Potential Loyalists
+C04735,13,4,132.11,5,3,3,11,Potential Loyalists
+C04737,11,5,177.49,5,3,3,11,Potential Loyalists
+C04740,36,3,95.64,4,2,2,8,Potential Loyalists
+C04741,41,1,15.3,4,1,1,6,Regular Customers
+C04742,69,1,14.7,4,1,1,6,Regular Customers
+C04743,66,2,76.03,4,2,2,8,Potential Loyalists
+C04747,63,5,101.13,4,3,2,9,Potential Loyalists
+C04751,22,2,73.87,5,2,2,9,Potential Loyalists
+C04752,54,1,13.5,4,1,1,6,Regular Customers
+C04756,64,1,16.1,4,1,1,6,Regular Customers
+C04757,53,1,45.3,4,1,1,6,Regular Customers
+C04758,12,7,198.32,5,4,3,12,Loyal Customers
+C04761,3,1,36.6,5,1,1,7,Regular Customers
+C04762,14,3,77.3,5,2,2,9,Potential Loyalists
+C04763,12,7,200.61,5,4,3,12,Loyal Customers
+C04764,53,1,34.3,4,1,1,6,Regular Customers
+C04768,22,1,22.5,5,1,1,7,Regular Customers
+C04770,62,1,68.75,4,1,2,7,Regular Customers
+C04771,5,4,167.8,5,3,3,11,Potential Loyalists
+C04773,2,1,9.9,5,1,1,7,Regular Customers
+C04774,28,3,76.67,4,2,2,8,Potential Loyalists
+C04775,21,2,67.2,5,2,2,9,Potential Loyalists
+C04779,10,4,111.4,5,3,2,10,Potential Loyalists
+C04780,29,1,23.4,4,1,1,6,Regular Customers
+C04781,20,3,98.9,5,2,2,9,Potential Loyalists
+C04783,14,1,24.9,5,1,1,7,Regular Customers
+C04784,11,1,30.7,5,1,1,7,Regular Customers
+C04785,42,1,47.8,4,1,1,6,Regular Customers
+C04788,1,1,12.9,5,1,1,7,Regular Customers
+C04789,14,3,102.9,5,2,2,9,Potential Loyalists
+C04790,2,1,30.9,5,1,1,7,Regular Customers
+C04792,30,2,78.8,4,2,2,8,Potential Loyalists
+C04794,33,3,66.8,4,2,2,8,Potential Loyalists
+C04795,19,3,42.0,5,2,1,8,Potential Loyalists
+C04797,6,4,118.1,5,3,2,10,Potential Loyalists
+C04798,17,3,73.6,5,2,2,9,Potential Loyalists
+C04800,29,1,13.5,4,1,1,6,Regular Customers
+C04804,4,1,36.8,5,1,1,7,Regular Customers
+C04805,40,3,64.3,4,2,2,8,Potential Loyalists
+C04806,48,1,24.3,4,1,1,6,Regular Customers
+C04807,55,1,47.3,4,1,1,6,Regular Customers
+C04810,36,1,14.9,4,1,1,6,Regular Customers
+C04812,27,3,133.1,4,2,3,9,Potential Loyalists
+C04813,44,2,58.9,4,2,2,8,Potential Loyalists
+C04815,34,1,13.9,4,1,1,6,Regular Customers
+C04817,5,2,86.8,5,2,2,9,Potential Loyalists
+C04819,49,2,149.1,4,2,3,9,Potential Loyalists
+C04821,50,2,56.8,4,2,2,8,Potential Loyalists
+C04823,1,1,40.5,5,1,1,7,Regular Customers
+C04824,25,3,98.3,4,2,2,8,Potential Loyalists
+C04826,31,1,29.0,4,1,1,6,Regular Customers
+C04827,6,1,17.9,5,1,1,7,Regular Customers
+C04828,31,2,32.5,4,2,1,7,Potential Loyalists
+C04829,20,1,88.1,5,1,2,8,Regular Customers
+C04833,8,3,121.5,5,2,2,9,Potential Loyalists
+C04835,46,1,38.0,4,1,1,6,Regular Customers
+C04836,47,1,84.1,4,1,2,7,Regular Customers
+C04841,13,3,80.57,5,2,2,9,Potential Loyalists
+C04843,12,3,69.6,5,2,2,9,Potential Loyalists
+C04845,39,1,18.1,4,1,1,6,Regular Customers
+C04846,43,1,65.2,4,1,2,7,Regular Customers
+C04848,33,2,57.8,4,2,2,8,Potential Loyalists
+C04850,22,1,39.4,5,1,1,7,Regular Customers
+C04852,13,1,28.7,5,1,1,7,Regular Customers
+C04853,6,3,165.57,5,2,3,10,Potential Loyalists
+C04854,42,1,14.9,4,1,1,6,Regular Customers
+C04855,2,2,82.0,5,2,2,9,Potential Loyalists
+C04856,41,1,16.8,4,1,1,6,Regular Customers
+C04860,15,2,41.3,5,2,1,8,Potential Loyalists
+C04861,36,1,57.4,4,1,2,7,Regular Customers
+C04862,12,2,95.0,5,2,2,9,Potential Loyalists
+C04867,20,2,44.8,5,2,1,8,Potential Loyalists
+C04870,6,1,15.8,5,1,1,7,Regular Customers
+C04876,18,1,17.7,5,1,1,7,Regular Customers
+C04877,18,1,12.9,5,1,1,7,Regular Customers
+C04879,17,2,49.2,5,2,1,8,Potential Loyalists
+C04885,14,1,15.9,5,1,1,7,Regular Customers
+C04888,10,1,12.9,5,1,1,7,Regular Customers
+C04889,17,2,45.3,5,2,1,8,Potential Loyalists
+C04892,24,1,53.1,4,1,1,6,Regular Customers
+C04893,9,1,85.6,5,1,2,8,Regular Customers
+C04894,27,2,40.7,4,2,1,7,Potential Loyalists
+C04895,27,2,108.69,4,2,2,8,Potential Loyalists
+C04898,1,2,58.3,5,2,2,9,Potential Loyalists
+C04899,23,1,12.5,5,1,1,7,Regular Customers
+C04904,15,2,100.6,5,2,2,9,Potential Loyalists
+C04906,5,1,30.2,5,1,1,7,Regular Customers
+C04908,12,1,35.6,5,1,1,7,Regular Customers
+C04913,20,3,91.1,5,2,2,9,Potential Loyalists
+C04915,18,2,97.1,5,2,2,9,Potential Loyalists
+C04920,18,1,32.1,5,1,1,7,Regular Customers
+C04927,1,1,24.9,5,1,1,7,Regular Customers
+C04933,6,1,16.3,5,1,1,7,Regular Customers
+C04934,4,3,55.4,5,2,2,9,Potential Loyalists
+C04944,6,2,35.8,5,2,1,8,Potential Loyalists
+C04947,6,5,135.4,5,3,3,11,Potential Loyalists
+C04949,11,3,56.0,5,2,2,9,Potential Loyalists
+C04951,11,1,25.6,5,1,1,7,Regular Customers
+C04952,10,1,42.9,5,1,1,7,Regular Customers
+C04953,11,1,23.3,5,1,1,7,Regular Customers
+C04957,10,1,13.5,5,1,1,7,Regular Customers
+C04959,2,2,63.0,5,2,2,9,Potential Loyalists
+C04960,6,1,37.3,5,1,1,7,Regular Customers
+C04967,6,4,122.2,5,3,2,10,Potential Loyalists
+C04969,6,2,122.3,5,2,2,9,Potential Loyalists
+C04974,3,3,79.0,5,2,2,9,Potential Loyalists
+C04988,1,1,19.6,5,1,1,7,Regular Customers

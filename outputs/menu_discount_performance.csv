@@ -1,0 +1,3 @@
+discount_group,line_count,quantity_sold,revenue,gross_profit,average_discount_pct,gross_margin_pct
+Discounted,25984,31934,163073.65,117909.64,10.628925492610838,72.30453233860898
+No discount,194128,218842,1928763.9000000001,1400030.79,0.0,72.5869449340067

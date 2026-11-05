@@ -1,0 +1,19 @@
+RFM_Segment,sentiment,Aspect_Mentions,Unique_Reviews,Unique_Customers
+At Risk,Negative,301,248,193
+At Risk,Neutral,246,215,177
+At Risk,Positive,1662,753,412
+Champions,Negative,934,780,469
+Champions,Neutral,886,772,499
+Champions,Positive,4785,2211,774
+Loyal Customers,Negative,238,197,156
+Loyal Customers,Neutral,191,174,134
+Loyal Customers,Positive,1211,552,279
+Needs Attention,Negative,71,54,53
+Needs Attention,Neutral,62,54,54
+Needs Attention,Positive,352,171,164
+Potential Loyalists,Negative,96,84,77
+Potential Loyalists,Neutral,84,76,75
+Potential Loyalists,Positive,524,241,200
+Regular Customers,Negative,71,58,55
+Regular Customers,Neutral,74,64,62
+Regular Customers,Positive,369,172,150
