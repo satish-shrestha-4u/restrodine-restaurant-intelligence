@@ -1,65 +1,133 @@
-name: RestoDine CI
+
+name: RestroDine CI
 
 on:
   push:
     branches: [main]
     paths:
       - "data/**"
-      - "*.py"
+      - "data_clean/**"
+      - "outputs/**"
+      - "models/**"
+      - "metadata/**"
+      - "tests/**"
+      - "app.py"
+      - "load_database.py"
       - "requirements.txt"
       - ".github/workflows/**"
+
   pull_request:
     paths:
       - "data/**"
-      - "*.py"
+      - "data_clean/**"
+      - "outputs/**"
+      - "models/**"
+      - "metadata/**"
+      - "tests/**"
+      - "app.py"
+      - "load_database.py"
       - "requirements.txt"
       - ".github/workflows/**"
 
 jobs:
   check-project:
     runs-on: ubuntu-latest
+
     steps:
+      # ========================================================
+      # 1. CHECK OUT REPOSITORY
+      # ========================================================
+
       - name: Check out repository
         uses: actions/checkout@v4
+
+      # ========================================================
+      # 2. SET UP PYTHON
+      # ========================================================
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
+      # ========================================================
+      # 3. INSTALL DEPENDENCIES
+      # ========================================================
+
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
+          pip install pytest
+
+      # ========================================================
+      # 4. CHECK PYTHON SYNTAX
+      # ========================================================
 
       - name: Check Python syntax
-        run: python -m py_compile load_database.py
-
-      - name: Check schema file exists
-        run: test -f data/schema.sql
-
-      - name: Check production forecasting model
         run: |
-          test -f models/restrodine_prophet_calendar_weather.json
-          test -f models/restrodine_prophet_calendar_weather_metadata.json
+          python -m py_compile app.py
+          python -m py_compile load_database.py
+          python -m py_compile tests/test_project_validation.py
 
-      - name: Check CSV files
+      # ========================================================
+      # 5. CHECK SQL SCHEMA
+      # ========================================================
+
+      - name: Check schema file
+        run: test -s data/schema.sql
+
+      # ========================================================
+      # 6. CHECK MODEL ARTIFACTS
+      # ========================================================
+
+      - name: Check forecasting model
+        run: |
+          test -s models/restrodine_prophet_calendar_weather.json
+          test -s metadata/restrodine_prophet_calendar_weather_metadata.json
+
+      # ========================================================
+      # 7. CHECK SOURCE CSV FILES
+      # ========================================================
+
+      - name: Check source CSV files
         run: |
           python - <<'PY'
           import csv
           from pathlib import Path
 
           files = sorted(Path("data").glob("*.csv"))
+
           if not files:
               raise SystemExit("No CSV files found in data/")
 
           for path in files:
-              with path.open(newline="", encoding="utf-8-sig") as file:
+              with path.open(
+                  newline="",
+                  encoding="utf-8-sig"
+              ) as file:
                   reader = csv.reader(file)
                   header = next(reader, None)
-                  if not header or not any(cell.strip() for cell in header):
-                      raise SystemExit(f"{path}: missing header")
+
+                  if not header or not any(
+                      cell.strip() for cell in header
+                  ):
+                      raise SystemExit(
+                          f"{path}: missing header"
+                      )
+
                   if next(reader, None) is None:
-                      raise SystemExit(f"{path}: no data rows")
+                      raise SystemExit(
+                          f"{path}: no data rows"
+                      )
+
               print(f"OK: {path}")
           PY
+
+      # ========================================================
+      # 8. RUN ANALYTICAL VALIDATION TESTS
+      # ========================================================
+
+      - name: Run project validation tests
+        run: |
+          python -m pytest tests/test_project_validation.py -v -s
