@@ -309,8 +309,11 @@ The application uses the analytical CSV outputs, saved model artifacts and metad
 
 No database connection is required to use the precomputed-output application workflow unless a particular feature explicitly requires it.
 
-Run analytical validation tests
+Run analytical validation tests:
+
+```bash
 python -m pytest tests/test_project_validation.py -v -s
+```
 
 ## 9. Optional MySQL Database Setup
 
