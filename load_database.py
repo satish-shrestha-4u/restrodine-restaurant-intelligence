@@ -43,7 +43,7 @@ def scalar(cur, sql):
 
 
 def run_checks(cur):
-    """The 10 README integrity checks. Portable SQL, no parameters. Returns list of (name, ok, detail)."""
+    """The 14 README integrity checks. Portable SQL, no parameters. Returns list of (name, ok, detail)."""
     res = []
     def add(name, bad, detail=""):
         res.append((name, bad == 0, detail or f"{bad} violations"))

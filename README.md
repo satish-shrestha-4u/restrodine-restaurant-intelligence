@@ -1,556 +1,444 @@
-# RestroDine datasets design rules
+# RestroDine — Restaurant Intelligence & Weather-Aware Revenue Forecasting
 
-> **The dataset is synthetic.** Every customer, order, review, shift and weather value in `data/` was generated for this project. Nothing here is real restaurant data, and results must not be presented as real business findings.
+An end-to-end Data Science and Business Intelligence project that transforms synthetic restaurant point-of-sale, workforce, customer review and weather data into actionable management insights.
 
-**Coverage:** 2024-01-01 → 2025-12-31 (731 days), 56,088 orders, 220,112 order lines, ~€1.02 M (2024) and ~€1.07 M (2025) gross sales, 5,000 customers, 30 employees, 4,306 reviews.
+RestroDine combines revenue intelligence, demand forecasting, workforce planning, customer sentiment analysis and menu engineering in an interactive Streamlit application.
 
-- `is_weekend` = standard Saturday/Sunday calendar definition.
-- `restaurant_peak_day` = Friday/Saturday restaurant-specific peak demand.
-- Customer registration dates can precede 2025 because the restaurant already has an existing customer base.
-- For every customer who ordered, `registration_date <= first_order_date`.
-- Employees include names, roles, employment type, hourly cost and employment status.
-- Weather is synthetic historical data; the project can later integrate real API observations/forecasts.
-- Demand includes weekday effects, Friday/Saturday peaks, meal periods, holidays, promotions and weather effects.
+> **Important — Synthetic Dataset:** All customers, transactions, products, employees, shifts, reviews and weather observations in this project are synthetic. They were generated for educational and portfolio purposes. The results demonstrate analytical methods and application functionality; they are not findings from a real restaurant.
 
-## 1. Create the project structure
+---
+
+## 1. Business Problem
+
+Restaurant managers need to make decisions across several interconnected areas:
+
+- How much revenue might the restaurant generate over the next two weeks?
+- How many employees may be required to meet expected demand?
+- Are scheduled employees sufficient for forecast demand?
+- What do customer reviews reveal about food, service and other restaurant aspects?
+- Which products generate the most revenue and gross profit?
+- Which menu items may require pricing, promotion or menu-placement decisions?
+
+These questions are often investigated separately. RestroDine brings them together in one analytical application.
+
+The project demonstrates how data engineering, statistical analysis, forecasting and business intelligence can support restaurant management decisions.
+
+## 2. Project Dataset
+
+The project uses a synthetic restaurant dataset covering two complete calendar years.
+
+| Dataset characteristic | Coverage |
+|---|---:|
+| Historical period | 1 January 2024 – 31 December 2025 |
+| Calendar days | 731 |
+| Orders | 56,088 |
+| Order items | 220,112 |
+| Customers | 5,000 |
+| Products | 30 |
+| Employees | 30 |
+| Shifts | 8,696 |
+| Customer reviews | 4,306 |
+
+The dataset includes:
+
+- Point-of-sale transactions and order items
+- Customers and customer registration information
+- Product catalogue, categories and product costs
+- Promotions and discounts
+- Employee records and availability
+- Employee shifts and labour costs
+- Calendar and holiday information
+- Historical weather observations
+- Customer reviews and aspect-level sentiment labels
+- Daily revenue data
+
+The synthetic weather observations are calibrated to western German climate patterns. They should not be interpreted as actual historical weather measurements.
+
+## 3. Application Modules
+
+RestroDine currently provides five analytical modules.
+
+### 3.1 Executive Overview
+
+A management-level overview of restaurant performance, bringing important operational and financial indicators together.
+
+### 3.2 Revenue Intelligence
+
+Analyses historical revenue and order performance and presents the saved 14-day revenue forecast.
+
+Key capabilities:
+- Revenue trends and performance indicators
+- Forecast revenue for the next 14 days
+- Forecast uncertainty intervals where available
+- Calendar and weather-aware forecasting outputs
+
+The forecasting model is based on Prophet. The saved model and its metadata are stored in the repository.
+
+### 3.3 Workforce Intelligence
+
+Connects expected demand with workforce requirements.
+
+Key capabilities:
+- Forecast expected orders
+- Estimate required staffing
+- Compare required and scheduled employees
+- Identify staffing shortfalls
+- Review labour hours and labour costs
+- Monitor labour cost as a percentage of forecast revenue
+
+The staffing and labour calculations are intended as operational planning tools, not a substitute for a validated workforce scheduling policy.
+
+### 3.4 Customer Intelligence
+
+Turns customer feedback into structured information for management.
+
+Key capabilities:
+- Customer review and rating analysis
+- Aspect-level sentiment summaries
+- Positive, neutral and negative feedback distributions
+- Customer segmentation using RFM analysis
+- Identification of customer feedback and improvement areas
+
+The supplied `review_aspect_labels` dataset is ground truth for evaluating aspect-level NLP results. It must not be presented as independent real-world sentiment evidence.
+
+### 3.5 Menu Performance
+
+Evaluates menu products and their financial and operational contribution.
+
+Key capabilities:
+- Product sales volume
+- Product revenue
+- Product cost and gross profit
+- Gross margin
+- Revenue and profit contribution
+- Menu engineering classifications
+
+Menu engineering uses four categories:
+
+- **Star:** High popularity and high profitability
+- **Plowhorse:** High popularity and lower profitability
+- **Puzzle:** Lower popularity and high profitability
+- **Dog:** Lower popularity and lower profitability
+
+These classifications are based on project-specific thresholds. They are analytical guidelines rather than universal restaurant industry standards.
+
+## 4. Technical Architecture
+
+The project follows a structured analytical workflow:
+
+```text
+Synthetic Restaurant Data
+          |
+          v
+    Original CSV Files
+          |
+          v
+    Data Cleaning
+          |
+          v
+    Cleaned Datasets
+          |
+          v
+ Feature Engineering
+          |
+          v
+  Analytical Workflows
+          |
+    +-----+------------------+
+    |          |             |
+    v          v             v
+ Revenue   Workforce      Customer
+Forecast   Intelligence  Intelligence
+    |          |             |
+    +----------+-------------+
+               |
+               v
+        Menu Intelligence
+               |
+               v
+      Precomputed Outputs
+               |
+               v
+       Streamlit Application
+               |
+               v
+       Management Insights
+```
+
+The project also includes a MySQL database schema and a database-loading script for the relational data workflow.
+
+The Streamlit application reads precomputed analytical outputs. It does not retrain the Prophet model every time a user changes pages or interacts with the dashboard.
+
+## 5. Technology Stack
+
+| Area | Technologies |
+|---|---|
+| Programming | Python |
+| Data manipulation | Pandas, NumPy |
+| Database | MySQL, SQL |
+| Forecasting | Prophet |
+| Statistical analysis | Statistical methods and time-series evaluation |
+| Machine learning | Scikit-learn |
+| Visualization | Matplotlib, Seaborn, Plotly |
+| Application | Streamlit |
+| Testing | Pytest |
+| Version control | Git, GitHub |
+| Development | Jupyter Notebook, VS Code |
+
+The project uses Python for data processing and analysis, SQL for relational data management, and Streamlit for presenting the results through an interactive interface.
+
+## 6. Repository Structure
 
 ```text
 RestroDine/
+│
+├── app.py
+│
 ├── data/
 │   ├── *.csv
 │   └── schema.sql
-├── load_database.py
+│
+├── data_clean/
+│   └── *_clean.csv
+│
 ├── notebooks/
-├── src/
-│   └── weather_api.py
-├── app/
-├── models/
+│   ├── 01a_data_cleaning.ipynb
+│   ├── 01b_revenue_eda_and_feature_engineering.ipynb
+│   ├── 02_revenue_intelligence.ipynb
+│   ├── 03_workforce_intelligence.ipynb
+│   ├── 04_customer_intelligence.ipynb
+│   └── 05_menu_intelligence.ipynb
+│
 ├── outputs/
+│   └── *.csv
+│
+├── models/
+│   └── restrodine_prophet_calendar_weather.json
+│
+├── metadata/
+│   ├── customer_intelligence_summary.json
+│   └── restrodine_prophet_calendar_weather_metadata.json
+│
 ├── tests/
+│   └── test_project_validation.py
+│
+├── load_database.py
 ├── requirements.txt
+├── PROJECT_STEPS.md
+├── EER_Diagram.png
 └── README.md
 ```
 
-Use the supplied `data/` directory and CSV files. `load_database.py` creates and fills the MySQL database. The existing `restrodine.db` is an older SQLite snapshot and is not used by the MySQL workflow.
-
-Recommended source modules later:
-
-```text
-src/
-├── database.py
-├── data_validation.py
-├── feature_engineering.py
-├── forecasting.py
-├── workforce.py
-├── sentiment.py
-├── simulation.py
-└── weather_api.py 
-```
-
----
-
-# PHASE 1 - REVENUE INTELLIGENCE
-
-## 2. Create and inspect the MySQL database
-
-Start your local MySQL Server. Create and activate a Python 3.11 environment with `conda create -n restrodine-mysql python=3.11 -y` and `conda activate restrodine-mysql`, install requirements with `python -m pip install -r requirements.txt`, then run `python load_database.py`. The loader prompts for the MySQL password, creates the dedicated `restrodine` database, imports the CSVs, and runs integrity checks. Each run drops and recreates the project tables, so use this only with the dedicated `restrodine` database.
-
-Before touching MySQL you can verify the CSVs against the schema offline: `python -m pytest tests -q`.
-
-Refresh the Schemas panel in MySQL Workbench and confirm these tables:
-
-- customers
-- products
-- employees
-- employee_availability
-- shifts
-- orders
-- order_items
-- payments
-- promotions
-- calendar
-- weather
-- reviews
-- review_aspect_labels
-- daily_revenue
-- daily_model_table
-
-Do not start modelling before the database passes validation.
-
----
-
-## 3. Run data-integrity checks
-
-Check:
-
-1. Primary IDs are unique.
-2. Every `order_items.order_id` exists in `orders`.
-3. Every `order_items.product_id` exists in `products`.
-4. Every payment belongs to an order.
-5. Sum of order-item `line_total` equals `orders.order_total`.
-6. Payment amount equals order total.
-7. Customer registration date is on/before first order date.
-8. Calendar contains all 731 historical dates (2024-01-01 → 2025-12-31).
-9. Weather contains all 731 historical dates.
-10. Employee labour cost equals hours × hourly cost.
-
-`load_database.py` runs these ten checks plus two extras (no shifts outside employment periods; `daily_revenue` equals the sum of orders per day). The supplied dataset passes all of them.
-
----
-
-## 4. Build the daily revenue table yourself once
-
-For the actual analysis, demonstrate the SQL aggregation instead of relying only on the precomputed `daily_revenue.csv`.
-
-Conceptually:
-
-```sql
-SELECT
-    DATE(order_datetime) AS date,
-    SUM(order_total) AS revenue,
-    COUNT(DISTINCT order_id) AS orders,
-    AVG(order_total) AS average_order_value
-FROM orders
-GROUP BY DATE(order_datetime)
-ORDER BY date;
-```
-
-Then join the result with `calendar` and `weather`.
-
----
-
-## 5. Perform EDA
-
-Create at least:
-
-- Revenue by month
-- Revenue by weekday
-- Orders by weekday
-- Friday/Saturday vs Monday demand
-- Revenue by meal period
-- Average order value over time
-- Revenue vs temperature
-- Revenue on rainy vs non-rainy days
-- Revenue on holidays vs normal days
-- Promotion-period revenue
-- Top-selling products
-- Revenue and gross-margin proxy by product
-
-Important project observation to investigate:
-
-> Friday and Saturday are restaurant-specific peak days even though only Saturday/Sunday are standard calendar weekends.
-
-Do not redefine `is_weekend`. Use `restaurant_peak_day` for this business-specific feature.
-
----
-
-## 6. Define the Phase-1 target
-
-Primary target:
-
-```text
-Daily Revenue (€)
-```
-
-Use daily revenue rather than individual orders for the first forecasting experiment.
-
-Later, workforce planning can forecast **orders/customer demand** separately.
-
----
-
-## 7. Create a chronological train/test split
-
-Example (the data covers two full years, so yearly seasonality can be learned):
-
-```text
-Training: 2024-01-01 → 2025-10-31
-Test:     2025-11-01 → 2025-12-31
-```
-
-Never randomly shuffle the time series.
-
----
-
-## 8. Build a baseline
-
-Start with simple forecasting methods:
-
-- Previous-day revenue
-- 7-day moving average / recent mean
-- Same weekday historical mean
-
-The baseline answers:
-
-> Does a sophisticated forecasting model actually improve on a simple historical approach?
-
----
-
-## 9. Build Prophet
-
-First model:
-
-```text
-Revenue → Prophet
-```
-
-Then investigate whether adding external regressors improves performance:
-
-```text
-Revenue
- + temperature
- + precipitation
- + rainy flag
- + holiday flag
- + restaurant peak-day flag
-```
-
-For future forecasts, external regressors must also be available for the future dates. This is where the weather API becomes important.
-
----
-
-## 10. Build SARIMAX
-
-Use SARIMAX when external variables are included:
-
-```text
-SARIMAX
-  target: daily revenue
-  exogenous variables:
-      temperature
-      precipitation
-      holiday
-      restaurant_peak_day
-```
-
-Compare it against the baseline and Prophet.
-
-Do not add random ML models simply to make the project look more advanced. The instructor-approved Phase 1 does not require ML.
-
----
-
-## 11. Evaluate the models
-
-Use:
-
-- MAE
-- RMSE
-- MAPE
-
-Create one comparison table:
-
-| Model | MAE | RMSE | MAPE |
-|---|---:|---:|---:|
-| Previous-day baseline | ... | ... | ... |
-| Historical mean | ... | ... | ... |
-| Prophet | ... | ... | ... |
-| SARIMAX | ... | ... | ... |
-
-Then answer:
-
-> Does weather/calendar information improve forecasting compared with historical sales alone?
-
-That is the central Phase-1 research question.
-
----
-
-# PHASE 2 - WORKFORCE INTELLIGENCE
-
-## 12. Convert demand into staffing requirements
-
-Do not jump directly from revenue to employees.
-
-Use:
-
-```text
-Revenue / Order Forecast
-        ↓
-Expected Customer Demand
-        ↓
-Required Staffing
-```
-
-Start with transparent rule-based staffing.
-
-Example structure:
-
-```text
-< 60 orders       → Low staffing
-60-100 orders     → Standard staffing
-101-150 orders    → High staffing
-> 150 orders      → Very high staffing
-```
-
-Tune the thresholds after inspecting the synthetic demand distribution.
-
----
-
-## 13. Add role requirements
-
-Example:
-
-```text
-Low:
-1 manager
-2 kitchen
-3 service
-
-Standard:
-1 manager
-2-3 kitchen
-4 service
-1 bartender
-
-High:
-1 manager
-3 kitchen
-5-6 service
-1-2 bartender
-
-Very High:
-1-2 manager
-4 kitchen
-7-8 service
-2 bartender
-```
-
-These are starting rules, not final truths. Explain that they are a prototype staffing policy.
-
----
-
-## 14. Build roster recommendation
-
-For a selected future date:
-
-```text
-Forecast demand
-      ↓
-Required roles
-      ↓
-Employee availability
-      ↓
-Employment status
-      ↓
-Employment type
-      ↓
-Existing schedule
-      ↓
-Recommended roster
-      ↓
-Labour cost
-```
-
-Do not schedule inactive employees.
-
-Respect availability and basic working-hour constraints.
-
----
-
-# PHASE 3 - CUSTOMER INTELLIGENCE
-
-## 15. Start with review sentiment
-
-Input:
-
-```text
-review_text
-```
-
-Output:
-
-```text
-Positive / Neutral / Negative
-```
-
-Then add confidence if the selected NLP approach provides it.
-
----
-
-## 16. Add aspect analysis
-
-Extract restaurant-specific aspects:
-
-- Food
-- Service
-- Staff
-- Price
-- Atmosphere
-- Waiting Time
-- Drinks
-- Cleanliness
-
-Example:
-
-```text
-"The food was excellent and the waiter was friendly,
-but we waited almost 40 minutes."
-```
-
-Expected analytical result:
-
-```text
-Food         → Positive
-Service      → Positive
-Waiting Time → Negative
-```
-
-This is much more valuable to management than only assigning one overall sentiment label. `review_aspect_labels.csv` provides labelled aspects you can use to evaluate your extraction.
-
----
-
-# 17. Build the Streamlit application
-
-Recommended pages:
-
-```text
-Dashboard
-Revenue Forecast
-Workforce / Roster
-Customer Intelligence
-Menu Intelligence
-Simulation
-```
-
-### Dashboard
-Show:
-
-- Today's / selected-period revenue
-- Orders
-- AOV
-- Forecast
-- Labour cost
-- Customer sentiment
-- Important alerts
-
-### Revenue Forecast
-Show:
-
-- Historical revenue
-- Forecast
-- Confidence interval
-- Weather
-- Model comparison
-
-### Workforce
-Show:
-
-- Forecast demand
-- Required staff
-- Recommended roster
-- Labour cost
-- Staffing gap
-
-### Customer Intelligence
-Show:
-
-- Overall sentiment
-- Rating distribution
-- Aspect sentiment
-- Most common negative issues
-
-### Menu
-Show:
-
-- Top-selling products
-- Revenue by category
-- Product margin proxy
-- Potential menu-engineering analysis
-
-### Simulation
-Eventually:
-
-```text
-Simulate Next Day
-        ↓
-Generate new transactions
-        ↓
-Insert into MySQL
-        ↓
-Update analytics
-        ↓
-Update forecast input
-        ↓
-Update staffing recommendation
-```
-
----
-
-# 18. Weather API integration
-
-Only after the historical pipeline works.
-
-Use the synthetic `weather` table for historical model development.
-
-Then connect a real weather API for future dates (`src/weather_api.py`, Open-Meteo, no API key):
-
-```text
-Weather API
-     ↓
-Future temperature / precipitation
-     ↓
-Forecast model regressors
-     ↓
-Revenue forecast
-     ↓
-Staffing recommendation
-```
+### Directory descriptions
+
+- `data/`: Original synthetic CSV files and SQL schema.
+- `data_clean/`: Cleaned and processed datasets.
+- `notebooks/`: Analytical development and experimentation.
+- `outputs/`: Precomputed analytical results used by the application.
+- `models/`: Saved forecasting model.
+- `metadata/`: Model and analytical metadata.
+- `tests/`: Automated analytical and data-integrity tests.
+- `app.py`: Streamlit application entry point.
+- `load_database.py`: MySQL database creation and CSV-loading utility.
+
+## 7. Installation and Setup
+
+### Prerequisites
+
+- Python 3.11 (recommended)
+- Git
+- Conda or Python virtual environment
+- A compatible operating system
+- MySQL Server and MySQL Workbench (optional, for the database workflow)
+
+### Clone the repository
 
 ```bash
-python src/weather_api.py --mode forecast --days 7 --out outputs/weather_forecast.csv
+git clone https://github.com/satish-shrestha-4u/restrodine-project.git
+
+cd restrodine-project
 ```
 
-Do not rebuild historical data every time the API is called.
+### Create and activate the environment
 
----
+Using Conda:
 
-# 19. Final integrated workflow
+```bash
+conda create -n restrodine-env python=3.11 -y
+
+conda activate restrodine-env
+```
+
+Alternatively, using Python's built-in virtual environment:
+
+```bash
+python -m venv .venv
+
+source .venv/bin/activate
+```
+
+On Windows:
+
+```bash
+.venv\Scripts\activate
+```
+
+### Install dependencies
+
+```bash
+python -m pip install --upgrade pip
+
+pip install -r requirements.txt
+```
+
+## 8. Run the Streamlit Application
+
+From the project root:
+
+```bash
+streamlit run app.py
+```
+
+Streamlit will start a local server and provide a browser address, normally:
 
 ```text
-Historical POS Data
-       ↓
-MySQL
-       ↓
-Cleaning + Validation
-       ↓
-Feature Engineering
-       ↓
-Revenue Forecast
-       ↓
-Expected Demand
-       ↓
-Staffing Requirement
-       ↓
-Roster Recommendation
-       ↓
-Restaurant Operations
-       ↓
-Customer Reviews
-       ↓
-Sentiment + Aspect Analysis
-       ↓
-Streamlit Dashboard
-       ↓
-Management Decisions
+http://localhost:8501
 ```
 
----
+The application uses the analytical CSV outputs, saved model artifacts and metadata included in the repository.
 
-# 20. What to finish before adding optional features
+No database connection is required to use the precomputed-output application workflow unless a particular feature explicitly requires it.
 
-Core project is complete only when these work:
+Run analytical validation tests
+python -m pytest tests/test_project_validation.py -v -s
 
-- [ ] Database validated
-- [ ] Revenue EDA completed
-- [ ] Baseline forecast completed
-- [ ] Prophet completed
-- [ ] SARIMAX completed
-- [ ] Models evaluated with MAE/RMSE/MAPE
-- [ ] Weather API integrated
-- [ ] Staffing rules implemented
-- [ ] Roster recommendation implemented
-- [ ] Labour cost calculated
-- [ ] Review sentiment implemented
-- [ ] Aspect analysis implemented
-- [ ] Streamlit pages connected to MySQL
-- [ ] End-to-end workflow tested
+## 9. Optional MySQL Database Setup
 
-Only then add one optional extension such as inventory/waste, menu engineering, promotion effectiveness, alerts, or receipt OCR.
+The repository includes:
+
+- `data/schema.sql`
+- `load_database.py`
+- Original CSV datasets
+
+The database loader creates and populates the project database and performs integrity checks.
+
+Start your local MySQL Server, then execute:
+
+```bash
+python load_database.py
+```
+
+The script prompts for the MySQL password.
+
+**Important:** The loader drops and recreates project tables in the specified database. Use it only with a dedicated RestroDine database. Never point it at a database containing unrelated or valuable information.
+
+The loader checks primary-key uniqueness, referential integrity, order and payment reconciliation, calendar and weather coverage, and labour-cost calculations.
+
+## 10. Data Validation and Automated Testing
+
+Data quality is essential when building analytical applications.
+
+RestroDine includes a consolidated Pytest validation suite:
+
+```bash
+python -m pytest tests/test_project_validation.py -v -s
+```
+
+The current validation suite contains 72 passing checks covering:
+
+| Validation area | Coverage |
+|---|---|
+| CSV readability | Required project datasets and outputs |
+| Revenue | Order totals and order-item reconciliation |
+| Product profitability | Product costs and gross-profit calculations |
+| Revenue forecasting | Dates, numeric values and forecast intervals |
+| Workforce forecasting | Demand, staffing, hours and labour costs |
+| Staffing coverage | Required, assigned and shortfall calculations |
+| Staffing gaps | Non-negative staffing shortfalls |
+| Customer sentiment | Percentage ranges and reconciliation |
+| RFM segmentation | Valid project segment labels |
+| Menu performance | Product-level revenue and quantity checks |
+| Menu engineering | Valid menu classifications |
+| Model artifacts | Saved Prophet model and metadata |
+| SQL schema | Source CSV column definitions |
+| Foreign keys | Source CSV referential integrity |
+
+Latest local result:
+
+```text
+Passed: 72
+Failed: 0
+Total:  72
+
+RESULT: ALL ANALYTICAL CHECKS PASSED
+```
+
+GitHub Actions is configured to run the project checks automatically when relevant changes are pushed or submitted through pull requests.
+
+Passing validation tests confirms that the encoded project rules hold for the current data and outputs. It does not independently establish forecasting accuracy or prove that every business assumption is correct.
+
+## 11. Important Analytical Definitions and Limitations
+
+### Synthetic data
+
+All business data is generated for this project. No real restaurant, customer or employee records are represented.
+
+### Gross profit
+
+Gross profit is calculated as:
+
+```text
+Revenue - Product Costs
+```
+
+It excludes labour, rent, utilities, delivery fees and other operating expenses. It must not be interpreted as net profit.
+
+### Weather data
+
+Historical weather is synthetic and calibrated to western German climate patterns. Replacing it with real weather observations requires rebuilding the relevant analytical datasets and model inputs consistently.
+
+### Customer aspect labels
+
+`review_aspect_labels` is ground truth for NLP evaluation, not an independent source of real-world customer sentiment.
+
+### Forecasts
+
+Forecast outputs are estimates based on the project's synthetic historical data and model assumptions. They should not be interpreted as guaranteed future revenue or staffing requirements.
+
+### Menu engineering
+
+Star, Plowhorse, Puzzle and Dog classifications depend on project-specific popularity and profitability thresholds. Different restaurants may require different thresholds.
+
+### Staffing recommendations
+
+Staffing requirements are based on the project's forecasting and staffing assumptions. They are decision-support estimates rather than legally or operationally validated scheduling instructions.
+
+## 12. Future Improvements
+
+Potential extensions include:
+
+- Backtesting and comparison of forecasting models
+- More extensive forecast error analysis
+- Real weather API integration for future forecasts
+- Improved demand-to-staffing optimization
+- Employee availability and working-hour constraint enhancements
+- More advanced NLP evaluation
+- Inventory and waste analytics
+- Promotion effectiveness analysis
+- Scenario simulation and management alerts
+
+These are potential extensions, not claims about features already implemented.
+
+## 13. Project Documentation
+
+- `PROJECT_STEPS.md`: Development sequence, implementation status and future work.
+- `EER_Diagram.png`: Entity Relationship Diagram of the database.
+- `data/schema.sql`: Relational database definitions.
+
+## 14. Author and Project Context
+
+RestroDine was developed as a Data Science and AI portfolio project during Data Science and AI training at WBS Coding School.
+
+The project combines a background in Economics and Finance with practical work in Python, SQL, data analytics, forecasting, machine learning and business intelligence.
+
+**The objective:** demonstrate how a data-driven system can connect restaurant financial performance, workforce planning, customer feedback and menu decisions in one application.
