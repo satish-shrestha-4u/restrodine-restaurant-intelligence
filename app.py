@@ -1,2548 +1,3312 @@
-# ============================================================
-# RESTRODINE — RESTAURANT INTELLIGENCE PLATFORM
-# ============================================================
-# All project data is synthetic and created for demonstration.
-# This application does not represent a real restaurant.
-#
-# Run from the project root:
-# streamlit run app.py
-# ============================================================
+"""
+RestroDine | Restaurant Intelligence & Weather-Aware Revenue Forecasting
+=========================================================================
+A multi-page Streamlit analytics application for a (synthetic) restaurant in
+North Rhine-Westphalia, Germany.
 
-from pathlib import Path
-import warnings
+Run:
+    streamlit run app.py
 
-import numpy as np
-import pandas as pd
-import plotly.express as px
-import plotly.graph_objects as go
-import streamlit as st
+Expected project layout (next to this file):
+    data_clean/   *_clean.csv   cleaned operational tables
+    outputs/      *.csv         analytical outputs (forecast, roster, RFM, menu, ...)
+    models/       *.json        optional model metadata (Prophet) and summaries
+                                (the app also finds these in outputs/ or the project root)
 
-warnings.filterwarnings("ignore")
+Optional: create .streamlit/config.toml to force the light theme this UI is designed for:
+    [theme]
+    base = "light"
+    primaryColor = "#2F55D4"
 
+All project data is synthetic. Forecasts and recommendations are analytical
+estimates, not operational guarantees.
+"""
+from __future__ import annotations
+from scipy import stats
 
-# ============================================================
-# 1. PAGE CONFIGURATION
-# ============================================================
+import json # Reads model metadata and JSON files
+from dataclasses import dataclass # Defines structured objects such as Context
+from pathlib import Path # Handles project directories and file paths
+from typing import Optional
+from xml.parsers.expat import model # Type hints for optional values
+import statsmodels.api as sm
+import numpy as np # Numerical operations and NaN handling
+import pandas as pd # Data manipulation and analysis
+import plotly.express as px # Quick interactive charts
+import plotly.graph_objects as go # Custom interactive charts
+import streamlit as st # Web app framework for building interactive dashboards
 
+from forecast_pipeline import (
+    generate_revenue_forecast,
+    generate_workforce_outputs,
+    save_forecast_outputs,
+)
+
+# =============================================================================
+# Configuration
+# =============================================================================
+
+ROOT = Path(__file__).resolve().parent # It automatically identifies the directory containing app.py
+DATA_DIR = ROOT / "data_clean"
+OUTPUT_DIR = ROOT / "outputs"
+META_DIRS = [ROOT / "metadata", ROOT / "models", OUTPUT_DIR, DATA_DIR, ROOT]
+
+APP_NAME = "RestroDine"
+CURRENCY = "€"
+WEEKDAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+MEAL_ORDER = ["Lunch", "Afternoon", "Dinner"]
+
+# =============================================================================
+# Forest & Sage Design System
+# =============================================================================
+
+C = {
+    # Main colours
+    "ink": "#252B29",
+    "muted": "#68766B",
+    "line": "#DCE8D9",
+    "paper": "#F4F6EF",
+    "white": "#FFFFFF",
+
+    # Brand colours
+    "navy": "#172116",
+    "blue": "#376B42",
+    "blue_soft": "#49A17E",
+    "teal": "#398D70",
+
+    # Supporting colours
+    "amber": "#D99A38",
+    "red": "#C65B55",
+    "grey": "#9AA79A",
+
+    # Explicit design tokens
+    "forest": "#376B42",
+    "emerald": "#398D70",
+    "emerald_light": "#49A17E",
+    "sage": "#DCE8D9",
+}
+
+# Sentiment colours
+SENTIMENT_COLORS = {
+    "Positive": C["teal"],
+    "Neutral": C["grey"],
+    "Negative": C["red"],
+}
+
+# Menu engineering colours
+CLASS_COLORS = {
+    "Star": C["teal"],
+    "Plowhorse": C["amber"],
+    "Puzzle": C["blue"],
+    "Dog": C["red"],
+}
+
+# General chart colour sequence
+CATEGORY_SEQ = [
+    C["forest"],
+    C["emerald"],
+    C["amber"],
+    C["red"],
+    C["blue_soft"],
+    C["grey"],
+    "#8E6BD1",
+]
+
+WORKFORCE_PALETTE = px.colors.qualitative.Pastel
 st.set_page_config(
-    page_title="RestroDine | Restaurant Intelligence",
+    page_title=f"{APP_NAME} | Restaurant Intelligence",
     page_icon="🍽️",
     layout="wide",
     initial_sidebar_state="expanded",
 )
 
-
-# ============================================================
-# 2. PROJECT PATHS
-# ============================================================
-
-BASE_DIR = Path(__file__).resolve().parent
-DATA_DIR = BASE_DIR / "data_clean"
-OUTPUT_DIR = BASE_DIR / "outputs"
-
-# Optional directories retained for future extensions
-MODEL_DIR = BASE_DIR / "models"
-METADATA_DIR = BASE_DIR / "metadata"
+# Streamlit renamed `use_container_width` to `width="stretch"` in 1.50.
+try:
+    _major, _minor = (int(p) for p in st.__version__.split(".")[:2])
+    STRETCH = {"width": "stretch"} if (_major, _minor) >= (1, 50) else {"use_container_width": True}
+except Exception:  # pragma: no cover
+    STRETCH = {"use_container_width": True}
 
 
-# ============================================================
-# 3. DESIGN SYSTEM
-# ============================================================
 
-NAVY = "#17253A"
-NAVY_LIGHT = "#243750"
-BACKGROUND = "#F5F7FB"
-WHITE = "#FFFFFF"
-TEXT = "#202B3C"
-MUTED = "#7B8798"
-GREEN = "#239B68"
-BLUE = "#3974D5"
-PURPLE = "#8957C8"
-ORANGE = "#D99038"
-RED = "#D9534F"
-BORDER = "#E8ECF2"
-
-CHART_COLORS = [
-    "#3974D5",
-    "#239B68",
-    "#8957C8",
-    "#D99038",
-    "#D9534F",
-    "#49A6A6",
-]
+# =============================================================================
+# Styling — Forest & Sage Design System
+# =============================================================================
 
 st.markdown(
-    f"""
+    """
     <style>
-    @import url(
-        'https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap'
-    );
 
-    html, body, [class*="css"] {{
-        font-family: 'DM Sans', sans-serif;
-    }}
+    /* -------------------------------------------------
+       1. GLOBAL COLOUR VARIABLES
+    ------------------------------------------------- */
 
-    .stApp {{
-        background-color: {BACKGROUND};
-    }}
+    :root {
+        --forest: #172116;
+        --primary: #376B42;
+        --emerald: #398D70;
+        --emerald-light: #49A17E;
+        --sage: #DCE8D9;
+        --paper: #F4F6EF;
+        --white: #FFFFFF;
+        --ink: #252B29;
+        --muted: #68766B;
+        --line: #DCE8D9;
+    }
 
-    [data-testid="stSidebar"] {{
-        background: {NAVY};
-    }}
+    /* -------------------------------------------------
+       2. APPLICATION BACKGROUND & TYPOGRAPHY
+    ------------------------------------------------- */
 
-    [data-testid="stSidebar"] * {{
-        color: #FFFFFF;
-    }}
+    html, body, [class*="css"] {
+        font-family: -apple-system, BlinkMacSystemFont,
+            "Segoe UI", Inter, Roboto, Arial, sans-serif;
+    }
 
-    [data-testid="stSidebar"] [data-testid="stRadio"] label {{
-        color: #D9E2EF !important;
-        font-weight: 500;
-    }}
+    .stApp {
+        background: var(--paper);
+        color: var(--ink);
+    }
 
-    [data-testid="stSidebar"] [data-testid="stMarkdownContainer"] p {{
-        color: #D9E2EF;
-    }}
+    .block-container {
+        padding-top: 1.5rem;
+        padding-bottom: 3rem;
+        max-width: 1500px;
+    }
 
-    .brand-title {{
-        font-size: 27px;
-        font-weight: 800;
-        letter-spacing: 1px;
-        color: #FFFFFF;
-        margin-bottom: 0;
-    }}
-
-    .brand-subtitle {{
-        color: #AFC0D5;
-        font-size: 10px;
-        letter-spacing: 2px;
-        margin-top: -3px;
-    }}
-
-    .page-title {{
-        font-size: 30px;
-        font-weight: 800;
-        color: {TEXT};
-        margin-bottom: 2px;
-    }}
-
-    .page-subtitle {{
-        font-size: 14px;
-        color: {MUTED};
-        margin-bottom: 22px;
-    }}
-
-    .section-title {{
-        font-size: 18px;
-        font-weight: 700;
-        color: {TEXT};
-        margin-top: 18px;
-        margin-bottom: 10px;
-    }}
-
-    .kpi-card {{
-        background: {WHITE};
-        border: 1px solid {BORDER};
-        border-radius: 14px;
-        padding: 17px 18px;
-        min-height: 115px;
-        box-shadow: 0 2px 8px rgba(25, 42, 70, 0.035);
-    }}
-
-    .kpi-label {{
-        font-size: 12px;
-        font-weight: 600;
-        color: {MUTED};
-        margin-bottom: 9px;
-    }}
-
-    .kpi-value {{
-        font-size: 25px;
-        font-weight: 800;
-        color: {TEXT};
-        line-height: 1.2;
-    }}
-
-    .kpi-note {{
-        font-size: 11px;
-        color: {MUTED};
-        margin-top: 7px;
-    }}
-
-    .panel {{
-        background: {WHITE};
-        border: 1px solid {BORDER};
-        border-radius: 14px;
-        padding: 16px 18px;
-        margin-bottom: 12px;
-    }}
-
-    .synthetic-banner {{
-        background: #FFF6E8;
-        border: 1px solid #F2D8A8;
-        color: #805B24;
-        padding: 10px 14px;
-        border-radius: 9px;
-        font-size: 12px;
-        margin-bottom: 18px;
-    }}
-
-    .insight-box {{
-        background: #EEF4FF;
-        border-left: 4px solid {BLUE};
-        border-radius: 7px;
-        padding: 13px 15px;
-        margin: 10px 0 16px 0;
-        color: #344E75;
-        font-size: 13px;
-    }}
-
-    .stButton button {{
-        border-radius: 8px;
-    }}
-
-    div[data-testid="stDataFrame"] {{
-        border: 1px solid {BORDER};
-        border-radius: 10px;
-        overflow: hidden;
-    }}
-
-    footer {{
+    footer {
         visibility: hidden;
-    }}
+    }
+
+    h1, h2, h3, h4 {
+        color: var(--ink);
+        letter-spacing: -0.02em;
+        font-weight: 700;
+    }
+
+    h3 {
+        font-size: 1.02rem !important;
+        margin-bottom: 0.15rem !important;
+    }
+
+    /* -------------------------------------------------
+       3. SIDEBAR
+    ------------------------------------------------- */
+
+    [data-testid="stSidebar"] {
+        background: var(--forest);
+    }
+
+    [data-testid="stSidebar"] * {
+        color: #E8EFE8;
+    }
+
+    [data-testid="stSidebar"] hr {
+        border-color: #344536;
+    }
+
+    [data-testid="stSidebar"] [data-testid="stRadio"] label {
+        padding: 9px 12px;
+        border-radius: 9px;
+        margin-bottom: 4px;
+        transition: background 0.2s ease;
+    }
+
+    [data-testid="stSidebar"] [data-testid="stRadio"] label:hover {
+        background: #293C2B;
+    }
+
+    [data-testid="stSidebar"] [data-testid="stRadio"] label:has(input:checked) {
+        background: var(--primary);
+        color: #FFFFFF;
+    }
+
+    [data-testid="stSidebar"] [data-baseweb="select"] * {
+        color: var(--ink);
+    }
+
+    [data-testid="stSidebar"] input {
+        color: var(--ink);
+    }
+
+    /* -------------------------------------------------
+       4. KPI METRIC CARDS
+    ------------------------------------------------- */
+
+    /* KPI cards — Forest & Sage */
+    [data-testid="stMetric"] {
+        background: #F0F4EB;
+        border: 1px solid #DCE8D9;
+        border-left: 4px solid #376B42;
+        border-radius: 14px;
+        padding: 18px 20px;
+        box-shadow: 0 2px 8px rgba(23, 33, 22, 0.04);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    [data-testid="stMetric"]:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 14px rgba(23, 33, 22, 0.09);
+    }
+
+    /* KPI label */
+    [data-testid="stMetricLabel"] {
+        color: #526B54 !important;
+    }
+
+    /* KPI value */
+    [data-testid="stMetricValue"] {
+        color: #233B2A !important;
+    }
+
+    /* KPI delta — positive and negative */
+    [data-testid="stMetricDelta"] {
+        font-weight: 600;
+    }
+
+    /* -------------------------------------------------
+       5. BUTTONS
+    ------------------------------------------------- */
+
+    .stButton > button,
+    .stDownloadButton > button {
+        background: var(--primary);
+        color: #FFFFFF;
+        border: 1px solid var(--primary);
+        border-radius: 9px;
+        padding: 0.45rem 1rem;
+        font-weight: 600;
+        transition: all 0.2s ease;
+    }
+
+    .stButton > button:hover,
+    .stDownloadButton > button:hover {
+        background: var(--forest);
+        border-color: var(--forest);
+        color: #FFFFFF;
+    }
+
+    .stButton > button:focus,
+    .stDownloadButton > button:focus {
+        border-color: var(--emerald);
+        color: #FFFFFF;
+        box-shadow: 0 0 0 2px rgba(57, 141, 112, 0.2);
+    }
+
+    /* -------------------------------------------------
+       6. CHARTS & DATA TABLES
+    ------------------------------------------------- */
+
+    div[data-testid="stPlotlyChart"],
+    div[data-testid="stDataFrame"] {
+        background: var(--white);
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        padding: 8px;
+        box-shadow: 0 2px 5px rgba(23, 33, 22, 0.04);
+    }
+
+    /* -------------------------------------------------
+    7. TABS
+    ------------------------------------------------- */
+
+    .stTabs [data-baseweb="tab-list"] {
+        gap: 12px !important;
+        border-bottom: none !important;
+        margin-bottom: 18px !important;
+    }
+
+    .stTabs button[data-baseweb="tab"] {
+        background: #E5EDE3 !important;
+        border: 1px solid #D2DFD0 !important;
+        border-radius: 10px !important;
+        padding: 12px 24px !important;
+        min-height: 48px !important;
+        transition: all 0.2s ease-in-out !important;
+    }
+
+    .stTabs button[data-baseweb="tab"] p {
+        font-size: 16px !important;
+        font-weight: 700 !important;
+        color: #355B40 !important;
+        margin: 0 !important;
+    }
+
+    .stTabs button[data-baseweb="tab"]:hover {
+        background: #D5E5D4 !important;
+        border-color: #376B42 !important;
+    }
+
+    .stTabs button[data-baseweb="tab"][aria-selected="true"] {
+        background: #376B42 !important;
+        border: 1px solid #376B42 !important;
+    }
+
+    .stTabs button[data-baseweb="tab"][aria-selected="true"] p {
+        color: #FFFFFF !important;
+        font-weight: 800 !important;
+    }
+
+    .stTabs [data-baseweb="tab-highlight"] {
+        display: none !important;
+    }
+    /* -------------------------------------------------
+       8. HERO HEADER
+    ------------------------------------------------- */
+
+    .hero {
+        background: linear-gradient(
+            115deg,
+            var(--forest) 0%,
+            var(--primary) 60%,
+            var(--emerald) 100%
+        );
+        padding: 24px 28px;
+        border-radius: 16px;
+        color: #FFFFFF;
+        margin: 2px 0 18px 0;
+        box-shadow: 0 8px 24px rgba(23, 33, 22, 0.12);
+    }
+
+    .hero .kicker {
+        color: #C8E1CC;
+        font-size: 0.68rem;
+        font-weight: 800;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+    }
+
+    .hero .title {
+        color: #FFFFFF;
+        font-size: 1.6rem;
+        font-weight: 800;
+        letter-spacing: -0.03em;
+        margin: 4px 0 2px 0;
+    }
+
+    .hero .copy {
+        color: #E3EFE5;
+        font-size: 0.88rem;
+    }
+
+    /* -------------------------------------------------
+       9. INFORMATION & WARNING BOXES
+    ------------------------------------------------- */
+
+    .note {
+        background: #FFF7E8;
+        border: 1px solid #F0DDAF;
+        color: #76551B;
+        padding: 11px 15px;
+        border-radius: 10px;
+        font-size: 0.82rem;
+        margin: 8px 0;
+    }
+
+    .info {
+        background: #EAF2EA;
+        border: 1px solid #D0E2D0;
+        color: #31583A;
+        padding: 11px 15px;
+        border-radius: 10px;
+        font-size: 0.82rem;
+        margin: 8px 0;
+    }
+
+    .section-note {
+        color: var(--muted);
+        font-size: 0.8rem;
+        margin: -2px 0 10px 0;
+    }
+
+    /* -------------------------------------------------
+       10. BUSINESS SIGNAL CARDS
+    ------------------------------------------------- */
+
+    .signal {
+        background: var(--white);
+        border: 1px solid var(--line);
+        border-left: 4px solid var(--primary);
+        border-radius: 10px;
+        padding: 11px 14px;
+        margin-bottom: 10px;
+    }
+
+    .signal .s-title {
+        color: var(--muted);
+        font-size: 0.68rem;
+        font-weight: 800;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+    }
+
+    .signal .s-text {
+        color: var(--ink);
+        font-size: 0.88rem;
+        margin-top: 3px;
+        line-height: 1.4;
+    }
+
+    .signal.warn {
+        border-left-color: #D99A38;
+    }
+
+    .signal.good {
+        border-left-color: var(--emerald);
+    }
+
+    .signal.risk {
+        border-left-color: #C65B55;
+    }
+
     </style>
     """,
     unsafe_allow_html=True,
 )
 
 
-# ============================================================
-# 4. DATA LOADING
-# ============================================================
+# =============================================================================
+# Data access
+# =============================================================================
 
-@st.cache_data(show_spinner=False)
-def load_csv(file_path):
-    """Load a CSV safely and cache the result."""
-    path = Path(file_path)
+MISSING: list[str] = [] # creates an empty list for tracking files that are missing or cannot be read
+@st.cache_data(show_spinner=False) # caches the results of the function to avoid reloading the same data multiple times
 
-    if not path.exists():
-        return pd.DataFrame()
-
-    try:
-        return pd.read_csv(path)
-    except Exception:
-        return pd.DataFrame()
-
-
-def get_data(filename):
-    return load_csv(str(DATA_DIR / filename))
-
-
-def get_output(filename):
-    return load_csv(str(OUTPUT_DIR / filename))
-
-
-def parse_date_column(df, column):
-    if not df.empty and column in df.columns:
-        df = df.copy()
-        df[column] = pd.to_datetime(df[column], errors="coerce")
+# Reads CSV files and converts specified date columns
+def _read_csv(path: str, mtime: float, date_cols: tuple[str, ...]) -> pd.DataFrame:
+    df = pd.read_csv(path)
+    for col in date_cols:
+        if col in df.columns:
+            df[col] = pd.to_datetime(df[col], errors="coerce")
     return df
 
+# Checks whether a file exists and loads it safely
+def load(folder: Path, name: str, dates: tuple[str, ...] = ()) -> pd.DataFrame:
+    path = folder / name
+    if not path.exists():
+        MISSING.append(f"{folder.name}/{name}")
+        return pd.DataFrame()
+    try:
+        return _read_csv(str(path), path.stat().st_mtime, dates)
+    except Exception as exc:  # corrupt or unreadable file should not crash the app
+        MISSING.append(f"{folder.name}/{name} (unreadable: {exc})")
+        return pd.DataFrame()
 
-def first_existing_column(df, candidates):
-    """Return the first available column from a list."""
-    for column in candidates:
-        if column in df.columns:
-            return column
-    return None
+# Loads cleaned data tables from the `data_clean` directory 
+def data(name: str, *dates: str) -> pd.DataFrame:
+    return load(DATA_DIR, name, tuple(dates))
 
+# Loads analytical outputs from the `outputs` directory
+def output(name: str, *dates: str) -> pd.DataFrame:
+    return load(OUTPUT_DIR, name, tuple(dates))
 
-def numeric_series(df, column, default=0):
-    if column not in df.columns:
-        return pd.Series(default, index=df.index, dtype=float)
+@st.cache_data(show_spinner=False) # caches the results of the function to avoid reloading the same data multiple times
 
-    return pd.to_numeric(df[column], errors="coerce").fillna(default)
+# Reads JSON files and returns a dictionary
+def _read_json(path: str, mtime: float) -> dict:
+    with open(path, "r", encoding="utf-8") as fh:
+        return json.load(fh)
 
-
-def money(value):
-    if pd.isna(value):
-        value = 0
-    return f"€{value:,.2f}"
-
-
-def integer(value):
-    if pd.isna(value):
-        value = 0
-    return f"{value:,.0f}"
-
-
-def percentage(value):
-    if pd.isna(value):
-        value = 0
-    return f"{value:.1f}%"
-
-
-def safe_divide(numerator, denominator):
-    if denominator == 0 or pd.isna(denominator):
-        return 0
-    return numerator / denominator
-
-
-# ============================================================
-# 5. LOAD PROJECT DATA
-# ============================================================
-
-orders = get_data("orders_clean.csv")
-order_items = get_data("order_items_clean.csv")
-products = get_data("products_clean.csv")
-customers = get_data("customers_clean.csv")
-employees = get_data("employees_clean.csv")
-availability = get_data("employee_availability_clean.csv")
-shifts = get_data("shifts_clean.csv")
-reviews = get_data("reviews_clean.csv")
-weather = get_data("weather_clean.csv")
-calendar = get_data("calendar_clean.csv")
-daily_revenue = get_data("daily_revenue_clean.csv")
-daily_model = get_data("daily_model_table_clean.csv")
-
-forecast = get_output("revenue_forecast_next_14_days.csv")
-
-workforce_forecast = get_output(
-    "workforce_forecast_next_14_days.csv"
-)
-recommended_roster = get_output("recommended_roster.csv")
-staffing_coverage = get_output("staffing_coverage.csv")
-staffing_gaps = get_output("staffing_gaps.csv")
-
-customer_kpis = get_output("customer_intelligence_kpis.csv")
-aspect_summary = get_output("customer_aspect_sentiment_summary.csv")
-improvement_areas = get_output("customer_improvement_areas.csv")
-monthly_sentiment = get_output("customer_monthly_sentiment.csv")
-feedback_by_type = get_output("customer_feedback_by_type.csv")
-ratings_by_type = get_output("customer_ratings_by_type.csv")
-rfm_segments = get_output("customer_rfm_segments.csv")
-segment_profile = get_output("customer_segment_profile.csv")
-feedback_by_segment = get_output("customer_feedback_by_segment.csv")
-high_value_negative = get_output("high_value_negative_feedback.csv")
-review_aspect_detail = get_output("customer_review_aspect_detail.csv")
-
-menu_kpis = get_output("menu_intelligence_kpis.csv")
-menu_products = get_output("menu_product_performance.csv")
-menu_categories = get_output("menu_category_performance.csv")
-menu_monthly = get_output("menu_monthly_performance.csv")
-menu_weekday = get_output("menu_weekday_performance.csv")
-menu_discounts = get_output("menu_discount_performance.csv")
-menu_engineering = get_output("menu_engineering.csv")
-menu_recommendations = get_output("menu_recommendations.csv")
-menu_class_summary = get_output("menu_class_summary.csv")
+# Loads metadata from JSON files in the `metadata`, `models`, `outputs`, or `data_clean` directories
+def meta(name: str) -> dict:
+    for folder in META_DIRS:
+        path = folder / name
+        if path.exists():
+            try:
+                return _read_json(str(path), path.stat().st_mtime)
+            except Exception:
+                return {}
+    return {}
 
 
-# ============================================================
-# 6. STANDARDISE DATES
-# ============================================================
+# =============================================================================
+# Formatting & helpers
+# =============================================================================
 
-orders = parse_date_column(orders, "order_datetime")
-orders = parse_date_column(orders, "order_date")
-reviews = parse_date_column(reviews, "review_date")
-daily_revenue = parse_date_column(daily_revenue, "date")
-daily_model = parse_date_column(daily_model, "date")
-forecast = parse_date_column(forecast, "date")
-workforce_forecast = parse_date_column(workforce_forecast, "date")
-recommended_roster = parse_date_column(recommended_roster, "date")
-staffing_coverage = parse_date_column(staffing_coverage, "date")
-staffing_gaps = parse_date_column(staffing_gaps, "date")
-monthly_sentiment = parse_date_column(monthly_sentiment, "review_month")
-menu_monthly = parse_date_column(menu_monthly, "month")
+# Formats euro values using compact notation for large amounts
+def money(v, d: int = 0) -> str:
+    if v is None or pd.isna(v):
+        return "—"
+
+    value = float(v)
+    sign = "-" if value < 0 else ""
+    value = abs(value)
+
+    if value >= 1_000_000_000:
+        return f"{sign}€{value / 1_000_000_000:.1f}B"
+
+    elif value >= 1_000_000:
+        return f"{sign}€{value / 1_000_000:.1f}M"
+
+    return f"{sign}€{value:,.{d}f}"
 
 
-# ============================================================
-# 7. COMMON UI FUNCTIONS
-# ============================================================
+# Formats a numeric value as an integer with thousands separators, without decimal places
+def integer(v) -> str:
+    return "—" if v is None or pd.isna(v) else f"{v:,.0f}"
 
-def page_header(title, subtitle):
+# Formats a numeric value as a percentage with optional decimal places
+def pct(v, d: int = 1) -> str:
+    return "—" if v is None or pd.isna(v) else f"{v:,.{d}f}%"
+
+# Safely divides two numbers, returning NaN if the denominator is None, NaN, or zero
+def safe_div(a, b):
+    return np.nan if b is None or pd.isna(b) or b == 0 else a / b
+
+# Calculates the percentage change between two values, returning None if the previous value is None, NaN, or zero
+def change_pct(cur, prev) -> Optional[float]:
+    if prev is None or pd.isna(prev) or prev == 0 or cur is None or pd.isna(cur):
+        return None
+    return (cur / prev - 1) * 100
+
+# Convert the numerical percentage change into a readable KPI indicator 
+def delta_label(chg: Optional[float]) -> Optional[str]:
+    return None if chg is None else f"{chg:+.1f}%"
+
+# Checks if a DataFrame is not empty and contains the specified columns
+def has_cols(df: pd.DataFrame, *cols: str) -> bool:
+    return (not df.empty) and set(cols).issubset(df.columns)
+
+# Creates a dictionary mapping KPI metrics to their numeric values, handling missing or non-numeric values gracefully
+def kpi_lookup(df: pd.DataFrame) -> dict:
+    if not has_cols(df, "Metric", "Value"):
+        return {}
+    return dict(zip(df["Metric"], pd.to_numeric(df["Value"], errors="coerce")))
+
+# Creates a visually appealing hero section with a kicker, title, and copy text
+def hero(kicker: str, title: str, copy: str) -> None:
     st.markdown(
-        f'<div class="page-title">{title}</div>',
-        unsafe_allow_html=True,
-    )
-    st.markdown(
-        f'<div class="page-subtitle">{subtitle}</div>',
+        f'<div class="hero"><div class="kicker">{kicker}</div><div class="title">{title}</div>'
+        f'<div class="copy">{copy}</div></div>',
         unsafe_allow_html=True,
     )
 
+# Creates a section header with an optional note, using Markdown for styling
+def section(title: str, note: Optional[str] = None) -> None:
+    st.markdown(f"### {title}")
+    if note:
+        st.markdown(f'<div class="section-note">{note}</div>', unsafe_allow_html=True)
 
-def show_kpi(label, value, note=""):
-    st.markdown(
-        f"""
-        <div class="kpi-card">
-            <div class="kpi-label">{label}</div>
-            <div class="kpi-value">{value}</div>
-            <div class="kpi-note">{note}</div>
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
+# Creates a callout box with a specified text and kind (e.g., info, note, warning), using Markdown for styling
+def callout(text: str, kind: str = "info") -> None:
+    st.markdown(f'<div class="{kind}">{text}</div>', unsafe_allow_html=True)
 
+# Creates a row of KPI metric cards, each displaying a label, value, and delta, with optional additional keyword arguments for customization
+def kpis(items: list[tuple]) -> None:
+    cols = st.columns(len(items))
+    for col, item in zip(cols, items):
+        label, value, delta = item[:3]
+        kwargs = item[3] if len(item) > 3 else {}
+        col.metric(label, value, delta, **kwargs)
 
-def section(title):
-    st.markdown(
-        f'<div class="section-title">{title}</div>',
-        unsafe_allow_html=True,
-    )
+# Displays a consistent informational message when a particular dataset or analysis is unavailable
+def unavailable(what: str) -> None:
+    st.info(f"{what} is not available for the current selection or its source file is missing.")
 
-
-def show_chart(fig, height=350):
+# Applies a consistent visual style to Plotly figures, including layout, colors, fonts, and hover behavior
+def style(fig: go.Figure, height: int = 340, unified: bool = True) -> go.Figure:
     fig.update_layout(
-        height=height,
-        margin=dict(l=10, r=10, t=35, b=10),
-        paper_bgcolor="rgba(0,0,0,0)",
-        plot_bgcolor="rgba(0,0,0,0)",
-        font=dict(
-            family="DM Sans",
-            color=TEXT,
-            size=11,
-        ),
-        legend=dict(
-            orientation="h",
-            yanchor="bottom",
-            y=1.02,
-            xanchor="right",
-            x=1,
-        ),
+        height=height, margin=dict(l=14, r=14, t=30, b=14),
+        paper_bgcolor="white", plot_bgcolor="white",
+        font=dict(family="Segoe UI, Inter, Arial, sans-serif", color="#34445B", size=12),
+        legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="left", x=0, font=dict(size=11)),
+        hoverlabel=dict(bgcolor=C["ink"], font_color="white"),
+        hovermode="x unified" if unified else "closest",
+        colorway=CATEGORY_SEQ,
     )
-
-    fig.update_xaxes(
-        showgrid=False,
-        linecolor=BORDER,
-    )
-
-    fig.update_yaxes(
-        gridcolor="#EDF0F5",
-        zeroline=False,
-    )
-
-    st.plotly_chart(fig, use_container_width=True)
-
-
-def show_empty(message):
-    st.info(message)
-
-
-def show_table(df, height=350):
-    if df.empty:
-        show_empty("No data available for this section.")
-    else:
-        st.dataframe(
-            df,
-            use_container_width=True,
-            hide_index=True,
-            height=height,
-        )
-
-
-def add_synthetic_disclosure():
-    st.markdown(
-        """
-        <div class="synthetic-banner">
-        <b>DEMONSTRATION DATA:</b>
-        All customers, orders, employees, reviews, sales,
-        forecasts and business results in RestroDine are synthetic.
-        They are not real restaurant records or actual business findings.
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
-
-
-def filter_by_date(df, date_column, date_range):
-    if df.empty or date_column not in df.columns:
-        return df
-
-    if not isinstance(date_range, (tuple, list)) or len(date_range) != 2:
-        return df
-
-    start_date, end_date = date_range
-
-    if start_date is None or end_date is None:
-        return df
-
-    dates = pd.to_datetime(df[date_column], errors="coerce")
-
-    return df.loc[
-        dates.dt.date.between(start_date, end_date)
-    ].copy()
-
-
-def make_line_chart(df, x, y, title, y_title=None):
-    fig = px.line(
-        df,
-        x=x,
-        y=y,
-        title=title,
-        markers=True,
-        color_discrete_sequence=[BLUE],
-    )
-
-    fig.update_traces(line=dict(width=3))
-
-    if y_title:
-        fig.update_yaxes(title=y_title)
-
+    fig.update_xaxes(showgrid=False, linecolor=C["line"], tickfont=dict(color=C["muted"]))
+    fig.update_yaxes(gridcolor="#EDF1F6", zeroline=False, tickfont=dict(color=C["muted"]))
     return fig
 
+# Displays a Plotly figure in Streamlit with a consistent style, height, and hover behavior, while disabling the mode bar and allowing for optional key assignment
+def chart(fig: go.Figure, height: int = 340, unified: bool = True, key: Optional[str] = None) -> None:
+    st.plotly_chart(style(fig, height, unified), config={"displayModeBar": False}, key=key, **STRETCH)
 
-# ============================================================
-# 8. MENU PERFORMANCE FALLBACK CALCULATIONS
-# ============================================================
-
-def build_menu_performance():
-    """
-    Calculate product performance from cleaned source tables
-    when the Notebook 05 exports are not available.
-    """
-
-    required_items = {
-        "product_id",
-        "order_id",
-        "quantity",
-        "line_total",
-    }
-
-    required_products = {
-        "product_id",
-        "product_name",
-        "category",
-        "selling_price",
-        "product_cost",
-    }
-
-    if (
-        order_items.empty
-        or products.empty
-        or not required_items.issubset(order_items.columns)
-        or not required_products.issubset(products.columns)
-    ):
-        return pd.DataFrame(), pd.DataFrame(), pd.DataFrame()
-
-    items = order_items.copy()
-    catalogue = products.copy()
-
-    items["quantity"] = numeric_series(items, "quantity")
-    items["line_total"] = numeric_series(items, "line_total")
-
-    catalogue["selling_price"] = numeric_series(
-        catalogue, "selling_price"
-    )
-    catalogue["product_cost"] = numeric_series(
-        catalogue, "product_cost"
-    )
-
-    merged = items.merge(
-        catalogue[
-            [
-                "product_id",
-                "product_name",
-                "category",
-                "selling_price",
-                "product_cost",
-            ]
-        ],
-        on="product_id",
-        how="left",
-    )
-
-    merged["total_cost"] = (
-        merged["quantity"] * merged["product_cost"]
-    )
-
-    merged["gross_profit"] = (
-        merged["line_total"] - merged["total_cost"]
-    )
-
-    product_summary = (
-        merged.groupby(
-            ["product_id", "product_name", "category"],
-            as_index=False,
-        )
-        .agg(
-            quantity_sold=("quantity", "sum"),
-            revenue=("line_total", "sum"),
-            product_cost=("total_cost", "sum"),
-            gross_profit=("gross_profit", "sum"),
-        )
-    )
-
-    product_summary["gross_margin_pct"] = (
-        product_summary["gross_profit"]
-        / product_summary["revenue"].replace(0, np.nan)
-        * 100
-    ).fillna(0)
-
-    product_summary["contribution_margin_per_unit"] = (
-        product_summary["gross_profit"]
-        / product_summary["quantity_sold"].replace(0, np.nan)
-    ).fillna(0)
-
-    category_summary = (
-        product_summary.groupby("category", as_index=False)
-        .agg(
-            quantity_sold=("quantity_sold", "sum"),
-            revenue=("revenue", "sum"),
-            gross_profit=("gross_profit", "sum"),
-        )
-    )
-
-    category_summary["gross_margin_pct"] = (
-        category_summary["gross_profit"]
-        / category_summary["revenue"].replace(0, np.nan)
-        * 100
-    ).fillna(0)
-
-    return product_summary, category_summary, merged
-
-
-if menu_products.empty:
-    calculated_products, calculated_categories, menu_detail = (
-        build_menu_performance()
-    )
-else:
-    calculated_products = menu_products.copy()
-    calculated_categories = menu_categories.copy()
-    menu_detail = pd.DataFrame()
-
-
-# ============================================================
-# 9. GLOBAL FILTERS
-# ============================================================
-
-date_column = first_existing_column(
-    orders,
-    ["order_date", "order_datetime"],
-)
-
-if date_column and not orders.empty:
-    date_values = pd.to_datetime(
-        orders[date_column], errors="coerce"
-    ).dropna()
-
-    if not date_values.empty:
-        min_date = date_values.min().date()
-        max_date = date_values.max().date()
-    else:
-        min_date = None
-        max_date = None
-else:
-    min_date = None
-    max_date = None
-
-
-# ============================================================
-# 10. SIDEBAR
-# ============================================================
-
-with st.sidebar:
-
-    st.markdown(
-        """
-        <div class="brand-title">🍽️ RESTRODINE</div>
-        <div class="brand-subtitle">
-            RESTAURANT INTELLIGENCE PLATFORM
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
-
-    st.markdown("---")
-
-    navigation = st.radio(
-        "NAVIGATION",
-        [
-            "Executive Overview",
-            "Revenue Intelligence",
-            "Workforce Intelligence",
-            "Customer Intelligence",
-            "Menu Performance",
-        ],
-        label_visibility="visible",
-    )
-
-    st.markdown("---")
-
-    st.markdown("**DATA PERIOD**")
-
-    if min_date and max_date:
-        selected_dates = st.date_input(
-            "Select historical date range",
-            value=(min_date, max_date),
-            min_value=min_date,
-            max_value=max_date,
-            key="global_date_range",
-        )
-    else:
-        selected_dates = None
-        st.caption("Historical date range unavailable.")
-
-    st.markdown("---")
-
-    st.caption("RESTRODINE · DATA SCIENCE & AI PROJECT")
-    st.caption("All data is synthetic.")
-
-
-# Apply global order date filter
-
-if selected_dates and date_column:
-    filtered_orders = filter_by_date(
-        orders, date_column, selected_dates
-    )
-else:
-    filtered_orders = orders.copy()
-
-
-# ============================================================
-# 11. EXECUTIVE OVERVIEW
-# ============================================================
-
-def executive_overview():
-
-    page_header(
-        "Executive Overview",
-        "A consolidated view of restaurant performance and operations.",
-    )
-
-    add_synthetic_disclosure()
-
-    if filtered_orders.empty:
-        show_empty("No order records are available for this date range.")
+# Displays a Pandas DataFrame in Streamlit with a consistent height, optional column configuration, and a message when the DataFrame is empty
+def table(df: pd.DataFrame, height: int = 360, column_config: Optional[dict] = None) -> None:
+    if df.empty:
+        st.info("No records match the current selection.")
         return
+    st.dataframe(df, height=height, hide_index=True, column_config=column_config, **STRETCH)
 
-    order_total_col = first_existing_column(
-        filtered_orders,
-        ["order_total", "total_amount", "revenue"],
-    )
-
-    order_date_col = first_existing_column(
-        filtered_orders,
-        ["order_date", "order_datetime"],
-    )
-
-    if order_total_col:
-        revenue_value = numeric_series(
-            filtered_orders, order_total_col
-        ).sum()
-    else:
-        revenue_value = 0
-
-    total_orders = len(filtered_orders)
-
-    average_order = safe_divide(
-        revenue_value, total_orders
-    )
-
-    average_daily_revenue = 0
-
-    if order_date_col:
-        temp = filtered_orders.copy()
-        temp["_date"] = pd.to_datetime(
-            temp[order_date_col], errors="coerce"
-        ).dt.date
-
-        daily = temp.groupby("_date")[order_total_col].sum()
-        if not daily.empty:
-            average_daily_revenue = daily.mean()
-
-    # KPI cards
-
-    c1, c2, c3, c4 = st.columns(4)
-
-    with c1:
-        show_kpi(
-            "TOTAL REVENUE",
-            money(revenue_value),
-            "Selected historical period",
-        )
-
-    with c2:
-        show_kpi(
-            "TOTAL ORDERS",
-            integer(total_orders),
-            "Orders in selected period",
-        )
-
-    with c3:
-        show_kpi(
-            "AVERAGE ORDER VALUE",
-            money(average_order),
-            "Revenue per order",
-        )
-
-    with c4:
-        show_kpi(
-            "AVG. DAILY REVENUE",
-            money(average_daily_revenue),
-            "Average revenue per trading day",
-        )
-
-    # Revenue trend
-
-    section("Revenue Performance")
-
-    if order_date_col and order_total_col:
-
-        temp = filtered_orders.copy()
-        temp["_date"] = pd.to_datetime(
-            temp[order_date_col], errors="coerce"
-        ).dt.date
-
-        trend = (
-            temp.groupby("_date", as_index=False)[order_total_col]
-            .sum()
-            .rename(
-                columns={
-                    "_date": "date",
-                    order_total_col: "revenue",
-                }
-            )
-        )
-
-        left, right = st.columns([1.65, 1])
-
-        with left:
-            fig = make_line_chart(
-                trend,
-                "date",
-                "revenue",
-                "Daily Revenue",
-                "Revenue (€)",
-            )
-            show_chart(fig, 360)
-
-        with right:
-            temp["_month"] = pd.to_datetime(
-                temp["_date"]
-            ).dt.to_period("M").astype(str)
-
-            monthly = (
-                temp.groupby("_month", as_index=False)[
-                    order_total_col
-                ]
-                .sum()
-                .rename(
-                    columns={
-                        "_month": "month",
-                        order_total_col: "revenue",
-                    }
-                )
-            )
-
-            fig = px.bar(
-                monthly,
-                x="month",
-                y="revenue",
-                title="Monthly Revenue",
-                color_discrete_sequence=[GREEN],
-            )
-            fig.update_layout(xaxis_title="", yaxis_title="Revenue (€)")
-            show_chart(fig, 360)
-
-    # Operational snapshot
-
-    section("Operational Snapshot")
-
-    col1, col2 = st.columns(2)
-
-    with col1:
-
-        if "order_type" in filtered_orders.columns:
-            order_mix = (
-                filtered_orders["order_type"]
-                .fillna("Unknown")
-                .value_counts()
-                .rename_axis("order_type")
-                .reset_index(name="orders")
-            )
-
-            fig = px.pie(
-                order_mix,
-                names="order_type",
-                values="orders",
-                hole=0.62,
-                title="Orders by Type",
-                color_discrete_sequence=CHART_COLORS,
-            )
-            show_chart(fig, 330)
-        else:
-            show_empty("Order type information is unavailable.")
-
-    with col2:
-
-        if "meal_period" in filtered_orders.columns:
-            meal_mix = (
-                filtered_orders["meal_period"]
-                .fillna("Unknown")
-                .value_counts()
-                .rename_axis("meal_period")
-                .reset_index(name="orders")
-            )
-
-            fig = px.bar(
-                meal_mix,
-                x="meal_period",
-                y="orders",
-                title="Orders by Meal Period",
-                color="meal_period",
-                color_discrete_sequence=CHART_COLORS,
-            )
-            fig.update_layout(showlegend=False)
-            show_chart(fig, 330)
-        else:
-            show_empty("Meal period information is unavailable.")
-
-    # Review and workforce snapshot
-
-    section("Customer and Workforce Snapshot")
-
-    col1, col2, col3 = st.columns(3)
-
-    with col1:
-        review_count = len(reviews)
-        average_rating = 0
-
-        if not reviews.empty and "rating" in reviews.columns:
-            average_rating = numeric_series(
-                reviews, "rating"
-            ).mean()
-
-        show_kpi(
-            "CUSTOMER REVIEWS",
-            integer(review_count),
-            f"Average rating: {average_rating:.2f}/5",
-        )
-
-    with col2:
-        labour_cost = 0
-
-        if not workforce_forecast.empty:
-            labour_cost = numeric_series(
-                workforce_forecast, "labour_cost"
-            ).sum()
-
-        show_kpi(
-            "FORECAST LABOUR COST",
-            money(labour_cost),
-            "Saved workforce forecast period",
-        )
-
-    with col3:
-        forecast_revenue = 0
-
-        if not forecast.empty and "forecast_revenue" in forecast.columns:
-            forecast_revenue = numeric_series(
-                forecast, "forecast_revenue"
-            ).sum()
-
-        show_kpi(
-            "NEXT 14-DAY FORECAST",
-            money(forecast_revenue),
-            "Precomputed revenue forecast",
-        )
-
-    # Top menu items
-
-    section("Top Performing Menu Items")
-
-    if not calculated_products.empty:
-
-        product_col = first_existing_column(
-            calculated_products,
-            ["product_name", "product"],
-        )
-        revenue_col = first_existing_column(
-            calculated_products,
-            ["revenue", "total_revenue", "line_total"],
-        )
-
-        if product_col and revenue_col:
-            top_items = calculated_products.nlargest(
-                8, revenue_col
-            )
-
-            fig = px.bar(
-                top_items.sort_values(revenue_col),
-                x=revenue_col,
-                y=product_col,
-                orientation="h",
-                title="Top 8 Products by Revenue",
-                color_discrete_sequence=[BLUE],
-            )
-            fig.update_layout(
-                xaxis_title="Revenue (€)",
-                yaxis_title="",
-            )
-            show_chart(fig, 350)
-        else:
-            show_empty("Product revenue columns are unavailable.")
-    else:
-        show_empty("Menu performance data is not available.")
-
-
-# ============================================================
-# 12. REVENUE INTELLIGENCE
-# ============================================================
-
-def revenue_intelligence():
-
-    page_header(
-        "Revenue Intelligence",
-        "Understand sales patterns, revenue drivers and expected demand.",
-    )
-
-    add_synthetic_disclosure()
-
-    if filtered_orders.empty:
-        show_empty("No historical orders are available.")
+# Provides a download button for a Pandas DataFrame in Streamlit, allowing users to download the DataFrame as a CSV file with a specified label, filename, and key. If the DataFrame is empty, the function does nothing.
+def download(df: pd.DataFrame, label: str, filename: str, key: str) -> None:
+    if df.empty:
         return
+    st.download_button(label, df.to_csv(index=False).encode("utf-8"), filename, "text/csv", key=key)
 
-    order_date_col = first_existing_column(
-        filtered_orders,
-        ["order_date", "order_datetime"],
+# Creates a reusable Streamlit column configuration for displaying monetary values in data tables.
+def money_col(label: str, d: int = 0):
+    return st.column_config.NumberColumn(label, format=f"{CURRENCY}%.{d}f")
+
+# Creates a reusable Streamlit column configuration for displaying percentage values in data tables.
+def pct_col(label: str, d: int = 1):
+    return st.column_config.NumberColumn(label, format=f"%.{d}f%%")
+
+# Creates a reusable Streamlit column configuration for displaying numeric values in data tables.
+def num_col(label: str, d: int = 0):
+    return st.column_config.NumberColumn(label, format=f"%.{d}f")
+
+
+# =============================================================================
+# Load core tables
+# =============================================================================
+
+orders = data("orders_clean.csv", "order_datetime", "order_date")
+if orders.empty or not has_cols(orders, "order_id", "order_date", "order_total"):
+    st.error(
+        "**Core data not found.** Place `orders_clean.csv` and the other cleaned tables in "
+        f"`{DATA_DIR.name}/` and the analytical outputs in `{OUTPUT_DIR.name}/`, next to `app.py`."
     )
-
-    revenue_col = first_existing_column(
-        filtered_orders,
-        ["order_total", "total_amount", "revenue"],
-    )
-
-    if not order_date_col or not revenue_col:
-        show_empty("Required order date or revenue columns are missing.")
-        return
-
-    temp = filtered_orders.copy()
-
-    temp["_date"] = pd.to_datetime(
-        temp[order_date_col], errors="coerce"
-    )
-
-    temp["_revenue"] = numeric_series(temp, revenue_col)
-
-    total_revenue = temp["_revenue"].sum()
-    total_orders = len(temp)
-    aov = safe_divide(total_revenue, total_orders)
-
-    daily = (
-        temp.groupby(temp["_date"].dt.date)
-        .agg(
-            revenue=("_revenue", "sum"),
-            orders=("_revenue", "count"),
-        )
-        .reset_index()
-        .rename(columns={"_date": "date"})
-    )
-
-    c1, c2, c3 = st.columns(3)
-
-    with c1:
-        show_kpi("REVENUE", money(total_revenue), "Selected period")
-
-    with c2:
-        show_kpi("ORDERS", integer(total_orders), "Selected period")
-
-    with c3:
-        show_kpi("AVERAGE ORDER VALUE", money(aov), "Revenue per order")
-
-    # Daily trend
-
-    section("Historical Revenue Trend")
-
-    fig = make_line_chart(
-        daily,
-        "date",
-        "revenue",
-        "Daily Revenue",
-        "Revenue (€)",
-    )
-    show_chart(fig, 380)
-
-    # Monthly and weekday analysis
-
-    col1, col2 = st.columns(2)
-
-    with col1:
-        temp["_month"] = temp["_date"].dt.to_period("M").astype(str)
-
-        monthly = (
-            temp.groupby("_month", as_index=False)["_revenue"]
-            .sum()
-            .rename(
-                columns={
-                    "_month": "month",
-                    "_revenue": "revenue",
-                }
-            )
-        )
-
-        fig = px.bar(
-            monthly,
-            x="month",
-            y="revenue",
-            title="Monthly Revenue",
-            color_discrete_sequence=[BLUE],
-        )
-        show_chart(fig, 340)
-
-    with col2:
-        temp["_weekday"] = temp["_date"].dt.day_name()
-
-        weekday_order = [
-            "Monday", "Tuesday", "Wednesday",
-            "Thursday", "Friday", "Saturday", "Sunday",
-        ]
-
-        weekday = (
-            temp.groupby("_weekday")["_revenue"]
-            .sum()
-            .reindex(weekday_order)
-            .reset_index()
-            .rename(
-                columns={
-                    "_weekday": "weekday",
-                    "_revenue": "revenue",
-                }
-            )
-        )
-
-        fig = px.bar(
-            weekday,
-            x="weekday",
-            y="revenue",
-            title="Revenue by Weekday",
-            color_discrete_sequence=[GREEN],
-        )
-        show_chart(fig, 340)
-
-    # Order type and meal period
-
-    col1, col2 = st.columns(2)
-
-    with col1:
-        if "order_type" in temp.columns:
-            order_type = (
-                temp.groupby("order_type")["_revenue"]
-                .sum()
-                .reset_index()
-            )
-
-            fig = px.pie(
-                order_type,
-                names="order_type",
-                values="_revenue",
-                hole=0.55,
-                title="Revenue by Order Type",
-                color_discrete_sequence=CHART_COLORS,
-            )
-            show_chart(fig, 330)
-        else:
-            show_empty("Order type data unavailable.")
-
-    with col2:
-        if "meal_period" in temp.columns:
-            meal = (
-                temp.groupby("meal_period")["_revenue"]
-                .sum()
-                .reset_index()
-            )
-
-            fig = px.bar(
-                meal,
-                x="meal_period",
-                y="_revenue",
-                title="Revenue by Meal Period",
-                color_discrete_sequence=[PURPLE],
-            )
-            show_chart(fig, 330)
-        else:
-            show_empty("Meal period data unavailable.")
-
-    # Weather analysis
-
-    section("Weather and Promotion Analysis")
-
-    if not daily_model.empty:
-
-        weather_columns = [
-            "date",
-            "temperature_avg_c",
-            "precipitation_mm",
-            "is_rainy",
-            "revenue",
-        ]
-
-        available = [
-            c for c in weather_columns
-            if c in daily_model.columns
-        ]
-
-        if "temperature_avg_c" in available and "revenue" in available:
-
-            weather_data = daily_model.copy()
-
-            fig = px.scatter(
-                weather_data,
-                x="temperature_avg_c",
-                y="revenue",
-                color=(
-                    "is_rainy"
-                    if "is_rainy" in weather_data.columns
-                    else None
-                ),
-                title="Temperature and Revenue",
-                trendline="ols",
-                color_discrete_sequence=CHART_COLORS,
-            )
-            fig.update_layout(
-                xaxis_title="Average Temperature (°C)",
-                yaxis_title="Revenue (€)",
-            )
-            show_chart(fig, 350)
-        else:
-            show_empty("Weather and revenue fields are unavailable.")
-
-    if "discount_pct" in order_items.columns:
-        discount_data = order_items.copy()
-        discount_data["discount_pct"] = numeric_series(
-            discount_data, "discount_pct"
-        )
-
-        discount_data["line_total"] = numeric_series(
-            discount_data, "line_total"
-        )
-
-        discount_data["discount_group"] = pd.cut(
-            discount_data["discount_pct"],
-            bins=[-0.01, 0, 5, 10, 20, 100],
-            labels=[
-                "No discount",
-                "0–5%",
-                "5–10%",
-                "10–20%",
-                "20%+",
-            ],
-        )
-
-        discount_summary = (
-            discount_data.groupby(
-                "discount_group",
-                observed=False,
-            )["line_total"]
-            .sum()
-            .reset_index()
-        )
-
-        fig = px.bar(
-            discount_summary,
-            x="discount_group",
-            y="line_total",
-            title="Sales Revenue by Discount Band",
-            color_discrete_sequence=[ORANGE],
-        )
-        show_chart(fig, 330)
-
-    # Forecast
-
-    section("Revenue Forecast")
-
-    if not forecast.empty and "forecast_revenue" in forecast.columns:
-
-        forecast_display = forecast.copy()
-
-        forecast_total = numeric_series(
-            forecast_display, "forecast_revenue"
-        ).sum()
-
-        lower_col = first_existing_column(
-            forecast_display,
-            ["lower_bound", "yhat_lower"],
-        )
-        upper_col = first_existing_column(
-            forecast_display,
-            ["upper_bound", "yhat_upper"],
-        )
-
-        c1, c2, c3 = st.columns(3)
-
-        with c1:
-            show_kpi(
-                "FORECAST REVENUE",
-                money(forecast_total),
-                "Saved forecast horizon",
-            )
-
-        with c2:
-            show_kpi(
-                "FORECAST DAYS",
-                integer(len(forecast_display)),
-                "Forecast records",
-            )
-
-        with c3:
-            average_forecast = safe_divide(
-                forecast_total, len(forecast_display)
-            )
-            show_kpi(
-                "AVERAGE DAILY FORECAST",
-                money(average_forecast),
-                "Expected daily revenue",
-            )
-
-        fig = go.Figure()
-
-        fig.add_trace(
-            go.Scatter(
-                x=forecast_display["date"],
-                y=forecast_display["forecast_revenue"],
-                mode="lines+markers",
-                name="Forecast Revenue",
-                line=dict(color=BLUE, width=3),
-            )
-        )
-
-        if lower_col and upper_col:
-            fig.add_trace(
-                go.Scatter(
-                    x=forecast_display["date"],
-                    y=forecast_display[upper_col],
-                    mode="lines",
-                    line=dict(width=0),
-                    showlegend=False,
-                    name="Upper bound",
-                )
-            )
-
-            fig.add_trace(
-                go.Scatter(
-                    x=forecast_display["date"],
-                    y=forecast_display[lower_col],
-                    mode="lines",
-                    fill="tonexty",
-                    fillcolor="rgba(57,116,213,0.13)",
-                    line=dict(width=0),
-                    name="Forecast interval",
-                )
-            )
-
-        fig.update_layout(title="Next 14 Days Revenue Forecast")
-        show_chart(fig, 380)
-
-        show_table(forecast_display, 300)
-
-        st.caption(
-            "Forecasts are precomputed model outputs for demonstration. "
-            "They are not actual future revenue."
-        )
-
-    else:
-        show_empty(
-            "Forecast CSV not found. Run Notebook 02 to generate it."
-        )
-
-
-# ============================================================
-# 13. WORKFORCE INTELLIGENCE
-# ============================================================
-
-def workforce_intelligence():
-
-    page_header(
-        "Workforce Intelligence",
-        "Plan staffing levels, monitor shift coverage and understand labour costs.",
-    )
-
-    add_synthetic_disclosure()
-
-    if workforce_forecast.empty:
-        show_empty(
-            "Workforce forecast not found. Run Notebook 03 first."
-        )
-        return
-
-    wf = workforce_forecast.copy()
-
-    required_columns = [
-        "expected_orders",
-        "required_staff",
-        "scheduled_employees",
-        "labour_hours",
-        "labour_cost",
-        "forecast_revenue",
-        "labour_cost_pct_revenue",
-    ]
-
-    for col in required_columns:
-        if col in wf.columns:
-            wf[col] = numeric_series(wf, col)
-
-    expected_orders = wf["expected_orders"].sum() if "expected_orders" in wf else 0
-    labour_cost = wf["labour_cost"].sum() if "labour_cost" in wf else 0
-    labour_hours = wf["labour_hours"].sum() if "labour_hours" in wf else 0
-    forecast_revenue = wf["forecast_revenue"].sum() if "forecast_revenue" in wf else 0
-
-    labour_pct = safe_divide(
-        labour_cost, forecast_revenue
-    ) * 100
-
-    c1, c2, c3, c4 = st.columns(4)
-
-    with c1:
-        show_kpi(
-            "EXPECTED ORDERS",
-            integer(expected_orders),
-            "Forecast period",
-        )
-
-    with c2:
-        show_kpi(
-            "LABOUR COST",
-            money(labour_cost),
-            "Recommended roster",
-        )
-
-    with c3:
-        show_kpi(
-            "LABOUR HOURS",
-            integer(labour_hours),
-            "Total scheduled hours",
-        )
-
-    with c4:
-        show_kpi(
-            "LABOUR COST / REVENUE",
-            percentage(labour_pct),
-            "Forecast labour cost ratio",
-        )
-
-    # Demand and staffing
-
-    section("Demand and Staffing Requirements")
-
-    if "date" in wf.columns:
-
-        fig = go.Figure()
-
-        if "required_staff" in wf.columns:
-            fig.add_trace(
-                go.Scatter(
-                    x=wf["date"],
-                    y=wf["required_staff"],
-                    name="Required Staff",
-                    mode="lines+markers",
-                    line=dict(color=BLUE, width=3),
-                )
-            )
-
-        if "scheduled_employees" in wf.columns:
-            fig.add_trace(
-                go.Scatter(
-                    x=wf["date"],
-                    y=wf["scheduled_employees"],
-                    name="Scheduled Employees",
-                    mode="lines+markers",
-                    line=dict(color=GREEN, width=3),
-                )
-            )
-
-        fig.update_layout(
-            title="Required vs Scheduled Employees",
-            yaxis_title="Employees",
-        )
-
-        show_chart(fig, 370)
-
-    # Labour cost and forecast revenue
-
-    if "date" in wf.columns and "labour_cost" in wf.columns:
-
-        fig = go.Figure()
-
-        fig.add_trace(
-            go.Bar(
-                x=wf["date"],
-                y=wf["labour_cost"],
-                name="Labour Cost",
-                marker_color=PURPLE,
-            )
-        )
-
-        if "forecast_revenue" in wf.columns:
-            fig.add_trace(
-                go.Scatter(
-                    x=wf["date"],
-                    y=wf["forecast_revenue"],
-                    name="Forecast Revenue",
-                    yaxis="y2",
-                    line=dict(color=GREEN, width=3),
-                )
-            )
-
-        fig.update_layout(
-            title="Labour Cost vs Forecast Revenue",
-            yaxis=dict(title="Labour Cost (€)"),
-            yaxis2=dict(
-                title="Forecast Revenue (€)",
-                overlaying="y",
-                side="right",
-                showgrid=False,
-            ),
-        )
-
-        show_chart(fig, 370)
-
-    # Labour cost ratio
-
-    if "date" in wf.columns and "labour_cost_pct_revenue" in wf.columns:
-
-        fig = px.line(
-            wf,
-            x="date",
-            y="labour_cost_pct_revenue",
-            title="Daily Labour Cost as % of Forecast Revenue",
-            markers=True,
-            color_discrete_sequence=[ORANGE],
-        )
-
-        fig.update_yaxes(title="Labour Cost (%)")
-        show_chart(fig, 330)
-
-    # Roster
-
-    section("Recommended Employee Roster")
-
-    if not recommended_roster.empty:
-
-        roster = recommended_roster.copy()
-
-        if "date" in roster.columns:
-            roster["date"] = pd.to_datetime(
-                roster["date"], errors="coerce"
-            )
-
-            if "date" in wf.columns and not wf.empty:
-                available_dates = sorted(
-                    wf["date"].dropna().dt.date.unique()
-                )
-
-                if available_dates:
-                    selected_day = st.selectbox(
-                        "Select roster date",
-                        available_dates,
-                    )
-
-                    roster = roster[
-                        roster["date"].dt.date == selected_day
-                    ]
-
-        show_table(roster, 350)
-
-    else:
-        show_empty("Recommended roster CSV is unavailable.")
-
-    # Coverage and staffing gaps
-
-    section("Staffing Coverage")
-
-    col1, col2 = st.columns(2)
-
-    with col1:
-        if not staffing_coverage.empty:
-
-            coverage = staffing_coverage.copy()
-
-            if "coverage_status" in coverage.columns:
-                status_counts = (
-                    coverage["coverage_status"]
-                    .value_counts()
-                    .reset_index()
-                )
-                status_counts.columns = [
-                    "status",
-                    "count",
-                ]
-
-                fig = px.pie(
-                    status_counts,
-                    names="status",
-                    values="count",
-                    hole=0.58,
-                    title="Coverage Status",
-                    color_discrete_sequence=[
-                        GREEN, ORANGE, RED, BLUE
-                    ],
-                )
-                show_chart(fig, 330)
-            else:
-                show_table(coverage, 330)
-
-        else:
-            show_empty("Staffing coverage data unavailable.")
-
-    with col2:
-        if not staffing_gaps.empty:
-
-            gaps = staffing_gaps.copy()
-
-            gap_col = first_existing_column(
-                gaps,
-                ["unfilled", "shortfall"],
-            )
-
-            role_col = first_existing_column(
-                gaps,
-                ["role"],
-            )
-
-            if gap_col and role_col:
-                gap_summary = (
-                    gaps.groupby(role_col)[gap_col]
-                    .sum()
-                    .reset_index()
-                )
-
-                fig = px.bar(
-                    gap_summary,
-                    x=role_col,
-                    y=gap_col,
-                    title="Unfilled Positions by Role",
-                    color_discrete_sequence=[RED],
-                )
-                show_chart(fig, 330)
-            else:
-                show_table(gaps, 330)
-
-        else:
-            show_empty("Staffing gap data unavailable.")
-
-    if not staffing_gaps.empty:
-        section("Staffing Gaps — Action Required")
-        show_table(staffing_gaps, 300)
-
-    st.caption(
-        "The roster and staffing outputs cover the saved forecast horizon. "
-        "They are planning recommendations, not confirmed employee shifts."
-    )
-
-
-# ============================================================
-# 14. CUSTOMER INTELLIGENCE
-# ============================================================
-
-def customer_intelligence():
-
-    page_header(
-        "Customer Intelligence",
-        "Understand customer feedback, satisfaction patterns and customer value.",
-    )
-
-    add_synthetic_disclosure()
-
-    # Customer KPIs
-
-    section("Customer Intelligence KPIs")
-
-    if not customer_kpis.empty:
-
-        if {"Metric", "Value"}.issubset(customer_kpis.columns):
-
-            metrics = customer_kpis.to_dict("records")
-
-            cols = st.columns(min(4, len(metrics)))
-
-            for i, item in enumerate(metrics[:4]):
-                with cols[i]:
-                    value = item["Value"]
-
-                    if isinstance(value, (float, np.floating)):
-                        display_value = f"{value:,.2f}"
-                    else:
-                        display_value = str(value)
-
-                    show_kpi(
-                        str(item["Metric"]).upper(),
-                        display_value,
-                        "Customer analysis",
-                    )
-
-            if len(metrics) > 4:
-                cols = st.columns(min(4, len(metrics) - 4))
-
-                for i, item in enumerate(metrics[4:8]):
-                    with cols[i]:
-                        show_kpi(
-                            str(item["Metric"]).upper(),
-                            str(item["Value"]),
-                            "Customer analysis",
-                        )
-
-        else:
-            show_table(customer_kpis, 250)
-
-    else:
-        review_count = len(reviews)
-
-        average_rating = 0
-        if not reviews.empty and "rating" in reviews.columns:
-            average_rating = numeric_series(
-                reviews, "rating"
-            ).mean()
-
-        c1, c2 = st.columns(2)
-
-        with c1:
-            show_kpi(
-                "TOTAL REVIEWS",
-                integer(review_count),
-                "Available review records",
-            )
-
-        with c2:
-            show_kpi(
-                "AVERAGE RATING",
-                f"{average_rating:.2f}/5",
-                "Average review rating",
-            )
-
-    # Aspect sentiment
-
-    section("Sentiment by Review Aspect")
-
-    if not aspect_summary.empty:
-
-        aspect_col = first_existing_column(
-            aspect_summary,
-            ["aspect", "review_aspect"],
-        )
-
-        if aspect_col:
-
-            sentiment_cols = [
-                c for c in aspect_summary.columns
-                if c.lower().startswith(
-                    ("positive", "neutral", "negative")
-                )
-            ]
-
-            if sentiment_cols:
-
-                plot_data = aspect_summary.melt(
-                    id_vars=[aspect_col],
-                    value_vars=sentiment_cols,
-                    var_name="sentiment",
-                    value_name="value",
-                )
-
-                fig = px.bar(
-                    plot_data,
-                    x=aspect_col,
-                    y="value",
-                    color="sentiment",
-                    barmode="group",
-                    title="Sentiment Distribution by Aspect",
-                    color_discrete_map={
-                        "Positive (%)": GREEN,
-                        "Neutral (%)": ORANGE,
-                        "Negative (%)": RED,
-                        "Positive": GREEN,
-                        "Neutral": ORANGE,
-                        "Negative": RED,
-                    },
-                )
-
-                show_chart(fig, 380)
-
-            else:
-                show_table(aspect_summary, 300)
-
-        else:
-            show_table(aspect_summary, 300)
-
-    else:
-        show_empty(
-            "Aspect sentiment export not found. Run Notebook 04."
-        )
-
-    # Improvement areas
-
-    section("Customer Improvement Priorities")
-
-    if not improvement_areas.empty:
-        show_table(improvement_areas, 280)
-    else:
-        show_empty("Customer improvement areas are unavailable.")
-
-    # Monthly sentiment
-
-    section("Customer Sentiment Over Time")
-
-    if not monthly_sentiment.empty:
-
-        month_col = first_existing_column(
-            monthly_sentiment,
-            ["review_month", "month"],
-        )
-
-        if month_col:
-
-            sentiment_cols = [
-                c for c in monthly_sentiment.columns
-                if c.lower().startswith(
-                    ("positive", "neutral", "negative")
-                )
-            ]
-
-            if sentiment_cols:
-
-                monthly_plot = monthly_sentiment.melt(
-                    id_vars=[month_col],
-                    value_vars=sentiment_cols,
-                    var_name="sentiment",
-                    value_name="value",
-                )
-
-                fig = px.line(
-                    monthly_plot,
-                    x=month_col,
-                    y="value",
-                    color="sentiment",
-                    markers=True,
-                    title="Monthly Sentiment Trend",
-                    color_discrete_map={
-                        "Positive (%)": GREEN,
-                        "Neutral (%)": ORANGE,
-                        "Negative (%)": RED,
-                        "Positive": GREEN,
-                        "Neutral": ORANGE,
-                        "Negative": RED,
-                    },
-                )
-
-                show_chart(fig, 360)
-
-            else:
-                show_table(monthly_sentiment, 300)
-
-        else:
-            show_table(monthly_sentiment, 300)
-
-    else:
-        show_empty("Monthly sentiment data unavailable.")
-
-    # Customer types
-
-    section("Customer Type Analysis")
-
-    col1, col2 = st.columns(2)
-
-    with col1:
-        if not ratings_by_type.empty:
-            show_table(ratings_by_type, 300)
-        else:
-            show_empty("Customer ratings by type unavailable.")
-
-    with col2:
-        if not feedback_by_type.empty:
-            show_table(feedback_by_type, 300)
-        else:
-            show_empty("Customer feedback by type unavailable.")
-
-    # RFM segmentation
-
-    section("Customer Value and RFM Segmentation")
-
-    col1, col2 = st.columns(2)
-
-    with col1:
-        if not rfm_segments.empty:
-
-            segment_col = first_existing_column(
-                rfm_segments,
-                ["RFM_Segment", "segment"],
-            )
-
-            if segment_col:
-                segment_counts = (
-                    rfm_segments[segment_col]
-                    .value_counts()
-                    .reset_index()
-                )
-                segment_counts.columns = [
-                    "segment",
-                    "customers",
-                ]
-
-                fig = px.pie(
-                    segment_counts,
-                    names="segment",
-                    values="customers",
-                    hole=0.55,
-                    title="Customer Segment Distribution",
-                    color_discrete_sequence=CHART_COLORS,
-                )
-
-                show_chart(fig, 340)
-            else:
-                show_table(rfm_segments, 300)
-
-        else:
-            show_empty("RFM segmentation data unavailable.")
-
-    with col2:
-        if not segment_profile.empty:
-            show_table(segment_profile, 340)
-        else:
-            show_empty("Customer segment profile unavailable.")
-
-    if not feedback_by_segment.empty:
-        section("Feedback by Customer Segment")
-        show_table(feedback_by_segment, 300)
-
-    # High-value negative feedback
-
-    section("High-Value Customers with Negative Feedback")
-
-    if not high_value_negative.empty:
-
-        st.markdown(
-            """
-            <div class="insight-box">
-            These records help prioritise customer-service follow-up.
-            They identify high-spending customers associated with
-            negative feedback; they are not a churn prediction.
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
-
-        show_table(high_value_negative, 350)
-
-    else:
-        show_empty("No high-value negative feedback records available.")
-
-    # Review explorer
-
-    section("Customer Feedback Explorer")
-
-    if not review_aspect_detail.empty:
-
-        detail = review_aspect_detail.copy()
-
-        if "aspect" in detail.columns:
-            aspects = sorted(
-                detail["aspect"].dropna().astype(str).unique()
-            )
-
-            selected_aspects = st.multiselect(
-                "Filter by review aspect",
-                aspects,
-                default=aspects,
-            )
-
-            detail = detail[
-                detail["aspect"].astype(str).isin(selected_aspects)
-            ]
-
-        if "sentiment" in detail.columns:
-            sentiments = sorted(
-                detail["sentiment"].dropna().astype(str).unique()
-            )
-
-            selected_sentiments = st.multiselect(
-                "Filter by sentiment",
-                sentiments,
-                default=sentiments,
-            )
-
-            detail = detail[
-                detail["sentiment"].astype(str).isin(
-                    selected_sentiments
-                )
-            ]
-
-        show_table(detail, 400)
-
-    else:
-        show_empty("Review aspect detail data unavailable.")
-
-    st.caption(
-        "Sentiment labels are synthetic annotations included in the "
-        "dataset. They are not live model predictions."
-    )
-
-
-# ============================================================
-# 15. MENU PERFORMANCE
-# ============================================================
-
-def menu_performance():
-
-    page_header(
-        "Menu Performance",
-        "Measure product popularity, contribution, category performance and menu opportunities.",
-    )
-
-    add_synthetic_disclosure()
-
-    if calculated_products.empty:
-        show_empty(
-            "Menu performance is unavailable. Check the cleaned product "
-            "and order-item CSV files or run Notebook 05."
-        )
-        return
-
-    mp = calculated_products.copy()
-
-    product_col = first_existing_column(
-        mp,
-        ["product_name", "product"],
-    )
-
-    category_col = first_existing_column(
-        mp,
-        ["category"],
-    )
-
-    quantity_col = first_existing_column(
-        mp,
-        ["quantity_sold", "total_quantity", "quantity"],
-    )
-
-    revenue_col = first_existing_column(
-        mp,
-        ["revenue", "total_revenue", "line_total"],
-    )
-
-    profit_col = first_existing_column(
-        mp,
-        ["gross_profit", "total_gross_profit"],
-    )
-
-    margin_col = first_existing_column(
-        mp,
-        ["gross_margin_pct", "gross_margin"],
-    )
-
-    if not all([product_col, quantity_col, revenue_col]):
-        show_empty("Required menu performance columns are missing.")
-        return
-
-    mp[quantity_col] = numeric_series(mp, quantity_col)
-    mp[revenue_col] = numeric_series(mp, revenue_col)
-
-    if profit_col:
-        mp[profit_col] = numeric_series(mp, profit_col)
-
-    total_quantity = mp[quantity_col].sum()
-    total_revenue = mp[revenue_col].sum()
-
-    total_profit = (
-        mp[profit_col].sum()
-        if profit_col
-        else 0
-    )
-
-    overall_margin = safe_divide(
-        total_profit, total_revenue
-    ) * 100
-
-    # Menu KPIs
-
-    c1, c2, c3, c4 = st.columns(4)
-
-    with c1:
-        show_kpi(
-            "MENU REVENUE",
-            money(total_revenue),
-            "Revenue from menu items",
-        )
-
-    with c2:
-        show_kpi(
-            "UNITS SOLD",
-            integer(total_quantity),
-            "Total quantity sold",
-        )
-
-    with c3:
-        show_kpi(
-            "GROSS PROFIT",
-            money(total_profit),
-            "Revenue less product cost",
-        )
-
-    with c4:
-        show_kpi(
-            "GROSS MARGIN",
-            percentage(overall_margin),
-            "Gross profit / revenue",
-        )
-
-    # Product performance
-
-    section("Product Performance")
-
-    left, right = st.columns(2)
-
-    with left:
-
-        top_products = mp.nlargest(10, revenue_col)
-
-        fig = px.bar(
-            top_products.sort_values(revenue_col),
-            x=revenue_col,
-            y=product_col,
-            orientation="h",
-            title="Top 10 Products by Revenue",
-            color_discrete_sequence=[BLUE],
-        )
-
-        fig.update_layout(
-            xaxis_title="Revenue (€)",
-            yaxis_title="",
-        )
-
-        show_chart(fig, 400)
-
-    with right:
-
-        top_quantity = mp.nlargest(10, quantity_col)
-
-        fig = px.bar(
-            top_quantity.sort_values(quantity_col),
-            x=quantity_col,
-            y=product_col,
-            orientation="h",
-            title="Top 10 Best-Selling Products",
-            color_discrete_sequence=[GREEN],
-        )
-
-        fig.update_layout(
-            xaxis_title="Units Sold",
-            yaxis_title="",
-        )
-
-        show_chart(fig, 400)
-
-    # Profitability
-
-    section("Product Profitability")
-
-    if profit_col:
-
-        profit_display = mp.nlargest(12, profit_col)
-
-        fig = px.bar(
-            profit_display.sort_values(profit_col),
-            x=profit_col,
-            y=product_col,
-            orientation="h",
-            title="Products by Gross Profit",
-            color_discrete_sequence=[PURPLE],
-        )
-
-        show_chart(fig, 400)
-
-    if margin_col:
-        fig = px.scatter(
-            mp,
-            x=revenue_col,
-            y=margin_col,
-            size=quantity_col,
-            color=category_col if category_col else None,
-            hover_name=product_col,
-            title="Product Revenue vs Gross Margin",
-            color_discrete_sequence=CHART_COLORS,
-        )
-
-        fig.update_layout(
-            xaxis_title="Revenue (€)",
-            yaxis_title="Gross Margin (%)",
-        )
-
-        show_chart(fig, 430)
-
-    # Category analysis
-
-    section("Category Performance")
-
-    if not calculated_categories.empty:
-
-        cat = calculated_categories.copy()
-
-        cat_revenue = first_existing_column(
-            cat,
-            ["revenue", "total_revenue"],
-        )
-
-        cat_profit = first_existing_column(
-            cat,
-            ["gross_profit", "total_gross_profit"],
-        )
-
-        cat_quantity = first_existing_column(
-            cat,
-            ["quantity_sold", "total_quantity"],
-        )
-
-        if cat_revenue:
-
-            fig = px.bar(
-                cat,
-                x="category",
-                y=cat_revenue,
-                title="Revenue by Category",
-                color_discrete_sequence=[BLUE],
-            )
-
-            show_chart(fig, 340)
-
-        if cat_profit:
-            fig = px.bar(
-                cat,
-                x="category",
-                y=cat_profit,
-                title="Gross Profit by Category",
-                color_discrete_sequence=[GREEN],
-            )
-
-            show_chart(fig, 340)
-
-        show_table(cat, 300)
-
-    elif category_col:
-
-        category_summary = (
-            mp.groupby(category_col, as_index=False)
-            .agg(
-                revenue=(revenue_col, "sum"),
-                quantity_sold=(quantity_col, "sum"),
-            )
-        )
-
-        fig = px.bar(
-            category_summary,
-            x=category_col,
-            y="revenue",
-            title="Revenue by Category",
-            color_discrete_sequence=[BLUE],
-        )
-
-        show_chart(fig, 340)
-
-    # Menu engineering
-
-    section("Menu Engineering Matrix")
-
-    st.markdown(
-        """
-        <div class="insight-box">
-        Menu engineering classifies products using two dimensions:
-        <b>popularity</b> (sales mix) and
-        <b>profitability</b> (contribution margin per unit).
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
-
-    if not menu_engineering.empty:
-
-        engineering = menu_engineering.copy()
-
-    else:
-        # Build a fallback classification if Notebook 05 export
-        # has not yet been created.
-
-        engineering = mp.copy()
-
-        contribution_col = first_existing_column(
-            engineering,
-            [
-                "contribution_margin_per_unit",
-                "contribution_margin",
-            ],
-        )
-
-        if not contribution_col and profit_col:
-            engineering["contribution_margin_per_unit"] = (
-                engineering[profit_col]
-                / engineering[quantity_col].replace(0, np.nan)
-            ).fillna(0)
-
-            contribution_col = "contribution_margin_per_unit"
-
-        if contribution_col:
-
-            engineering["sales_mix_pct"] = (
-                engineering[quantity_col]
-                / max(total_quantity, 1)
-                * 100
-            )
-
-            popularity_threshold = (
-                0.70 * 100 / max(len(engineering), 1)
-            )
-
-            profitability_threshold = engineering[
-                contribution_col
-            ].mean()
-
-            engineering["Popularity"] = np.where(
-                engineering["sales_mix_pct"] >= popularity_threshold,
-                "High",
-                "Low",
-            )
-
-            engineering["Profitability"] = np.where(
-                engineering[contribution_col] >= profitability_threshold,
-                "High",
-                "Low",
-            )
-
-            def classify_menu(row):
-                if (
-                    row["Popularity"] == "High"
-                    and row["Profitability"] == "High"
-                ):
-                    return "Star"
-
-                if (
-                    row["Popularity"] == "High"
-                    and row["Profitability"] == "Low"
-                ):
-                    return "Plowhorse"
-
-                if (
-                    row["Popularity"] == "Low"
-                    and row["Profitability"] == "High"
-                ):
-                    return "Puzzle"
-
-                return "Dog"
-
-            engineering["menu_class"] = engineering.apply(
-                classify_menu,
-                axis=1,
-            )
-
-    class_col = first_existing_column(
-        engineering,
-        ["menu_class", "Menu_Class", "classification", "class"],
-    )
-
-    if class_col:
-
-        engineering[class_col] = (
-            engineering[class_col].astype(str).str.title()
-        )
-
-        class_colors = {
-            "Star": GREEN,
-            "Plowhorse": BLUE,
-            "Puzzle": PURPLE,
-            "Dog": "#8D929B",
-        }
-
-        class_counts = (
-            engineering[class_col]
-            .value_counts()
-            .reindex(
-                ["Star", "Plowhorse", "Puzzle", "Dog"],
-                fill_value=0,
-            )
-            .reset_index()
-        )
-
-        class_counts.columns = ["menu_class", "products"]
-
-        col1, col2 = st.columns([1, 1.5])
-
-        with col1:
-
-            fig = px.pie(
-                class_counts,
-                names="menu_class",
-                values="products",
-                hole=0.58,
-                title="Menu Classification",
-                color="menu_class",
-                color_discrete_map=class_colors,
-            )
-
-            show_chart(fig, 350)
-
-        with col2:
-
-            show_table(engineering, 350)
-
-        # Class explanation
-
-        st.markdown(
-            """
-            <div class="panel">
-                <h4 style="color:#239B68;">★ Stars</h4>
-                <b>Popular + profitable</b>
-                <p>Customers order these frequently and they generate
-                strong contribution.</p>
-                <span style="color:#239B68;">
-                Action: Protect quality and promote.
-                </span>
-            </div>
-
-            <div class="panel">
-                <h4 style="color:#3974D5;">🐴 Plowhorses</h4>
-                <b>Popular + less profitable</b>
-                <p>They sell frequently, but contribution per unit is
-                relatively low.</p>
-                <span style="color:#3974D5;">
-                Action: Review pricing, portions and costs.
-                </span>
-            </div>
-
-            <div class="panel">
-                <h4 style="color:#8957C8;">? Puzzles</h4>
-                <b>Less popular + profitable</b>
-                <p>They generate good contribution, but relatively few
-                customers order them.</p>
-                <span style="color:#8957C8;">
-                Action: Improve visibility and promotion.
-                </span>
-            </div>
-
-            <div class="panel">
-                <h4 style="color:#777777;">🐕 Dogs</h4>
-                <b>Less popular + less profitable</b>
-                <p>They sell relatively little and generate relatively
-                low contribution.</p>
-                <span style="color:#777777;">
-                Action: Review, redesign or consider removal.
-                </span>
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
-
-    else:
-        show_empty(
-            "Menu engineering classification is unavailable. "
-            "Check the menu_engineering.csv export from Notebook 05."
-        )
-
-    # Monthly menu trends
-
-    section("Menu Sales Trends")
-
-    if not menu_monthly.empty:
-
-        month_col = first_existing_column(
-            menu_monthly,
-            ["month", "order_month", "date"],
-        )
-
-        monthly_revenue_col = first_existing_column(
-            menu_monthly,
-            ["revenue", "total_revenue"],
-        )
-
-        if month_col and monthly_revenue_col:
-
-            fig = px.line(
-                menu_monthly,
-                x=month_col,
-                y=monthly_revenue_col,
-                markers=True,
-                title="Monthly Menu Revenue",
-                color_discrete_sequence=[BLUE],
-            )
-
-            show_chart(fig, 360)
-
-        else:
-            show_table(menu_monthly, 300)
-
-    else:
-        show_empty(
-            "Monthly menu export unavailable. "
-            "Run Notebook 05 to generate it."
-        )
-
-    # Discount analysis
-
-    section("Discount Performance")
-
-    if not menu_discounts.empty:
-        show_table(menu_discounts, 300)
-    else:
-        st.caption(
-            "Discount analysis is available after running Notebook 05."
-        )
-
-    # Recommendations
-
-    section("Menu Recommendations")
-
-    if not menu_recommendations.empty:
-        show_table(menu_recommendations, 350)
-
-    else:
-        st.markdown(
-            """
-            **Suggested management actions**
-
-            - Protect Star products through consistent quality and availability.
-            - Review the price and portion costs of Plowhorses.
-            - Test menu placement and promotion for Puzzles.
-            - Evaluate whether Dogs should be redesigned or removed.
-            """
-        )
-
-    st.caption(
-        "Gross profit here means menu revenue less product cost. "
-        "It is not net profit and excludes labour, rent, utilities "
-        "and other operating expenses. Menu engineering thresholds "
-        "are analytical conventions, not universal rules."
-    )
-
-
-# ============================================================
-# 16. APPLICATION ROUTER
-# ============================================================
-
-if navigation == "Executive Overview":
-    executive_overview()
-
-elif navigation == "Revenue Intelligence":
-    revenue_intelligence()
-
-elif navigation == "Workforce Intelligence":
-    workforce_intelligence()
-
-elif navigation == "Customer Intelligence":
-    customer_intelligence()
-
-elif navigation == "Menu Performance":
-    menu_performance()
-
-
-# ============================================================
-# 17. FOOTER
-# ============================================================
-
-st.markdown("---")
-
-st.markdown(
-    """
-    <div style="
-        text-align:center;
-        color:#8A94A4;
-        font-size:11px;
-        padding:8px;
-    ">
-        RESTRODINE · RESTAURANT INTELLIGENCE PLATFORM<br>
-        Synthetic demonstration dataset · Built with Python and Streamlit
+    st.stop()
+
+orders = orders.dropna(subset=["order_date"]).copy()
+orders["weekday"] = orders["order_date"].dt.day_name()
+if "order_datetime" in orders:
+    orders["hour"] = orders["order_datetime"].dt.hour
+
+items = data("order_items_clean.csv")
+products = data("products_clean.csv")
+payments = data("payments_clean.csv")
+shifts_data = data("shifts_clean.csv", "shift_date")
+employees = data("employees_clean.csv", "employment_start", "employment_end")
+employee_availability = data("employee_availability_clean.csv")
+reviews = data("reviews_clean.csv", "review_date")
+promotions = data("promotions_clean.csv", "start_date", "end_date")
+daily_ctx = data("daily_model_table_clean.csv", "date")
+daily_hist = data("daily_revenue_clean.csv", "date")
+
+DATA_MIN, DATA_MAX = orders["order_date"].min().date(), orders["order_date"].max().date()
+
+# =============================================================================
+# Sidebar: navigation and global filters
+# =============================================================================
+
+# List of pages in the Streamlit app, each representing a different aspect of restaurant intelligence and analytics 
+PAGES = [
+    "Executive Overview", # Overall restaurant performance
+    "Revenue & Forecast", # Revenue trends and future projections
+    "Workforce Planning", # Staffing and labor cost analysis
+    "Customer Intelligence", # Customer behavior and feedback analysis
+    "Menu Performance", # Menu item sales and profitability analysis
+    "Data & Methodology", # Data sources, cleaning, and analytical methods
+]
+
+# Sidebar header with the app name and description, using Markdown for styling 
+st.sidebar.markdown(
+    f"""
+    <div style="padding:6px 2px 14px 2px">
+      <div style="font-size:2.5rem;font-weight:800;letter-spacing:-.03em">🍽️ {APP_NAME}</div>
+      <div style="font-size:1.0rem;color:#9FB0CC;letter-spacing:.14em;text-transform:uppercase;margin-top:3px">Restaurant intelligence</div>
     </div>
     """,
     unsafe_allow_html=True,
 )
+
+# Sidebar radio buttons for page navigation, allowing users to switch between different pages of the app
+page = st.sidebar.radio("Navigation", PAGES, label_visibility="collapsed")
+st.sidebar.markdown("---")
+st.sidebar.markdown("**Historical filters**")
+st.sidebar.caption("Apply to trading, revenue and live menu views.")
+
+# Sidebar date input for selecting a custom date range, with validation to ensure the selected dates are within the available data range
+# This function does not display anything. It calculates and returns date ranges. 
+
+def preset_range(choice: str) -> tuple:
+    last = DATA_MAX
+    year_end = pd.Timestamp(last).year
+
+    presets = {
+        "Full history": (DATA_MIN, last),
+
+        f"Calendar {year_end}": (
+            max(DATA_MIN, pd.Timestamp(year_end, 1, 1).date()),
+            last,
+        ),
+
+        f"Calendar {year_end - 1}": (
+            max(DATA_MIN, pd.Timestamp(year_end - 1, 1, 1).date()),
+            min(last, pd.Timestamp(year_end - 1, 12, 31).date()),
+        ),
+
+        "Last available 90 days": (
+            max(DATA_MIN, (pd.Timestamp(last) - pd.Timedelta(days=89)).date()),
+            last,
+        ),
+
+        "Last available 30 days": (
+            max(DATA_MIN, (pd.Timestamp(last) - pd.Timedelta(days=29)).date()),
+            last,
+        ),
+    }
+
+    return presets.get(choice, (DATA_MIN, last))
+
+
+# Sidebar selectbox for choosing a preset date range, with an option for a custom range.
+# If "Custom range" is selected, a date input widget is displayed for the user to pick start and end dates. 
+# The selected dates are validated to ensure they fall within the available data range.
+preset_options = [
+    "Full history",
+    f"Calendar {DATA_MAX.year}",
+    f"Calendar {DATA_MAX.year - 1}",
+    "Last available 90 days",
+    "Last available 30 days",
+    "Next 14 days",
+    "Custom range",
+]
+preset = st.sidebar.selectbox("Period", preset_options, index=1)
+if preset == "Next 14 days":
+    forecast_mode = True
+    start_d, end_d = DATA_MIN, DATA_MAX
+
+elif preset == "Custom range":
+    forecast_mode = False
+    picked = st.sidebar.date_input(
+        "Dates",
+        value=(DATA_MIN, DATA_MAX),
+        min_value=DATA_MIN,
+        max_value=DATA_MAX,
+    )
+    if isinstance(picked, (tuple, list)) and len(picked) == 2:
+        start_d, end_d = picked
+    else:
+        start_d, end_d = DATA_MIN, DATA_MAX
+
+else:
+    forecast_mode = False
+    start_d, end_d = preset_range(preset)
+
+# Sidebar multiselects for filtering by order type and meal period, with default selections based on the available data.
+type_options = sorted(orders["order_type"].dropna().unique()) if "order_type" in orders else []
+meal_options = [m for m in MEAL_ORDER if "meal_period" in orders and m in set(orders["meal_period"].dropna())]
+sel_types = st.sidebar.multiselect("Order type", type_options, default=type_options) or type_options
+sel_meals = st.sidebar.multiselect("Meal period", meal_options, default=meal_options) or meal_options
+
+# =============================================================================
+# Forecast refresh
+# =============================================================================
+
+st.sidebar.markdown("### Forecast management")
+
+if st.sidebar.button(
+    "↻ Refresh Forecast",
+    type="primary",
+    use_container_width=True,
+    help="Generate a fresh 14-day revenue and workforce forecast.",
+):
+    try:
+        with st.spinner("Generating revenue and workforce forecasts..."):
+
+            # 1. Generate the revenue forecast
+            revenue_forecast = generate_revenue_forecast(horizon=14)
+
+            # 2. Generate workforce planning outputs
+            workforce = generate_workforce_outputs(revenue_forecast)
+
+            # 3. Save all five forecast output files
+            save_forecast_outputs(workforce)
+
+            # Save the timestamp of the last successful refresh
+            refresh_metadata = { "last_successful_refresh": pd.Timestamp.now
+                                ( tz="Europe/Berlin" ).isoformat() }
+
+            with open("outputs/forecast_refresh_metadata.json", "w") as f:
+                json.dump(refresh_metadata, f, indent=4)
+
+            # Clear cached CSV data only after successful saving
+            st.cache_data.clear()
+
+            st.sidebar.success("Forecast refreshed successfully!")
+            st.rerun()
+
+    except Exception as exc:
+        st.sidebar.error(f"Forecast refresh failed: {exc}")
+
+# Display the last successful forecast refresh
+refresh_metadata_path = Path("outputs/forecast_refresh_metadata.json")
+
+if refresh_metadata_path.exists():
+    with open(refresh_metadata_path, "r") as f:
+        refresh_metadata = json.load(f)
+
+    last_refresh = pd.to_datetime(
+        refresh_metadata["last_successful_refresh"]
+    )
+
+    st.sidebar.caption(
+        f"Last successful refresh: {last_refresh:%d %b %Y, %H:%M} (Berlin time)"
+    )
+else:
+    st.sidebar.caption("No successful refresh recorded yet.")
+
+st.sidebar.markdown("---")
+st.sidebar.caption("DATA")
+st.sidebar.markdown("**Synthetic restaurant dataset**")
+st.sidebar.caption(f"History · {DATA_MIN:%b %Y} – {DATA_MAX:%b %Y}")
+forecast_df = output("revenue_forecast_next_14_days.csv", "date")
+
+forecast_available = (
+    has_cols(forecast_df, "date", "forecast_revenue")
+    and not forecast_df.empty
+)
+
+if forecast_available:
+    forecast_start = forecast_df["date"].min().date()
+    forecast_end = forecast_df["date"].max().date()
+
+    st.sidebar.caption(
+        f"Forecast · {forecast_start:%d %b} - {forecast_end:%d %b %Y}"
+    )
+else:
+    forecast_start = None
+    forecast_end = None
+    st.sidebar.warning("Forecast data is unavailable.")
+st.sidebar.markdown("---")
+st.sidebar.caption("DISCLAIMER")
+st.sidebar.markdown("Analytical demonstration!!")
+st.sidebar.markdown("Forecasts and recommendations are estimates, not operational guarantees!!"
+)
+
+# =============================================================================
+# Filtered context
+# =============================================================================
+@dataclass # dataclass is a convenient way to define a class whose main purpose is to store related data
+class Context:
+    start: pd.Timestamp
+    end: pd.Timestamp
+    cur: pd.DataFrame          # orders in the selected period & filters
+    prev: pd.DataFrame         # equally long period immediately before (may be empty)
+    has_prev: bool
+    items: pd.DataFrame        # enriched order lines for `cur`
+    reviews: pd.DataFrame      # reviews tied to `cur` orders
+    daily: pd.DataFrame        # daily revenue / orders / AOV for `cur`
+
+    @property # @property lets you access a method like an attribute
+    def label(self) -> str:
+        return f"{self.start:%d %b %Y} – {self.end:%d %b %Y}"
+
+# Builds a Context object containing filtered data based on the selected date range and filters for order type and meal period.
+def build_context() -> Context:
+    start, end = pd.Timestamp(start_d), pd.Timestamp(end_d)
+    mask = pd.Series(True, index=orders.index)
+    if "order_type" in orders:
+        mask &= orders["order_type"].isin(sel_types)
+    if "meal_period" in orders:
+        mask &= orders["meal_period"].isin(sel_meals)
+    base = orders[mask]
+    cur = base[base["order_date"].between(start, end)]
+    
+    # Calculate the previous period for comparison, ensuring it does not go before the minimum available data date 
+    n_days = (end - start).days + 1
+    prev_end = start - pd.Timedelta(days=1)
+    prev_start = prev_end - pd.Timedelta(days=n_days - 1)
+    has_prev = prev_start.date() >= DATA_MIN
+    prev = base[base["order_date"].between(prev_start, prev_end)] if has_prev else base.iloc[0:0]
+
+    # Order lines with product economics
+    if has_cols(items, "order_id", "product_id", "quantity", "line_total") and not cur.empty:
+        keep = [c for c in ["order_id", "order_date", "order_type", "meal_period"] if c in cur]
+        lines = items.merge(cur[keep], on="order_id", how="inner")
+        if has_cols(products, "product_id", "product_cost"):
+            lines = lines.merge(
+                products[[c for c in ["product_id", "product_name", "category", "product_cost"] if c in products]],
+                on="product_id", how="left",
+            )
+            lines["cost"] = lines["quantity"] * lines["product_cost"]
+            lines["gross_profit"] = lines["line_total"] - lines["cost"]
+        if "unit_price" in lines:
+            lines["discount_value"] = (lines["quantity"] * lines["unit_price"] - lines["line_total"]).clip(lower=0)
+    else:
+        lines = pd.DataFrame()
+
+    rev = reviews[reviews["order_id"].isin(cur["order_id"])] if has_cols(reviews, "order_id") else pd.DataFrame()
+
+    if cur.empty:
+        daily = pd.DataFrame(columns=["order_date", "revenue", "orders", "aov"])
+    else:
+        daily = cur.groupby("order_date", as_index=False).agg(revenue=("order_total", "sum"), orders=("order_id", "nunique"))
+        daily["aov"] = daily["revenue"] / daily["orders"]
+    return Context(start, end, cur, prev, has_prev, lines, rev, daily)
+
+
+ctx = build_context()
+
+# =============================================================================
+# Shared analytics
+# =============================================================================
+
+# Computes the average revenue by weekday from the daily revenue DataFrame, returning a DataFrame with weekdays and their corresponding average revenue.
+def weekday_profile(daily: pd.DataFrame) -> pd.DataFrame:
+    if daily.empty:
+        return pd.DataFrame(columns=["weekday", "avg_revenue"])
+    d = daily.assign(weekday=daily["order_date"].dt.day_name())
+    out = d.groupby("weekday", as_index=False)["revenue"].mean().rename(columns={"revenue": "avg_revenue"})
+    out["weekday"] = pd.Categorical(out["weekday"], WEEKDAYS, ordered=True)
+    return out.sort_values("weekday")
+
+# Computes key forecast signals from the revenue forecast, workforce forecast, and staffing gaps outputs, returning a dictionary with relevant metrics such as total forecast revenue, peak day and value, labor cost ratio, and unfilled staffing gaps by role.
+def forecast_signals() -> dict:
+    fc = output("revenue_forecast_next_14_days.csv", "date")
+    wf = output("workforce_forecast_next_14_days.csv", "date")
+    gaps = output("staffing_gaps.csv", "date")
+    out: dict = {}
+    if has_cols(fc, "date", "forecast_revenue"):
+        out["fc_total"] = fc["forecast_revenue"].sum()
+        peak = fc.loc[fc["forecast_revenue"].idxmax()]
+        out["fc_peak_day"], out["fc_peak_val"] = peak["date"], peak["forecast_revenue"]
+        out["fc_start"], out["fc_end"] = fc["date"].min(), fc["date"].max()
+    if has_cols(wf, "labour_cost", "forecast_revenue"):
+        out["labour_ratio"] = safe_div(wf["labour_cost"].sum(), wf["forecast_revenue"].sum()) * 100
+    if has_cols(gaps, "unfilled", "role"):
+        out["unfilled"] = gaps["unfilled"].sum()
+        by_role = gaps.groupby("role")["unfilled"].sum().sort_values(ascending=False)
+        out["gap_role"] = by_role.index[0] if len(by_role) else None
+    return out
+
+# Displays a warning message if there is a significant gap between the end of the model's training data and the start of the forecast, indicating that the forecast may be based on synthetic data rather than validated operational predictions.
+def forecast_reliability_warning() -> None:
+    fc = output("revenue_forecast_next_14_days.csv", "date")
+
+    if not has_cols(fc, "date") or fc.empty:
+        return
+
+    model = meta("restrodine_prophet_calendar_weather_metadata.json")
+
+    training_end = pd.to_datetime( model.get("training_end"), errors="coerce" )
+
+    forecast_start = fc["date"].min()
+
+    if pd.notna(training_end):
+        history_gap = (forecast_start - training_end).days - 1
+
+        if history_gap > 30:
+            callout(
+                f"**Forecast scenario warning:** The model's training data ends on "
+                f"{training_end:%d %B %Y}, while this forecast starts on "
+                f"{forecast_start:%d %B %Y}. There are {history_gap} days without "
+                "observed revenue between these dates. Treat this forecast as a "
+                "synthetic-data scenario, not a validated operational prediction.",
+                "note",
+            )
+
+
+# =============================================================================
+# Page: Executive Overview
+# =============================================================================
+# Creates a visually distinct card for displaying key signals, with a title, text, and optional kind (e.g., warning, good, risk) for styling purposes.
+def signal_card(title: str, text: str, kind: str = "") -> str:
+    return f'<div class="signal {kind}"><div class="s-title">{title}</div><div class="s-text">{text}</div></div>'
+
+# Creates the executive overview page with key performance indicators and signals.
+def page_executive() -> None:
+    hero("Management snapshot", "Executive Overview",
+         "Trading performance, customer experience and the near-term operating outlook at a glance.")
+    callout("<b>Data transparency:</b> all restaurant, customer, employee, order, review and weather records are "
+            "synthetic. Results demonstrate an analytical workflow and are not real business performance.", "note")
+
+    # Future-period view: show forecast information instead of historical trading data.
+    if forecast_mode:
+        section(
+            "Next 14 days",
+            "Revenue and workforce outlook based on the saved forecast outputs."
+        )
+
+        if not forecast_available:
+            st.warning("The 14-day forecast is unavailable. Refresh the forecast first.")
+            return
+
+        forecast_reliability_warning()
+
+        sig = forecast_signals()
+
+        if "fc_total" in sig:
+            kpis([
+                (
+                    "Forecast revenue",
+                    money(sig["fc_total"]),
+                    f"{sig['fc_start']:%d %b} – {sig['fc_end']:%d %b}"
+                ),
+                (
+                    "Peak forecast day",
+                    f"{sig['fc_peak_day']:%a %d %b}",
+                    money(sig["fc_peak_val"])
+                ),
+                (
+                    "Labour cost / revenue",
+                    pct(sig.get("labour_ratio", np.nan)),
+                    "Forecast ratio"
+                ),
+                (
+                    "Unfilled positions",
+                    integer(sig.get("unfilled", np.nan)),
+                    "Across roles and shifts"
+                ),
+            ])
+
+            fc = forecast_df.sort_values("date").copy()
+
+            section(
+                "Daily revenue forecast",
+                "Expected revenue for each of the next 14 days."
+            )
+
+            fig = px.bar(
+                fc,
+                x="date",
+                y="forecast_revenue",
+                labels={
+                    "date": "Forecast date",
+                    "forecast_revenue": f"Forecast revenue ({CURRENCY})"
+                }
+            )
+
+            fig.update_traces(marker_color=C["blue"])
+            fig.update_xaxes(tickformat="%a %d %b")
+            chart(fig, 350)
+
+        else:
+            unavailable("The 14-day forecast")
+
+        return
+
+
+    
+    if ctx.cur.empty: # if the current filtered orders DataFrame is empty, display a warning message and return early
+        st.warning("No orders match the selected period and filters. Adjust the filters in the sidebar.")
+        return
+
+    cur, prev = ctx.cur, ctx.prev
+    revenue, n_orders = cur["order_total"].sum(), cur["order_id"].nunique()
+    aov = safe_div(revenue, n_orders)
+    per_day = safe_div(revenue, ctx.daily["order_date"].nunique())
+    rating = pd.to_numeric(ctx.reviews["rating"], errors="coerce").mean() if has_cols(ctx.reviews, "rating") else np.nan
+
+    p_rev = prev["order_total"].sum() if ctx.has_prev and not prev.empty else None
+    p_orders = prev["order_id"].nunique() if ctx.has_prev and not prev.empty else None
+    p_aov = safe_div(p_rev, p_orders) if p_rev is not None else None
+    p_day = safe_div(p_rev, prev["order_date"].nunique()) if p_rev is not None else None
+
+    kpis([
+        ("Revenue", money(revenue), delta_label(change_pct(revenue, p_rev))),
+        ("Orders", integer(n_orders), delta_label(change_pct(n_orders, p_orders))),
+        ("Average order value", money(aov, 2), delta_label(change_pct(aov, p_aov))),
+        ("Revenue per trading day", money(per_day), delta_label(change_pct(per_day, p_day))),
+        ("Average guest rating", f"{rating:.2f} / 5" if pd.notna(rating) else "—", f"{integer(len(ctx.reviews))} reviews"),
+    ])
+    st.caption(f"Period: {ctx.label}" + (" · deltas compare with the equally long preceding period." if ctx.has_prev
+                                         else " · no preceding period of equal length exists in the data."))
+    st.write("")
+
+    left, right = st.columns([1.75, 1])
+    with left:
+        section("Revenue trend", "Daily revenue with a 7-day moving average.")
+        d = ctx.daily.sort_values("order_date").copy()
+        d["ma7"] = d["revenue"].rolling(7, min_periods=3).mean()
+        fig = go.Figure()
+        fig.add_trace(go.Scatter(x=d["order_date"], y=d["revenue"], name="Daily revenue", mode="lines",
+                                 line=dict(color=C["blue_soft"], width=1), opacity=.55))
+        fig.add_trace(go.Scatter(x=d["order_date"], y=d["ma7"], name="7-day rolling average", mode="lines",
+                                 line=dict(color=C["blue"], width=2.8)))
+        fig.update_layout(yaxis_title=f"Revenue ({CURRENCY})")
+        chart(fig, 340)
+    with right:
+        section("Key signals", "Automatically derived from the current selection and saved outputs.")
+        cards = []
+        wd = weekday_profile(ctx.daily)
+        if not wd.empty:
+            best = wd.loc[wd["avg_revenue"].idxmax()]
+            lift = change_pct(best["avg_revenue"], wd["avg_revenue"].mean())
+            cards.append(signal_card("Peak trading day",
+                                     f"{best['weekday']} averages {money(best['avg_revenue'])}, "
+                                     f"{lift:+.0f}% versus the average weekday.", "good"))
+        if "order_type" in cur:
+            share = cur.groupby("order_type")["order_total"].sum().sort_values(ascending=False)
+            cards.append(signal_card("Channel mix",
+                                     f"{share.index[0]} is the largest channel at {share.iloc[0] / share.sum() * 100:.0f}% of revenue."))
+        if has_cols(ctx.items, "category", "line_total"):
+            cat = ctx.items.groupby("category")["line_total"].sum().sort_values(ascending=False)
+            cards.append(signal_card("Top category",
+                                     f"{cat.index[0]} leads with {cat.iloc[0] / cat.sum() * 100:.0f}% of item revenue."))
+        imp = output("customer_improvement_areas.csv")
+        if has_cols(imp, "Aspect", "Negative Share (%)"):
+            top = imp.sort_values("Negative Share (%)", ascending=False).iloc[0]
+            cards.append(signal_card("Guest friction",
+                                     f"{top['Aspect']} draws the highest negative share ({top['Negative Share (%)']:.0f}% of mentions).",
+                                     "warn"))
+        sig = forecast_signals()
+        if "unfilled" in sig:
+            kind = "risk" if sig["unfilled"] > 0 else "good"
+            role = f", mostly {sig['gap_role']}" if sig.get("gap_role") and sig["unfilled"] > 0 else ""
+            cards.append(signal_card("Staffing outlook", f"{integer(sig['unfilled'])} unfilled positions in the next 14 days{role}.", kind))
+        st.markdown("".join(cards) or "<div class='section-note'>No signals available.</div>", unsafe_allow_html=True)
+
+    st.write("")
+    a, b, c = st.columns(3)
+    with a:
+        section("Average revenue by weekday")
+        wd = weekday_profile(ctx.daily)
+        fig = px.bar(wd, x="weekday", y="avg_revenue", labels={"weekday": "", "avg_revenue": f"Avg revenue ({CURRENCY})"})
+        fig.update_traces(marker_color=C["blue"])
+        chart(fig, 300, unified=False)
+    with b:
+        section("Revenue by order type")
+        if "order_type" in cur:
+            mix = cur.groupby("order_type", as_index=False)["order_total"].sum()
+            fig = px.pie(mix, names="order_type", values="order_total", hole=.62)
+            fig.update_traces(textinfo="percent", textposition="inside", marker=dict(line=dict(color="white", width=2)))
+            fig.update_layout(legend=dict(orientation="h", y=-0.05))
+            chart(fig, 300, unified=False)
+    with c:
+        section("Revenue by meal period")
+        if "meal_period" in cur:
+            mix = cur.groupby("meal_period", as_index=False)["order_total"].sum()
+            mix["meal_period"] = pd.Categorical(mix["meal_period"], MEAL_ORDER, ordered=True)
+            fig = px.bar(mix.sort_values("meal_period"), x="meal_period", y="order_total",
+                         labels={"meal_period": "", "order_total": f"Revenue ({CURRENCY})"})
+            fig.update_traces(marker_color=C["teal"])
+            chart(fig, 300, unified=False)
+
+    st.write("")
+    section("Next 14 days", "Saved forecast and roster recommendation; independent of the historical filters.")
+    forecast_reliability_warning()
+    sig = forecast_signals()
+    if "fc_total" in sig:
+        kpis([
+            ("Forecast revenue", money(sig["fc_total"]), f"{sig['fc_start']:%d %b} – {sig['fc_end']:%d %b}"),
+            ("Peak forecast day", f"{sig['fc_peak_day']:%a %d %b}", money(sig["fc_peak_val"])),
+            ("Labour cost / revenue", pct(sig.get("labour_ratio", np.nan)), "Forecast ratio"),
+            ("Unfilled positions", integer(sig.get("unfilled", np.nan)), "Across roles & shifts"),
+        ])
+    else:
+        unavailable("The 14-day outlook")
+
+
+# =============================================================================
+# Page: Revenue & Forecast
+# =============================================================================
+
+def page_revenue() -> None:
+    hero("Trading & forecasting", "Revenue & Forecast",
+         "Understand what drives sales and review the 14-day weather-aware revenue forecast.")
+    if forecast_mode:
+        tab_fc, tab_drivers, tab_hist = st.tabs([
+            "14-day forecast",
+            "Weather & Holiday Impact",
+            "Historical performance"
+        ])
+    else:
+        tab_hist, tab_drivers, tab_fc = st.tabs([
+            "Historical performance",
+            "Weather & Holiday Impact",
+            "14-day forecast"
+        ])
+
+    # ---- Historical -------------------------------------------------------
+    with tab_hist:
+        if ctx.cur.empty:
+            st.warning("No orders match the selected period and filters.")
+        else:
+            cur = ctx.cur
+            total, n = cur["order_total"].sum(), cur["order_id"].nunique()
+            best_day = ctx.daily.loc[ctx.daily["revenue"].idxmax()]
+            kpis([
+                ("Revenue", money(total), ctx.label),
+                ("Orders", integer(n), None),
+                ("Average order value", money(safe_div(total, n), 2), None),
+                #("Average party size", f"{cur['party_size'].mean():.1f}" if "party_size" in cur else "—", None),
+                ("Best trading day", money(best_day["revenue"]), f"{best_day['order_date']:%d %b %Y}"),
+            ])
+            st.write("")
+            section("Monthly revenue",
+                    f"Calendar-month totals from {ctx.start:%d %b %Y} "
+                    f"to {ctx.end:%d %b %Y}, based on the selected filters."
+                    )
+            m = cur.assign(month=cur["order_date"].dt.to_period("M").dt.to_timestamp())
+            m = m.groupby("month", as_index=False).agg(revenue=("order_total", "sum"), orders=("order_id", "nunique"))
+            fig = px.bar(m, x="month", y="revenue", labels={"month": "", "revenue": f"Revenue ({CURRENCY})"})
+            fig.update_traces(marker_color=C["blue"])
+            chart(fig, 320)
+
+            left, right = st.columns([1.3, 1])
+            with left:
+                section(
+                    "Which time guests visit the most?",
+                    "Average orders per hour for each weekday across the selected period."
+                )
+
+                if "hour" in cur:
+                    heat = (
+                        cur.groupby(["weekday", "hour"])
+                        .size()
+                        .rename("n")
+                        .reset_index()
+                    )
+
+                    days = cur.groupby("weekday")["order_date"].nunique()
+
+                    heat["avg"] = heat["n"] / heat["weekday"].map(days)
+
+                    pivot = (
+                        heat.pivot(index="weekday", columns="hour", values="avg")
+                        .reindex(WEEKDAYS)
+                        .fillna(0)
+                    )
+
+                    # Display hour labels in HH:00 format
+                    hour_labels = [
+                        f"{int(hour):02d}:00"
+                        for hour in pivot.columns
+                    ]
+
+                    fig = px.imshow(
+                        pivot,
+                        aspect="auto",
+                        text_auto=".1f",
+                        color_continuous_scale=["#F1F5FF", C["blue"]],
+                        labels={
+                            "x": "Hour of day",
+                            "y": "",
+                            "color": "Avg orders/hour"
+                        }
+                    )
+
+                    # Show every available hour on the x-axis
+                    fig.update_xaxes(
+                        tickmode="array",
+                        tickvals=list(pivot.columns)[::2],
+                        ticktext=hour_labels[::2],
+                        tickangle=0,
+                        tickfont=dict(size=10)
+                    )
+
+                    fig.update_layout(
+                        height=390,
+                        margin=dict(l=10, r=10, t=35, b=55)
+                    )
+
+                    chart(fig, 390, unified=False)
+
+            with right:
+                section("Payment methods", "Total order value by payment method.")
+                if has_cols(payments, "order_id", "payment_method", "amount"):
+                    pay = payments[payments["order_id"].isin(cur["order_id"])]
+                    pm = pay.groupby("payment_method", as_index=False)["amount"].sum().sort_values("amount")
+                    fig = px.bar(pm, x="amount", y="payment_method", orientation="h",
+                                 labels={"amount": f"Order value ({CURRENCY})", "payment_method": ""})
+                    payment_colors = {
+                        "Card": "#376B42",
+                        "Mobile Pay": "#39977A",
+                        "Cash": "#E5A132",
+                        "PayPal": "#5576A8",
+                        "Voucher": "#9B7BB5",
+                    }
+
+                    fig.update_traces(
+                        marker_color=[
+                            payment_colors.get(method, "#8A9690")
+                            for method in pm["payment_method"]
+                        ]
+                    )
+                    chart(fig, 390, unified=False)
+                else:
+                    unavailable("Payment data")
+
+
+    
+
+    # ---- Weather & Holiday Impact ----------------------------------------
+    with tab_drivers:
+        section(
+            "Weather & Holiday Impact",
+            "Explore how historical weather and calendar conditions relate to daily restaurant revenue."
+        )
+
+        if forecast_mode:
+            st.info(
+                "Weather and holiday impact analysis uses historical revenue "
+                "and observed weather data. It is not available for the future "
+                "14-day forecast period."
+            )
+
+        else:
+            callout(
+                "These comparisons are descriptive associations, not proof. "
+                "Weather can be correlated with season, weekday and other "
+                "trading conditions. All data in this project is synthetic.",
+                "info"
+            )
+
+            weather_columns = [
+                "date",
+                "temperature_avg_c",
+                "precipitation_mm",
+                "is_rainy",
+                "is_holiday"
+            ]
+
+            if (
+                not has_cols(daily_hist, "date", "revenue")
+                or not has_cols(daily_ctx, *weather_columns)
+            ):
+                unavailable("Historical weather and revenue data")
+
+            else:
+                # Use total daily restaurant revenue, independent of
+                # order-type and meal-period sidebar filters.
+                weather_data = daily_hist[
+                    ["date", "revenue"]
+                ].merge(
+                    daily_ctx[weather_columns],
+                    on="date",
+                    how="inner"
+                )
+
+                weather_data = weather_data[
+                    weather_data["date"].between(
+                        pd.Timestamp(start_d),
+                        pd.Timestamp(end_d)
+                    )
+                ].copy()
+
+                weather_data = weather_data.dropna(
+                    subset=[
+                        "revenue",
+                        "temperature_avg_c",
+                        "precipitation_mm"
+                    ]
+                )
+
+                if weather_data.empty:
+                    st.info(
+                        "No matching historical weather and revenue "
+                        "observations are available for this period."
+                    )
+
+                else:
+                    # Prepare categorical variables
+                    weather_data["is_rainy"] = (
+                        weather_data["is_rainy"]
+                        .fillna(False)
+                        .astype(bool)
+                    )
+
+                    weather_data["is_holiday"] = (
+                        weather_data["is_holiday"]
+                        .fillna(False)
+                        .astype(bool)
+                    )
+
+                    weather_data["Weather"] = np.where(
+                        weather_data["is_rainy"],
+                        "Rainy day",
+                        "Dry day"
+                    )
+
+                    weather_data["Day type"] = np.where(
+                        weather_data["is_holiday"],
+                        "Public holiday",
+                        "Regular day"
+                    )
+
+                    # ----------------------------------------------------
+                    # IMPACT SUMMARY
+                    # ----------------------------------------------------
+
+                    rain_stats = (
+                        weather_data
+                        .groupby("Weather")["revenue"]
+                        .agg(["mean", "size"])
+                    )
+
+                    rainy_avg = rain_stats["mean"].get(
+                        "Rainy day", np.nan
+                    )
+                    dry_avg = rain_stats["mean"].get(
+                        "Dry day", np.nan
+                    )
+
+                    rainy_days = int(
+                        rain_stats["size"].get("Rainy day", 0)
+                    )
+                    dry_days = int(
+                        rain_stats["size"].get("Dry day", 0)
+                    )
+
+                    rain_difference = (
+                        (rainy_avg / dry_avg - 1) * 100
+                        if pd.notna(rainy_avg)
+                        and pd.notna(dry_avg)
+                        and dry_avg != 0
+                        else np.nan
+                    )
+
+                    holiday_stats = (
+                        weather_data
+                        .groupby("Day type")["revenue"]
+                        .agg(["mean", "size"])
+                    )
+
+                    holiday_avg = holiday_stats["mean"].get(
+                        "Public holiday", np.nan
+                    )
+                    regular_avg = holiday_stats["mean"].get(
+                        "Regular day", np.nan
+                    )
+
+                    holiday_days = int(
+                        holiday_stats["size"].get("Public holiday", 0)
+                    )
+                    regular_days = int(
+                        holiday_stats["size"].get("Regular day", 0)
+                    )
+
+                    holiday_difference = (
+                        (holiday_avg / regular_avg - 1) * 100
+                        if pd.notna(holiday_avg)
+                        and pd.notna(regular_avg)
+                        and regular_avg != 0
+                        else np.nan
+                    )
+
+                    section(
+                        "Revenue impact summary",
+                        "Quantifying the average revenue differences between weather and calendar conditions."
+                    )
+
+                    kpis([
+                        (
+                            "Average revenue · rainy",
+                            money(rainy_avg),
+                            f"{rainy_days:,} rainy days"
+                        ),
+                        (
+                            "Rain vs. dry difference",
+                            f"{rain_difference:+.1f}%"
+                            if pd.notna(rain_difference) else "—",
+                            f"Dry-day average: {money(dry_avg)} · {dry_days:,} days"
+                        ),
+                        (
+                            "Average revenue · holidays",
+                            money(holiday_avg),
+                            f"{holiday_days:,} public holidays"
+                        ),
+                        (
+                            "Holiday vs. regular difference",
+                            f"{holiday_difference:+.1f}%"
+                            if pd.notna(holiday_difference) else "—",
+                            f"Regular avg. {money(regular_avg)}"
+                        ),
+                    ])
+
+                    st.caption(
+                        "Percentage differences use dry days and regular days "
+                        "as their respective baselines. Positive values indicate "
+                        "higher average revenue; negative values indicate lower "
+                        "average revenue. These are descriptive comparisons, "
+                        "not causal estimates."
+                    )
+
+                    st.caption(
+                        f"Analysis period: {start_d:%d %b %Y} – "
+                        f"{end_d:%d %b %Y} · "
+                        f"{len(weather_data):,} daily observations."
+                    )
+
+                    # ----------------------------------------------------
+                    # ROW 1: RAINFALL AND TEMPERATURE
+                    # ----------------------------------------------------
+
+                    left, right = st.columns(2)
+
+                    with left:
+                        section(
+                            "Rainy vs. dry days",
+                            "Average daily revenue and number of observations."
+                        )
+
+                        rain_summary = (
+                            weather_data
+                            .groupby("Weather", as_index=False)
+                            .agg(
+                                avg_revenue=("revenue", "mean"),
+                                days=("revenue", "size")
+                            )
+                        )
+
+                        fig = px.bar(
+                            rain_summary,
+                            x="Weather",
+                            y="avg_revenue",
+                            color="Weather",
+                            text=rain_summary["days"].map(
+                                lambda v: f"{v} days"
+                            ),
+                            color_discrete_map={
+                                "Rainy day": C["blue"],
+                                "Dry day": C["grey"]
+                            },
+                            labels={
+                                "Weather": "",
+                                "avg_revenue": f"Average revenue ({CURRENCY})"
+                            }
+                        )
+
+                        fig.update_traces(textposition="outside")
+                        fig.update_layout(showlegend=False)
+                        chart(fig, 330, unified=False)
+
+                    with right:
+                        section(
+                            "Revenue by average temperature",
+                            "Average daily revenue across temperature bands."
+                        )
+
+                        bins = [
+                            -np.inf, 5, 10, 15, 20, 25, np.inf
+                        ]
+
+                        labels = [
+                            "< 5 °C",
+                            "5–10 °C",
+                            "10–15 °C",
+                            "15–20 °C",
+                            "20–25 °C",
+                            "≥ 25 °C"
+                        ]
+
+                        weather_data["Temperature band"] = pd.cut(
+                            weather_data["temperature_avg_c"],
+                            bins=bins,
+                            labels=labels,
+                            right=False
+                        )
+
+                        temp_summary = (
+                            weather_data
+                            .groupby(
+                                "Temperature band",
+                                observed=True,
+                                as_index=False
+                            )
+                            .agg(
+                                avg_revenue=("revenue", "mean"),
+                                days=("revenue", "size")
+                            )
+                        )
+
+                        fig = px.bar(
+                            temp_summary,
+                            x="Temperature band",
+                            y="avg_revenue",
+                            color="Temperature band",
+                            text=temp_summary["days"].map(
+                                lambda v: f"{v} days"
+                            ),
+                            color_discrete_sequence=CATEGORY_SEQ,
+                            labels={
+                                "Temperature band": "",
+                                "avg_revenue": f"Average revenue ({CURRENCY})"
+                            }
+                        )
+
+                        fig.update_traces(textposition="outside")
+                        fig.update_layout(showlegend=False)
+                        chart(fig, 330, unified=False)
+
+                    # ----------------------------------------------------
+                    # ROW 2: HOLIDAYS AND PRECIPITATION
+                    # ----------------------------------------------------
+
+                    left, right = st.columns(2)
+
+                    with left:
+                        section(
+                            "Public holiday vs. regular days",
+                            "Compare average daily revenue on NRW public holidays and other days."
+                        )
+
+                        holiday_summary = (
+                            weather_data
+                            .groupby("Day type", as_index=False)
+                            .agg(
+                                avg_revenue=("revenue", "mean"),
+                                days=("revenue", "size")
+                            )
+                        )
+
+                        fig = px.bar(
+                            holiday_summary,
+                            x="Day type",
+                            y="avg_revenue",
+                            color="Day type",
+                            text=holiday_summary["days"].map(
+                                lambda v: f"{v} days"
+                            ),
+                            color_discrete_map={
+                                "Public holiday": C["amber"],
+                                "Regular day": C["blue"]
+                            },
+                            labels={
+                                "Day type": "",
+                                "avg_revenue": f"Average revenue ({CURRENCY})"
+                            }
+                        )
+
+                        fig.update_traces(textposition="outside")
+                        fig.update_layout(showlegend=False)
+                        chart(fig, 330, unified=False)
+
+                    with right:
+                        section(
+                            "Precipitation vs. revenue",
+                            "Each point represents one historical trading day."
+                        )
+
+                        fig = px.scatter(
+                            weather_data,
+                            x="precipitation_mm",
+                            y="revenue",
+                            color="Weather",
+                            opacity=0.65,
+                            color_discrete_map={
+                                "Rainy day": C["blue"],
+                                "Dry day": C["grey"]
+                            },
+                            labels={
+                                "precipitation_mm": "Precipitation (mm)",
+                                "revenue": f"Daily revenue ({CURRENCY})"
+                            }
+                        )
+
+                        chart(fig, 330, unified=False)
+
+                    
+                    # ----------------------------------------------------
+                    # STATISTICAL EVIDENCE
+                    # ----------------------------------------------------
+
+                    section(
+                        "Statistical evidence",
+                        "Test whether observed revenue differences are statistically significant."
+                    )
+
+                    # Welch's t-test and 95% confidence interval
+                    def welch_comparison(group_a, group_b):
+                        a = pd.Series(group_a).dropna().astype(float)
+                        b = pd.Series(group_b).dropna().astype(float)
+
+                        if len(a) < 2 or len(b) < 2:
+                            return None
+
+                        mean_difference = a.mean() - b.mean()
+
+                        variance_a = a.var(ddof=1)
+                        variance_b = b.var(ddof=1)
+
+                        se_squared = (
+                            variance_a / len(a)
+                            + variance_b / len(b)
+                        )
+
+                        if se_squared <= 0:
+                            return None
+
+                        se = np.sqrt(se_squared)
+
+                        df = se_squared ** 2 / (
+                            (variance_a / len(a)) ** 2 / (len(a) - 1)
+                            + (variance_b / len(b)) ** 2 / (len(b) - 1)
+                        )
+
+                        test = stats.ttest_ind(
+                            a,
+                            b,
+                            equal_var=False,
+                            nan_policy="omit"
+                        )
+
+                        critical_value = stats.t.ppf(
+                            0.975,
+                            df
+                        )
+
+                        margin = critical_value * se
+
+                        return {
+                            "difference": mean_difference,
+                            "ci_lower": mean_difference - margin,
+                            "ci_upper": mean_difference + margin,
+                            "p_value": test.pvalue,
+                            "n_a": len(a),
+                            "n_b": len(b)
+                        }
+
+                    def format_p_value(p):
+                        if pd.isna(p):
+                            return "Not available"
+                        if p < 0.001:
+                            return "< 0.001"
+                        return f"{p:.3f}"
+
+                    # ----------------------------------------------------
+                    # TEST 1: RAINY VS. DRY DAYS
+                    # ----------------------------------------------------
+
+                    rain_test = welch_comparison(
+                        weather_data.loc[
+                            weather_data["Weather"] == "Rainy day",
+                            "revenue"
+                        ],
+                        weather_data.loc[
+                            weather_data["Weather"] == "Dry day",
+                            "revenue"
+                        ]
+                    )
+
+                    # ----------------------------------------------------
+                    # TEST 2: PUBLIC HOLIDAYS VS. REGULAR DAYS
+                    # ----------------------------------------------------
+
+                    holiday_test = welch_comparison(
+                        weather_data.loc[
+                            weather_data["Day type"] == "Public holiday",
+                            "revenue"
+                        ],
+                        weather_data.loc[
+                            weather_data["Day type"] == "Regular day",
+                            "revenue"
+                        ]
+                    )
+
+                    # ----------------------------------------------------
+                    # TEST 3: TEMPERATURE VS. REVENUE
+                    # Spearman rank correlation
+                    # ----------------------------------------------------
+
+                    temperature_data = weather_data.dropna(
+                        subset=["temperature_avg_c", "revenue"]
+                    )
+
+                    if (
+                        len(temperature_data) >= 3
+                        and temperature_data["temperature_avg_c"].nunique() > 1
+                        and temperature_data["revenue"].nunique() > 1
+                    ):
+                        temperature_corr = stats.spearmanr(
+                            temperature_data["temperature_avg_c"],
+                            temperature_data["revenue"]
+                        )
+
+                        spearman_rho = temperature_corr.statistic
+                        spearman_p = temperature_corr.pvalue
+                    else:
+                        spearman_rho = np.nan
+                        spearman_p = np.nan
+
+                    # ----------------------------------------------------
+                    # TEST 4: REVENUE ACROSS TEMPERATURE BANDS
+                    # Kruskal-Wallis test
+                    # ----------------------------------------------------
+
+                    temperature_groups = [
+                        group["revenue"].dropna().values
+                        for _, group in weather_data.groupby(
+                            "Temperature band",
+                            observed=True
+                        )
+                        if len(group["revenue"].dropna()) >= 2
+                    ]
+
+                    if len(temperature_groups) >= 2:
+                        temperature_test = stats.kruskal(
+                            *temperature_groups
+                        )
+
+                        temperature_band_stat = temperature_test.statistic
+                        temperature_band_p = temperature_test.pvalue
+                    else:
+                        temperature_band_stat = np.nan
+                        temperature_band_p = np.nan
+
+                    # ----------------------------------------------------
+                    # DISPLAY STATISTICAL RESULTS
+                    # ----------------------------------------------------
+
+                    results = []
+
+                    if rain_test is not None:
+                        results.append({
+                            "Comparison": "Rainy vs. dry days",
+                            "Mean difference (€)": money(
+                                rain_test["difference"], 2
+                            ),
+                            "95% confidence interval": (
+                                f"{money(rain_test['ci_lower'], 2)} to "
+                                f"{money(rain_test['ci_upper'], 2)}"
+                            ),
+                            "p-value": format_p_value(
+                                rain_test["p_value"]
+                            ),
+                            "Observations": (
+                                f"{rain_test['n_a']} vs. {rain_test['n_b']}"
+                            )
+                        })
+
+                    if holiday_test is not None:
+                        results.append({
+                            "Comparison": "Public holidays vs. regular days",
+                            "Mean difference (€)": money(
+                                holiday_test["difference"], 2
+                            ),
+                            "95% confidence interval": (
+                                f"{money(holiday_test['ci_lower'], 2)} to "
+                                f"{money(holiday_test['ci_upper'], 2)}"
+                            ),
+                            "p-value": format_p_value(
+                                holiday_test["p_value"]
+                            ),
+                            "Observations": (
+                                f"{holiday_test['n_a']} vs. "
+                                f"{holiday_test['n_b']}"
+                            )
+                        })
+
+                    results.append({
+                        "Comparison": "Temperature vs. revenue (Spearman)",
+                        "Mean difference (€)": (
+                            f"ρ = {spearman_rho:.3f}"
+                            if pd.notna(spearman_rho) else "—"
+                        ),
+                        "95% confidence interval": "Not calculated",
+                        "p-value": format_p_value(spearman_p),
+                        "Observations": len(temperature_data)
+                    })
+
+                    results.append({
+                        "Comparison": "Revenue across temperature bands",
+                        "Mean difference (€)": (
+                            f"H = {temperature_band_stat:.3f}"
+                            if pd.notna(temperature_band_stat) else "—"
+                        ),
+                        "95% confidence interval": "Not calculated",
+                        "p-value": format_p_value(temperature_band_p),
+                        "Observations": len(temperature_data)
+                    })
+
+                    st.dataframe(
+                        pd.DataFrame(results),
+                        use_container_width=True,
+                        hide_index=True
+                    )
+
+                    st.caption(
+                        "Welch's t-test compares group means without assuming "
+                        "equal variances. Spearman measures monotonic association. "
+                        "Kruskal–Wallis compares the distributions across "
+                        "temperature bands. A p-value below 0.05 is conventionally "
+                        "considered statistically significant, but does not "
+                        "establish causation."
+                    )
+
+
+                    # ----------------------------------------------------
+                    # ADJUSTED REVENUE REGRESSION
+                    # ----------------------------------------------------
+
+                    section(
+                        "Adjusted weather & calendar regression",
+                        "Estimate the relationship between weather, holidays and promotions while controlling for weekday and seasonality."
+                    )
+
+                    # Add promotion information to the daily dataset.
+                    promotion_data = daily_ctx[
+                        ["date", "is_promo_day"]
+                    ].drop_duplicates("date")
+
+                    regression_data = weather_data.merge(
+                        promotion_data,
+                        on="date",
+                        how="left"
+                    )
+
+                    regression_data = regression_data.sort_values(
+                        "date"
+                    ).copy()
+
+                    # Remove observations with missing model inputs.
+                    regression_data = regression_data.dropna(
+                        subset=[
+                            "revenue",
+                            "temperature_avg_c",
+                            "precipitation_mm",
+                            "is_holiday",
+                            "is_promo_day"
+                        ]
+                    )
+
+                    # Convert binary variables to numeric indicators.
+                    regression_data["is_holiday"] = (
+                        regression_data["is_holiday"].astype(int)
+                    )
+
+                    regression_data["is_promo_day"] = (
+                        regression_data["is_promo_day"].astype(int)
+                    )
+
+                    # Create calendar controls.
+                    regression_data["weekday"] = (
+                        regression_data["date"].dt.day_name()
+                    )
+
+                    regression_data["month"] = (
+                        regression_data["date"].dt.month.astype(str)
+                    )
+
+                    # Predictors of interest.
+                    candidate_predictors = [
+                        "temperature_avg_c",
+                        "precipitation_mm",
+                        "is_holiday",
+                        "is_promo_day"
+                    ]
+
+                    # Exclude predictors with no variation in the
+                    # selected period. Their effects cannot be estimated.
+                    active_predictors = [
+                        col
+                        for col in candidate_predictors
+                        if regression_data[col].nunique() > 1
+                    ]
+
+                    # Create weekday and month fixed effects.
+                    calendar_controls = pd.get_dummies(
+                        regression_data[["weekday", "month"]],
+                        columns=["weekday", "month"],
+                        drop_first=True,
+                        dtype=float
+                    )
+
+                    X = regression_data[
+                        active_predictors
+                    ].astype(float)
+
+                    X = pd.concat(
+                        [X, calendar_controls],
+                        axis=1
+                    )
+
+                    X = sm.add_constant(
+                        X,
+                        has_constant="add"
+                    )
+
+                    y = regression_data["revenue"].astype(float)
+
+                    # Require sufficient observations and a full-rank
+                    # design matrix before estimating the model.
+                    if (
+                        len(regression_data) < 40
+                        or np.linalg.matrix_rank(X.to_numpy()) < X.shape[1]
+                        or len(regression_data) <= X.shape[1] + 7
+                    ):
+                        st.warning(
+                            "There are insufficient observations or "
+                            "variation to estimate a reliable adjusted "
+                            "regression for this selected period. "
+                            "Try a longer historical period."
+                        )
+
+                    else:
+                        # OLS with Newey-West HAC standard errors.
+                        regression_model = sm.OLS(y, X).fit(
+                            cov_type="HAC",
+                            cov_kwds={"maxlags": 7}
+                        )
+
+                        # ------------------------------------------------
+                        # MODEL PERFORMANCE
+                        # ------------------------------------------------
+
+                        st.write("")
+
+                        kpis([
+                            (
+                                "Observations",
+                                integer(int(regression_model.nobs)),
+                                "Daily records"
+                            ),
+                            (
+                                "R-squared",
+                                f"{regression_model.rsquared:.3f}",
+                                "Explained revenue variation"
+                            ),
+                            (
+                                "Adjusted R-squared",
+                                f"{regression_model.rsquared_adj:.3f}",
+                                "Adjusted for model complexity"
+                            )
+                        ])
+
+                        # ------------------------------------------------
+                        # COEFFICIENT RESULTS
+                        # ------------------------------------------------
+
+                        coefficient_labels = {
+                            "temperature_avg_c": "Temperature (per °C)",
+                            "precipitation_mm": "Precipitation (per mm)",
+                            "is_holiday": "Public holiday",
+                            "is_promo_day": "Promotion day"
+                        }
+
+                        coefficient_rows = []
+
+                        confidence = regression_model.conf_int(
+                            alpha=0.05
+                        )
+
+                        for variable in candidate_predictors:
+
+                            if variable not in active_predictors:
+                                continue
+
+                            coefficient = regression_model.params[variable]
+                            lower = confidence.loc[variable, 0]
+                            upper = confidence.loc[variable, 1]
+                            p_value = regression_model.pvalues[variable]
+
+                            coefficient_rows.append({
+                                "Factor": coefficient_labels[variable],
+                                "Revenue coefficient (€)": coefficient,
+                                "95% CI lower (€)": lower,
+                                "95% CI upper (€)": upper,
+                                "p-value": p_value
+                            })
+
+                        coefficient_df = pd.DataFrame(
+                            coefficient_rows
+                        )
+
+                        if not coefficient_df.empty:
+
+                            st.markdown("**Adjusted coefficient results**")
+
+                            display_df = coefficient_df.copy()
+
+                            for col in [
+                                "Revenue coefficient (€)",
+                                "95% CI lower (€)",
+                                "95% CI upper (€)"
+                            ]:
+                                display_df[col] = display_df[col].map(
+                                    lambda v: f"€{v:,.2f}"
+                                )
+
+                            display_df["p-value"] = (
+                                coefficient_df["p-value"]
+                                .map(format_p_value)
+                            )
+
+                            st.dataframe(
+                                display_df,
+                                use_container_width=True,
+                                hide_index=True
+                            )
+
+                            # --------------------------------------------
+                            # COEFFICIENT CHART
+                            # --------------------------------------------
+
+                            section(
+                                "Adjusted revenue associations",
+                                "Estimated revenue change after controlling for weekday, month and other included factors. Error bars show 95% confidence intervals."
+                            )
+
+                            plot_df = coefficient_df.copy()
+
+                            plot_df["label"] = plot_df["Factor"]
+
+                            plot_df["colour"] = np.where(
+                                plot_df["Revenue coefficient (€)"] >= 0,
+                                C["teal"],
+                                C["red"]
+                            )
+
+                            fig = go.Figure()
+
+                            fig.add_trace(
+                                go.Bar(
+                                    x=plot_df["Revenue coefficient (€)"],
+                                    y=plot_df["label"],
+                                    orientation="h",
+                                    marker_color=plot_df["colour"],
+                                    error_x=dict(
+                                        type="data",
+                                        symmetric=False,
+                                        array=(
+                                            plot_df["95% CI upper (€)"]
+                                            - plot_df["Revenue coefficient (€)"]
+                                        ),
+                                        arrayminus=(
+                                            plot_df["Revenue coefficient (€)"]
+                                            - plot_df["95% CI lower (€)"]
+                                        ),
+                                        visible=True
+                                    ),
+                                    hovertemplate=(
+                                        "%{y}<br>"
+                                        "Estimated change: €%{x:,.2f}"
+                                        "<extra></extra>"
+                                    )
+                                )
+                            )
+
+                            fig.add_vline(
+                                x=0,
+                                line_dash="dash",
+                                line_color=C["grey"]
+                            )
+
+                            fig.update_layout(
+                                xaxis_title="Adjusted revenue difference (€)",
+                                yaxis_title="",
+                                showlegend=False
+                            )
+
+                            chart(fig, 350, unified=False)
+
+                        # ------------------------------------------------
+                        # INTERPRETATION
+                        # ------------------------------------------------
+
+                        st.markdown("**Model interpretation**")
+
+                        significant_factors = coefficient_df[
+                            coefficient_df["p-value"] < 0.05
+                        ]
+
+                        if significant_factors.empty:
+                            st.info(
+                                "None of the included weather or calendar "
+                                "factors show a statistically significant "
+                                "adjusted association at the 5% level."
+                            )
+
+                        else:
+                            for _, row in significant_factors.iterrows():
+                                direction = (
+                                    "positive"
+                                    if row["Revenue coefficient (€)"] > 0
+                                    else "negative"
+                                )
+
+                                st.write(
+                                    f"- **{row['Factor']}** has a "
+                                    f"{direction} adjusted association "
+                                    f"with revenue "
+                                    f"(coefficient: "
+                                    f"{money(row['Revenue coefficient (€)'], 2)}, "
+                                    f"p-value: "
+                                    f"{format_p_value(row['p-value'])})."
+                                )
+
+                        omitted = [
+                            coefficient_labels[col]
+                            for col in candidate_predictors
+                            if col not in active_predictors
+                        ]
+
+                        if omitted:
+                            st.caption(
+                                "These factors could not be estimated "
+                                "because they had no variation in the "
+                                "selected period: "
+                                + ", ".join(omitted)
+                            )
+
+                        st.caption(
+                            "Model: ordinary least squares with Newey-West "
+                            "HAC standard errors (7-day maximum lag), "
+                            "weekday and month fixed effects. Coefficients "
+                            "represent adjusted associations, not causal "
+                            "effects. R-squared describes in-sample fit, "
+                            "not out-of-sample predictive performance."
+                        )
+
+    
+
+    # ---- Forecast ---------------------------------------------------------
+
+
+    # ---- Forecast ---------------------------------------------------------
+    with tab_fc:
+        fc = output("revenue_forecast_next_14_days.csv", "date")
+        if not has_cols(fc, "date", "forecast_revenue", "lower_bound", "upper_bound"):
+            unavailable("The revenue forecast")
+            return
+        fc = fc.sort_values("date").reset_index(drop=True)
+        total, low, high = fc["forecast_revenue"].sum(), fc["lower_bound"].sum(), fc["upper_bound"].sum()
+        peak = fc.loc[fc["forecast_revenue"].idxmax()]
+        model = meta("restrodine_prophet_calendar_weather_metadata.json")
+        pj = meta("restrodine_prophet_calendar_weather.json")
+        width = pj.get("interval_width")
+
+        forecast_reliability_warning()
+
+        kpis([
+            ("Forecast revenue", money(total), f"{fc['date'].min():%d %b} – {fc['date'].max():%d %b %Y}"),
+            ("Average per day", money(total / len(fc)), None),
+            ("Peak day", f"{peak['date']:%a %d %b}", money(peak["forecast_revenue"])),
+             ])
+        st.caption(
+            f"80% uncertainty interval: "
+            f"{money(low)} – {money(high)}"
+        )
+
+        st.write("")
+        section("Forecast with uncertainty band", "Saved model output; the app displays it and does not retrain the model.")
+        fig = go.Figure()
+        fig.add_trace(go.Scatter(x=fc["date"], y=fc["upper_bound"], mode="lines", line=dict(width=0),
+                                 showlegend=False, hoverinfo="skip"))
+        fig.add_trace(go.Scatter(x=fc["date"], y=fc["lower_bound"], mode="lines", line=dict(width=0), fill="tonexty",
+                                 fillcolor="rgba(47,85,212,.15)", name="Uncertainty range"))
+        fig.add_trace(go.Scatter(x=fc["date"], y=fc["forecast_revenue"], mode="lines+markers", name="Forecast revenue",
+                                 line=dict(color=C["blue"], width=3), marker=dict(size=7)))
+        fig.update_layout(yaxis_title=f"Revenue ({CURRENCY})")
+        fig.update_xaxes(tickformat="%a %d %b")
+        chart(fig, 360)
+
+        # Plausibility check against recent same-weekday history
+        if has_cols(daily_hist, "date", "revenue"):
+            recent = daily_hist[daily_hist["date"] >= daily_hist["date"].max() - pd.Timedelta(days=364)]
+            typical = recent.assign(wd=recent["date"].dt.day_name()).groupby("wd")["revenue"].mean()
+            bench = fc.assign(Weekday=fc["date"].dt.day_name())
+            bench["typical"] = bench["Weekday"].map(typical)
+            bench["vs_typical"] = (bench["forecast_revenue"] / bench["typical"] - 1) * 100
+            section("Plausibility check", "Forecast compared with the average of the same weekday over the last 12 months of history.")
+            fig = go.Figure()
+            fig.add_bar(x=bench["date"], y=bench["typical"], name="Typical same weekday (last 12 months)", marker_color=C["grey"])
+            fig.add_bar(x=bench["date"], y=bench["forecast_revenue"], name="Forecast", marker_color=C["blue"])
+            fig.update_layout(barmode="group", yaxis_title=f"Revenue ({CURRENCY})")
+            fig.update_xaxes(tickformat="%a %d %b")
+            chart(fig, 300)
+            avg_dev = bench["vs_typical"].mean()
+            if pd.notna(avg_dev) and abs(avg_dev) > 20:
+                callout(f"On average the forecast is {avg_dev:+.0f}% versus typical weekday revenue. "
+                        "Review seasonality, weather inputs and promotions before relying on it.", "note")
+
+
+        with st.expander("Daily forecast table"):
+            show = fc.rename(columns={
+                "date": "Date",
+                "forecast_revenue": f"Forecast ({CURRENCY})",
+                "lower_bound": f"Lower bound ({CURRENCY})",
+                "upper_bound": f"Upper bound ({CURRENCY})",
+                "expected_orders": "Expected orders",
+                "day_of_week": "Weekday",
+                "is_weekend": "Weekend",
+                "demand_tier": "Demand tier"
+            }).copy()
+
+            show["Date"] = show["Date"].dt.strftime(
+                "%a %d %b %Y"
+            )
+
+            if "Weekend" in show.columns:
+                show["Weekend"] = show["Weekend"].map({
+                    1: "Yes",
+                    0: "No",
+                    True: "Yes",
+                    False: "No"
+                })
+
+            forecast_columns = [
+                f"Forecast ({CURRENCY})",
+                f"Lower bound ({CURRENCY})",
+                f"Upper bound ({CURRENCY})"
+            ]
+
+            column_config = {
+                col: money_col(col, 0)
+                for col in forecast_columns
+                if col in show.columns
+            }
+
+            if "Expected orders" in show.columns:
+                column_config["Expected orders"] = (
+                    st.column_config.NumberColumn(
+                        "Expected orders",
+                        format="%.0f"
+                    )
+                )
+
+            table(show, 320, column_config)
+
+            download(
+                fc,
+                "Download forecast (CSV)",
+                "revenue_forecast_next_14_days.csv",
+                "dl_fc"
+            )
+
+
+        with st.expander("Model card"):
+            if model:
+                regs = ", ".join(model.get("regressors", [])) or "—"
+                loc = model.get("location", {})
+                st.markdown(
+                    f"- **Model:** {model.get('model', 'Prophet')}\n"
+                    f"- **Seasonality:** weekly = {model.get('weekly_seasonality')}, yearly = {model.get('yearly_seasonality')}, "
+                    f"mode = {model.get('seasonality_mode')}\n"
+                    f"- **External regressors:** {regs}\n"
+                    f"- **Training window:** {model.get('training_start')} to {model.get('training_end')}\n"
+                    f"- **Weather location:** {loc.get('region', '—')} ({loc.get('latitude', '—')}, {loc.get('longitude', '—')})"
+                )
+            else:
+                st.caption("Model metadata file not found.")
+        callout("Forecast values are estimates, not guaranteed revenue. Lower and upper bounds express model "
+                "uncertainty and are not guaranteed minimum or maximum outcomes.", "note")
+
+
+# =============================================================================
+# Page: Workforce Planning
+# =============================================================================
+
+def page_workforce() -> None:
+    hero("Capacity & labour", "Workforce Planning",
+         "Compare forecast demand with the recommended roster and find uncovered role and shift combinations.")
+    if forecast_mode:
+        if forecast_available:
+            st.info(
+                f"Showing workforce planning for "
+                f"{forecast_start:%d %b %Y} – {forecast_end:%d %b %Y}, "
+                "based on the saved 14-day revenue and workforce forecasts."
+            )
+        else:
+            st.warning(
+                "The 14-day forecast is unavailable. Refresh the forecast first."
+            )
+
+    if forecast_mode:
+        tab_fc, tab_hist = st.tabs([
+            "14-day forecast",
+            "Historical performance"
+        ])
+    else:
+        tab_hist, tab_fc = st.tabs([
+            "Historical performance",
+            "14-day forecast"
+        ])
+    
+    wf = output("workforce_forecast_next_14_days.csv", "date")
+
+    with tab_hist:
+        # Historical workforce performance
+        section(
+            "Historical workforce performance",
+            f"Recorded shift activity from {start_d:%d %b %Y} to {end_d:%d %b %Y}."
+        )
+
+        if has_cols(shifts_data, "shift_date", "employee_id", "hours_worked", "labour_cost"):
+            hist = shifts_data[
+                shifts_data["shift_date"].between(
+                    pd.Timestamp(start_d),
+                    pd.Timestamp(end_d)
+                )
+            ].copy()
+
+            if not hist.empty:
+                hist = hist.merge(
+                    employees[[
+                        "employee_id",
+                        "employee_name",
+                        "role",
+                        "employment_type"
+                    ]],
+                    on="employee_id",
+                    how="left"
+                )
+
+                kpis([
+                    ("Recorded shifts", integer(len(hist)), "Historical shift records"),
+                    ("Employees scheduled", integer(hist["employee_id"].nunique()), "Unique employees"),
+                    ("Total hours worked", f"{hist['hours_worked'].sum():,.1f}", "Recorded shift hours"),
+                    ("Historical labour cost", money(hist["labour_cost"].sum()), "Recorded shift costs"),
+                ])
+
+                st.write("")
+
+                
+                # Row 1: Monthly trends
+                left, right = st.columns(2)
+
+                with left:
+                    section(
+                        "Labour cost over time",
+                        "Historical labour expenditure across the selected period."
+                    )
+
+                    monthly_labour = (
+                        hist.assign(
+                            month=hist["shift_date"].dt.to_period("M").dt.to_timestamp()
+                        )
+                        .groupby("month", as_index=False)
+                        .agg(
+                            labour_cost=("labour_cost", "sum"),
+                            hours_worked=("hours_worked", "sum")
+                        )
+                    )
+
+                    fig = px.bar(
+                        monthly_labour,
+                        x="month",
+                        y="labour_cost",
+                        labels={
+                            "month": "Month",
+                            "labour_cost": f"Labour cost ({CURRENCY})"
+                        }
+                    )
+                    fig.update_traces(marker_color=C["blue"])
+                    fig.update_xaxes(tickformat="%b %Y")
+                    chart(fig, 330)
+
+                with right:
+                    section(
+                        "Monthly working hours",
+                        "Total recorded employee working hours per month."
+                    )
+
+                    fig = px.line(
+                        monthly_labour,
+                        x="month",
+                        y="hours_worked",
+                        markers=True,
+                        labels={
+                            "month": "Month",
+                            "hours_worked": "Working hours"
+                        }
+                    )
+                    fig.update_traces(
+                        line_color=C["teal"],
+                        line_width=3
+                    )
+                    fig.update_xaxes(tickformat="%b %Y")
+                    chart(fig, 330)
+
+                # Row 2: Employee workload
+                left, right = st.columns(2)
+
+                with left:
+                    employee_hours = (
+                        hist.groupby("employee_name", as_index=False)
+                        .agg(
+                            hours_worked=("hours_worked", "sum"),
+                            shifts=("employee_id", "size"),
+                            labour_cost=("labour_cost", "sum")
+                        )
+                        .sort_values("hours_worked", ascending=False)
+                        .head(10)
+                    )
+
+                    section(
+                        "Top 10 employees by working hours",
+                        "Employees with the highest recorded working hours in the selected period."
+                    )
+
+                    fig = px.bar(
+                        employee_hours.sort_values("hours_worked", ascending=True),
+                        x="hours_worked",
+                        y="employee_name",
+                        orientation="h",
+                        labels={
+                            "hours_worked": "Working hours",
+                            "employee_name": "Employee"
+                        }
+                    )
+                    fig.update_traces( marker_color=px.colors.qualitative.Set2 )
+                    chart(fig, 380)
+
+                    st.caption(
+                        "This ranking describes recorded shift hours, "
+                        "not employee productivity or performance."
+                    )
+
+                with right:
+                    weekday_hours = (
+                        hist.assign(
+                            weekday=hist["shift_date"].dt.day_name()
+                        )
+                        .groupby("weekday", as_index=False)
+                        .agg(
+                            hours_worked=("hours_worked", "sum"),
+                            shifts=("employee_id", "size")
+                        )
+                    )
+
+                    weekday_hours["weekday"] = pd.Categorical(
+                        weekday_hours["weekday"],
+                        categories=WEEKDAYS,
+                        ordered=True
+                    )
+                    weekday_hours = weekday_hours.sort_values("weekday")
+
+                    section(
+                        "Workforce demand by weekday",
+                        "Recorded working hours and shifts across the days of the week."
+                    )
+
+                    fig = px.bar(
+                        weekday_hours,
+                        x="weekday",
+                        y="hours_worked",
+                        labels={
+                            "weekday": "Day",
+                            "hours_worked": "Working hours"
+                        }
+                    )
+                    fig.update_traces( marker_color=WORKFORCE_PALETTE[:len(weekday_hours)] )
+                    chart(fig, 330)
+
+                # Row 3: Role analysis
+                left, right = st.columns(2)
+
+                with left:
+                    role_hours = (
+                        hist.groupby("role", as_index=False)["hours_worked"]
+                        .sum()
+                        .sort_values("hours_worked", ascending=True)
+                    )
+
+                    section(
+                        "Working hours by role",
+                        "Total recorded working hours for each employee role."
+                    )
+
+                    fig = px.bar(
+                        role_hours,
+                        x="hours_worked",
+                        y="role",
+                        orientation="h",
+                        labels={
+                            "hours_worked": "Hours worked",
+                            "role": "Employee role"
+                        }
+                    )
+                    fig.update_traces( marker_color=WORKFORCE_PALETTE[:len(role_hours)] )
+                    chart(fig, 330)
+
+                with right:
+                    role_cost = (
+                        hist.groupby("role", as_index=False)["labour_cost"]
+                        .sum()
+                        .sort_values("labour_cost", ascending=True)
+                    )
+
+                    section(
+                        "Labour cost by role",
+                        "Total recorded labour expenditure across employee roles."
+                    )
+
+                    fig = px.bar(
+                        role_cost,
+                        x="labour_cost",
+                        y="role",
+                        orientation="h",
+                        labels={
+                            "labour_cost": f"Labour cost ({CURRENCY})",
+                            "role": "Employee role"
+                        }
+                    )
+                    fig.update_traces( marker_color=px.colors.qualitative.Set3[:len(role_cost)] )
+                    chart(fig, 330)
+
+                # Row 4: Shift distribution
+                left, right = st.columns(2)
+
+                with left:
+                    shift_summary = (
+                        hist.groupby("shift_type", as_index=False)
+                        .agg(
+                            shifts=("employee_id", "size"),
+                            hours=("hours_worked", "sum")
+                        )
+                    )
+
+                    section(
+                        "Shift distribution",
+                        "Number of recorded shifts by service period."
+                    )
+
+                    fig = px.pie(
+                        shift_summary,
+                        names="shift_type",
+                        values="shifts",
+                        hole=0.55
+                    )
+                    chart(fig, 330)
+
+            else:
+                st.info("No historical shifts are available for the selected period.")
+        else:
+            st.warning("Historical shift data is missing required columns.")
+        st.write("")
+        
+    with tab_fc:
+        roster = output("recommended_roster.csv", "date")
+        coverage = output("staffing_coverage.csv", "date")
+        gaps = output("staffing_gaps.csv", "date")
+
+        need = {"date", "required_staff", "scheduled_employees", "labour_cost", "forecast_revenue"}
+        if not has_cols(wf, *need):
+            unavailable("The workforce forecast")
+        else:
+            wf = wf.sort_values("date").reset_index(drop=True)
+            forecast_reliability_warning()
+            if "labour_cost_pct_revenue" not in wf:
+                wf["labour_cost_pct_revenue"] = np.where(
+                    wf["forecast_revenue"] > 0,
+                    wf["labour_cost"] / wf["forecast_revenue"] * 100,
+                    np.nan
+                )
+            target = st.slider("Target labour cost / revenue (%)", 20, 50, 33, 1,
+                            help="Management target used to flag forecast days above the threshold.")
+            total_cost, total_rev = wf["labour_cost"].sum(), wf["forecast_revenue"].sum()
+            ratio = safe_div(total_cost, total_rev) * 100
+            over = int((wf["labour_cost_pct_revenue"] > target).sum())
+            unfilled = gaps["unfilled"].sum() if has_cols(gaps, "unfilled") else np.nan
+            cov_rate = (coverage["coverage_status"].eq("Covered").mean() * 100) if has_cols(coverage, "coverage_status") else np.nan
+
+            kpis([
+                ("Forecast labour cost", money(total_cost), f"{wf['date'].min():%d %b} – {wf['date'].max():%d %b}"),
+                ("Labour cost / revenue", pct(ratio), f"Target {target}%", {"delta_color": "off"}),
+                ("Days above target", f"{over} of {len(wf)}", None),
+                ("Unfilled positions", integer(unfilled), None, {"delta_color": "off"}),
+                ("Role/shift coverage", pct(cov_rate), "Slots fully covered"),
+            ])
+            st.write("")
+
+            l, r = st.columns([1.3, 1])
+            with l:
+                section("Required vs. scheduled employees", "Daily staffing requirement against the recommended roster headcount.")
+                fig = go.Figure()
+                fig.add_bar(x=wf["date"], y=wf["required_staff"], name="Required", marker_color=C["blue"])
+                fig.add_bar(x=wf["date"], y=wf["scheduled_employees"], name="Scheduled", marker_color=C["teal"])
+                fig.update_layout(barmode="group", yaxis_title="Employees")
+                fig.update_xaxes(tickformat="%a %d")
+                chart(fig, 330)
+            with r:
+                section("Labour cost ratio vs. target", "Bars above the dashed line exceed the selected target.")
+                colors = np.where(wf["labour_cost_pct_revenue"] > target, C["red"], C["teal"])
+                fig = go.Figure(go.Bar(x=wf["date"], y=wf["labour_cost_pct_revenue"], marker_color=colors, name="Labour / revenue"))
+                fig.add_hline(y=target, line_dash="dash", line_color=C["ink"])
+                fig.update_layout(yaxis_title="Labour cost / revenue (%)", showlegend=False)
+                fig.update_xaxes(tickformat="%a %d")
+                chart(fig, 330)
+
+            l, r = st.columns(2)
+            with l:
+                section("Expected demand", "Expected orders and demand tier per day.")
+                if has_cols(wf, "expected_orders"):
+                    fig = px.bar(wf, x="date", y="expected_orders", color="demand_tier" if "demand_tier" in wf else None,
+                                color_discrete_map={"High": C["blue"], "Standard": C["blue_soft"], "Low": C["grey"]},
+                                labels={"date": "", "expected_orders": "Expected orders", "demand_tier": "Demand tier"})
+                    fig.update_xaxes(tickformat="%a %d")
+                    chart(fig, 300)
+            with r:
+                section("Labour productivity", "Forecast orders handled per labour hour.")
+                if has_cols(wf, "forecast_orders_per_labour_hour"):
+                    fig = px.line(wf, x="date", y="forecast_orders_per_labour_hour", markers=True,
+                                labels={"date": "", "forecast_orders_per_labour_hour": "Orders / labour hour"})
+                    fig.update_traces(line_color=C["teal"], line_width=3)
+                    fig.update_xaxes(tickformat="%a %d")
+                    chart(fig, 300)
+
+            section("Where gaps occur", "Unfilled positions by role and shift, plus the day-by-day coverage position.")
+            l, r = st.columns([1, 1.3])
+            with l:
+                if has_cols(gaps, "role", "shift_type", "unfilled"):
+                    g = gaps.groupby(["role", "shift_type"], as_index=False)["unfilled"].sum()
+                    fig = px.bar(g, y="role", x="unfilled", color="shift_type", orientation="h",
+                                labels={"unfilled": "Unfilled positions", "role": "", "shift_type": "Shift"})
+                    fig.update_layout(barmode="stack")
+                    chart(fig, 330, unified=False)
+                else:
+                    st.success("No staffing gaps recorded in the saved roster.")
+            with r:
+                if has_cols(coverage, "date", "role", "shortfall"):
+                    piv = coverage.groupby(["role", "date"])["shortfall"].sum().reset_index().pivot(index="role", columns="date", values="shortfall").fillna(0)
+                    piv.columns = [c.strftime("%a %d") for c in piv.columns]
+                    fig = px.imshow(piv, aspect="auto", color_continuous_scale=["#F3F6FB", C["red"]],
+                                    labels=dict(x="", y="", color="Shortfall"))
+                    chart(fig, 330, unified=False)
+
+            with st.expander("Roster explorer", expanded=False):
+                if roster.empty:
+                    unavailable("The recommended roster")
+                else:
+                    f1, f2, f3 = st.columns(3)
+                    roles = f1.multiselect("Role", sorted(roster["role"].dropna().unique()) if "role" in roster else [])
+                    shifts = f2.multiselect("Shift", sorted(roster["shift_type"].dropna().unique()) if "shift_type" in roster else [])
+                    days = f3.multiselect("Date", sorted(roster["date"].dt.strftime("%Y-%m-%d").unique()))
+                    view = roster.copy()
+                    if roles:
+                        view = view[view["role"].isin(roles)]
+                    if shifts:
+                        view = view[view["shift_type"].isin(shifts)]
+                    if days:
+                        view = view[view["date"].dt.strftime("%Y-%m-%d").isin(days)]
+                    st.caption(f"{len(view):,} shifts · {view['hours'].sum():,.1f} hours · {money(view['labour_cost'].sum())} labour cost")
+                    shown = view.assign(date=view["date"].dt.strftime("%a %d %b"))
+                    cols = [c for c in ["date", "employee_name", "role", "employment_type", "shift_type", "start_time", "end_time", "hours", "labour_cost"] if c in shown]
+                    table(shown[cols].rename(columns={
+                        "date": "Date", "employee_name": "Employee", "role": "Role", "employment_type": "Contract",
+                        "shift_type": "Shift", "start_time": "Start", "end_time": "End", "hours": "Hours", "labour_cost": "Labour cost"}),
+                        380, {"Hours": num_col("Hours", 1), "Labour cost": money_col("Labour cost", 2)})
+                    download(view, "Download roster (CSV)", "recommended_roster.csv", "dl_roster")
+
+            with st.expander("Staffing gap details"):
+                if has_cols(gaps, "date"):
+                    g = gaps.assign(date=gaps["date"].dt.strftime("%a %d %b"))
+                    table(g.rename(columns=str.title), 320)
+                    download(gaps, "Download staffing gaps (CSV)", "staffing_gaps.csv", "dl_gaps")
+                else:
+                    st.caption("No gap records.")
+
+            callout("The roster is a model recommendation, not a confirmed schedule. Verify availability, contracts, labour law, "
+                    "qualifications and manager approval before operational use. Labour cost excludes other operating costs.", "note")
+
+
+# =============================================================================
+# Page: Customer Intelligence
+# =============================================================================
+
+def page_customers() -> None:
+    hero("Voice of customer", "Customer Intelligence",
+         "Review sentiment, customer value segments and recurring experience themes.")
+    if forecast_mode:
+        st.info(
+            "Customer Intelligence is based on historical customer and review data. "
+            "There are no customer forecasts for the next 14 days."
+        )
+        return
+    callout("Customer outputs summarise the full historical dataset and are not affected by the sidebar filters. "
+            "Aspect sentiments are supplied synthetic annotations, not predictions from a trained NLP model.", "info")
+
+    kv = kpi_lookup(output("customer_intelligence_kpis.csv"))
+    summary = meta("customer_intelligence_summary.json")
+    segments = output("customer_segment_profile.csv")
+    aspects = output("customer_aspect_sentiment_summary.csv")
+    monthly = output("customer_monthly_sentiment.csv")
+    improve = output("customer_improvement_areas.csv")
+    by_type = output("customer_feedback_by_type.csv")
+    ratings = output("customer_ratings_by_type.csv")
+    detail = output("customer_review_aspect_detail.csv", "review_date")
+    high_neg = output("high_value_negative_feedback.csv", "review_date")
+    rfm = output("customer_rfm_segments.csv")
+
+    avg_rating = kv.get("Average Rating", np.nan)
+    kpis([
+        ("Reviews", integer(kv.get("Total Reviews", np.nan)), None),
+        ("Reviewing customers", integer(kv.get("Customers Who Reviewed", np.nan)), None),
+        ("Average rating", f"{avg_rating:.2f} / 5" if pd.notna(avg_rating) else "—", None),
+        ("Positive mentions", pct(kv.get("Positive Sentiment (%)", np.nan)), None),
+        ("Negative mentions", pct(kv.get("Negative Sentiment (%)", np.nan)), None),
+    ])
+    st.write("")
+
+    t_sent, t_seg, t_voice, t_risk = st.tabs(["Sentiment", "Segments", "Review explorer", "High-value risk"])
+
+    with t_sent:
+        l, r = st.columns(2)
+        with l:
+            section("Negative share over time", "Share of aspect mentions that are negative, by month.")
+            if has_cols(monthly, "review_month", "Negative (%)"):
+                m = monthly.assign(month=pd.to_datetime(monthly["review_month"], format="%Y-%m", errors="coerce"))
+                fig = px.line(m, x="month", y="Negative (%)", markers=True, labels={"month": "", "Negative (%)": "Negative mentions (%)"})
+                fig.update_traces(line_color=C["red"], line_width=3)
+                chart(fig, 330)
+            else:
+                unavailable("Monthly sentiment")
+        with r:
+            section("Sentiment by experience aspect", "Mix of positive, neutral and negative mentions per aspect.")
+            if has_cols(aspects, "aspect", "Positive (%)", "Neutral (%)", "Negative (%)"):
+                a = aspects.sort_values("Negative (%)")
+                fig = go.Figure()
+                for s in ["Positive", "Neutral", "Negative"]:
+                    fig.add_bar(y=a["aspect"], x=a[f"{s} (%)"], name=s, orientation="h", marker_color=SENTIMENT_COLORS[s])
+                fig.update_layout(barmode="stack", xaxis_title="Share of mentions (%)")
+                chart(fig, 330, unified=False)
+            else:
+                unavailable("Aspect sentiment")
+        l, r = st.columns(2)
+        with l:
+            section("Sentiment by customer type")
+            if has_cols(by_type, "customer_type", "Positive (%)", "Neutral (%)", "Negative (%)"):
+                fig = go.Figure()
+                for s in ["Positive", "Neutral", "Negative"]:
+                    fig.add_bar(x=by_type["customer_type"], y=by_type[f"{s} (%)"], name=s, marker_color=SENTIMENT_COLORS[s])
+                fig.update_layout(barmode="stack", yaxis_title="Share of mentions (%)")
+                chart(fig, 300)
+        with r:
+            section("Average rating by customer type")
+            if has_cols(ratings, "customer_type", "Average_Rating"):
+                fig = px.bar(ratings, x="customer_type", y="Average_Rating", text="Average_Rating",
+                             labels={"customer_type": "", "Average_Rating": "Average rating"})
+                fig.update_traces(marker_color=C["blue"], textposition="outside")
+                fig.update_yaxes(range=[0, 5])
+                chart(fig, 300, unified=False)
+
+    with t_seg:
+        l, r = st.columns([1.2, 1])
+        with l:
+            section("RFM segments", "Tile size = customers; colour = revenue contribution.")
+            if has_cols(segments, "RFM_Segment", "Customer_Count", "Total_Revenue"):
+                fig = px.treemap(segments, path=["RFM_Segment"], values="Customer_Count", color="Total_Revenue",
+                                 color_continuous_scale=["#DCE6FF", C["blue"]])
+                fig.update_traces(texttemplate="<b>%{label}</b><br>%{value:,} customers")
+                chart(fig, 340, unified=False)
+            else:
+                unavailable("Segment profile")
+        with r:
+            section("Revenue concentration", "Revenue share by segment.")
+            if has_cols(segments, "RFM_Segment", "Total_Revenue"):
+                s = segments.assign(share=segments["Total_Revenue"] / segments["Total_Revenue"].sum() * 100).sort_values("share")
+                fig = px.bar(s, x="share", y="RFM_Segment", orientation="h", text=s["share"].map(lambda v: f"{v:.0f}%"),
+                             labels={"share": "Share of revenue (%)", "RFM_Segment": ""})
+                fig.update_traces(marker_color=C["teal"], textposition="outside")
+                chart(fig, 340, unified=False)
+        if not segments.empty:
+            table(segments, 260, {
+                "Average_Recency": num_col("Avg recency (days)", 0), "Average_Frequency": num_col("Avg orders", 1),
+                "Average_Monetary": money_col("Avg spend", 0), "Total_Revenue": money_col("Total revenue", 0),
+                "Customer_Count": num_col("Customers", 0), "RFM_Segment": "Segment"})
+        if has_cols(rfm, "Frequency", "Monetary", "RFM_Segment"):
+            section("Customer value map", "Random sample of up to 1,500 customers.")
+            sample = rfm.sample(min(1500, len(rfm)), random_state=7)
+            fig = px.scatter(sample, x="Frequency", y="Monetary", color="RFM_Segment", opacity=.6,
+                             labels={"Frequency": "Orders", "Monetary": f"Lifetime spend ({CURRENCY})", "RFM_Segment": "Segment"})
+            chart(fig, 360, unified=False)
+
+    with t_voice:
+        section("Improvement priorities", "Aspects ranked by negative mentions.")
+        if has_cols(improve, "Aspect", "Negative Mentions", "Negative Share (%)"):
+            imp = improve.sort_values("Negative Mentions")
+            fig = px.bar(imp, x="Negative Mentions", y="Aspect", orientation="h", color="Negative Share (%)",
+                         color_continuous_scale=["#F6CDCF", C["red"]])
+            chart(fig, 320, unified=False)
+        section("Review explorer", "Filter aspect-level review records. Showing up to 300 rows.")
+        if has_cols(detail, "aspect", "sentiment", "rating", "review_text"):
+            f1, f2, f3, f4 = st.columns(4)
+            asp = f1.multiselect("Aspect", sorted(detail["aspect"].dropna().unique()))
+            sen = f2.multiselect("Sentiment", ["Positive", "Neutral", "Negative"])
+            typ = f3.multiselect("Customer type", sorted(detail["customer_type"].dropna().unique()) if "customer_type" in detail else [])
+            rat = f4.slider("Rating", 1, 5, (1, 5))
+            q = st.text_input("Search review text", placeholder="e.g. waiting, pizza, friendly")
+            v = detail[detail["rating"].between(*rat)]
+            if asp:
+                v = v[v["aspect"].isin(asp)]
+            if sen:
+                v = v[v["sentiment"].isin(sen)]
+            if typ:
+                v = v[v["customer_type"].isin(typ)]
+            if q.strip():
+                v = v[v["review_text"].str.contains(q.strip(), case=False, na=False, regex=False)]
+            st.caption(f"{len(v):,} matching aspect mentions")
+            cols = [c for c in ["review_date", "aspect", "sentiment", "rating", "customer_type", "order_type", "review_text"] if c in v]
+            table(v[cols].sort_values("review_date", ascending=False).head(300), 380,
+                  {"review_date": st.column_config.DateColumn("Date"), "review_text": st.column_config.TextColumn("Review", width="large")})
+        else:
+            unavailable("Review detail")
+
+    with t_risk:
+        thr = summary.get("rfm", {}).get("high_value_spending_threshold")
+        n_hv = summary.get("rfm", {}).get("high_value_customers_with_negative_feedback")
+        callout("High-value customers who left negative feedback deserve a personal follow-up."
+                + (f" The high-value threshold is lifetime spend above {money(thr)}." if thr else ""), "info")
+        if has_cols(high_neg, "RFM_Segment", "aspect"):
+            if n_hv:
+                st.metric("High-value customers with negative feedback", integer(n_hv))
+            f1, f2 = st.columns(2)
+            seg = f1.multiselect("Segment", sorted(high_neg["RFM_Segment"].dropna().unique()), key="hv_seg")
+            asp = f2.multiselect("Aspect", sorted(high_neg["aspect"].dropna().unique()), key="hv_asp")
+            v = high_neg
+            if seg:
+                v = v[v["RFM_Segment"].isin(seg)]
+            if asp:
+                v = v[v["aspect"].isin(asp)]
+            cols = [c for c in ["customer_id", "review_date", "aspect", "rating", "RFM_Segment", "Frequency", "Monetary", "review_text"] if c in v]
+            table(v[cols].sort_values("Monetary", ascending=False) if "Monetary" in v else v[cols], 420,
+                  {"Monetary": money_col("Lifetime spend", 0), "review_date": st.column_config.DateColumn("Date"),
+                   "review_text": st.column_config.TextColumn("Review", width="large")})
+            download(v, "Download follow-up list (CSV)", "high_value_negative_feedback.csv", "dl_hv")
+        else:
+            unavailable("High-value negative feedback")
+
+
+# =============================================================================
+# Page: Menu Performance
+# =============================================================================
+
+def boundary(df: pd.DataFrame, flag: str, value: str) -> Optional[float]:
+    """Infer the threshold that separates 'High' from 'Low' classes in the saved menu engineering output."""
+    if not has_cols(df, flag, value):
+        return None
+    hi, lo = df.loc[df[flag] == "High", value], df.loc[df[flag] == "Low", value]
+    if hi.empty or lo.empty:
+        return None
+    return float((hi.min() + lo.max()) / 2)
+
+
+def page_menu() -> None:
+    hero("Product & menu economics", "Menu Performance",
+         "Product contribution, category mix, discounting and menu-engineering actions.")
+    if forecast_mode:
+        st.info(
+            "Menu Performance is based on historical product sales and costs. "
+            "There are no future menu or product sales forecasts for the next 14 days."
+        )
+        return
+    callout("<b>Gross profit</b> = item revenue less product cost only. It excludes labour, rent, utilities, delivery "
+            "fees and other operating expenses. Performance views respect the sidebar filters; the menu-engineering "
+            "classification is a saved full-period analysis.", "info")
+
+    L = ctx.items
+    if has_cols(L, "category", "gross_profit"):
+        rev, gp, units = L["line_total"].sum(), L["gross_profit"].sum(), L["quantity"].sum()
+        disc = L["discount_value"].sum() if "discount_value" in L else np.nan
+        kpis([
+            ("Units sold", integer(units), None),
+            ("Item revenue", money(rev), ctx.label),
+            ("Gross profit", money(gp), "Before operating costs"),
+            ("Gross margin", pct(safe_div(gp, rev) * 100), None),
+            ("Discounts given", money(disc), pct(safe_div(disc, rev + disc) * 100) + " of list value"),
+        ])
+    else:
+        kv = kpi_lookup(output("menu_intelligence_kpis.csv"))
+        kpis([
+            ("Units sold", integer(kv.get("Total units sold", np.nan)), None),
+            ("Item revenue", money(kv.get("Total item revenue", np.nan)), None),
+            ("Gross profit", money(kv.get("Total gross profit", np.nan)), None),
+            ("Gross margin", pct(kv.get("Overall gross margin (%)", np.nan)), None),
+            ("Products sold", integer(kv.get("Unique products sold", np.nan)), None),
+        ])
+    st.write("")
+
+    t_perf, t_eng, t_disc = st.tabs(["Category & product performance", "Menu engineering", "Discounts & trends"])
+
+    with t_perf:
+        if not has_cols(L, "category", "gross_profit"):
+            unavailable("Item-level data")
+        else:
+            cat = L.groupby("category", as_index=False).agg(revenue=("line_total", "sum"), gross_profit=("gross_profit", "sum"), units=("quantity", "sum"))
+            cat["margin"] = cat["gross_profit"] / cat["revenue"] * 100
+            a, b = st.columns(2)
+            with a:
+                section("Revenue and gross profit by category")
+                c = cat.sort_values("revenue")
+                fig = go.Figure()
+                fig.add_bar(y=c["category"], x=c["revenue"], name="Revenue", orientation="h", marker_color=C["blue"])
+                fig.add_bar(y=c["category"], x=c["gross_profit"], name="Gross profit", orientation="h", marker_color=C["teal"])
+                fig.update_layout(barmode="group", xaxis_title=CURRENCY)
+                chart(fig, 340, unified=False)
+            with b:
+                section("Gross margin by category")
+                fig = px.bar(cat.sort_values("margin"), x="margin", y="category", orientation="h",
+                             text=cat.sort_values("margin")["margin"].map(lambda v: f"{v:.0f}%"),
+                             labels={"margin": "Gross margin (%)", "category": ""})
+                fig.update_traces(marker_color=C["amber"], textposition="outside")
+                chart(fig, 340, unified=False)
+
+            prod = L.groupby(["product_name", "category"], as_index=False).agg(
+                units=("quantity", "sum"), revenue=("line_total", "sum"), gross_profit=("gross_profit", "sum"))
+            prod["margin"] = prod["gross_profit"] / prod["revenue"] * 100
+            n = st.slider("Products shown", 5, min(20, len(prod)), min(10, len(prod)), key="menu_topn") if len(prod) > 5 else len(prod)
+            metric = st.radio("Rank by", ["Gross profit", "Revenue", "Units"], horizontal=True)
+            col = {"Gross profit": "gross_profit", "Revenue": "revenue", "Units": "units"}[metric]
+            top = prod.nlargest(n, col).sort_values(col)
+            section(f"Top {n} products by {metric.lower()}")
+            fig = px.bar(top, x=col, y="product_name", color="category", orientation="h",
+                         labels={col: metric, "product_name": "", "category": "Category"}, color_discrete_sequence=CATEGORY_SEQ)
+            chart(fig, max(320, 26 * n + 80), unified=False)
+            with st.expander("Full product table"):
+                table(prod.sort_values("revenue", ascending=False), 420, {
+                    "product_name": "Product", "category": "Category", "units": num_col("Units"),
+                    "revenue": money_col("Revenue"), "gross_profit": money_col("Gross profit"), "margin": pct_col("Margin")})
+                download(prod, "Download product performance (CSV)", "menu_product_performance_filtered.csv", "dl_prod")
+
+    with t_eng:
+        eng = output("menu_engineering.csv")
+        classes = output("menu_class_summary.csv")
+        if not has_cols(eng, "sales_mix_pct", "contribution_margin", "product_name", "menu_class"):
+            unavailable("Menu engineering output")
+        else:
+            section("Menu engineering matrix", "Popularity (sales mix) against profitability (contribution margin per unit). "
+                                               "Thresholds are project-specific, not universal industry standards.")
+            fig = px.scatter(eng, x="sales_mix_pct", y="contribution_margin", color="menu_class", hover_name="product_name",
+                             size="quantity_sold" if "quantity_sold" in eng else None, size_max=34,
+                             color_discrete_map=CLASS_COLORS,
+                             labels={"sales_mix_pct": "Sales mix (%)", "contribution_margin": f"Contribution margin ({CURRENCY} / unit)", "menu_class": "Class"})
+            xb, yb = boundary(eng, "popularity", "sales_mix_pct"), boundary(eng, "profitability", "contribution_margin")
+            if xb is not None:
+                fig.add_vline(x=xb, line_dash="dot", line_color=C["grey"])
+            if yb is not None:
+                fig.add_hline(y=yb, line_dash="dot", line_color=C["grey"])
+            chart(fig, 430, unified=False)
+
+            l, r = st.columns([1, 1.4])
+            with l:
+                section("Class summary")
+                if has_cols(classes, "menu_class", "number_of_products"):
+                    table(classes[[c for c in ["menu_class", "number_of_products", "sales_share_pct", "profit_share_pct"] if c in classes]], 220, {
+                        "menu_class": "Class", "number_of_products": num_col("Products"),
+                        "sales_share_pct": pct_col("Sales share"), "profit_share_pct": pct_col("Profit share")})
+            with r:
+                section("Recommended actions")
+                sel = st.multiselect("Filter by class", sorted(eng["menu_class"].unique()), key="eng_class")
+                v = eng if not sel else eng[eng["menu_class"].isin(sel)]
+                cols = [c for c in ["product_name", "category", "menu_class", "gross_margin_pct", "recommended_action"] if c in v]
+                table(v[cols].sort_values("menu_class"), 300, {
+                    "product_name": "Product", "category": "Category", "menu_class": "Class",
+                    "gross_margin_pct": pct_col("Margin"), "recommended_action": st.column_config.TextColumn("Recommended action", width="large")})
+            callout("Actions are analytical suggestions. Validate against recipe cost, brand strategy, supplier terms and "
+                    "customer demand before changing the menu.", "note")
+
+    with t_disc:
+        if not has_cols(L, "line_total", "gross_profit", "discount_pct"):
+            unavailable("Discount data")
+        else:
+            d = L.assign(Group=np.where(L["discount_pct"] > 0, "Discounted", "Full price"))
+            g = d.groupby("Group", as_index=False).agg(revenue=("line_total", "sum"), gross_profit=("gross_profit", "sum"), units=("quantity", "sum"))
+            g["margin"] = g["gross_profit"] / g["revenue"] * 100
+            a, b = st.columns(2)
+            with a:
+                section("Discounted vs. full-price sales", "Share of units sold and margin earned.")
+                fig = px.bar(g, x="Group", y="units", text=g["margin"].map(lambda v: f"{v:.1f}% margin"),
+                             labels={"units": "Units sold", "Group": ""})
+                fig.update_traces(marker_color=[C["amber"], C["blue"]][: len(g)], textposition="outside")
+                chart(fig, 310, unified=False)
+            with b:
+                section("Monthly revenue and gross profit")
+                mm = L.assign(month=L["order_date"].dt.to_period("M").dt.to_timestamp()).groupby("month", as_index=False).agg(
+                    revenue=("line_total", "sum"), gross_profit=("gross_profit", "sum"))
+                fig = go.Figure()
+                fig.add_scatter(x=mm["month"], y=mm["revenue"], name="Revenue", mode="lines", line=dict(color=C["blue"], width=2.6))
+                fig.add_scatter(x=mm["month"], y=mm["gross_profit"], name="Gross profit", mode="lines", line=dict(color=C["teal"], width=2.6))
+                fig.update_layout(yaxis_title=CURRENCY)
+                chart(fig, 310)
+
+            if has_cols(L, "promotion_id") and has_cols(promotions, "promotion_id", "promotion_name"):
+                section("Promotion performance", "Order lines tagged to each promotion within the selected period.")
+                p = L.dropna(subset=["promotion_id"]).groupby("promotion_id", as_index=False).agg(
+                    units=("quantity", "sum"), revenue=("line_total", "sum"), gross_profit=("gross_profit", "sum"),
+                    discount_value=("discount_value", "sum"))
+                p = p.merge(promotions, on="promotion_id", how="left")
+                p["margin"] = p["gross_profit"] / p["revenue"] * 100
+                if p.empty:
+                    st.info("No promotional sales in the selected period.")
+                else:
+                    cols = ["promotion_name", "product_category", "discount_percentage", "start_date", "end_date",
+                            "units", "revenue", "gross_profit", "margin", "discount_value"]
+                    p = p[[c for c in cols if c in p]].sort_values("start_date")
+                    table(p, 330, {
+                        "promotion_name": "Promotion", "product_category": "Category", "discount_percentage": pct_col("Discount", 0),
+                        "start_date": st.column_config.DateColumn("Start"), "end_date": st.column_config.DateColumn("End"),
+                        "units": num_col("Units"), "revenue": money_col("Revenue"), "gross_profit": money_col("Gross profit"),
+                        "margin": pct_col("Margin"), "discount_value": money_col("Discount given")})
+                    st.caption("Revenue shown is for promoted lines only; it does not measure incremental sales versus a no-promotion baseline.")
+
+
+# =============================================================================
+# Page: Data & Methodology
+# =============================================================================
+
+def page_methodology() -> None:
+    hero("Governance", "Data & Methodology",
+         "Data coverage, reconciliation checks, model documentation and known limitations.")
+
+    section(
+        "Analytical workflow",
+        "How the project transforms synthetic restaurant data into operational insights."
+    )
+
+    workflow = [
+        {
+            "Stage": "01 · Data preparation",
+            "Description": "Load cleaned restaurant, order, customer, product, payment, "
+                           "review and weather datasets."
+        },
+        {
+            "Stage": "02 · Data validation & reconciliation",
+            "Description": "Validate data quality, check duplicate order IDs and "
+                           "reconcile financial totals across independent source tables."
+        },
+        {
+            "Stage": "03 · Business performance analytics",
+            "Description": "Analyse revenue, orders, trading patterns, sales channels, "
+                           "meal periods, promotions and weather associations."
+        },
+        {
+            "Stage": "04 · Customer segmentation (RFM)",
+            "Description": "Segment customers using Recency, Frequency and Monetary "
+                           "metrics; evaluate customer value and revenue concentration."
+        },
+        {
+            "Stage": "05 · Customer experience analytics",
+            "Description": "Analyse review ratings, sentiment, experience aspects, "
+                           "improvement priorities and high-value customer feedback risks."
+        },
+        {
+            "Stage": "06 · Menu intelligence & engineering",
+            "Description": "Evaluate product and category performance, gross profit, "
+                           "contribution margin and sales mix; classify menu items "
+                           "as Star, Plowhorse, Puzzle or Dog."
+        },
+        {
+            "Stage": "07 · Revenue forecasting",
+            "Description": "Use Prophet with calendar and weather regressors to produce "
+                           "14-day revenue forecasts and uncertainty intervals."
+        },
+        {
+            "Stage": "08 · Workforce optimisation",
+            "Description": "Translate forecast demand into staffing requirements, "
+                           "shift allocations, recommended rosters and staffing gaps."
+        },
+        {
+            "Stage": "09 · Dashboard delivery & decision support",
+            "Description": "Present interactive KPIs, visualisations, downloadable "
+                           "outputs and operational recommendations through Streamlit."
+        },
+    ]
+
+    table(pd.DataFrame(workflow), 360)
+
+    section("Reconciliation checks", "Independent totals from different source tables should agree.")
+
+    section(
+        "Analytical methods",
+        "Methods used to generate the customer, menu and forecasting insights."
+    )
+
+    methods = [
+        {
+            "Analysis": "RFM customer segmentation",
+            "Method": "Recency, Frequency and Monetary analysis",
+            "Purpose": "Understand customer value, purchasing behaviour and revenue concentration."
+        },
+        {
+            "Analysis": "Customer experience analytics",
+            "Method": "Review ratings and aspect-level sentiment annotations",
+            "Purpose": "Identify positive and negative experience themes and improvement priorities."
+        },
+        {
+            "Analysis": "Menu engineering",
+            "Method": "Sales mix (popularity) versus contribution margin per unit",
+            "Purpose": "Classify products into Star, Plowhorse, Puzzle and Dog categories."
+        },
+        {
+            "Analysis": "Revenue forecasting",
+            "Method": "Prophet with calendar and weather regressors",
+            "Purpose": "Estimate revenue over a 14-day forecast horizon with uncertainty intervals."
+        },
+    ]
+
+    table(pd.DataFrame(methods), 300)
+    checks = []
+    full_orders = orders["order_total"].sum()
+    checks.append(("Orders vs. daily revenue table", full_orders,
+                   daily_hist["revenue"].sum() if has_cols(daily_hist, "revenue") else np.nan))
+    checks.append(("Orders vs. order-line revenue", full_orders, items["line_total"].sum() if has_cols(items, "line_total") else np.nan))
+    checks.append(("Orders vs. payments received", full_orders, payments["amount"].sum() if has_cols(payments, "amount") else np.nan))
+    rows = []
+    for name, a, b in checks:
+        if pd.isna(b):
+            rows.append({"Check": name, "Orders total": a, "Comparison total": np.nan, "Difference": np.nan, "Status": "Not available"})
+        else:
+            rows.append({"Check": name, "Orders total": a, "Comparison total": b, "Difference": a - b,
+                         "Status": "✓ Reconciled" if abs(a - b) < 1.0 else "⚠ Review"})
+    table(pd.DataFrame(rows), 175, {"Orders total": money_col("Orders total", 2), "Comparison total": money_col("Comparison total", 2),
+                                    "Difference": money_col("Difference", 2)})
+
+    c1, c2, c3, c4 = st.columns(4)
+    guest = orders["customer_id"].isna().mean() * 100 if "customer_id" in orders else np.nan
+    c1.metric("Order records", integer(len(orders)))
+    c2.metric("History", f"{DATA_MIN:%b %Y} – {DATA_MAX:%b %Y}")
+    c3.metric("Guest (unidentified) orders", pct(guest))
+    c4.metric("Duplicate order IDs", integer(orders["order_id"].duplicated().sum()))
+
+    st.write("")
+    section("Data inventory", "Files discovered in the project folders.")
+    inv = []
+    for folder, label in [(DATA_DIR, "Operational"), (OUTPUT_DIR, "Analytical output")]:
+        if folder.exists():
+            for f in sorted(folder.glob("*.csv")):
+                try:
+                    with open(f, "rb") as fh:
+                        n = max(sum(1 for _ in fh) - 1, 0)
+                    cols = len(pd.read_csv(f, nrows=0).columns)
+                except Exception:
+                    n, cols = np.nan, np.nan
+                inv.append({"Layer": label, "File": f"{folder.name}/{f.name}", "Rows": n, "Columns": cols})
+    table(pd.DataFrame(inv), 340, {"Rows": num_col("Rows"), "Columns": num_col("Columns")})
+    if MISSING:
+        st.warning("Missing or unreadable files: " + ", ".join(sorted(set(MISSING))))
+
+    st.write("")
+    l, r = st.columns(2)
+    with l:
+        section("Forecasting model")
+        model = meta("restrodine_prophet_calendar_weather_metadata.json")
+        pj = meta("restrodine_prophet_calendar_weather.json")
+        if model:
+            st.markdown(
+                f"- **Model:** {model.get('model', 'Prophet')} (additive, weekly seasonality)\n"
+                f"- **Regressors:** {', '.join(model.get('regressors', []))}\n"
+                f"- **Rain threshold:** {model.get('rain_threshold_mm', '—')} mm\n"
+                f"- **Training window:** {model.get('training_start')} to {model.get('training_end')}\n"
+                f"- **Interval width:** {int(pj['interval_width'] * 100)}%" if pj.get("interval_width") else
+                f"- **Model:** {model.get('model', 'Prophet')}\n- **Regressors:** {', '.join(model.get('regressors', []))}"
+            )
+        else:
+            st.caption("Model metadata not found.")
+    with r:
+        section("Customer analytics")
+        s = meta("customer_intelligence_summary.json")
+        if s:
+            st.markdown(
+                f"- **Customers analysed (RFM):** {integer(s.get('rfm', {}).get('customers_analysed'))}\n"
+                f"- **Aspect mentions:** {integer(s.get('total_aspect_mentions'))}\n"
+                f"- **Reference period:** {s.get('reference_period', {}).get('start')} to {s.get('reference_period', {}).get('end')}\n"
+                f"- **Method:** {s.get('methodology_note', '—')}"
+            )
+        else:
+            st.caption("Customer summary not found.")
+
+    section("Limitations")
+    st.markdown(
+        "- All data is **synthetic**; patterns reflect the generating process, not a real restaurant.\n"
+        "- The forecast is trained on 2024–2025 history and projected to a later horizon; forecast weather inputs "
+        "are not stored with the exports, so weather sensitivity cannot be re-audited here.\n"
+        "- Prediction intervals express model uncertainty; they are not guaranteed bounds.\n"
+        "- Gross profit covers product cost only. Labour, rent, utilities and fees are excluded.\n"
+        "- The roster is an optimisation suggestion and ignores factors not in the data (training, preferences, legal rest rules).\n"
+        "- Weather and calendar views show associations, not causal effects."
+    )
+
+
+# =============================================================================
+# Router
+# =============================================================================
+
+ROUTES = {
+    "Executive Overview": page_executive,
+    "Revenue & Forecast": page_revenue,
+    "Workforce Planning": page_workforce,
+    "Customer Intelligence": page_customers,
+    "Menu Performance": page_menu,
+    "Data & Methodology": page_methodology,
+}
+ROUTES[page]()
+
+st.markdown("---")
+st.caption(f"{APP_NAME} · Restaurant Intelligence & Weather-Aware Revenue Forecasting · Synthetic demonstration dataset")
+
