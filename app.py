@@ -792,7 +792,7 @@ st.sidebar.markdown("### Forecast management")
 if st.sidebar.button(
     "↻ Refresh Forecast",
     type="primary",
-    use_container_width=True,
+    **STRETCH,
     help="Generate a fresh 14-day revenue and workforce forecast.",
 ):
     try:
@@ -2123,7 +2123,7 @@ def page_revenue() -> None:
                         ),
                         "95% confidence interval": "Not calculated",
                         "p-value": format_p_value(spearman_p),
-                        "Observations": len(temperature_data)
+                        "Observations": str(len(temperature_data))
                     })
 
                     results.append({
@@ -2134,14 +2134,10 @@ def page_revenue() -> None:
                         ),
                         "95% confidence interval": "Not calculated",
                         "p-value": format_p_value(temperature_band_p),
-                        "Observations": len(temperature_data)
+                        "Observations": str(len(temperature_data))
                     })
 
-                    st.dataframe(
-                        pd.DataFrame(results),
-                        use_container_width=True,
-                        hide_index=True
-                    )
+                    st.dataframe( pd.DataFrame(results), **STRETCH, hide_index=True )
 
                     st.caption(
                         "Welch's t-test compares group means without assuming "
@@ -2276,7 +2272,7 @@ def page_revenue() -> None:
                         kpis([
                             (
                                 "Observations",
-                                integer(int(regression_model.nobs)),
+                                str(integer(int(regression_model.nobs))),
                                 "Daily records"
                             ),
                             (
@@ -2352,7 +2348,7 @@ def page_revenue() -> None:
 
                             st.dataframe(
                                 display_df,
-                                use_container_width=True,
+                                **STRETCH,
                                 hide_index=True
                             )
 
@@ -2733,14 +2729,19 @@ def page_workforce() -> None:
                     chart(fig, 330)
 
                 # Row 3: Role analysis
+                ROLE_COLORS = {
+                    "Waiter": "#E5A23B",
+                    "Chef": "#38845F",
+                    "Kitchen Assistant": "#7DB8A4",
+                    "Bartender": "#528CCB",
+                    "Dishwasher": "#329B87",
+                    "Assistant Manager": "#9673B9",
+                    "Restaurant Manager": "#40577D",
+                }
                 left, right = st.columns(2)
 
                 with left:
-                    role_hours = (
-                        hist.groupby("role", as_index=False)["hours_worked"]
-                        .sum()
-                        .sort_values("hours_worked", ascending=True)
-                    )
+                    role_hours = ( hist.groupby("role", as_index=False)["hours_worked"] .sum() .sort_values("hours_worked", ascending=True) )
 
                     section(
                         "Working hours by role",
@@ -2757,15 +2758,11 @@ def page_workforce() -> None:
                             "role": "Employee role"
                         }
                     )
-                    fig.update_traces( marker_color=WORKFORCE_PALETTE[:len(role_hours)] )
+                    fig.update_traces( marker_color=[ ROLE_COLORS.get(role, "#808080") for role in role_hours["role"] ] )
                     chart(fig, 330)
 
                 with right:
-                    role_cost = (
-                        hist.groupby("role", as_index=False)["labour_cost"]
-                        .sum()
-                        .sort_values("labour_cost", ascending=True)
-                    )
+                    role_cost = ( hist.groupby("role", as_index=False)["labour_cost"] .sum() .sort_values("labour_cost", ascending=True) )
 
                     section(
                         "Labour cost by role",
@@ -2782,7 +2779,7 @@ def page_workforce() -> None:
                             "role": "Employee role"
                         }
                     )
-                    fig.update_traces( marker_color=px.colors.qualitative.Set3[:len(role_cost)] )
+                    fig.update_traces( marker_color=[ ROLE_COLORS.get(role, "#808080") for role in role_cost["role"] ] )
                     chart(fig, 330)
 
                 # Row 4: Employee composition and average shift duration
@@ -3625,7 +3622,7 @@ def page_workforce() -> None:
 
                     st.dataframe(
                         styled,
-                        use_container_width=True,
+                        **STRETCH,
                         hide_index=True,
                         height=420
                     )
@@ -3794,7 +3791,7 @@ def page_workforce() -> None:
 
                         st.dataframe(
                             styled,
-                            use_container_width=True,
+                            **STRETCH,
                             hide_index=True,
                             height=380,
                             column_config={
