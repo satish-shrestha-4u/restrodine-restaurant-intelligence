@@ -811,7 +811,7 @@ if st.sidebar.button(
             refresh_metadata = { "last_successful_refresh": pd.Timestamp.now
                                 ( tz="Europe/Berlin" ).isoformat() }
 
-            with open("outputs/forecast_refresh_metadata.json", "w") as f:
+            with open("metadata/forecast_refresh_metadata.json", "w") as f:
                 json.dump(refresh_metadata, f, indent=4)
 
             # Clear cached CSV data only after successful saving
@@ -824,7 +824,7 @@ if st.sidebar.button(
         st.sidebar.error(f"Forecast refresh failed: {exc}")
 
 # Display the last successful forecast refresh
-refresh_metadata_path = Path("outputs/forecast_refresh_metadata.json")
+refresh_metadata_path = Path("metadata/forecast_refresh_metadata.json")
 
 if refresh_metadata_path.exists():
     with open(refresh_metadata_path, "r") as f:
@@ -1146,8 +1146,28 @@ def page_executive() -> None:
     with a:
         section("Average revenue by weekday")
         wd = weekday_profile(ctx.daily)
-        fig = px.bar(wd, x="weekday", y="avg_revenue", labels={"weekday": "", "avg_revenue": f"Avg revenue ({CURRENCY})"})
-        fig.update_traces(marker_color=C["blue"])
+
+        weekday_colors = [
+            "#6BAF92",  # Monday
+            "#4C9B78",  # Tuesday
+            "#378565",  # Wednesday
+            "#E0A34A",  # Thursday
+            "#D88745",  # Friday
+            "#C96B55",  # Saturday
+            "#7895B2",  # Sunday
+        ]
+
+        fig = px.bar(
+            wd,
+            x="weekday",
+            y="avg_revenue",
+            labels={
+                "weekday": "",
+                "avg_revenue": f"Avg revenue ({CURRENCY})"
+            }
+        )
+
+        fig.update_traces(marker_color=weekday_colors)
         chart(fig, 300, unified=False)
     with b:
         section("Revenue by order type")
@@ -1161,10 +1181,29 @@ def page_executive() -> None:
         section("Revenue by meal period")
         if "meal_period" in cur:
             mix = cur.groupby("meal_period", as_index=False)["order_total"].sum()
-            mix["meal_period"] = pd.Categorical(mix["meal_period"], MEAL_ORDER, ordered=True)
-            fig = px.bar(mix.sort_values("meal_period"), x="meal_period", y="order_total",
-                         labels={"meal_period": "", "order_total": f"Revenue ({CURRENCY})"})
-            fig.update_traces(marker_color=C["teal"])
+            mix["meal_period"] = pd.Categorical(
+                mix["meal_period"], MEAL_ORDER, ordered=True
+            )
+
+            meal_colors = {
+                "Lunch": "#E0A34A",
+                "Afternoon": "#7895B2",
+                "Dinner": "#378565",
+            }
+
+            fig = px.bar(
+                mix.sort_values("meal_period"),
+                x="meal_period",
+                y="order_total",
+                color="meal_period",
+                color_discrete_map=meal_colors,
+                labels={
+                    "meal_period": "",
+                    "order_total": f"Revenue ({CURRENCY})"
+                }
+            )
+
+            fig.update_layout(showlegend=False)
             chart(fig, 300, unified=False)
 
     st.write("")
@@ -1190,16 +1229,16 @@ def page_revenue() -> None:
     hero("Trading & forecasting", "Revenue & Forecast",
          "Understand what drives sales and review the 14-day weather-aware revenue forecast.")
     if forecast_mode:
-        tab_fc, tab_drivers, tab_hist = st.tabs([
+        tab_fc, tab_hist, tab_drivers = st.tabs([
             "14-day forecast",
-            "Weather & Holiday Impact",
-            "Historical performance"
-        ])
-    else:
-        tab_hist, tab_drivers, tab_fc = st.tabs([
             "Historical performance",
             "Weather & Holiday Impact",
-            "14-day forecast"
+        ])
+    else:
+        tab_hist,  tab_fc, tab_drivers = st.tabs([
+            "Historical performance",
+            "14-day forecast",
+            "Weather & Holiday Impact"
         ])
 
     # ---- Historical -------------------------------------------------------
@@ -1218,20 +1257,69 @@ def page_revenue() -> None:
                 ("Best trading day", money(best_day["revenue"]), f"{best_day['order_date']:%d %b %Y}"),
             ])
             st.write("")
-            section("Monthly revenue",
-                    f"Calendar-month totals from {ctx.start:%d %b %Y} "
-                    f"to {ctx.end:%d %b %Y}, based on the selected filters."
-                    )
-            m = cur.assign(month=cur["order_date"].dt.to_period("M").dt.to_timestamp())
-            m = m.groupby("month", as_index=False).agg(revenue=("order_total", "sum"), orders=("order_id", "nunique"))
-            fig = px.bar(m, x="month", y="revenue", labels={"month": "", "revenue": f"Revenue ({CURRENCY})"})
-            fig.update_traces(marker_color=C["blue"])
-            chart(fig, 320)
+            
+            
+            section(
+                "Monthly average daily revenue",
+                "Comparison of average daily revenue for each calendar month across years."
+            )
+
+            # Aggregate daily revenue by calendar month and year
+            monthly_revenue = (
+                ctx.daily
+                .assign(
+                    month=ctx.daily["order_date"].dt.month,
+                    year=ctx.daily["order_date"].dt.year
+                )
+                .groupby(["year", "month"], as_index=False)
+                .agg(avg_daily_revenue=("revenue", "mean"))
+            )
+
+            # Month labels
+            month_names = {
+                1: "Jan", 2: "Feb", 3: "Mar", 4: "Apr",
+                5: "May", 6: "Jun", 7: "Jul", 8: "Aug",
+                9: "Sep", 10: "Oct", 11: "Nov", 12: "Dec"
+            }
+
+            monthly_revenue["month_name"] = monthly_revenue["month"].map(month_names)
+
+            # Year-on-year line chart
+            fig = px.line(
+                monthly_revenue,
+                x="month",
+                y="avg_daily_revenue",
+                color="year",
+                markers=True,
+                color_discrete_map={
+                    2024: "#4C78A8",
+                    2025: "#E07A5F"
+                },
+                labels={
+                    "month": "Month",
+                    "avg_daily_revenue": f"Average daily revenue ({CURRENCY})",
+                    "year": "Year"
+                }
+            )
+
+            fig.update_xaxes(
+                tickmode="array",
+                tickvals=list(range(1, 13)),
+                ticktext=list(month_names.values())
+            )
+
+            fig.update_layout(
+                hovermode="x unified",
+                legend_title_text="Year"
+            )
+
+            chart(fig, 360, unified=False)
+
 
             left, right = st.columns([1.3, 1])
             with left:
                 section(
-                    "Which time guests visit the most?",
+                    "When do guests visit the most?",
                     "Average orders per hour for each weekday across the selected period."
                 )
 
@@ -1311,6 +1399,161 @@ def page_revenue() -> None:
                     chart(fig, 390, unified=False)
                 else:
                     unavailable("Payment data")
+
+
+    # ---- Forecast ---------------------------------------------------------
+    with tab_fc:
+        fc = output("revenue_forecast_next_14_days.csv", "date")
+        if not has_cols(fc, "date", "forecast_revenue", "lower_bound", "upper_bound"):
+            unavailable("The revenue forecast")
+            return
+        fc = fc.sort_values("date").reset_index(drop=True)
+        total, low, high = fc["forecast_revenue"].sum(), fc["lower_bound"].sum(), fc["upper_bound"].sum()
+        peak = fc.loc[fc["forecast_revenue"].idxmax()]
+        model = meta("restrodine_prophet_calendar_weather_metadata.json")
+        pj = meta("restrodine_prophet_calendar_weather.json")
+        width = pj.get("interval_width")
+
+        forecast_reliability_warning()
+
+        kpis([
+            ("Forecast revenue", money(total), f"{fc['date'].min():%d %b} – {fc['date'].max():%d %b %Y}"),
+            ("Average per day", money(total / len(fc)), None),
+            ("Peak day", f"{peak['date']:%a %d %b}", money(peak["forecast_revenue"])),
+             ])
+
+        st.write("")
+        section("Forecast with uncertainty band", "Saved model output; the app displays it and does not retrain the model.")
+        fig = go.Figure()
+        fig.add_trace(go.Scatter(x=fc["date"], y=fc["upper_bound"], mode="lines", line=dict(width=0),
+                                 showlegend=False, hoverinfo="skip"))
+        fig.add_trace(go.Scatter(x=fc["date"], y=fc["lower_bound"], mode="lines", line=dict(width=0), fill="tonexty",
+                                 fillcolor="rgba(47,85,212,.15)", name="Uncertainty range"))
+        fig.add_trace(go.Scatter(x=fc["date"], y=fc["forecast_revenue"], mode="lines+markers", name="Forecast revenue",
+                                 line=dict(color=C["blue"], width=3), marker=dict(size=7)))
+        fig.update_layout(yaxis_title=f"Revenue ({CURRENCY})")
+        fig.update_xaxes(tickformat="%a %d %b")
+        chart(fig, 360)
+
+        # Plausibility check against recent same-weekday history
+        if has_cols(daily_hist, "date", "revenue"):
+            recent = daily_hist[daily_hist["date"] >= daily_hist["date"].max() - pd.Timedelta(days=364)]
+            typical = recent.assign(wd=recent["date"].dt.day_name()).groupby("wd")["revenue"].mean()
+            bench = fc.assign(Weekday=fc["date"].dt.day_name())
+            bench["typical"] = bench["Weekday"].map(typical)
+            bench["vs_typical"] = (bench["forecast_revenue"] / bench["typical"] - 1) * 100
+            section("Forecast vs. Historical Weekday Benchmark", "Forecast compared with the average of the same weekday over the last 12 months of history.")
+            fig = go.Figure()
+            fig.add_bar(x=bench["date"], y=bench["typical"], name="Typical same weekday (last 12 months)", marker_color=C["grey"])
+            fig.add_bar(x=bench["date"], y=bench["forecast_revenue"], name="Forecast", marker_color=C["blue"])
+            fig.update_layout(barmode="group", yaxis_title=f"Revenue ({CURRENCY})")
+            fig.update_xaxes(tickformat="%a %d %b")
+            chart(fig, 300)
+            avg_dev = bench["vs_typical"].mean()
+            if pd.notna(avg_dev) and abs(avg_dev) > 20:
+                callout(f"On average the forecast is {avg_dev:+.0f}% versus typical weekday revenue. "
+                        "Review seasonality, weather inputs and promotions before relying on it.", "note")
+
+
+        with st.expander("Daily forecast table"):
+            show = fc.rename(columns={
+                "date": "Date",
+                "forecast_revenue": f"Forecast ({CURRENCY})",
+                "lower_bound": f"Lower bound ({CURRENCY})",
+                "upper_bound": f"Upper bound ({CURRENCY})",
+                "expected_orders": "Expected orders",
+                "day_of_week": "Weekday",
+                "is_weekend": "Weekend",
+                "demand_tier": "Demand tier"
+            }).copy()
+
+            show["Date"] = show["Date"].dt.strftime(
+                "%a %d %b %Y"
+            )
+
+            if "Weekend" in show.columns:
+                show["Weekend"] = show["Weekend"].map({
+                    1: "Yes",
+                    0: "No",
+                    True: "Yes",
+                    False: "No"
+                })
+
+            forecast_columns = [
+                f"Forecast ({CURRENCY})",
+                f"Lower bound ({CURRENCY})",
+                f"Upper bound ({CURRENCY})"
+            ]
+
+            column_config = {
+                col: money_col(col, 0)
+                for col in forecast_columns
+                if col in show.columns
+            }
+
+            if "Expected orders" in show.columns:
+                column_config["Expected orders"] = (
+                    st.column_config.NumberColumn(
+                        "Expected orders",
+                        format="%.0f"
+                    )
+                )
+
+            # Style the daily forecast table for management readability
+            def style_demand(value):
+                colours = {
+                    "Low": "background-color: #EEF1EE; color: #59665B;",
+                    "Standard": "background-color: #E8F0FA; color: #315D91;",
+                    "High": "background-color: #DCEFE2; color: #27643C; font-weight: 700;",
+                }
+                return colours.get(value, "")
+
+            styled = (
+                show.style
+                .map(style_demand, subset=["Demand tier"])
+                .bar(
+                    subset=["Expected orders"],
+                    color="#DCE8D9",
+                    vmin=0
+                )
+                .map(
+                    lambda _: "font-weight: 700; color: #27643C;",
+                    subset=[f"Forecast ({CURRENCY})"]
+                )
+            )
+
+            st.dataframe(
+                styled,
+                height=380,
+                hide_index=True,
+                column_config=column_config,
+                **STRETCH
+            )
+
+            download(
+                fc,
+                "Download forecast (CSV)",
+                "revenue_forecast_next_14_days.csv",
+                "dl_fc"
+            )
+
+
+        with st.expander("Model card"):
+            if model:
+                regs = ", ".join(model.get("regressors", [])) or "—"
+                loc = model.get("location", {})
+                st.markdown(
+                    f"- **Model:** {model.get('model', 'Prophet')}\n"
+                    f"- **Seasonality:** weekly = {model.get('weekly_seasonality')}, yearly = {model.get('yearly_seasonality')}, "
+                    f"mode = {model.get('seasonality_mode')}\n"
+                    f"- **External regressors:** {regs}\n"
+                    f"- **Training window:** {model.get('training_start')} to {model.get('training_end')}\n"
+                    f"- **Weather location:** {loc.get('region', '—')} ({loc.get('latitude', '—')}, {loc.get('longitude', '—')})"
+                )
+            else:
+                st.caption("Model metadata file not found.")
+        callout("Forecast values are estimates, not guaranteed revenue. Lower and upper bounds express model "
+                "uncertainty and are not guaranteed minimum or maximum outcomes.", "note")  
 
 
     
@@ -2233,139 +2476,8 @@ def page_revenue() -> None:
                             "not out-of-sample predictive performance."
                         )
 
+
     
-
-    # ---- Forecast ---------------------------------------------------------
-
-
-    # ---- Forecast ---------------------------------------------------------
-    with tab_fc:
-        fc = output("revenue_forecast_next_14_days.csv", "date")
-        if not has_cols(fc, "date", "forecast_revenue", "lower_bound", "upper_bound"):
-            unavailable("The revenue forecast")
-            return
-        fc = fc.sort_values("date").reset_index(drop=True)
-        total, low, high = fc["forecast_revenue"].sum(), fc["lower_bound"].sum(), fc["upper_bound"].sum()
-        peak = fc.loc[fc["forecast_revenue"].idxmax()]
-        model = meta("restrodine_prophet_calendar_weather_metadata.json")
-        pj = meta("restrodine_prophet_calendar_weather.json")
-        width = pj.get("interval_width")
-
-        forecast_reliability_warning()
-
-        kpis([
-            ("Forecast revenue", money(total), f"{fc['date'].min():%d %b} – {fc['date'].max():%d %b %Y}"),
-            ("Average per day", money(total / len(fc)), None),
-            ("Peak day", f"{peak['date']:%a %d %b}", money(peak["forecast_revenue"])),
-             ])
-        st.caption(
-            f"80% uncertainty interval: "
-            f"{money(low)} – {money(high)}"
-        )
-
-        st.write("")
-        section("Forecast with uncertainty band", "Saved model output; the app displays it and does not retrain the model.")
-        fig = go.Figure()
-        fig.add_trace(go.Scatter(x=fc["date"], y=fc["upper_bound"], mode="lines", line=dict(width=0),
-                                 showlegend=False, hoverinfo="skip"))
-        fig.add_trace(go.Scatter(x=fc["date"], y=fc["lower_bound"], mode="lines", line=dict(width=0), fill="tonexty",
-                                 fillcolor="rgba(47,85,212,.15)", name="Uncertainty range"))
-        fig.add_trace(go.Scatter(x=fc["date"], y=fc["forecast_revenue"], mode="lines+markers", name="Forecast revenue",
-                                 line=dict(color=C["blue"], width=3), marker=dict(size=7)))
-        fig.update_layout(yaxis_title=f"Revenue ({CURRENCY})")
-        fig.update_xaxes(tickformat="%a %d %b")
-        chart(fig, 360)
-
-        # Plausibility check against recent same-weekday history
-        if has_cols(daily_hist, "date", "revenue"):
-            recent = daily_hist[daily_hist["date"] >= daily_hist["date"].max() - pd.Timedelta(days=364)]
-            typical = recent.assign(wd=recent["date"].dt.day_name()).groupby("wd")["revenue"].mean()
-            bench = fc.assign(Weekday=fc["date"].dt.day_name())
-            bench["typical"] = bench["Weekday"].map(typical)
-            bench["vs_typical"] = (bench["forecast_revenue"] / bench["typical"] - 1) * 100
-            section("Plausibility check", "Forecast compared with the average of the same weekday over the last 12 months of history.")
-            fig = go.Figure()
-            fig.add_bar(x=bench["date"], y=bench["typical"], name="Typical same weekday (last 12 months)", marker_color=C["grey"])
-            fig.add_bar(x=bench["date"], y=bench["forecast_revenue"], name="Forecast", marker_color=C["blue"])
-            fig.update_layout(barmode="group", yaxis_title=f"Revenue ({CURRENCY})")
-            fig.update_xaxes(tickformat="%a %d %b")
-            chart(fig, 300)
-            avg_dev = bench["vs_typical"].mean()
-            if pd.notna(avg_dev) and abs(avg_dev) > 20:
-                callout(f"On average the forecast is {avg_dev:+.0f}% versus typical weekday revenue. "
-                        "Review seasonality, weather inputs and promotions before relying on it.", "note")
-
-
-        with st.expander("Daily forecast table"):
-            show = fc.rename(columns={
-                "date": "Date",
-                "forecast_revenue": f"Forecast ({CURRENCY})",
-                "lower_bound": f"Lower bound ({CURRENCY})",
-                "upper_bound": f"Upper bound ({CURRENCY})",
-                "expected_orders": "Expected orders",
-                "day_of_week": "Weekday",
-                "is_weekend": "Weekend",
-                "demand_tier": "Demand tier"
-            }).copy()
-
-            show["Date"] = show["Date"].dt.strftime(
-                "%a %d %b %Y"
-            )
-
-            if "Weekend" in show.columns:
-                show["Weekend"] = show["Weekend"].map({
-                    1: "Yes",
-                    0: "No",
-                    True: "Yes",
-                    False: "No"
-                })
-
-            forecast_columns = [
-                f"Forecast ({CURRENCY})",
-                f"Lower bound ({CURRENCY})",
-                f"Upper bound ({CURRENCY})"
-            ]
-
-            column_config = {
-                col: money_col(col, 0)
-                for col in forecast_columns
-                if col in show.columns
-            }
-
-            if "Expected orders" in show.columns:
-                column_config["Expected orders"] = (
-                    st.column_config.NumberColumn(
-                        "Expected orders",
-                        format="%.0f"
-                    )
-                )
-
-            table(show, 320, column_config)
-
-            download(
-                fc,
-                "Download forecast (CSV)",
-                "revenue_forecast_next_14_days.csv",
-                "dl_fc"
-            )
-
-
-        with st.expander("Model card"):
-            if model:
-                regs = ", ".join(model.get("regressors", [])) or "—"
-                loc = model.get("location", {})
-                st.markdown(
-                    f"- **Model:** {model.get('model', 'Prophet')}\n"
-                    f"- **Seasonality:** weekly = {model.get('weekly_seasonality')}, yearly = {model.get('yearly_seasonality')}, "
-                    f"mode = {model.get('seasonality_mode')}\n"
-                    f"- **External regressors:** {regs}\n"
-                    f"- **Training window:** {model.get('training_start')} to {model.get('training_end')}\n"
-                    f"- **Weather location:** {loc.get('region', '—')} ({loc.get('latitude', '—')}, {loc.get('longitude', '—')})"
-                )
-            else:
-                st.caption("Model metadata file not found.")
-        callout("Forecast values are estimates, not guaranteed revenue. Lower and upper bounds express model "
-                "uncertainty and are not guaranteed minimum or maximum outcomes.", "note")
 
 
 # =============================================================================
@@ -2442,8 +2554,8 @@ def page_workforce() -> None:
 
                 with left:
                     section(
-                        "Labour cost over time",
-                        "Historical labour expenditure across the selected period."
+                        "Monthly labour cost as % of revenue",
+                        "Share of monthly restaurant revenue spent on recorded labour costs."
                     )
 
                     monthly_labour = (
@@ -2456,19 +2568,59 @@ def page_workforce() -> None:
                             hours_worked=("hours_worked", "sum")
                         )
                     )
+                                        
+                    # Monthly total restaurant revenue
+                    monthly_revenue = (
+                        daily_hist[
+                            daily_hist["date"].between(
+                                pd.Timestamp(start_d),
+                                pd.Timestamp(end_d)
+                            )
+                        ]
+                        .assign(
+                            month=lambda df: df["date"].dt.to_period("M").dt.to_timestamp()
+                        )
+                        .groupby("month", as_index=False)
+                        .agg(revenue=("revenue", "sum"))
+                    )
 
-                    fig = px.bar(
-                        monthly_labour,
+                    # Combine monthly labour cost and monthly revenue
+                    monthly_ratio = monthly_labour.merge(
+                        monthly_revenue,
+                        on="month",
+                        how="left"
+                    )
+
+                    # Calculate labour cost as a percentage of revenue
+                    monthly_ratio["labour_cost_pct"] = np.where(
+                        monthly_ratio["revenue"] > 0,
+                        monthly_ratio["labour_cost"] / monthly_ratio["revenue"] * 100,
+                        np.nan
+                    )
+
+                    # Plot monthly labour cost ratio
+                    fig = px.line(
+                        monthly_ratio,
                         x="month",
-                        y="labour_cost",
+                        y="labour_cost_pct",
+                        markers=True,
                         labels={
                             "month": "Month",
-                            "labour_cost": f"Labour cost ({CURRENCY})"
+                            "labour_cost_pct": "Labour cost / revenue (%)"
                         }
                     )
-                    fig.update_traces(marker_color=C["blue"])
+
+                    fig.update_traces(
+                        line_color=C["teal"],
+                        line_width=3,
+                        marker_size=7
+                    )
+
+                    fig.update_yaxes(ticksuffix="%")
                     fig.update_xaxes(tickformat="%b %Y")
+
                     chart(fig, 330)
+
 
                 with right:
                     section(
@@ -2514,16 +2666,29 @@ def page_workforce() -> None:
                     )
 
                     fig = px.bar(
-                        employee_hours.sort_values("hours_worked", ascending=True),
+                        employee_hours.sort_values("hours_worked", ascending=False),
                         x="hours_worked",
                         y="employee_name",
                         orientation="h",
+                        color="employee_name",
+                        color_discrete_sequence=[
+                            "#39865F",  # Green
+                            "#319B83",  # Teal
+                            "#78B7A0",  # Light teal
+                            "#E3A13B",  # Amber
+                            "#E58A55",  # Orange
+                            "#6C91C2",  # Blue
+                            "#9A82B8",  # Purple
+                            "#D47F9B",  # Rose
+                            "#8A9B65",  # Olive
+                            "#A5A5A5"   # Grey
+                        ],
                         labels={
                             "hours_worked": "Working hours",
                             "employee_name": "Employee"
                         }
                     )
-                    fig.update_traces( marker_color=px.colors.qualitative.Set2 )
+                    fig.update_layout(showlegend=False)
                     chart(fig, 380)
 
                     st.caption(
@@ -2620,30 +2785,114 @@ def page_workforce() -> None:
                     fig.update_traces( marker_color=px.colors.qualitative.Set3[:len(role_cost)] )
                     chart(fig, 330)
 
-                # Row 4: Shift distribution
+                # Row 4: Employee composition and average shift duration
                 left, right = st.columns(2)
 
                 with left:
-                    shift_summary = (
-                        hist.groupby("shift_type", as_index=False)
+                    employee_type = (
+                        hist.groupby("employment_type", as_index=False)
                         .agg(
-                            shifts=("employee_id", "size"),
-                            hours=("hours_worked", "sum")
+                            employees=("employee_id", "nunique")
                         )
                     )
 
+                    # Keep a consistent display order
+                    employment_order = [
+                        "Full-time",
+                        "Part-time",
+                        "Minijob"
+                    ]
+
+                    employee_type["employment_type"] = pd.Categorical(
+                        employee_type["employment_type"],
+                        categories=employment_order,
+                        ordered=True
+                    )
+                    employee_type = employee_type.sort_values("employment_type")
+
                     section(
-                        "Shift distribution",
-                        "Number of recorded shifts by service period."
+                        "Employees by employment type",
+                        "Number of unique employees with recorded shifts in the selected period."
                     )
 
-                    fig = px.pie(
-                        shift_summary,
-                        names="shift_type",
-                        values="shifts",
-                        hole=0.55
+                    fig = px.bar(
+                        employee_type,
+                        x="employment_type",
+                        y="employees",
+                        text="employees",
+                        color="employment_type",
+                        category_orders={
+                            "employment_type": employment_order
+                        },
+                        color_discrete_sequence=[
+                            "#39865F",
+                            "#73B7A0",
+                            "#E3A13B"
+                        ],
+                        labels={
+                            "employment_type": "Employment type",
+                            "employees": "Number of employees"
+                        }
                     )
+
+                    fig.update_traces(
+                        textposition="outside",
+                        textfont_size=13
+                    )
+
+                    fig.update_layout(
+                        showlegend=False,
+                        yaxis=dict(
+                            rangemode="tozero",
+                            dtick=2
+                        )
+                    )
+
                     chart(fig, 330)
+
+                with right:
+                    shift_summary = (
+                                        hist.groupby("shift_type", as_index=False)
+                                        .agg(
+                                            shifts=("employee_id", "size"),
+                                            hours=("hours_worked", "sum")
+                                        )
+                                    )
+                    
+                    shift_summary["avg_hours"] = (
+                        shift_summary["hours"] / shift_summary["shifts"]
+                        )
+                    
+                    section(
+                        "Average shift duration",
+                        "Average recorded working hours per shift type."
+                    )
+
+                    fig = px.bar(
+                        shift_summary.sort_values("avg_hours"),
+                        x="avg_hours",
+                        y="shift_type",
+                        orientation="h",
+                        color="shift_type",
+                        color_discrete_map={
+                            "Lunch": "#39865F",
+                            "Dinner": "#319B83",
+                            "Full": "#E3A13B"
+                        },
+                        labels={
+                            "avg_hours": "Average hours per shift",
+                            "shift_type": "Service period"
+                        }
+                    )
+
+                    fig.update_layout(showlegend=False)
+                    fig.update_traces(
+                        texttemplate="%{x:.1f} hrs",
+                        textposition="outside"
+                    )
+
+                    chart(fig, 330)
+
 
             else:
                 st.info("No historical shifts are available for the selected period.")
@@ -2721,56 +2970,867 @@ def page_workforce() -> None:
                     fig.update_xaxes(tickformat="%a %d")
                     chart(fig, 300)
 
-            section("Where gaps occur", "Unfilled positions by role and shift, plus the day-by-day coverage position.")
+            # =========================================================
+            # WHERE GAPS OCCUR
+            # =========================================================
+            section(
+                "Where gaps occur",
+                "Unfilled positions by role, plus the day-by-day staffing shortfall."
+            )
+
             l, r = st.columns([1, 1.3])
+
+            # ---------------------------------------------------------
+            # LEFT: UNFILLED POSITIONS BY ROLE
+            # ---------------------------------------------------------
             with l:
-                if has_cols(gaps, "role", "shift_type", "unfilled"):
-                    g = gaps.groupby(["role", "shift_type"], as_index=False)["unfilled"].sum()
-                    fig = px.bar(g, y="role", x="unfilled", color="shift_type", orientation="h",
-                                labels={"unfilled": "Unfilled positions", "role": "", "shift_type": "Shift"})
-                    fig.update_layout(barmode="stack")
-                    chart(fig, 330, unified=False)
-                else:
-                    st.success("No staffing gaps recorded in the saved roster.")
-            with r:
-                if has_cols(coverage, "date", "role", "shortfall"):
-                    piv = coverage.groupby(["role", "date"])["shortfall"].sum().reset_index().pivot(index="role", columns="date", values="shortfall").fillna(0)
-                    piv.columns = [c.strftime("%a %d") for c in piv.columns]
-                    fig = px.imshow(piv, aspect="auto", color_continuous_scale=["#F3F6FB", C["red"]],
-                                    labels=dict(x="", y="", color="Shortfall"))
+                section(
+                    "Unfilled positions by role",
+                    "Total number of positions that could not be filled for each employee role."
+                )
+
+                if has_cols(gaps, "role", "unfilled"):
+                    g = (
+                        gaps.groupby("role", as_index=False)["unfilled"]
+                        .sum()
+                    )
+
+                    role_colors = {
+                        "Chef": "#38845F",
+                        "Dishwasher": "#329B87",
+                        "Kitchen Assistant": "#7DB8A4",
+                        "Waiter": "#E5A23B",
+                    }
+
+                    fig = px.bar(
+                        g,
+                        y="role",
+                        x="unfilled",
+                        orientation="h",
+                        color="role",
+                        color_discrete_map=role_colors,
+                        text="unfilled",
+                        labels={
+                            "unfilled": "Unfilled positions",
+                            "role": "Employee role"
+                        }
+                    )
+
+                    fig.update_traces(
+                        textposition="outside",
+                        cliponaxis=False,
+                        showlegend=False
+                    )
+
+                    fig.update_layout(
+                        xaxis_title="Unfilled positions",
+                        yaxis_title="Employee role",
+                        margin=dict(l=10, r=35, t=10, b=10)
+                    )
+
                     chart(fig, 330, unified=False)
 
+                else:
+                    st.success("No staffing gaps recorded in the saved roster.")
+
+            # ---------------------------------------------------------
+            # RIGHT: DAILY STAFFING SHORTFALL HEAT MAP
+            # ---------------------------------------------------------
+            with r:
+                section(
+                    "Daily staffing shortfall by role",
+                    "Darker red cells indicate more unfilled positions for a role on a particular day."
+                )
+
+                if has_cols(coverage, "date", "role", "shortfall"):
+
+                    piv = (
+                        coverage.groupby(["role", "date"])["shortfall"]
+                        .sum()
+                        .reset_index()
+                        .pivot(
+                            index="role",
+                            columns="date",
+                            values="shortfall"
+                        )
+                        .fillna(0)
+                    )
+
+                    piv = piv.reindex(
+                        ["Assistant Manager", "Bartender", "Chef",
+                         "Dishwasher", "Kitchen Assistant",
+                         "Restaurant Manager", "Waiter"]
+                    ).dropna(how="all")
+
+                    piv.columns = [
+                        c.strftime("%a %d") for c in piv.columns
+                    ]
+
+                    fig = px.imshow(
+                        piv,
+                        aspect="auto",
+                        color_continuous_scale=[
+                            "#F9EEEE",
+                            "#E9B8B8",
+                            "#C95B55"
+                        ],
+                        labels={
+                            "x": "Date",
+                            "y": "Employee role",
+                            "color": "Shortfall"
+                        }
+                    )
+                    fig.update_xaxes(
+                        tickangle=50
+                    )
+                    fig.update_layout(
+                        margin=dict(l=10, r=10, t=10, b=10)
+                    )
+
+                    chart(fig, 330, unified=False)
+
+                else:
+                    st.caption("Staffing coverage data is unavailable.")
+            
+            # Weekly employee hour-cap monitoring
+            if not roster.empty and has_cols(
+                roster,
+                "employee_id",
+                "employee_name",
+                "date",
+                "hours",
+                "employment_type"
+            ):
+                weekly = roster.copy()
+
+                iso = weekly["date"].dt.isocalendar()
+                weekly["iso_year"] = iso.year.astype(int)
+                weekly["iso_week"] = iso.week.astype(int)
+
+                weekly = (
+                    weekly.groupby(
+                        [
+                            "employee_id",
+                            "employee_name",
+                            "employment_type",
+                            "iso_year",
+                            "iso_week"
+                        ],
+                        as_index=False
+                    )
+                    .agg(weekly_hours=("hours", "sum"))
+                )
+
+                weekly_cap_map = {
+                    "Full-time": 40.0,
+                    "Part-time": 30.0,
+                    "Minijob": 12.0
+                }
+
+                weekly["weekly_cap"] = (
+                    weekly["employment_type"].map(weekly_cap_map)
+                )
+
+                weekly = weekly.dropna(subset=["weekly_cap"])
+
+                weekly["remaining_hours"] = (
+                    weekly["weekly_cap"] - weekly["weekly_hours"]
+                ).clip(lower=0)
+
+                weekly["utilisation_pct"] = (
+                    weekly["weekly_hours"] / weekly["weekly_cap"] * 100
+                )
+
+                weekly["employee_week"] = (
+                    weekly["employee_name"]
+                    + " (W"
+                    + weekly["iso_week"].astype(str)
+                    + ")"
+                )
+
+                # Show the 10 employees closest to their weekly cap
+                # grouped by calendar week.
+                weekly = (
+                    weekly.sort_values("utilisation_pct", ascending=False)
+                    .head(15)
+                    .sort_values(["iso_year", "iso_week", "utilisation_pct"],
+                                 ascending=[True, False, False]))
+
+                section(
+                    "Weekly employee capacity utilisation",
+                    "Recommended roster hours compared with each employee's weekly contractual limit."
+                )
+
+                fig = go.Figure()
+
+                fig.add_bar(
+                    y=weekly["employee_week"],
+                    x=weekly["weekly_hours"],
+                    name="Recommended hours",
+                    orientation="h",
+                    marker_color=C["red"]
+                )
+
+                fig.add_bar(
+                    y=weekly["employee_week"],
+                    x=weekly["remaining_hours"],
+                    name="Hours remaining to cap",
+                    orientation="h",
+                    marker_color=C["teal"]
+                )
+
+                fig.update_layout(
+                    barmode="stack",
+                    xaxis_title="Hours in forecast week",
+                    yaxis_title="",
+                    legend=dict(
+                        orientation="h",
+                        y=1.12,
+                        x=0
+                    )
+                )
+
+                for _, row in weekly.iterrows():
+                    fig.add_annotation(
+                        x=row["weekly_cap"],
+                        y=row["employee_week"],
+                        text=(
+                            f"{row['weekly_hours']:.1f}/"
+                            f"{row['weekly_cap']:.0f} hrs "
+                            f"({row['utilisation_pct']:.0f}%)"
+                        ),
+                        showarrow=False,
+                        xshift=55,
+                        font=dict(size=11, color=C["ink"])
+                    )
+
+                fig.update_xaxes(range=[
+                    0,
+                    float(weekly["weekly_cap"].max()) * 1.35
+                ])
+
+                chart(fig, 380)
+
+            
+            # ============================================================
+            # WEEKLY STAFF ROSTER
+            # ============================================================
+
+            if not roster.empty and has_cols(
+                roster, "date", "employee_name", "role", "shift_type", "hours"
+            ):
+                section(
+                    "Weekly Staff Roster",
+                    "Employee assignments and shift times across the selected week."
+                )
+
+                # Ensure dates are datetime values
+                roster["date"] = pd.to_datetime(roster["date"])
+
+                # Create ISO week labels
+                roster["iso_year"] = roster["date"].dt.isocalendar().year
+                roster["iso_week"] = roster["date"].dt.isocalendar().week
+
+                week_options = (
+                    roster[["iso_year", "iso_week"]]
+                    .drop_duplicates()
+                    .sort_values(["iso_year", "iso_week"])
+                )
+
+                week_options["label"] = week_options.apply(
+                    lambda row: (
+                        f"Week {int(row['iso_week'])} "
+                        f"({row['iso_year']})"
+                    ),
+                    axis=1
+                )
+
+                week_labels = week_options["label"].tolist()
+
+                selected_week = st.selectbox(
+                    "Select week",
+                    week_labels,
+                    index=len(week_labels) - 1,
+                    key="weekly_roster_selector"
+                )
+
+                selected = week_options[
+                    week_options["label"] == selected_week
+                ].iloc[0]
+
+                week_roster = roster[
+                    (roster["iso_year"] == selected["iso_year"]) &
+                    (roster["iso_week"] == selected["iso_week"])
+                ].copy()
+
+                # Monday to Sunday dates
+                week_start = (
+                    week_roster["date"].min()
+                    - pd.to_timedelta(
+                        week_roster["date"].min().weekday(), unit="D"
+                    )
+                ).normalize()
+
+                week_dates = pd.date_range(
+                    start=week_start,
+                    periods=7,
+                    freq="D"
+                )
+
+                # Sort employees by role, then employee name
+                role_order = [
+                    "Assistant Manager",
+                    "Bartender",
+                    "Chef",
+                    "Dishwasher",
+                    "Kitchen Assistant",
+                    "Restaurant Manager",
+                    "Waiter"
+                ]
+
+                week_roster["role_order"] = (
+                    week_roster["role"]
+                    .map({role: i for i, role in enumerate(role_order)})
+                    .fillna(len(role_order))
+                )
+
+                roster_employees = (
+                    week_roster[
+                        ["role", "employee_name", "role_order"]
+                    ]
+                    .drop_duplicates()
+                    .sort_values(
+                        ["role_order", "role", "employee_name"]
+                    )
+                    .reset_index(drop=True)
+                )
+
+                # Shift colours
+                shift_colors = {
+                    "Lunch": "#D9EEF8",
+                    "Dinner": "#FCE6CF",
+                    "Full": "#E8E0F2"
+                }
+
+                shift_text_colors = {
+                    "Lunch": "#15577A",
+                    "Dinner": "#98500F",
+                    "Full": "#594477"
+                }
+
+                # Build heatmap values and labels
+                z_values = []
+                cell_text = []
+                hover_text = []
+
+                shift_codes = {
+                    "Off": 0,
+                    "Lunch": 1,
+                    "Dinner": 2,
+                    "Full": 3
+                }
+
+                for _, employee in roster_employees.iterrows():
+                    employee_rows = week_roster[
+                        (week_roster["employee_name"] == employee["employee_name"]) &
+                        (week_roster["role"] == employee["role"])
+                    ]
+
+                    row_values = []
+                    row_text = []
+                    row_hover = []
+
+                    for day in week_dates:
+                        day_rows = employee_rows[
+                            employee_rows["date"].dt.normalize() == day
+                        ]
+
+                        if day_rows.empty:
+                            row_values.append(0)
+                            row_text.append("—")
+                            row_hover.append(
+                                f"{employee['employee_name']}<br>"
+                                f"{employee['role']}<br>"
+                                f"{day:%A %d %b}<br>Day off"
+                            )
+                        else:
+                            shift = day_rows.iloc[0]["shift_type"]
+                            hours = day_rows.iloc[0]["hours"]
+
+                            shift_code = shift_codes.get(shift, 0)
+
+                            start = str(day_rows.iloc[0]["start_time"])[:5]
+                            end = str(day_rows.iloc[0]["end_time"])[:5]
+
+                            row_values.append(shift_code)
+
+                            row_text.append(
+                                f"{shift}<br>{start}–{end}"
+                            )
+
+                            row_hover.append(
+                                f"{employee['employee_name']}<br>"
+                                f"{employee['role']}<br>"
+                                f"{day:%A %d %b}<br>"
+                                f"{shift}<br>{start} – {end}"
+                            )
+
+                    z_values.append(row_values)
+                    cell_text.append(row_text)
+                    hover_text.append(row_hover)
+
+                # Discrete colour scale
+                colorscale = [
+                    [0.00, "#F0F2F0"],
+                    [0.2499, "#F0F2F0"],
+                    [0.25, shift_colors["Lunch"]],
+                    [0.4999, shift_colors["Lunch"]],
+                    [0.50, shift_colors["Dinner"]],
+                    [0.7499, shift_colors["Dinner"]],
+                    [0.75, shift_colors["Full"]],
+                    [1.00, shift_colors["Full"]]
+                ]
+
+                # Employee labels
+                employee_labels = [
+                    f"{row['role']}  |  {row['employee_name']}"
+                    for _, row in roster_employees.iterrows()
+                ]
+
+                fig = go.Figure(
+                    go.Heatmap(
+                        z=z_values,
+                        x=[day.strftime("%a %d %b") for day in week_dates],
+                        y=employee_labels,
+                        text=cell_text,
+                        customdata=hover_text,
+                        colorscale=colorscale,
+                        zmin=0,
+                        zmax=3,
+                        showscale=False,
+                        xgap=2,
+                        ygap=2,
+                        texttemplate="%{text}",
+                        textfont=dict(size=10, color=C["ink"]),
+                        hovertemplate="%{customdata}<extra></extra>"
+                    )
+                )
+
+                fig.update_layout(
+                    height=max(450, len(employees) * 38 + 130),
+                    margin=dict(l=10, r=10, t=20, b=20),
+                    xaxis=dict(
+                        side="top",
+                        title="",
+                        tickangle=0,
+                        tickfont=dict(size=11),
+                        showgrid=False
+                    ),
+                    yaxis=dict(
+                        title="",
+                        autorange="reversed",
+                        tickfont=dict(size=10),
+                        showgrid=False
+                    ),
+                    plot_bgcolor="white",
+                    paper_bgcolor="white"
+                )
+
+                chart(fig, max(450, len(employees) * 38 + 130), unified=False)
+
+                # Shift legend
+                st.markdown(
+                    f"""
+                    <div style="display:flex; gap:22px; flex-wrap:wrap;
+                                margin: 4px 0 12px 4px; font-size:13px;">
+                        <span>
+                            <span style="background:{shift_colors['Lunch']};
+                            padding:4px 12px; border-radius:4px;"></span>
+                            Lunch
+                        </span>
+                        <span>
+                            <span style="background:{shift_colors['Dinner']};
+                            padding:4px 12px; border-radius:4px;"></span>
+                            Dinner
+                        </span>
+                        <span>
+                            <span style="background:{shift_colors['Full']};
+                            padding:4px 12px; border-radius:4px;"></span>
+                            Full
+                        </span>
+                        <span>
+                            <span style="background:#F0F2F0;
+                            padding:4px 12px; border-radius:4px;"></span>
+                            Day off
+                        </span>
+                    </div>
+                    """,
+                    unsafe_allow_html=True
+                )
+
+                # Download selected week's roster
+                weekly_download = (
+                    week_roster
+                    .drop(
+                        columns=["iso_year", "iso_week", "role_order"],
+                        errors="ignore"
+                    )
+                    .sort_values(
+                        ["date", "role", "employee_name"]
+                    )
+                    .reset_index(drop=True)
+                )
+
+                download(
+                    weekly_download,
+                    "Download weekly roster (CSV)",
+                    "weekly_roster.csv",
+                    "dl_weekly_roster"
+                )
+
+
+            else:
+                st.info("Weekly roster data is not available.")
+
+            
+
+
+            # ---------------------------------------------------------
+            # ROSTER PLANNER
+            # ---------------------------------------------------------
             with st.expander("Roster explorer", expanded=False):
                 if roster.empty:
                     unavailable("The recommended roster")
                 else:
-                    f1, f2, f3 = st.columns(3)
-                    roles = f1.multiselect("Role", sorted(roster["role"].dropna().unique()) if "role" in roster else [])
-                    shifts = f2.multiselect("Shift", sorted(roster["shift_type"].dropna().unique()) if "shift_type" in roster else [])
-                    days = f3.multiselect("Date", sorted(roster["date"].dt.strftime("%Y-%m-%d").unique()))
+                    roster = roster.copy()
+
+                    # Create ISO week labels
+                    iso = roster["date"].dt.isocalendar()
+                    roster["week"] = (
+                        iso["year"].astype(str)
+                        + "-W"
+                        + iso["week"].astype(str).str.zfill(2)
+                    )
+
+                    # Filters
+                    f1, f2, f3, f4 = st.columns(4)
+
+                    roles = f1.multiselect(
+                        "Role",
+                        sorted(roster["role"].dropna().unique())
+                        if "role" in roster else []
+                    )
+
+                    shifts = f2.multiselect(
+                        "Shift",
+                        sorted(roster["shift_type"].dropna().unique())
+                        if "shift_type" in roster else []
+                    )
+
+                    weeks = f3.multiselect(
+                        "Week",
+                        sorted(roster["week"].unique())
+                    )
+
+                    days = f4.multiselect(
+                        "Date",
+                        sorted(roster["date"].dt.strftime("%Y-%m-%d").unique())
+                    )
+
+                    # Apply filters
                     view = roster.copy()
+
                     if roles:
                         view = view[view["role"].isin(roles)]
+
                     if shifts:
                         view = view[view["shift_type"].isin(shifts)]
-                    if days:
-                        view = view[view["date"].dt.strftime("%Y-%m-%d").isin(days)]
-                    st.caption(f"{len(view):,} shifts · {view['hours'].sum():,.1f} hours · {money(view['labour_cost'].sum())} labour cost")
-                    shown = view.assign(date=view["date"].dt.strftime("%a %d %b"))
-                    cols = [c for c in ["date", "employee_name", "role", "employment_type", "shift_type", "start_time", "end_time", "hours", "labour_cost"] if c in shown]
-                    table(shown[cols].rename(columns={
-                        "date": "Date", "employee_name": "Employee", "role": "Role", "employment_type": "Contract",
-                        "shift_type": "Shift", "start_time": "Start", "end_time": "End", "hours": "Hours", "labour_cost": "Labour cost"}),
-                        380, {"Hours": num_col("Hours", 1), "Labour cost": money_col("Labour cost", 2)})
-                    download(view, "Download roster (CSV)", "recommended_roster.csv", "dl_roster")
 
-            with st.expander("Staffing gap details"):
+                    if weeks:
+                        view = view[view["week"].isin(weeks)]
+
+                    if days:
+                        view = view[
+                            view["date"].dt.strftime("%Y-%m-%d").isin(days)
+                        ]
+
+                    view = view.sort_values(
+                        ["date", "start_time", "employee_name"]
+                    )
+
+                    # Summary
+                    st.caption(
+                        f"{len(view):,} shifts · "
+                        f"{view['hours'].sum():,.1f} hours · "
+                        f"{money(view['labour_cost'].sum())} labour cost"
+                    )
+
+                    # Prepare display table
+                    shown = view.assign(
+                        date=view["date"].dt.strftime("%a %d %b")
+                    )
+
+                    cols = [
+                        c for c in [
+                            "date", "week", "employee_name", "role",
+                            "employment_type", "shift_type",
+                            "start_time", "end_time", "hours", "labour_cost"
+                        ]
+                        if c in shown
+                    ]
+
+                    display = shown[cols].rename(columns={
+                        "date": "Date",
+                        "week": "Week",
+                        "employee_name": "Employee",
+                        "role": "Role",
+                        "employment_type": "Contract",
+                        "shift_type": "Shift",
+                        "start_time": "Start",
+                        "end_time": "End",
+                        "hours": "Hours",
+                        "labour_cost": "Labour cost"
+                    })
+
+                    # Colour-coded table
+                    styled = (
+                        display.style
+                        .map(
+                            lambda x: (
+                                "background-color: #E3F1E9; color: #286344; font-weight: 600"
+                                if x == "Lunch"
+                                else "background-color: #DDF1EC; color: #267D70; font-weight: 600"
+                                if x == "Dinner"
+                                else "background-color: #FFF0D5; color: #98651D; font-weight: 600"
+                                if x == "Full"
+                                else ""
+                            ),
+                            subset=["Shift"]
+                        )
+                        .map(
+                            lambda x: (
+                                "background-color: #E8F0FA; color: #315C88"
+                                if x == "Full-time"
+                                else "background-color: #F3EAF8; color: #79518E"
+                                if x == "Part-time"
+                                else ""
+                            ),
+                            subset=["Contract"]
+                        )
+                        .format({
+                            "Hours": "{:.1f}",
+                            "Labour cost": "€{:,.2f}"
+                        })
+                    )
+
+                    st.dataframe(
+                        styled,
+                        use_container_width=True,
+                        hide_index=True,
+                        height=420
+                    )
+
+                    download(
+                        view.drop(columns=["week"], errors="ignore"),
+                        "Download roster (CSV)",
+                        "recommended_roster.csv",
+                        "dl_roster"
+                    )
+
+            # ---------------------------------------------------------
+            # STAFFING GAP DETAILS
+            # ---------------------------------------------------------
+            
+            with st.expander("Staffing gap details", expanded=False):
                 if has_cols(gaps, "date"):
-                    g = gaps.assign(date=gaps["date"].dt.strftime("%a %d %b"))
-                    table(g.rename(columns=str.title), 320)
-                    download(gaps, "Download staffing gaps (CSV)", "staffing_gaps.csv", "dl_gaps")
+                    if gaps.empty:
+                        st.success("No staffing gaps recorded.")
+                    else:
+                        g = gaps.copy()
+
+                        # Human-readable explanations
+                        
+                        def explain_gap_reason(reason):
+                            if pd.isna(reason) or not str(reason).strip():
+                                return "No reason recorded"
+
+                            import re
+
+                            reason = str(reason)
+                            explanations = []
+
+                            patterns = [
+                                (
+                                    r"only (\d+) eligible employee\(s\) for (\d+) required position\(s\)",
+                                    lambda m: (
+                                        f"Insufficient qualified staff: "
+                                        f"{m.group(1)} available, {m.group(2)} needed"
+                                    )
+                                ),
+                                (
+                                    r"unavailable that weekday(?: \((\d+) employee\(s\)\))?",
+                                    lambda m: (
+                                        f"{m.group(1) + ' ' if m.group(1) else ''}"
+                                        f"employee(s) unavailable on this day"
+                                    )
+                                ),
+                                (
+                                    r"already working that day(?: \((\d+) employee\(s\)\))?",
+                                    lambda m: (
+                                        f"{m.group(1) + ' ' if m.group(1) else ''}"
+                                        f"employee(s) already assigned"
+                                    )
+                                ),
+                                (
+                                    r"employment ended(?: \((\d+) employee\(s\)\))?",
+                                    lambda m: "Former employees excluded from scheduling"
+                                ),
+                                (
+                                    r"insufficient daily hours(?: \((\d+) employee\(s\)\))?",
+                                    lambda m: "Employees lack sufficient remaining daily hours"
+                                ),
+                                (
+                                    r"weekly hour cap reached(?: \((\d+) employee\(s\)\))?",
+                                    lambda m: (
+                                        f"Weekly working-hour limit reached"
+                                        f"{f' ({m.group(1)} employees)' if m.group(1) else ''}"
+                                    )
+                                ),
+                            ]
+
+                            for part in reason.split(";"):
+                                part = part.strip()
+                                matched = False
+
+                                for pattern, explanation in patterns:
+                                    match = re.search(pattern, part, flags=re.IGNORECASE)
+
+                                    if match:
+                                        explanations.append(explanation(match))
+                                        matched = True
+                                        break
+
+                                if not matched and part:
+                                    explanations.append(part)
+
+                            # Remove duplicate explanations
+                            explanations = list(dict.fromkeys(explanations))
+
+                            if not explanations:
+                                return "No specific constraint identified"
+
+                            return " | ".join(explanations)
+
+
+                        # Prepare management-facing table
+                        g["date"] = pd.to_datetime(g["date"]).dt.strftime("%a %d %b")
+
+                        if "reason" in g.columns:
+                            g["management_reason"] = g["reason"].apply(
+                                explain_gap_reason
+                            )
+                        else:
+                            g["management_reason"] = "No explanation recorded"
+
+                        display = g.rename(columns={
+                            "date": "Date",
+                            "weekday": "Weekday",
+                            "role": "Role",
+                            "shift_type": "Shift",
+                            "hours": "Shift hours",
+                            "required": "Staff required",
+                            "assigned": "Staff assigned",
+                            "unfilled": "Unfilled positions",
+                            "management_reason": "Why the gap occurred"
+                        })
+
+                        display_cols = [
+                            "Date",
+                            "Weekday",
+                            "Role",
+                            "Shift",
+                            "Shift hours",
+                            "Staff required",
+                            "Staff assigned",
+                            "Unfilled positions",
+                            "Why the gap occurred"
+                        ]
+
+                        display_cols = [
+                            col for col in display_cols if col in display.columns
+                        ]
+
+                        display = display[display_cols]
+
+                        # Colour-code unfilled positions
+                        def highlight_gaps(row):
+                            styles = [""] * len(row)
+
+                            if "Unfilled positions" in row.index:
+                                idx = row.index.get_loc("Unfilled positions")
+                                value = row["Unfilled positions"]
+
+                                if pd.notna(value) and value >= 3:
+                                    styles[idx] = (
+                                        "background-color: #F8D7DA; "
+                                        "color: #842029; font-weight: bold"
+                                    )
+                                elif pd.notna(value) and value > 0:
+                                    styles[idx] = (
+                                        "background-color: #FFF0CC; "
+                                        "color: #8A5700; font-weight: bold"
+                                    )
+
+                            return styles
+
+                        styled = display.style.apply(
+                            highlight_gaps, axis=1
+                        )
+
+                        st.caption(
+                            f"{len(display):,} staffing gap records · "
+                            f"{int(gaps['unfilled'].sum())} total unfilled positions"
+                        )
+
+                        st.dataframe(
+                            styled,
+                            use_container_width=True,
+                            hide_index=True,
+                            height=380,
+                            column_config={
+                                "Shift hours": st.column_config.NumberColumn(
+                                    "Shift hours",
+                                    format="%.1f"
+                                ),
+                                "Staff required": st.column_config.NumberColumn(
+                                    "Required",
+                                    format="%d"
+                                ),
+                                "Staff assigned": st.column_config.NumberColumn(
+                                    "Assigned",
+                                    format="%d"
+                                ),
+                                "Unfilled positions": st.column_config.NumberColumn(
+                                    "Unfilled",
+                                    format="%d"
+                                ),
+                                "Why the gap occurred": st.column_config.TextColumn(
+                                    "Management explanation",
+                                    width="large",
+                                    help="Constraints that prevented the required positions from being filled."
+                                )
+                            }
+                        )
+
+                        download(
+                            gaps,
+                            "Download staffing gaps (CSV)",
+                            "staffing_gaps.csv",
+                            "dl_gaps"
+                        )
                 else:
-                    st.caption("No gap records.")
+                    st.caption("No staffing gap records.")
+
 
             callout("The roster is a model recommendation, not a confirmed schedule. Verify availability, contracts, labour law, "
                     "qualifications and manager approval before operational use. Labour cost excludes other operating costs.", "note")
