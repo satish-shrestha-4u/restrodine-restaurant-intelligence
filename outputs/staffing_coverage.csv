@@ -1,139 +1,139 @@
 date,expected_orders,demand_tier,role,shift_type,required,assigned,shortfall,coverage_status
-2026-11-16,49,Low,Restaurant Manager,Full,1,1,0,Covered
-2026-11-16,49,Low,Chef,Lunch,1,1,0,Covered
-2026-11-16,49,Low,Chef,Dinner,1,0,1,Under-covered
-2026-11-16,49,Low,Kitchen Assistant,Dinner,1,1,0,Covered
-2026-11-16,49,Low,Waiter,Lunch,2,2,0,Covered
-2026-11-16,49,Low,Waiter,Dinner,2,2,0,Covered
-2026-11-16,49,Low,Bartender,Dinner,1,1,0,Covered
-2026-11-16,49,Low,Dishwasher,Dinner,1,1,0,Covered
-2026-11-17,58,Low,Restaurant Manager,Full,1,1,0,Covered
-2026-11-17,58,Low,Chef,Lunch,1,1,0,Covered
-2026-11-17,58,Low,Chef,Dinner,1,1,0,Covered
-2026-11-17,58,Low,Kitchen Assistant,Dinner,1,1,0,Covered
-2026-11-17,58,Low,Waiter,Lunch,2,2,0,Covered
-2026-11-17,58,Low,Waiter,Dinner,2,2,0,Covered
-2026-11-17,58,Low,Bartender,Dinner,1,1,0,Covered
-2026-11-17,58,Low,Dishwasher,Dinner,1,1,0,Covered
 2026-11-18,62,Standard,Restaurant Manager,Full,1,1,0,Covered
 2026-11-18,62,Standard,Chef,Lunch,1,1,0,Covered
 2026-11-18,62,Standard,Chef,Dinner,2,2,0,Covered
 2026-11-18,62,Standard,Kitchen Assistant,Lunch,1,1,0,Covered
 2026-11-18,62,Standard,Kitchen Assistant,Dinner,1,1,0,Covered
 2026-11-18,62,Standard,Waiter,Lunch,2,2,0,Covered
-2026-11-18,62,Standard,Waiter,Dinner,3,2,1,Under-covered
+2026-11-18,62,Standard,Waiter,Dinner,3,3,0,Covered
 2026-11-18,62,Standard,Bartender,Dinner,1,1,0,Covered
 2026-11-18,62,Standard,Dishwasher,Lunch,1,1,0,Covered
 2026-11-18,62,Standard,Dishwasher,Dinner,1,1,0,Covered
-2026-11-19,74,Standard,Restaurant Manager,Full,1,1,0,Covered
-2026-11-19,74,Standard,Chef,Lunch,1,1,0,Covered
-2026-11-19,74,Standard,Chef,Dinner,2,2,0,Covered
-2026-11-19,74,Standard,Kitchen Assistant,Lunch,1,1,0,Covered
-2026-11-19,74,Standard,Kitchen Assistant,Dinner,1,0,1,Under-covered
-2026-11-19,74,Standard,Waiter,Lunch,2,2,0,Covered
-2026-11-19,74,Standard,Waiter,Dinner,3,3,0,Covered
-2026-11-19,74,Standard,Bartender,Dinner,1,1,0,Covered
-2026-11-19,74,Standard,Dishwasher,Lunch,1,1,0,Covered
-2026-11-19,74,Standard,Dishwasher,Dinner,1,0,1,Under-covered
-2026-11-20,112,High,Restaurant Manager,Full,1,1,0,Covered
-2026-11-20,112,High,Assistant Manager,Dinner,1,1,0,Covered
-2026-11-20,112,High,Chef,Lunch,1,1,0,Covered
-2026-11-20,112,High,Chef,Dinner,2,2,0,Covered
-2026-11-20,112,High,Kitchen Assistant,Lunch,1,1,0,Covered
-2026-11-20,112,High,Kitchen Assistant,Dinner,2,0,2,Under-covered
-2026-11-20,112,High,Waiter,Lunch,3,3,0,Covered
-2026-11-20,112,High,Waiter,Dinner,5,5,0,Covered
-2026-11-20,112,High,Bartender,Dinner,2,2,0,Covered
-2026-11-20,112,High,Dishwasher,Lunch,1,1,0,Covered
-2026-11-20,112,High,Dishwasher,Dinner,1,1,0,Covered
-2026-11-21,136,High,Restaurant Manager,Full,1,1,0,Covered
-2026-11-21,136,High,Assistant Manager,Dinner,1,1,0,Covered
-2026-11-21,136,High,Chef,Lunch,1,1,0,Covered
-2026-11-21,136,High,Chef,Dinner,2,2,0,Covered
-2026-11-21,136,High,Kitchen Assistant,Lunch,1,1,0,Covered
-2026-11-21,136,High,Kitchen Assistant,Dinner,2,2,0,Covered
-2026-11-21,136,High,Waiter,Lunch,3,3,0,Covered
-2026-11-21,136,High,Waiter,Dinner,5,1,4,Under-covered
-2026-11-21,136,High,Bartender,Dinner,2,2,0,Covered
-2026-11-21,136,High,Dishwasher,Lunch,1,1,0,Covered
-2026-11-21,136,High,Dishwasher,Dinner,1,0,1,Under-covered
-2026-11-22,74,Standard,Restaurant Manager,Full,1,1,0,Covered
-2026-11-22,74,Standard,Chef,Lunch,1,1,0,Covered
-2026-11-22,74,Standard,Chef,Dinner,2,2,0,Covered
-2026-11-22,74,Standard,Kitchen Assistant,Lunch,1,1,0,Covered
-2026-11-22,74,Standard,Kitchen Assistant,Dinner,1,1,0,Covered
-2026-11-22,74,Standard,Waiter,Lunch,2,2,0,Covered
-2026-11-22,74,Standard,Waiter,Dinner,3,1,2,Under-covered
-2026-11-22,74,Standard,Bartender,Dinner,1,1,0,Covered
-2026-11-22,74,Standard,Dishwasher,Lunch,1,1,0,Covered
-2026-11-22,74,Standard,Dishwasher,Dinner,1,0,1,Under-covered
-2026-11-23,50,Low,Restaurant Manager,Full,1,1,0,Covered
-2026-11-23,50,Low,Chef,Lunch,1,1,0,Covered
-2026-11-23,50,Low,Chef,Dinner,1,0,1,Under-covered
-2026-11-23,50,Low,Kitchen Assistant,Dinner,1,1,0,Covered
-2026-11-23,50,Low,Waiter,Lunch,2,2,0,Covered
-2026-11-23,50,Low,Waiter,Dinner,2,2,0,Covered
-2026-11-23,50,Low,Bartender,Dinner,1,1,0,Covered
-2026-11-23,50,Low,Dishwasher,Dinner,1,1,0,Covered
-2026-11-24,65,Standard,Restaurant Manager,Full,1,1,0,Covered
-2026-11-24,65,Standard,Chef,Lunch,1,1,0,Covered
-2026-11-24,65,Standard,Chef,Dinner,2,1,1,Under-covered
-2026-11-24,65,Standard,Kitchen Assistant,Lunch,1,1,0,Covered
-2026-11-24,65,Standard,Kitchen Assistant,Dinner,1,1,0,Covered
-2026-11-24,65,Standard,Waiter,Lunch,2,2,0,Covered
-2026-11-24,65,Standard,Waiter,Dinner,3,3,0,Covered
-2026-11-24,65,Standard,Bartender,Dinner,1,1,0,Covered
-2026-11-24,65,Standard,Dishwasher,Lunch,1,1,0,Covered
-2026-11-24,65,Standard,Dishwasher,Dinner,1,1,0,Covered
-2026-11-25,68,Standard,Restaurant Manager,Full,1,1,0,Covered
-2026-11-25,68,Standard,Chef,Lunch,1,1,0,Covered
-2026-11-25,68,Standard,Chef,Dinner,2,2,0,Covered
-2026-11-25,68,Standard,Kitchen Assistant,Lunch,1,1,0,Covered
-2026-11-25,68,Standard,Kitchen Assistant,Dinner,1,1,0,Covered
-2026-11-25,68,Standard,Waiter,Lunch,2,2,0,Covered
-2026-11-25,68,Standard,Waiter,Dinner,3,1,2,Under-covered
-2026-11-25,68,Standard,Bartender,Dinner,1,1,0,Covered
-2026-11-25,68,Standard,Dishwasher,Lunch,1,1,0,Covered
-2026-11-25,68,Standard,Dishwasher,Dinner,1,1,0,Covered
-2026-11-26,82,Standard,Restaurant Manager,Full,1,1,0,Covered
-2026-11-26,82,Standard,Chef,Lunch,1,1,0,Covered
-2026-11-26,82,Standard,Chef,Dinner,2,2,0,Covered
-2026-11-26,82,Standard,Kitchen Assistant,Lunch,1,1,0,Covered
-2026-11-26,82,Standard,Kitchen Assistant,Dinner,1,1,0,Covered
-2026-11-26,82,Standard,Waiter,Lunch,2,2,0,Covered
-2026-11-26,82,Standard,Waiter,Dinner,3,3,0,Covered
-2026-11-26,82,Standard,Bartender,Dinner,1,1,0,Covered
-2026-11-26,82,Standard,Dishwasher,Lunch,1,1,0,Covered
-2026-11-26,82,Standard,Dishwasher,Dinner,1,0,1,Under-covered
-2026-11-27,115,High,Restaurant Manager,Full,1,1,0,Covered
-2026-11-27,115,High,Assistant Manager,Dinner,1,1,0,Covered
-2026-11-27,115,High,Chef,Lunch,1,1,0,Covered
-2026-11-27,115,High,Chef,Dinner,2,2,0,Covered
-2026-11-27,115,High,Kitchen Assistant,Lunch,1,1,0,Covered
-2026-11-27,115,High,Kitchen Assistant,Dinner,2,0,2,Under-covered
-2026-11-27,115,High,Waiter,Lunch,3,3,0,Covered
-2026-11-27,115,High,Waiter,Dinner,5,5,0,Covered
-2026-11-27,115,High,Bartender,Dinner,2,2,0,Covered
-2026-11-27,115,High,Dishwasher,Lunch,1,1,0,Covered
-2026-11-27,115,High,Dishwasher,Dinner,1,0,1,Under-covered
-2026-11-28,132,High,Restaurant Manager,Full,1,1,0,Covered
-2026-11-28,132,High,Assistant Manager,Dinner,1,1,0,Covered
-2026-11-28,132,High,Chef,Lunch,1,1,0,Covered
-2026-11-28,132,High,Chef,Dinner,2,2,0,Covered
-2026-11-28,132,High,Kitchen Assistant,Lunch,1,1,0,Covered
-2026-11-28,132,High,Kitchen Assistant,Dinner,2,2,0,Covered
-2026-11-28,132,High,Waiter,Lunch,3,3,0,Covered
-2026-11-28,132,High,Waiter,Dinner,5,1,4,Under-covered
-2026-11-28,132,High,Bartender,Dinner,2,2,0,Covered
-2026-11-28,132,High,Dishwasher,Lunch,1,1,0,Covered
-2026-11-28,132,High,Dishwasher,Dinner,1,0,1,Under-covered
-2026-11-29,80,Standard,Restaurant Manager,Full,1,1,0,Covered
-2026-11-29,80,Standard,Chef,Lunch,1,1,0,Covered
-2026-11-29,80,Standard,Chef,Dinner,2,2,0,Covered
-2026-11-29,80,Standard,Kitchen Assistant,Lunch,1,1,0,Covered
-2026-11-29,80,Standard,Kitchen Assistant,Dinner,1,1,0,Covered
-2026-11-29,80,Standard,Waiter,Lunch,2,2,0,Covered
-2026-11-29,80,Standard,Waiter,Dinner,3,1,2,Under-covered
-2026-11-29,80,Standard,Bartender,Dinner,1,1,0,Covered
-2026-11-29,80,Standard,Dishwasher,Lunch,1,1,0,Covered
-2026-11-29,80,Standard,Dishwasher,Dinner,1,0,1,Under-covered
+2026-11-19,75,Standard,Restaurant Manager,Full,1,1,0,Covered
+2026-11-19,75,Standard,Chef,Lunch,1,1,0,Covered
+2026-11-19,75,Standard,Chef,Dinner,2,2,0,Covered
+2026-11-19,75,Standard,Kitchen Assistant,Lunch,1,1,0,Covered
+2026-11-19,75,Standard,Kitchen Assistant,Dinner,1,1,0,Covered
+2026-11-19,75,Standard,Waiter,Lunch,2,2,0,Covered
+2026-11-19,75,Standard,Waiter,Dinner,3,3,0,Covered
+2026-11-19,75,Standard,Bartender,Dinner,1,1,0,Covered
+2026-11-19,75,Standard,Dishwasher,Lunch,1,1,0,Covered
+2026-11-19,75,Standard,Dishwasher,Dinner,1,0,1,Under-covered
+2026-11-20,111,High,Restaurant Manager,Full,1,1,0,Covered
+2026-11-20,111,High,Assistant Manager,Dinner,1,1,0,Covered
+2026-11-20,111,High,Chef,Lunch,1,1,0,Covered
+2026-11-20,111,High,Chef,Dinner,2,2,0,Covered
+2026-11-20,111,High,Kitchen Assistant,Lunch,1,1,0,Covered
+2026-11-20,111,High,Kitchen Assistant,Dinner,2,1,1,Under-covered
+2026-11-20,111,High,Waiter,Lunch,3,3,0,Covered
+2026-11-20,111,High,Waiter,Dinner,5,3,2,Under-covered
+2026-11-20,111,High,Bartender,Dinner,2,2,0,Covered
+2026-11-20,111,High,Dishwasher,Lunch,1,1,0,Covered
+2026-11-20,111,High,Dishwasher,Dinner,1,1,0,Covered
+2026-11-21,131,High,Restaurant Manager,Full,1,1,0,Covered
+2026-11-21,131,High,Assistant Manager,Dinner,1,1,0,Covered
+2026-11-21,131,High,Chef,Lunch,1,1,0,Covered
+2026-11-21,131,High,Chef,Dinner,2,2,0,Covered
+2026-11-21,131,High,Kitchen Assistant,Lunch,1,1,0,Covered
+2026-11-21,131,High,Kitchen Assistant,Dinner,2,2,0,Covered
+2026-11-21,131,High,Waiter,Lunch,3,3,0,Covered
+2026-11-21,131,High,Waiter,Dinner,5,5,0,Covered
+2026-11-21,131,High,Bartender,Dinner,2,2,0,Covered
+2026-11-21,131,High,Dishwasher,Lunch,1,1,0,Covered
+2026-11-21,131,High,Dishwasher,Dinner,1,0,1,Under-covered
+2026-11-22,79,Standard,Restaurant Manager,Full,1,1,0,Covered
+2026-11-22,79,Standard,Chef,Lunch,1,1,0,Covered
+2026-11-22,79,Standard,Chef,Dinner,2,2,0,Covered
+2026-11-22,79,Standard,Kitchen Assistant,Lunch,1,1,0,Covered
+2026-11-22,79,Standard,Kitchen Assistant,Dinner,1,1,0,Covered
+2026-11-22,79,Standard,Waiter,Lunch,2,2,0,Covered
+2026-11-22,79,Standard,Waiter,Dinner,3,2,1,Under-covered
+2026-11-22,79,Standard,Bartender,Dinner,1,1,0,Covered
+2026-11-22,79,Standard,Dishwasher,Lunch,1,1,0,Covered
+2026-11-22,79,Standard,Dishwasher,Dinner,1,1,0,Covered
+2026-11-23,49,Low,Restaurant Manager,Full,1,1,0,Covered
+2026-11-23,49,Low,Chef,Lunch,1,1,0,Covered
+2026-11-23,49,Low,Chef,Dinner,1,0,1,Under-covered
+2026-11-23,49,Low,Kitchen Assistant,Dinner,1,1,0,Covered
+2026-11-23,49,Low,Waiter,Lunch,2,2,0,Covered
+2026-11-23,49,Low,Waiter,Dinner,2,2,0,Covered
+2026-11-23,49,Low,Bartender,Dinner,1,1,0,Covered
+2026-11-23,49,Low,Dishwasher,Dinner,1,1,0,Covered
+2026-11-24,64,Standard,Restaurant Manager,Full,1,1,0,Covered
+2026-11-24,64,Standard,Chef,Lunch,1,1,0,Covered
+2026-11-24,64,Standard,Chef,Dinner,2,1,1,Under-covered
+2026-11-24,64,Standard,Kitchen Assistant,Lunch,1,1,0,Covered
+2026-11-24,64,Standard,Kitchen Assistant,Dinner,1,1,0,Covered
+2026-11-24,64,Standard,Waiter,Lunch,2,2,0,Covered
+2026-11-24,64,Standard,Waiter,Dinner,3,3,0,Covered
+2026-11-24,64,Standard,Bartender,Dinner,1,1,0,Covered
+2026-11-24,64,Standard,Dishwasher,Lunch,1,1,0,Covered
+2026-11-24,64,Standard,Dishwasher,Dinner,1,1,0,Covered
+2026-11-25,63,Standard,Restaurant Manager,Full,1,1,0,Covered
+2026-11-25,63,Standard,Chef,Lunch,1,1,0,Covered
+2026-11-25,63,Standard,Chef,Dinner,2,2,0,Covered
+2026-11-25,63,Standard,Kitchen Assistant,Lunch,1,1,0,Covered
+2026-11-25,63,Standard,Kitchen Assistant,Dinner,1,1,0,Covered
+2026-11-25,63,Standard,Waiter,Lunch,2,2,0,Covered
+2026-11-25,63,Standard,Waiter,Dinner,3,1,2,Under-covered
+2026-11-25,63,Standard,Bartender,Dinner,1,1,0,Covered
+2026-11-25,63,Standard,Dishwasher,Lunch,1,1,0,Covered
+2026-11-25,63,Standard,Dishwasher,Dinner,1,1,0,Covered
+2026-11-26,75,Standard,Restaurant Manager,Full,1,1,0,Covered
+2026-11-26,75,Standard,Chef,Lunch,1,1,0,Covered
+2026-11-26,75,Standard,Chef,Dinner,2,2,0,Covered
+2026-11-26,75,Standard,Kitchen Assistant,Lunch,1,1,0,Covered
+2026-11-26,75,Standard,Kitchen Assistant,Dinner,1,1,0,Covered
+2026-11-26,75,Standard,Waiter,Lunch,2,2,0,Covered
+2026-11-26,75,Standard,Waiter,Dinner,3,3,0,Covered
+2026-11-26,75,Standard,Bartender,Dinner,1,1,0,Covered
+2026-11-26,75,Standard,Dishwasher,Lunch,1,1,0,Covered
+2026-11-26,75,Standard,Dishwasher,Dinner,1,0,1,Under-covered
+2026-11-27,117,High,Restaurant Manager,Full,1,1,0,Covered
+2026-11-27,117,High,Assistant Manager,Dinner,1,1,0,Covered
+2026-11-27,117,High,Chef,Lunch,1,1,0,Covered
+2026-11-27,117,High,Chef,Dinner,2,2,0,Covered
+2026-11-27,117,High,Kitchen Assistant,Lunch,1,1,0,Covered
+2026-11-27,117,High,Kitchen Assistant,Dinner,2,0,2,Under-covered
+2026-11-27,117,High,Waiter,Lunch,3,3,0,Covered
+2026-11-27,117,High,Waiter,Dinner,5,5,0,Covered
+2026-11-27,117,High,Bartender,Dinner,2,2,0,Covered
+2026-11-27,117,High,Dishwasher,Lunch,1,1,0,Covered
+2026-11-27,117,High,Dishwasher,Dinner,1,0,1,Under-covered
+2026-11-28,134,High,Restaurant Manager,Full,1,1,0,Covered
+2026-11-28,134,High,Assistant Manager,Dinner,1,1,0,Covered
+2026-11-28,134,High,Chef,Lunch,1,1,0,Covered
+2026-11-28,134,High,Chef,Dinner,2,2,0,Covered
+2026-11-28,134,High,Kitchen Assistant,Lunch,1,1,0,Covered
+2026-11-28,134,High,Kitchen Assistant,Dinner,2,2,0,Covered
+2026-11-28,134,High,Waiter,Lunch,3,3,0,Covered
+2026-11-28,134,High,Waiter,Dinner,5,1,4,Under-covered
+2026-11-28,134,High,Bartender,Dinner,2,2,0,Covered
+2026-11-28,134,High,Dishwasher,Lunch,1,1,0,Covered
+2026-11-28,134,High,Dishwasher,Dinner,1,0,1,Under-covered
+2026-11-29,78,Standard,Restaurant Manager,Full,1,1,0,Covered
+2026-11-29,78,Standard,Chef,Lunch,1,1,0,Covered
+2026-11-29,78,Standard,Chef,Dinner,2,2,0,Covered
+2026-11-29,78,Standard,Kitchen Assistant,Lunch,1,1,0,Covered
+2026-11-29,78,Standard,Kitchen Assistant,Dinner,1,1,0,Covered
+2026-11-29,78,Standard,Waiter,Lunch,2,2,0,Covered
+2026-11-29,78,Standard,Waiter,Dinner,3,1,2,Under-covered
+2026-11-29,78,Standard,Bartender,Dinner,1,1,0,Covered
+2026-11-29,78,Standard,Dishwasher,Lunch,1,1,0,Covered
+2026-11-29,78,Standard,Dishwasher,Dinner,1,0,1,Under-covered
+2026-11-30,48,Low,Restaurant Manager,Full,1,1,0,Covered
+2026-11-30,48,Low,Chef,Lunch,1,1,0,Covered
+2026-11-30,48,Low,Chef,Dinner,1,0,1,Under-covered
+2026-11-30,48,Low,Kitchen Assistant,Dinner,1,1,0,Covered
+2026-11-30,48,Low,Waiter,Lunch,2,2,0,Covered
+2026-11-30,48,Low,Waiter,Dinner,2,2,0,Covered
+2026-11-30,48,Low,Bartender,Dinner,1,1,0,Covered
+2026-11-30,48,Low,Dishwasher,Dinner,1,1,0,Covered
+2026-12-01,57,Low,Restaurant Manager,Full,1,1,0,Covered
+2026-12-01,57,Low,Chef,Lunch,1,1,0,Covered
+2026-12-01,57,Low,Chef,Dinner,1,1,0,Covered
+2026-12-01,57,Low,Kitchen Assistant,Dinner,1,1,0,Covered
+2026-12-01,57,Low,Waiter,Lunch,2,2,0,Covered
+2026-12-01,57,Low,Waiter,Dinner,2,2,0,Covered
+2026-12-01,57,Low,Bartender,Dinner,1,1,0,Covered
+2026-12-01,57,Low,Dishwasher,Dinner,1,1,0,Covered

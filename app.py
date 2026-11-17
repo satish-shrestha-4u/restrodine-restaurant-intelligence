@@ -689,7 +689,6 @@ PAGES = [
     "Workforce Planning", # Staffing and labor cost analysis
     "Customer Intelligence", # Customer behavior and feedback analysis
     "Menu Performance", # Menu item sales and profitability analysis
-    "Data & Methodology", # Data sources, cleaning, and analytical methods
 ]
 
 # Sidebar header with the app name and description, using Markdown for styling 
@@ -704,7 +703,7 @@ st.sidebar.markdown(
 )
 
 # Sidebar radio buttons for page navigation, allowing users to switch between different pages of the app
-page = st.sidebar.radio("Navigation", PAGES, label_visibility="collapsed")
+page = st.sidebar.radio("Navigation", PAGES, label_visibility="collapsed", on_change=lambda: st.session_state.update(show_methodology=False),)
 st.sidebar.markdown("---")
 st.sidebar.markdown("**Historical filters**")
 st.sidebar.caption("Apply to trading, revenue and live menu views.")
@@ -862,6 +861,12 @@ else:
     forecast_start = None
     forecast_end = None
     st.sidebar.warning("Forecast data is unavailable.")
+
+st.sidebar.markdown("---")
+
+if st.sidebar.button("Data & Methodology", **STRETCH):
+    st.session_state["show_methodology"] = True
+
 st.sidebar.markdown("---")
 st.sidebar.caption("DISCLAIMER")
 st.sidebar.markdown("Analytical demonstration!!")
@@ -3220,34 +3225,54 @@ def page_workforce() -> None:
                     "Weekly Staff Roster",
                     "Employee assignments and shift times across the selected week."
                 )
+                
+                # Build two consecutive 7-day forecast blocks
+                roster["date"] = pd.to_datetime(
+                    roster["date"]
+                ).dt.normalize()
 
-                # Ensure dates are datetime values
-                roster["date"] = pd.to_datetime(roster["date"])
-
-                # Create ISO week labels
-                roster["iso_year"] = roster["date"].dt.isocalendar().year
-                roster["iso_week"] = roster["date"].dt.isocalendar().week
-
-                week_options = (
-                    roster[["iso_year", "iso_week"]]
+                forecast_dates = (
+                    pd.to_datetime(wf["date"])
+                    .dt.normalize()
+                    .dropna()
                     .drop_duplicates()
-                    .sort_values(["iso_year", "iso_week"])
+                    .sort_values()
                 )
 
-                week_options["label"] = week_options.apply(
-                    lambda row: (
-                        f"Week {int(row['iso_week'])} "
-                        f"({row['iso_year']})"
-                    ),
-                    axis=1
-                )
+                roster_period_start = forecast_dates.min()
+                roster_period_end = forecast_dates.max()
+
+                week_options = []
+
+                for block_index in range(2):
+                    block_start = (
+                        roster_period_start
+                        + pd.Timedelta(days=7 * block_index)
+                    )
+
+                    block_end = min(
+                        block_start + pd.Timedelta(days=6),
+                        roster_period_end
+                    )
+
+                    week_options.append({
+                        "block": block_index + 1,
+                        "start": block_start,
+                        "end": block_end,
+                        "label": (
+                            f"Week {block_index + 1} "
+                            f"({block_start:%d %b} – {block_end:%d %b})"
+                        )
+                    })
+
+                week_options = pd.DataFrame(week_options)
 
                 week_labels = week_options["label"].tolist()
 
                 selected_week = st.selectbox(
                     "Select week",
                     week_labels,
-                    index=len(week_labels) - 1,
+                    index=0,
                     key="weekly_roster_selector"
                 )
 
@@ -3256,23 +3281,19 @@ def page_workforce() -> None:
                 ].iloc[0]
 
                 week_roster = roster[
-                    (roster["iso_year"] == selected["iso_year"]) &
-                    (roster["iso_week"] == selected["iso_week"])
+                    roster["date"].between(
+                        selected["start"],
+                        selected["end"]
+                    )
                 ].copy()
 
-                # Monday to Sunday dates
-                week_start = (
-                    week_roster["date"].min()
-                    - pd.to_timedelta(
-                        week_roster["date"].min().weekday(), unit="D"
-                    )
-                ).normalize()
-
                 week_dates = pd.date_range(
-                    start=week_start,
+                    start=selected["start"],
                     periods=7,
                     freq="D"
                 )
+
+
 
                 # Sort employees by role, then employee name
                 role_order = [
@@ -3846,39 +3867,171 @@ def page_customers() -> None:
             "There are no customer forecasts for the next 14 days."
         )
         return
-    callout("Customer outputs summarise the full historical dataset and are not affected by the sidebar filters. "
-            "Aspect sentiments are supplied synthetic annotations, not predictions from a trained NLP model.", "info")
+    callout(
+        "Review KPIs, sentiment analysis, the review explorer and high-value negative feedback "
+        "respond to the selected historical period. RFM segments and customer value analysis "
+        "use the full historical dataset. Aspect sentiments are supplied synthetic annotations, "
+        "not predictions from a trained NLP model.",
+        "info"
+    )
 
     kv = kpi_lookup(output("customer_intelligence_kpis.csv"))
     summary = meta("customer_intelligence_summary.json")
     segments = output("customer_segment_profile.csv")
     aspects = output("customer_aspect_sentiment_summary.csv")
     monthly = output("customer_monthly_sentiment.csv")
+    # Apply the global historical period filter
+    if has_cols(monthly, "review_month", "Negative (%)"):
+        monthly["review_month_date"] = pd.to_datetime(
+            monthly["review_month"],
+            format="%Y-%m",
+            errors="coerce"
+        )
+
+        monthly = monthly[
+            monthly["review_month_date"].between(
+                pd.Timestamp(start_d).to_period("M").to_timestamp(),
+                pd.Timestamp(end_d).to_period("M").to_timestamp()
+            )
+        ].copy()
     improve = output("customer_improvement_areas.csv")
     by_type = output("customer_feedback_by_type.csv")
     ratings = output("customer_ratings_by_type.csv")
     detail = output("customer_review_aspect_detail.csv", "review_date")
     high_neg = output("high_value_negative_feedback.csv", "review_date")
+    # Apply the global historical period filter to review-level records
+    if "review_date" in detail.columns:
+        detail = detail[
+            detail["review_date"].dt.date.between(start_d, end_d)
+        ].copy()
+
+    if "review_date" in high_neg.columns:
+        high_neg = high_neg[
+            high_neg["review_date"].dt.date.between(start_d, end_d)
+        ].copy()
+
+    # Recalculate sentiment summaries for the selected period
+    sentiment_order = ["Positive", "Neutral", "Negative"]
+
+    if has_cols(detail, "aspect", "sentiment"):
+        # Sentiment by experience aspect
+        aspect_counts = pd.crosstab(detail["aspect"], detail["sentiment"])
+        aspect_counts = aspect_counts.reindex(
+            columns=sentiment_order, fill_value=0
+        )
+
+        aspects_period = (
+            aspect_counts.div(aspect_counts.sum(axis=1), axis=0)
+            .mul(100)
+            .reset_index()
+        )
+
+        aspects_period = aspects_period.rename(columns={
+            sentiment: f"{sentiment} (%)"
+            for sentiment in sentiment_order
+        })
+
+        # Sentiment by customer type
+        if "customer_type" in detail.columns:
+            type_counts = pd.crosstab(
+                detail["customer_type"], detail["sentiment"]
+            )
+            type_counts = type_counts.reindex(
+                columns=sentiment_order, fill_value=0
+            )
+
+            by_type_period = (
+                type_counts.div(type_counts.sum(axis=1), axis=0)
+                .mul(100)
+                .reset_index()
+            )
+
+            by_type_period = by_type_period.rename(columns={
+                sentiment: f"{sentiment} (%)"
+                for sentiment in sentiment_order
+            })
+        else:
+            by_type_period = pd.DataFrame()
+    else:
+        aspects_period = pd.DataFrame()
+        by_type_period = pd.DataFrame()
+
+    # Calculate average rating by customer type using unique reviews
+    ratings_period = (
+        detail[["review_id", "customer_type", "rating"]]
+        .drop_duplicates(subset="review_id")
+        .groupby("customer_type", as_index=False)
+        .agg(Average_Rating=("rating", "mean"))
+    )
+
+    # Calculate aspect sentiment for the selected period
+    aspect_period = (
+        detail.groupby(["aspect", "sentiment"])
+        .size()
+        .unstack(fill_value=0)
+    )
+
+    # Ensure all sentiment categories are present
+    for sentiment in ["Positive", "Neutral", "Negative"]:
+        if sentiment not in aspect_period.columns:
+            aspect_period[sentiment] = 0
+
+    # Convert counts into percentages within each aspect
+    aspect_period = (
+        aspect_period[["Positive", "Neutral", "Negative"]]
+        .div(aspect_period.sum(axis=1).replace(0, np.nan), axis=0)
+        .mul(100)
+        .fillna(0)
+        .reset_index()
+        .rename(columns={
+            "Positive": "Positive (%)",
+            "Neutral": "Neutral (%)",
+            "Negative": "Negative (%)"
+        })
+    )
+
     rfm = output("customer_rfm_segments.csv")
 
-    avg_rating = kv.get("Average Rating", np.nan)
+    # Calculate period-specific customer KPIs
+    review_level = detail.drop_duplicates(subset="review_id").copy()
+
+    total_reviews = review_level["review_id"].nunique()
+    reviewing_customers = review_level["customer_id"].nunique()
+
+    average_rating = pd.to_numeric(
+        review_level["rating"], errors="coerce"
+    ).mean()
+
+    total_mentions = detail["sentiment"].notna().sum()
+
+    positive_mentions = (
+        detail["sentiment"].eq("Positive").sum() / total_mentions * 100
+        if total_mentions else 0
+    )
+
+    negative_mentions = (
+        detail["sentiment"].eq("Negative").sum() / total_mentions * 100
+        if total_mentions else 0
+    )
+
     kpis([
-        ("Reviews", integer(kv.get("Total Reviews", np.nan)), None),
-        ("Reviewing customers", integer(kv.get("Customers Who Reviewed", np.nan)), None),
-        ("Average rating", f"{avg_rating:.2f} / 5" if pd.notna(avg_rating) else "—", None),
-        ("Positive mentions", pct(kv.get("Positive Sentiment (%)", np.nan)), None),
-        ("Negative mentions", pct(kv.get("Negative Sentiment (%)", np.nan)), None),
+        ("Reviews", integer(total_reviews), None),
+        ("Reviewing customers", integer(reviewing_customers), None),
+        ("Average rating", f"{average_rating:.2f} / 5" if pd.notna(average_rating) else "—", None),
+        ("Positive mentions", pct(positive_mentions), None),
+        ("Negative mentions", pct(negative_mentions), None),
     ])
     st.write("")
 
-    t_sent, t_seg, t_voice, t_risk = st.tabs(["Sentiment", "Segments", "Review explorer", "High-value risk"])
+    t_sent, t_seg, t_voice, t_risk = st.tabs(["Sentiment", "Segments", "Review explorer", "Retention opportunities"])
 
     with t_sent:
         l, r = st.columns(2)
         with l:
             section("Negative share over time", "Share of aspect mentions that are negative, by month.")
             if has_cols(monthly, "review_month", "Negative (%)"):
-                m = monthly.assign(month=pd.to_datetime(monthly["review_month"], format="%Y-%m", errors="coerce"))
+                m = monthly.copy()
+                m["month"] = m["review_month_date"]
                 fig = px.line(m, x="month", y="Negative (%)", markers=True, labels={"month": "", "Negative (%)": "Negative mentions (%)"})
                 fig.update_traces(line_color=C["red"], line_width=3)
                 chart(fig, 330)
@@ -3886,28 +4039,33 @@ def page_customers() -> None:
                 unavailable("Monthly sentiment")
         with r:
             section("Sentiment by experience aspect", "Mix of positive, neutral and negative mentions per aspect.")
-            if has_cols(aspects, "aspect", "Positive (%)", "Neutral (%)", "Negative (%)"):
-                a = aspects.sort_values("Negative (%)")
+            if has_cols(aspects_period, "aspect", "Positive (%)", "Neutral (%)", "Negative (%)"):
+                a = aspects_period.sort_values("Negative (%)")
                 fig = go.Figure()
                 for s in ["Positive", "Neutral", "Negative"]:
                     fig.add_bar(y=a["aspect"], x=a[f"{s} (%)"], name=s, orientation="h", marker_color=SENTIMENT_COLORS[s])
-                fig.update_layout(barmode="stack", xaxis_title="Share of mentions (%)")
+                fig.update_layout(legend=dict(traceorder="normal"),barmode="stack", xaxis_title="Share of mentions (%)")
+
                 chart(fig, 330, unified=False)
             else:
                 unavailable("Aspect sentiment")
         l, r = st.columns(2)
         with l:
-            section("Sentiment by customer type")
-            if has_cols(by_type, "customer_type", "Positive (%)", "Neutral (%)", "Negative (%)"):
+            section("Sentiment by customer type",
+                    "Distribution of positive, neutral and negative mentions across customer segments."
+            )
+            if has_cols(by_type_period, "customer_type", "Positive (%)", "Neutral (%)", "Negative (%)"):
                 fig = go.Figure()
                 for s in ["Positive", "Neutral", "Negative"]:
-                    fig.add_bar(x=by_type["customer_type"], y=by_type[f"{s} (%)"], name=s, marker_color=SENTIMENT_COLORS[s])
-                fig.update_layout(barmode="stack", yaxis_title="Share of mentions (%)")
+                    fig.add_bar(x=by_type_period["customer_type"], y=by_type_period[f"{s} (%)"], name=s, marker_color=SENTIMENT_COLORS[s])
+                fig.update_layout(legend=dict(traceorder="normal"),barmode="stack", yaxis_title="Share of mentions (%)")
                 chart(fig, 300)
         with r:
-            section("Average rating by customer type")
-            if has_cols(ratings, "customer_type", "Average_Rating"):
-                fig = px.bar(ratings, x="customer_type", y="Average_Rating", text="Average_Rating",
+            section("Average rating by customer type",
+                    "Average customer review rating by customer segment, on a scale of 1–5."
+            )
+            if has_cols(ratings_period, "customer_type", "Average_Rating"):
+                fig = px.bar(ratings_period, x="customer_type", y="Average_Rating", text=ratings_period["Average_Rating"].map(lambda x: f"{x:.1f}"),
                              labels={"customer_type": "", "Average_Rating": "Average rating"})
                 fig.update_traces(marker_color=C["blue"], textposition="outside")
                 fig.update_yaxes(range=[0, 5])
@@ -3916,7 +4074,7 @@ def page_customers() -> None:
     with t_seg:
         l, r = st.columns([1.2, 1])
         with l:
-            section("RFM segments", "Tile size = customers; colour = revenue contribution.")
+            section("RFM segments", "Tile size represents customer count; colour intensity represents total revenue.")
             if has_cols(segments, "RFM_Segment", "Customer_Count", "Total_Revenue"):
                 fig = px.treemap(segments, path=["RFM_Segment"], values="Customer_Count", color="Total_Revenue",
                                  color_continuous_scale=["#DCE6FF", C["blue"]])
@@ -3930,26 +4088,128 @@ def page_customers() -> None:
                 s = segments.assign(share=segments["Total_Revenue"] / segments["Total_Revenue"].sum() * 100).sort_values("share")
                 fig = px.bar(s, x="share", y="RFM_Segment", orientation="h", text=s["share"].map(lambda v: f"{v:.0f}%"),
                              labels={"share": "Share of revenue (%)", "RFM_Segment": ""})
-                fig.update_traces(marker_color=C["teal"], textposition="outside")
+                # Use the same revenue-based green gradient as the RFM treemap
+                from plotly.colors import sample_colorscale
+
+                revenue_min = segments["Total_Revenue"].min()
+                revenue_max = segments["Total_Revenue"].max()
+
+                green_scale = ["#DCE6FF", "#A0B9AC", "#246B45"]
+
+                bar_colors = [
+                    sample_colorscale(
+                        green_scale,
+                        (value - revenue_min) / (revenue_max - revenue_min)
+                        if revenue_max != revenue_min else 0.5
+                    )[0]
+                    for value in s["Total_Revenue"]
+                ]
+
+                fig.update_traces(
+                    marker_color=bar_colors,
+                    textposition="outside"
+                )
                 chart(fig, 340, unified=False)
+
+        section(
+            "RFM segment breakdown",
+            "Customer count, purchasing behaviour and revenue contribution for each segment."
+        )        
         if not segments.empty:
-            table(segments, 260, {
-                "Average_Recency": num_col("Avg recency (days)", 0), "Average_Frequency": num_col("Avg orders", 1),
-                "Average_Monetary": money_col("Avg spend", 0), "Total_Revenue": money_col("Total revenue", 0),
-                "Customer_Count": num_col("Customers", 0), "RFM_Segment": "Segment"})
+            segment_table = segments.rename(columns={
+                "RFM_Segment": "Segment",
+                "Customer_Count": "Customers",
+                "Average_Recency": "Avg recency (days)",
+                "Average_Frequency": "Avg orders",
+                "Average_Monetary": "Avg spend",
+                "Total_Revenue": "Total revenue"
+            })
+
+            styled_segments = (
+                segment_table.style
+                .background_gradient(
+                    cmap="Greens",
+                    subset=["Total revenue"]
+                )
+                .format({
+                    "Customers": "{:,.0f}",
+                    "Avg recency (days)": "{:.0f}",
+                    "Avg orders": "{:.1f}",
+                    "Avg spend": "€{:,.0f}",
+                    "Total revenue": "€{:,.0f}"
+                })
+            )
+            st.dataframe( styled_segments, height=260, hide_index=True, **STRETCH )
+        
         if has_cols(rfm, "Frequency", "Monetary", "RFM_Segment"):
-            section("Customer value map", "Random sample of up to 1,500 customers.")
+            section(
+                "Customer Frequency vs. Lifetime Spend",
+                "Each point represents one customer. A sample of up to 1,500 customers is shown."
+            )
             sample = rfm.sample(min(1500, len(rfm)), random_state=7)
-            fig = px.scatter(sample, x="Frequency", y="Monetary", color="RFM_Segment", opacity=.6,
-                             labels={"Frequency": "Orders", "Monetary": f"Lifetime spend ({CURRENCY})", "RFM_Segment": "Segment"})
-            chart(fig, 360, unified=False)
+
+            fig = px.scatter(
+                sample,
+                x="Frequency",
+                y="Monetary",
+                color="RFM_Segment",
+                opacity=0.55,
+                labels={
+                    "Frequency": "Number of orders",
+                    "Monetary": f"Lifetime spend ({CURRENCY})",
+                    "RFM_Segment": "RFM segment"
+                },
+                hover_data={
+                    "Frequency": True,
+                    "Monetary": ":,.2f",
+                    "RFM_Segment": True
+                }
+            )
+
+            fig.update_traces(
+                marker=dict(size=6)
+            )
+
+            fig.update_layout(
+                legend_title_text="Customer segment"
+            )
+
+            chart(fig, 400, unified=False)
 
     with t_voice:
         section("Improvement priorities", "Aspects ranked by negative mentions.")
         if has_cols(improve, "Aspect", "Negative Mentions", "Negative Share (%)"):
-            imp = improve.sort_values("Negative Mentions")
-            fig = px.bar(imp, x="Negative Mentions", y="Aspect", orientation="h", color="Negative Share (%)",
-                         color_continuous_scale=["#F6CDCF", C["red"]])
+            aspect_totals = (
+                detail.groupby("aspect")
+                .size()
+                .rename("Total Mentions")
+            )
+
+            negative_totals = (
+                detail[detail["sentiment"].eq("Negative")]
+                .groupby("aspect")
+                .size()
+                .rename("Negative Mentions")
+            )
+
+            imp = pd.concat(
+                [negative_totals, aspect_totals],
+                axis=1
+            ).fillna(0).reset_index()
+
+            imp["Negative Share (%)"] = (
+                imp["Negative Mentions"] / imp["Total Mentions"] * 100
+            )
+
+            imp = imp.sort_values("Negative Mentions")
+            fig = px.bar(
+                imp,
+                x="Negative Mentions",
+                y="aspect",
+                orientation="h",
+                color="Negative Share (%)",
+                color_continuous_scale=["#F6CDCF", C["red"]]
+            )
             chart(fig, 320, unified=False)
         section("Review explorer", "Filter aspect-level review records. Showing up to 300 rows.")
         if has_cols(detail, "aspect", "sentiment", "rating", "review_text"):
@@ -3970,34 +4230,268 @@ def page_customers() -> None:
                 v = v[v["review_text"].str.contains(q.strip(), case=False, na=False, regex=False)]
             st.caption(f"{len(v):,} matching aspect mentions")
             cols = [c for c in ["review_date", "aspect", "sentiment", "rating", "customer_type", "order_type", "review_text"] if c in v]
-            table(v[cols].sort_values("review_date", ascending=False).head(300), 380,
-                  {"review_date": st.column_config.DateColumn("Date"), "review_text": st.column_config.TextColumn("Review", width="large")})
+            review_view = (
+                v[cols]
+                .sort_values("review_date", ascending=False)
+                .head(300)
+                .rename(columns={
+                    "review_date": "Date",
+                    "aspect": "Aspect",
+                    "sentiment": "Sentiment",
+                    "rating": "Rating",
+                    "customer_type": "Customer type",
+                    "order_type": "Order type",
+                    "review_text": "Review"
+                })
+            )
+
+            styled_reviews = (
+                review_view.style
+                .map(
+                    lambda x: (
+                        "background-color: #DDF1E5; color: #246B45; font-weight: bold;"
+                        if x == "Positive" else
+                        "background-color: #ECEFEC; color: #59665D;"
+                        if x == "Neutral" else
+                        "background-color: #F8DEDC; color: #B4433E; font-weight: bold;"
+                        if x == "Negative" else ""
+                    ),
+                    subset=["Sentiment"]
+                )
+                .map(
+                    lambda x: (
+                        "background-color: #F8DEDC; color: #B4433E;"
+                        if x <= 2 else
+                        "background-color: #F8EACD; color: #92651D;"
+                        if x == 3 else
+                        "background-color: #DDF1E5; color: #246B45;"
+                        if x >= 4 else ""
+                    ),
+                    subset=["Rating"]
+                )
+                .set_table_styles([
+                    {
+                        "selector": "th",
+                        "props": [
+                            ("background-color", "#E8EFE9"),
+                            ("color", "#294B37"),
+                            ("font-weight", "bold"),
+                            ("text-align", "left")
+                        ]
+                    },
+                    {
+                        "selector": "td",
+                        "props": [
+                            ("padding", "8px"),
+                            ("border-bottom", "1px solid #E3E8E3")
+                        ]
+                    }
+                ])
+            )
+            st.dataframe( styled_reviews, height=380, hide_index=True, **STRETCH )
         else:
             unavailable("Review detail")
 
+    
     with t_risk:
         thr = summary.get("rfm", {}).get("high_value_spending_threshold")
-        n_hv = summary.get("rfm", {}).get("high_value_customers_with_negative_feedback")
-        callout("High-value customers who left negative feedback deserve a personal follow-up."
-                + (f" The high-value threshold is lifetime spend above {money(thr)}." if thr else ""), "info")
-        if has_cols(high_neg, "RFM_Segment", "aspect"):
-            if n_hv:
-                st.metric("High-value customers with negative feedback", integer(n_hv))
+
+        callout(
+            "High-value customers who left negative feedback deserve a personal follow-up."
+            + (f" The high-value threshold is lifetime spend above {money(thr)}." if thr else ""),
+            "info"
+        )
+
+        if has_cols(high_neg, "customer_id", "RFM_Segment", "aspect"):
+
+            # KPI: unique high-value customers in the selected period
+            st.metric(
+                "High-value customers with negative feedback",
+                integer(high_neg["customer_id"].nunique())
+            )
+
+            # Interactive filters
             f1, f2 = st.columns(2)
-            seg = f1.multiselect("Segment", sorted(high_neg["RFM_Segment"].dropna().unique()), key="hv_seg")
-            asp = f2.multiselect("Aspect", sorted(high_neg["aspect"].dropna().unique()), key="hv_asp")
-            v = high_neg
+
+            seg = f1.multiselect(
+                "Segment",
+                sorted(high_neg["RFM_Segment"].dropna().unique()),
+                key="hv_seg"
+            )
+
+            asp = f2.multiselect(
+                "Aspect",
+                sorted(high_neg["aspect"].dropna().unique()),
+                key="hv_asp"
+            )
+
+            v = high_neg.copy()
+
             if seg:
                 v = v[v["RFM_Segment"].isin(seg)]
+
             if asp:
                 v = v[v["aspect"].isin(asp)]
-            cols = [c for c in ["customer_id", "review_date", "aspect", "rating", "RFM_Segment", "Frequency", "Monetary", "review_text"] if c in v]
-            table(v[cols].sort_values("Monetary", ascending=False) if "Monetary" in v else v[cols], 420,
-                  {"Monetary": money_col("Lifetime spend", 0), "review_date": st.column_config.DateColumn("Date"),
-                   "review_text": st.column_config.TextColumn("Review", width="large")})
-            download(v, "Download follow-up list (CSV)", "high_value_negative_feedback.csv", "dl_hv")
+
+            if not v.empty:
+
+                # Identify unique reviews to avoid counting multiple aspects
+                # from the same review as separate negative reviews.
+                review_key = (
+                    ["review_id"]
+                    if "review_id" in v.columns
+                    else ["customer_id", "review_date", "review_text"]
+                )
+
+                unique_reviews = v.drop_duplicates(
+                    subset=review_key
+                ).copy()
+
+                # Count unique negative reviews per customer
+                review_counts = (
+                    unique_reviews.groupby("customer_id")
+                    .size()
+                    .rename("Negative reviews")
+                    .reset_index()
+                )
+
+                # Collect the negative feedback aspects for each customer
+                issues = (
+                    v.groupby("customer_id")["aspect"]
+                    .agg(lambda x: ", ".join(sorted(x.dropna().unique())))
+                    .rename("Main issues")
+                    .reset_index()
+                )
+
+                # Customer-level information
+                agg_columns = {}
+
+                if "RFM_Segment" in v:
+                    agg_columns["RFM_Segment"] = ("RFM_Segment", "first")
+
+                if "Frequency" in v:
+                    agg_columns["Frequency"] = ("Frequency", "first")
+
+                if "Monetary" in v:
+                    agg_columns["Monetary"] = ("Monetary", "first")
+
+                customer_summary = (
+                    v.groupby("customer_id")
+                    .agg(**agg_columns)
+                    .reset_index()
+                )
+
+                # Get the latest negative review for each customer
+                if "review_date" in unique_reviews.columns:
+                    latest_reviews = (
+                        unique_reviews
+                        .sort_values("review_date")
+                        .groupby("customer_id")
+                        .tail(1)
+                    )
+
+                    latest_columns = ["customer_id", "review_date"]
+
+                    if "review_text" in latest_reviews:
+                        latest_columns.append("review_text")
+
+                    latest_reviews = latest_reviews[latest_columns].rename(
+                        columns={
+                            "review_date": "Latest negative review date",
+                            "review_text": "Latest negative review"
+                        }
+                    )
+
+                    customer_summary = customer_summary.merge(
+                        latest_reviews,
+                        on="customer_id",
+                        how="left"
+                    )
+
+                # Combine customer-level information
+                customer_followup = (
+                    customer_summary
+                    .merge(review_counts, on="customer_id", how="left")
+                    .merge(issues, on="customer_id", how="left")
+                )
+
+                # Sort highest-value customers first
+                if "Monetary" in customer_followup:
+                    customer_followup = customer_followup.sort_values(
+                        "Monetary", ascending=False
+                    )
+
+                # Friendly column names
+                customer_followup = customer_followup.rename(columns={
+                    "customer_id": "Customer ID",
+                    "RFM_Segment": "RFM segment",
+                    "Monetary": "Lifetime spend",
+                    "Frequency": "Total orders"
+                })
+                # Arrange columns by management importance
+                preferred_order = [
+                    "Customer ID",
+                    "RFM segment",
+                    "Lifetime spend",
+                    "Total orders",
+                    "Negative reviews",
+                    "Main issues",
+                    "Latest negative review date",
+                    "Latest negative review"
+                ]
+
+                customer_followup = customer_followup[
+                    [c for c in preferred_order if c in customer_followup.columns]
+                ]
+
+                section(
+                    "High-value customer follow-up list",
+                    "One row per customer, with negative feedback summarised across the selected records."
+                )
+
+                # Display table
+                column_config = {
+                    "Customer ID": st.column_config.TextColumn(
+                        "Customer ID",
+                        width="small"
+                    ),
+                    "RFM segment": st.column_config.TextColumn(
+                        "RFM segment",
+                        width="small"
+                    ),
+                    "Lifetime spend": money_col("Lifetime spend", 0),
+                    "Total orders": num_col("Total orders", 0),
+                    "Negative reviews": num_col("Negative reviews", 0),
+                    "Main issues": st.column_config.TextColumn(
+                        "Main issues",
+                        width="medium"
+                    ),
+                    "Latest negative review date": st.column_config.DateColumn(
+                        "Latest negative review date",
+                        width="medium"
+                    ),
+                    "Latest negative review": st.column_config.TextColumn(
+                        "Latest negative review",
+                        width="medium"
+                    )
+                }
+
+                table(customer_followup, 420, column_config)
+
+                # Download the customer-level follow-up list
+                download(
+                    customer_followup,
+                    "Download customer follow-up list (CSV)",
+                    "customer_followup_list.csv",
+                    "dl_hv"
+                )
+
+            else:
+                st.info("No customers match the selected filters.")
+
         else:
             unavailable("High-value negative feedback")
+
 
 
 # =============================================================================
@@ -4028,13 +4522,24 @@ def page_menu() -> None:
             "classification is a saved full-period analysis.", "info")
 
     L = ctx.items
+
+    CATEGORY_COLORS = {
+    "Drink": "#E0A033",
+    "Pasta": "#356B43",
+    "Pizza": "#C95B55",
+    "Dessert": "#D98B9B",
+    "Salad": "#82B497",
+    "Main Course": "#329B87",
+}
+    
     if has_cols(L, "category", "gross_profit"):
         rev, gp, units = L["line_total"].sum(), L["gross_profit"].sum(), L["quantity"].sum()
         disc = L["discount_value"].sum() if "discount_value" in L else np.nan
+
         kpis([
             ("Units sold", integer(units), None),
-            ("Item revenue", money(rev), ctx.label),
-            ("Gross profit", money(gp), "Before operating costs"),
+            ("Item revenue", money(rev), "After discounts"),
+            ("Gross profit", money(gp), "Revenue − product costs"),
             ("Gross margin", pct(safe_div(gp, rev) * 100), None),
             ("Discounts given", money(disc), pct(safe_div(disc, rev + disc) * 100) + " of list value"),
         ])
@@ -4047,7 +4552,9 @@ def page_menu() -> None:
             ("Gross margin", pct(kv.get("Overall gross margin (%)", np.nan)), None),
             ("Products sold", integer(kv.get("Unique products sold", np.nan)), None),
         ])
+
     st.write("")
+
 
     t_perf, t_eng, t_disc = st.tabs(["Category & product performance", "Menu engineering", "Discounts & trends"])
 
@@ -4066,30 +4573,145 @@ def page_menu() -> None:
                 fig.add_bar(y=c["category"], x=c["gross_profit"], name="Gross profit", orientation="h", marker_color=C["teal"])
                 fig.update_layout(barmode="group", xaxis_title=CURRENCY)
                 chart(fig, 340, unified=False)
+            
             with b:
                 section("Gross margin by category")
-                fig = px.bar(cat.sort_values("margin"), x="margin", y="category", orientation="h",
-                             text=cat.sort_values("margin")["margin"].map(lambda v: f"{v:.0f}%"),
-                             labels={"margin": "Gross margin (%)", "category": ""})
-                fig.update_traces(marker_color=C["amber"], textposition="outside")
+                margin_cat = cat.sort_values("margin")
+                fig = px.bar(
+                    margin_cat,
+                    x="margin",
+                    y="category",
+                    orientation="h",
+                    text=margin_cat["margin"].map(lambda v: f"{v:.0f}%"),
+                    labels={
+                        "margin": "Gross margin (%)",
+                        "category": ""
+                    },
+                    color="category",
+                    color_discrete_map=CATEGORY_COLORS
+                )
+
+                fig.update_traces(
+                    textposition="outside",
+                    cliponaxis=False
+                )
+
+                fig.update_layout(
+                    showlegend=False,
+                    xaxis=dict(range=[0, cat["margin"].max() + 10])
+                )
+
                 chart(fig, 340, unified=False)
+
 
             prod = L.groupby(["product_name", "category"], as_index=False).agg(
                 units=("quantity", "sum"), revenue=("line_total", "sum"), gross_profit=("gross_profit", "sum"))
             prod["margin"] = prod["gross_profit"] / prod["revenue"] * 100
-            n = st.slider("Products shown", 5, min(20, len(prod)), min(10, len(prod)), key="menu_topn") if len(prod) > 5 else len(prod)
-            metric = st.radio("Rank by", ["Gross profit", "Revenue", "Units"], horizontal=True)
-            col = {"Gross profit": "gross_profit", "Revenue": "revenue", "Units": "units"}[metric]
+            
+            
+            # Top products section
+            max_n = min(20, len(prod))
+            default_n = min(10, len(prod))
+
+            selected_metric = st.session_state.get("menu_rank", "Gross profit")
+            selected_n = (
+                min(max(5, int(st.session_state.get("menu_topn", default_n))), max_n)
+                if len(prod) > 5 else len(prod)
+            )
+
+            section(f"Top {selected_n} products by {selected_metric.lower()}")
+
+            # Ranking selector
+            metric = st.radio(
+                "Rank by",
+                ["Gross profit", "Revenue", "Units"],
+                horizontal=True,
+                key="menu_rank"
+            )
+
+            # Number of products slider
+            if len(prod) > 5:
+                n = st.slider(
+                    "Products shown",
+                    5,
+                    max_n,
+                    default_n,
+                    key="menu_topn"
+                )
+            else:
+                n = len(prod)
+
+            # Rank products
+            col = {
+                "Gross profit": "gross_profit",
+                "Revenue": "revenue",
+                "Units": "units"
+            }[metric]
+
             top = prod.nlargest(n, col).sort_values(col)
-            section(f"Top {n} products by {metric.lower()}")
-            fig = px.bar(top, x=col, y="product_name", color="category", orientation="h",
-                         labels={col: metric, "product_name": "", "category": "Category"}, color_discrete_sequence=CATEGORY_SEQ)
+
+            fig = px.bar(
+                top,
+                x=col,
+                y="product_name",
+                color="category",
+                orientation="h",
+                labels={
+                    col: metric,
+                    "product_name": "",
+                    "category": "Category"
+                },
+                color_discrete_map=CATEGORY_COLORS
+            )
+
             chart(fig, max(320, 26 * n + 80), unified=False)
+
+            # Full product table
             with st.expander("Full product table"):
-                table(prod.sort_values("revenue", ascending=False), 420, {
-                    "product_name": "Product", "category": "Category", "units": num_col("Units"),
-                    "revenue": money_col("Revenue"), "gross_profit": money_col("Gross profit"), "margin": pct_col("Margin")})
-                download(prod, "Download product performance (CSV)", "menu_product_performance_filtered.csv", "dl_prod")
+
+                product_table = prod.sort_values(
+                    "revenue",
+                    ascending=False
+                ).rename(columns={
+                    "product_name": "Product",
+                    "category": "Category",
+                    "units": "Units",
+                    "revenue": "Revenue",
+                    "gross_profit": "Gross profit",
+                    "margin": "Margin"
+                })
+
+                styled_product_table = (
+                    product_table.style
+                    .map(
+                        lambda value: (
+                            f"color: {CATEGORY_COLORS.get(str(value), '#666666')}; "
+                            "font-weight: 700;"
+                        ),
+                        subset=["Category"]
+                    )
+                    .format({
+                        "Units": "{:,.0f}",
+                        "Revenue": f"{CURRENCY}{{:,.0f}}",
+                        "Gross profit": f"{CURRENCY}{{:,.0f}}",
+                        "Margin": "{:.1f}%"
+                    })
+                )
+
+                st.dataframe(
+                    styled_product_table,
+                    height=420,
+                    hide_index=True,
+                    **STRETCH
+                )
+
+                download(
+                    prod,
+                    "Download product performance (CSV)",
+                    "menu_product_performance_filtered.csv",
+                    "dl_prod"
+                )
+
 
     with t_eng:
         eng = output("menu_engineering.csv")
@@ -4111,20 +4733,102 @@ def page_menu() -> None:
             chart(fig, 430, unified=False)
 
             l, r = st.columns([1, 1.4])
+            
+            # Filter above both tables so their headings and tables align
+            sel = st.multiselect(
+                "Filter recommended actions by class",
+                sorted(eng["menu_class"].dropna().unique()),
+                key="eng_class"
+            )
+
+            v = eng if not sel else eng[eng["menu_class"].isin(sel)]
+
+            l, r = st.columns(2)
+
             with l:
-                section("Class summary")
-                if has_cols(classes, "menu_class", "number_of_products"):
-                    table(classes[[c for c in ["menu_class", "number_of_products", "sales_share_pct", "profit_share_pct"] if c in classes]], 220, {
-                        "menu_class": "Class", "number_of_products": num_col("Products"),
-                        "sales_share_pct": pct_col("Sales share"), "profit_share_pct": pct_col("Profit share")})
+                section("Profit contribution by menu class")
+
+                if has_cols(classes, "menu_class", "profit_share_pct"):
+                    class_chart = classes.sort_values(
+                        "profit_share_pct", ascending=True
+                    ).copy()
+
+                    fig = px.bar(
+                        class_chart,
+                        x="profit_share_pct",
+                        y="menu_class",
+                        orientation="h",
+                        color="menu_class",
+                        color_discrete_map=CLASS_COLORS,
+                        text=class_chart["profit_share_pct"].map(
+                            lambda value: f"{value:.1f}%"
+                        ),
+                        labels={
+                            "profit_share_pct": "Profit share (%)",
+                            "menu_class": ""
+                        }
+                    )
+
+                    fig.update_traces(
+                        textposition="outside",
+                        cliponaxis=False
+                    )
+
+                    fig.update_layout(
+                        showlegend=False,
+                        xaxis=dict(
+                            title="Profit share (%)",
+                            range=[0, class_chart["profit_share_pct"].max() + 10]
+                        ),
+                        yaxis_title="",
+                        margin=dict(l=10, r=35, t=20, b=40)
+                    )
+
+                    chart(fig, 300, unified=False)
+
+                else:
+                    unavailable("Menu class summary")
+
             with r:
                 section("Recommended actions")
-                sel = st.multiselect("Filter by class", sorted(eng["menu_class"].unique()), key="eng_class")
-                v = eng if not sel else eng[eng["menu_class"].isin(sel)]
-                cols = [c for c in ["product_name", "category", "menu_class", "gross_margin_pct", "recommended_action"] if c in v]
-                table(v[cols].sort_values("menu_class"), 300, {
-                    "product_name": "Product", "category": "Category", "menu_class": "Class",
-                    "gross_margin_pct": pct_col("Margin"), "recommended_action": st.column_config.TextColumn("Recommended action", width="large")})
+
+                action_cols = [
+                    c for c in [
+                        "product_name",
+                        "category",
+                        "menu_class",
+                        "gross_margin_pct",
+                        "recommended_action"
+                    ] if c in v
+                ]
+
+                action_view = (
+                    v[action_cols]
+                    .sort_values("menu_class")
+                    .rename(columns={
+                        "product_name": "Product",
+                        "category": "Category",
+                        "menu_class": "Class",
+                        "gross_margin_pct": "Margin",
+                        "recommended_action": "Recommended action"
+                    })
+                )
+
+                action_styled = action_view.style.map(
+                    lambda value: (
+                        f"color: {CLASS_COLORS.get(value, '#666666')}; "
+                        "font-weight: 700;"
+                    ),
+                    subset=["Class"]
+                )
+
+                st.dataframe(
+                    action_styled,
+                    hide_index=True,
+                    height=300,
+                    **STRETCH
+                )
+
             callout("Actions are analytical suggestions. Validate against recipe cost, brand strategy, supplier terms and "
                     "customer demand before changing the menu.", "note")
 
@@ -4152,96 +4856,168 @@ def page_menu() -> None:
                 fig.update_layout(yaxis_title=CURRENCY)
                 chart(fig, 310)
 
+            
             if has_cols(L, "promotion_id") and has_cols(promotions, "promotion_id", "promotion_name"):
-                section("Promotion performance", "Order lines tagged to each promotion within the selected period.")
-                p = L.dropna(subset=["promotion_id"]).groupby("promotion_id", as_index=False).agg(
-                    units=("quantity", "sum"), revenue=("line_total", "sum"), gross_profit=("gross_profit", "sum"),
-                    discount_value=("discount_value", "sum"))
+                section(
+                    "Promotion performance",
+                    "Promoted order lines in the selected period, ranked by gross profit."
+                )
+
+                p = (
+                    L.dropna(subset=["promotion_id"])
+                    .groupby("promotion_id", as_index=False)
+                    .agg(
+                        units=("quantity", "sum"),
+                        revenue=("line_total", "sum"),
+                        gross_profit=("gross_profit", "sum"),
+                        discount_value=("discount_value", "sum")
+                    )
+                )
+
                 p = p.merge(promotions, on="promotion_id", how="left")
-                p["margin"] = p["gross_profit"] / p["revenue"] * 100
+                # Display promotion dates without the time component
+                for date_col in ["start_date", "end_date"]:
+                    if date_col in p.columns:
+                        p[date_col] = pd.to_datetime(
+                            p[date_col], errors="coerce"
+                        ).dt.date
+                p["margin"] = np.where(
+                    p["revenue"] > 0,
+                    p["gross_profit"] / p["revenue"] * 100,
+                    np.nan
+                )
+
                 if p.empty:
                     st.info("No promotional sales in the selected period.")
+
                 else:
-                    cols = ["promotion_name", "product_category", "discount_percentage", "start_date", "end_date",
-                            "units", "revenue", "gross_profit", "margin", "discount_value"]
-                    p = p[[c for c in cols if c in p]].sort_values("start_date")
-                    table(p, 330, {
-                        "promotion_name": "Promotion", "product_category": "Category", "discount_percentage": pct_col("Discount", 0),
-                        "start_date": st.column_config.DateColumn("Start"), "end_date": st.column_config.DateColumn("End"),
-                        "units": num_col("Units"), "revenue": money_col("Revenue"), "gross_profit": money_col("Gross profit"),
-                        "margin": pct_col("Margin"), "discount_value": money_col("Discount given")})
-                    st.caption("Revenue shown is for promoted lines only; it does not measure incremental sales versus a no-promotion baseline.")
+                    cols = [
+                        "promotion_name", "product_category",
+                        "discount_percentage", "start_date", "end_date",
+                        "units", "revenue", "gross_profit", "margin",
+                        "discount_value"
+                    ]
+
+                    p = (
+                        p[[c for c in cols if c in p.columns]]
+                        .sort_values("gross_profit", ascending=False)
+                        .reset_index(drop=True)
+                    )
+
+                    # Use category colours from the product performance charts
+                    p_styled = p.style.map(
+                        lambda value: (
+                            f"color: {CATEGORY_COLORS.get(value, '#333333')}; "
+                            "font-weight: 600;"
+                        ),
+                        subset=["product_category"]
+                    )
+
+                    st.dataframe(
+                        p_styled,
+                        hide_index=True,
+                        height="content",
+                        column_config={
+                            "promotion_name": "Promotion",
+                            "product_category": "Category",
+                            "discount_percentage": pct_col("Discount", 0),
+                            "start_date": st.column_config.DateColumn("Start"),
+                            "end_date": st.column_config.DateColumn("End"),
+                            "units": num_col("Units"),
+                            "revenue": money_col("Revenue"),
+                            "gross_profit": money_col("Gross profit"),
+                            "margin": pct_col("Margin"),
+                            "discount_value": money_col("Discount given")
+                        },
+                        **STRETCH
+                    )
+
+                    download(
+                        p,
+                        "Download promotion performance (CSV)",
+                        "promotion_performance.csv",
+                        "dl_promotion_performance"
+                    )
+
+                    st.caption(
+                        "Promoted-line revenue and gross profit are descriptive results. "
+                        "They do not measure incremental sales or profit caused by a promotion."
+                    )
 
 
 # =============================================================================
 # Page: Data & Methodology
 # =============================================================================
 
+
 def page_methodology() -> None:
-    hero("Governance", "Data & Methodology",
-         "Data coverage, reconciliation checks, model documentation and known limitations.")
+    hero(
+        "Governance",
+        "Data & Methodology",
+        "Data coverage, analytical methods, validation controls, model documentation and project limitations."
+    )
+
+    # ============================================================
+    # 1. ANALYTICAL WORKFLOW
+    # ============================================================
 
     section(
         "Analytical workflow",
         "How the project transforms synthetic restaurant data into operational insights."
     )
 
+    
     workflow = [
         {
             "Stage": "01 · Data preparation",
-            "Description": "Load cleaned restaurant, order, customer, product, payment, "
-                           "review and weather datasets."
+            "Description": "Load, clean and prepare restaurant, order, customer, product, payment, review and weather datasets."
         },
         {
             "Stage": "02 · Data validation & reconciliation",
-            "Description": "Validate data quality, check duplicate order IDs and "
-                           "reconcile financial totals across independent source tables."
+            "Description": "Check data completeness, duplicate order IDs, financial consistency and analytical output integrity."
         },
         {
             "Stage": "03 · Business performance analytics",
-            "Description": "Analyse revenue, orders, trading patterns, sales channels, "
-                           "meal periods, promotions and weather associations."
+            "Description": "Analyse historical revenue, orders, trading patterns, sales channels, meal periods, promotions and weather associations."
         },
         {
-            "Stage": "04 · Customer segmentation (RFM)",
-            "Description": "Segment customers using Recency, Frequency and Monetary "
-                           "metrics; evaluate customer value and revenue concentration."
+            "Stage": "04 · Revenue forecasting",
+            "Description": "Use Prophet with calendar and weather regressors to generate 14-day revenue forecasts and uncertainty intervals."
         },
         {
-            "Stage": "05 · Customer experience analytics",
-            "Description": "Analyse review ratings, sentiment, experience aspects, "
-                           "improvement priorities and high-value customer feedback risks."
+            "Stage": "05 · Workforce optimisation",
+            "Description": "Use forecast revenue and expected demand to estimate staffing requirements, allocate shifts, recommend employee rosters and identify staffing gaps."
         },
         {
-            "Stage": "06 · Menu intelligence & engineering",
-            "Description": "Evaluate product and category performance, gross profit, "
-                           "contribution margin and sales mix; classify menu items "
-                           "as Star, Plowhorse, Puzzle or Dog."
+            "Stage": "06 · Customer segmentation (RFM)",
+            "Description": "Segment customers using Recency, Frequency and Monetary metrics to evaluate customer value, purchasing behaviour and revenue concentration."
         },
         {
-            "Stage": "07 · Revenue forecasting",
-            "Description": "Use Prophet with calendar and weather regressors to produce "
-                           "14-day revenue forecasts and uncertainty intervals."
+            "Stage": "07 · Customer experience analytics",
+            "Description": "Analyse review ratings, sentiment, experience aspects, improvement priorities and high-value customer feedback risks."
         },
         {
-            "Stage": "08 · Workforce optimisation",
-            "Description": "Translate forecast demand into staffing requirements, "
-                           "shift allocations, recommended rosters and staffing gaps."
+            "Stage": "08 · Menu intelligence & engineering",
+            "Description": "Evaluate product and category performance, gross profit, contribution margin and sales mix; classify menu items as Star, Plowhorse, Puzzle or Dog."
         },
         {
             "Stage": "09 · Dashboard delivery & decision support",
-            "Description": "Present interactive KPIs, visualisations, downloadable "
-                           "outputs and operational recommendations through Streamlit."
+            "Description": "Integrate analytical results into an interactive Streamlit dashboard with KPIs, visualisations, downloadable outputs and operational recommendations."
         },
     ]
 
+
     table(pd.DataFrame(workflow), 360)
 
-    section("Reconciliation checks", "Independent totals from different source tables should agree.")
+    st.write("")
+
+    # ============================================================
+    # 2. ANALYTICAL METHODS
+    # ============================================================
 
     section(
         "Analytical methods",
-        "Methods used to generate the customer, menu and forecasting insights."
+        "Core methods used to generate the customer, menu and forecasting insights."
     )
 
     methods = [
@@ -4267,87 +5043,292 @@ def page_methodology() -> None:
         },
     ]
 
-    table(pd.DataFrame(methods), 300)
+    table(pd.DataFrame(methods), 215)
+
+    st.write("")
+
+    # ============================================================
+    # 3. DATA QUALITY & RECONCILIATION
+    # ============================================================
+
+    section(
+        "Data quality & reconciliation",
+        "Financial consistency checks comparing order totals with independent source tables."
+    )
+
     checks = []
+
     full_orders = orders["order_total"].sum()
-    checks.append(("Orders vs. daily revenue table", full_orders,
-                   daily_hist["revenue"].sum() if has_cols(daily_hist, "revenue") else np.nan))
-    checks.append(("Orders vs. order-line revenue", full_orders, items["line_total"].sum() if has_cols(items, "line_total") else np.nan))
-    checks.append(("Orders vs. payments received", full_orders, payments["amount"].sum() if has_cols(payments, "amount") else np.nan))
+
+    checks.append((
+        "Orders vs. daily revenue table",
+        full_orders,
+        daily_hist["revenue"].sum()
+        if has_cols(daily_hist, "revenue") else np.nan
+    ))
+
+    checks.append((
+        "Orders vs. order-line revenue",
+        full_orders,
+        items["line_total"].sum()
+        if has_cols(items, "line_total") else np.nan
+    ))
+
+    checks.append((
+        "Orders vs. payments received",
+        full_orders,
+        payments["amount"].sum()
+        if has_cols(payments, "amount") else np.nan
+    ))
+
     rows = []
+
     for name, a, b in checks:
         if pd.isna(b):
-            rows.append({"Check": name, "Orders total": a, "Comparison total": np.nan, "Difference": np.nan, "Status": "Not available"})
+            rows.append({
+                "Check": name,
+                "Orders total": a,
+                "Comparison total": np.nan,
+                "Difference": np.nan,
+                "Status": "Not available"
+            })
         else:
-            rows.append({"Check": name, "Orders total": a, "Comparison total": b, "Difference": a - b,
-                         "Status": "✓ Reconciled" if abs(a - b) < 1.0 else "⚠ Review"})
-    table(pd.DataFrame(rows), 175, {"Orders total": money_col("Orders total", 2), "Comparison total": money_col("Comparison total", 2),
-                                    "Difference": money_col("Difference", 2)})
+            rows.append({
+                "Check": name,
+                "Orders total": a,
+                "Comparison total": b,
+                "Difference": a - b,
+                "Status": "✓ Reconciled" if abs(a - b) < 1.0 else "⚠ Review"
+            })
+
+    reconciliation_df = pd.DataFrame(rows)
+
+    table(
+        reconciliation_df,
+        160,
+        {
+            "Orders total": money_col("Orders total", 2),
+            "Comparison total": money_col("Comparison total", 2),
+            "Difference": money_col("Difference", 2)
+        }
+    )
+
+    st.caption(
+        "A difference below €1.00 is treated as reconciled. "
+        "These are aggregate consistency checks, not a complete accounting audit."
+    )
+
+    st.write("")
+
+    # ============================================================
+    # 4. AUTOMATED VALIDATION & CI
+    # ============================================================
+
+    section(
+        "Automated validation & continuous integration",
+        "Local analytical tests and automated checks through GitHub Actions."
+    )
+
+    validation_steps = [
+        {
+            "Check": "Python syntax",
+            "Description": "Compile the application, database loader and validation test file."
+        },
+        {
+            "Check": "Project files",
+            "Description": "Check required SQL schema, forecasting model artifacts and source CSV files."
+        },
+        {
+            "Check": "Analytical validation",
+            "Description": "Run automated tests covering financial consistency, forecasting outputs, workforce metrics, customer analytics and other project checks."
+        },
+        {
+            "Check": "Continuous integration",
+            "Description": "Run the workflow automatically on relevant pushes to main and pull requests."
+        },
+    ]
+
+    table(pd.DataFrame(validation_steps), 205)
+
+    st.caption(
+        "Run the analytical validation locally: "
+        "`python -m pytest tests/test_project_validation.py -v`"
+    )
+
+    st.write("")
+
+    # ============================================================
+    # 5. KEY DATA QUALITY INDICATORS
+    # ============================================================
+
+    section(
+        "Dataset overview",
+        "Coverage and basic integrity indicators for the historical order dataset."
+    )
 
     c1, c2, c3, c4 = st.columns(4)
-    guest = orders["customer_id"].isna().mean() * 100 if "customer_id" in orders else np.nan
+
+    guest = (
+        orders["customer_id"].isna().mean() * 100
+        if "customer_id" in orders else np.nan
+    )
+
     c1.metric("Order records", integer(len(orders)))
     c2.metric("History", f"{DATA_MIN:%b %Y} – {DATA_MAX:%b %Y}")
     c3.metric("Guest (unidentified) orders", pct(guest))
-    c4.metric("Duplicate order IDs", integer(orders["order_id"].duplicated().sum()))
+    c4.metric(
+        "Duplicate order IDs",
+        integer(orders["order_id"].duplicated().sum())
+    )
 
     st.write("")
-    section("Data inventory", "Files discovered in the project folders.")
+
+    # ============================================================
+    # 6. DATA INVENTORY
+    # ============================================================
+
+    section(
+        "Data inventory",
+        "Files discovered in the cleaned operational data and analytical output folders."
+    )
+
     inv = []
-    for folder, label in [(DATA_DIR, "Operational"), (OUTPUT_DIR, "Analytical output")]:
+
+    for folder, label in [
+        (DATA_DIR, "Operational"),
+        (OUTPUT_DIR, "Analytical output")
+    ]:
         if folder.exists():
             for f in sorted(folder.glob("*.csv")):
                 try:
                     with open(f, "rb") as fh:
                         n = max(sum(1 for _ in fh) - 1, 0)
+
                     cols = len(pd.read_csv(f, nrows=0).columns)
+
                 except Exception:
                     n, cols = np.nan, np.nan
-                inv.append({"Layer": label, "File": f"{folder.name}/{f.name}", "Rows": n, "Columns": cols})
-    table(pd.DataFrame(inv), 340, {"Rows": num_col("Rows"), "Columns": num_col("Columns")})
+
+                inv.append({
+                    "Layer": label,
+                    "File": f"{folder.name}/{f.name}",
+                    "Rows": n,
+                    "Columns": cols
+                })
+
+    table(
+        pd.DataFrame(inv),
+        420,
+        {
+            "Rows": num_col("Rows"),
+            "Columns": num_col("Columns")
+        }
+    )
+
     if MISSING:
-        st.warning("Missing or unreadable files: " + ", ".join(sorted(set(MISSING))))
+        st.warning(
+            "Missing or unreadable files: "
+            + ", ".join(sorted(set(MISSING)))
+        )
 
     st.write("")
-    l, r = st.columns(2)
-    with l:
-        section("Forecasting model")
-        model = meta("restrodine_prophet_calendar_weather_metadata.json")
-        pj = meta("restrodine_prophet_calendar_weather.json")
-        if model:
-            st.markdown(
-                f"- **Model:** {model.get('model', 'Prophet')} (additive, weekly seasonality)\n"
-                f"- **Regressors:** {', '.join(model.get('regressors', []))}\n"
-                f"- **Rain threshold:** {model.get('rain_threshold_mm', '—')} mm\n"
-                f"- **Training window:** {model.get('training_start')} to {model.get('training_end')}\n"
-                f"- **Interval width:** {int(pj['interval_width'] * 100)}%" if pj.get("interval_width") else
-                f"- **Model:** {model.get('model', 'Prophet')}\n- **Regressors:** {', '.join(model.get('regressors', []))}"
-            )
-        else:
-            st.caption("Model metadata not found.")
-    with r:
-        section("Customer analytics")
-        s = meta("customer_intelligence_summary.json")
-        if s:
-            st.markdown(
-                f"- **Customers analysed (RFM):** {integer(s.get('rfm', {}).get('customers_analysed'))}\n"
-                f"- **Aspect mentions:** {integer(s.get('total_aspect_mentions'))}\n"
-                f"- **Reference period:** {s.get('reference_period', {}).get('start')} to {s.get('reference_period', {}).get('end')}\n"
-                f"- **Method:** {s.get('methodology_note', '—')}"
-            )
-        else:
-            st.caption("Customer summary not found.")
 
-    section("Limitations")
-    st.markdown(
-        "- All data is **synthetic**; patterns reflect the generating process, not a real restaurant.\n"
-        "- The forecast is trained on 2024–2025 history and projected to a later horizon; forecast weather inputs "
-        "are not stored with the exports, so weather sensitivity cannot be re-audited here.\n"
-        "- Prediction intervals express model uncertainty; they are not guaranteed bounds.\n"
-        "- Gross profit covers product cost only. Labour, rent, utilities and fees are excluded.\n"
-        "- The roster is an optimisation suggestion and ignores factors not in the data (training, preferences, legal rest rules).\n"
-        "- Weather and calendar views show associations, not causal effects."
+    # ============================================================
+    # 7. MODEL DOCUMENTATION
+    # ============================================================
+
+    section(
+        "Model documentation",
+        "Configuration and reference information for the forecasting and customer analytics components."
     )
+
+    l, r = st.columns(2)
+
+    with l:
+        with st.container(border=True):
+            section("Revenue forecasting model")
+
+            model = meta("restrodine_prophet_calendar_weather_metadata.json")
+            pj = meta("restrodine_prophet_calendar_weather.json")
+
+            if model:
+                model_name = model.get("model", "Prophet")
+                regressors = model.get("regressors", [])
+                training_start = model.get("training_start", "—")
+                training_end = model.get("training_end", "—")
+                rain_threshold = model.get("rain_threshold_mm", "—")
+
+                st.markdown(f"**Model:** {model_name}")
+                st.markdown(
+                    f"**Regressors:** {', '.join(regressors) if regressors else '—'}"
+                )
+                st.markdown(
+                    f"**Training window:** {training_start} to {training_end}"
+                )
+                st.markdown(f"**Rain threshold:** {rain_threshold} mm")
+
+                if pj and pj.get("interval_width") is not None:
+                    interval_pct = pj["interval_width"] * 100
+                    st.markdown(
+                        f"**Prediction interval:** {interval_pct:.0f}%"
+                    )
+                else:
+                    st.markdown("**Prediction interval:** Not available")
+
+            else:
+                st.caption("Forecasting model metadata not found.")
+
+    with r:
+        with st.container(border=True):
+            section("Customer analytics")
+
+            s = meta("customer_intelligence_summary.json")
+
+            if s:
+                st.markdown(
+                    f"**Customers analysed (RFM):** "
+                    f"{integer(s.get('rfm', {}).get('customers_analysed'))}"
+                )
+
+                st.markdown(
+                    f"**Aspect mentions:** "
+                    f"{integer(s.get('total_aspect_mentions'))}"
+                )
+
+                st.markdown(
+                    f"**Reference period:** "
+                    f"{s.get('reference_period', {}).get('start')} "
+                    f"to {s.get('reference_period', {}).get('end')}"
+                )
+
+                st.markdown(
+                    f"**Method:** {s.get('methodology_note', '—')}"
+                )
+
+            else:
+                st.caption("Customer analytics metadata not found.")
+
+    st.write("")
+
+    # ============================================================
+    # 8. LIMITATIONS
+    # ============================================================
+
+    section(
+        "Limitations",
+        "Important assumptions and boundaries when interpreting the results."
+    )
+
+    st.markdown("""
+- **Synthetic data:** All datasets are generated for this project. Observed patterns and model results do not represent a real restaurant.
+- **Forecast reliability:** Revenue forecasts are estimates based on historical synthetic data and should not be interpreted as validated real-world predictions.
+- **Prediction intervals:** Forecast uncertainty intervals represent model-estimated uncertainty; they are not guaranteed upper and lower bounds.
+- **Weather inputs:** Forecast weather inputs are not stored with the exported results, limiting independent re-evaluation of weather effects.
+- **Profitability:** Gross profit accounts for product costs only. Labour, rent, utilities and other operating expenses are excluded.
+- **Workforce recommendations:** Suggested staffing and rosters are planning outputs. They do not fully account for employee preferences, training requirements or all applicable labour regulations.
+- **Associations versus causation:** Weather, calendar and customer experience patterns are descriptive associations and do not establish causal relationships.
+- **Promotion analysis:** Revenue and profit associated with promotions do not measure incremental impact against a no-promotion baseline.
+""")
 
 
 # =============================================================================
@@ -4360,9 +5341,11 @@ ROUTES = {
     "Workforce Planning": page_workforce,
     "Customer Intelligence": page_customers,
     "Menu Performance": page_menu,
-    "Data & Methodology": page_methodology,
 }
-ROUTES[page]()
+if st.session_state.get("show_methodology", False):
+    page_methodology()
+else:
+    ROUTES[page]()
 
 st.markdown("---")
 st.caption(f"{APP_NAME} · Restaurant Intelligence & Weather-Aware Revenue Forecasting · Synthetic demonstration dataset")
