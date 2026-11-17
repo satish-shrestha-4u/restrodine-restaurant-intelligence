@@ -10,9 +10,8 @@ RestroDine combines business performance analytics, revenue forecasting, workfor
 
 ## 🚀 Live Application
 
-**Explore RestroDine:** [Open the interactive Streamlit application](YOUR_STREAMLIT_APP_URL)
+**Explore RestroDine:** 👉[RestroDine App](https://restrodine.streamlit.app/)
 
-**Source code:** [GitHub Repository](https://github.com/satish-shrestha-4u/restrodine-project)
 
 The application brings together restaurant financial performance, demand forecasting, workforce planning, customer feedback and menu performance in one interactive dashboard.
 
